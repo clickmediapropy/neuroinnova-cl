@@ -143,13 +143,13 @@ const ServiciosPage = () => {
                       {/* Visual/Stats */}
                       <div className="flex items-center justify-center">
                         <div className="relative">
-                          <div className="w-48 h-48 bg-gradient-to-br from-primary/20 to-primary/5 rounded-full flex items-center justify-center">
-                            <div className="w-32 h-32 bg-white rounded-full shadow-lg flex items-center justify-center">
-                              {React.cloneElement(servicio.icon, { 
-                                className: "h-16 w-16 text-primary" 
-                              })}
-                            </div>
-                          </div>
+                           <div className="w-48 h-48 rounded-full overflow-hidden shadow-lg">
+                             <img 
+                               src="/lovable-uploads/b5a6f141-5909-42f4-8f59-c3d1cad59c14.png"
+                               alt="Tratamiento TMS"
+                               className="w-full h-full object-cover"
+                             />
+                           </div>
                         </div>
                       </div>
                     </div>
