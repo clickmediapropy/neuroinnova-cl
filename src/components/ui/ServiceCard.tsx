@@ -53,7 +53,8 @@ const ServiceCard = ({
       )}>
         <div className={cn(
           "mb-4 flex items-center",
-          isLarge && "mb-5"
+          isLarge && "mb-5",
+          badge && "pr-20" // Add padding-right when badge exists to prevent overlap
         )}>
           <div className={cn(
             "flex shrink-0 items-center justify-center rounded-full bg-primary-light",
@@ -62,7 +63,7 @@ const ServiceCard = ({
             {icon}
           </div>
           <h3 className={cn(
-            "ml-4 font-semibold text-foreground",
+            "ml-4 font-semibold text-foreground leading-tight",
             isLarge ? "text-xl md:text-2xl" : "text-lg"
           )}>
             {title}
