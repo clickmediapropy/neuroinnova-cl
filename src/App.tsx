@@ -18,6 +18,9 @@ import DolorCronicoPage from "./pages/DolorCronicoPage";
 import RehabilitacionPostACVPage from "./pages/RehabilitacionPostACVPage";
 import ContactoPage from "./pages/ContactoPage";
 import AgendarConsultaPage from "./pages/AgendarConsultaPage";
+import PoliticaPrivacidadPage from "./pages/PoliticaPrivacidadPage";
+import TerminosCondicionesPage from "./pages/TerminosCondicionesPage";
+import AvisoLegalPage from "./pages/AvisoLegalPage";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +45,9 @@ const App = () => (
           <Route path="/condiciones/rehabilitacion-post-acv" element={<RehabilitacionPostACVPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
           <Route path="/agendar-consulta" element={<AgendarConsultaPage />} />
+          <Route path="/politica-privacidad" element={<PoliticaPrivacidadPage />} />
+          <Route path="/terminos-condiciones" element={<TerminosCondicionesPage />} />
+          <Route path="/aviso-legal" element={<AvisoLegalPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
