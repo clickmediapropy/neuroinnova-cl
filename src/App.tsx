@@ -21,6 +21,7 @@ import AgendarConsultaPage from "./pages/AgendarConsultaPage";
 import PoliticaPrivacidadPage from "./pages/PoliticaPrivacidadPage";
 import TerminosCondicionesPage from "./pages/TerminosCondicionesPage";
 import AvisoLegalPage from "./pages/AvisoLegalPage";
+import ServiciosPage from "./pages/ServiciosPage";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/servicios" element={<ServiciosPage />} />
           <Route path="/autoevaluacion" element={<Autoevaluacion />} />
           <Route path="/autoevaluacion/depresion" element={<DepresionEvaluacion />} />
           <Route path="/autoevaluacion/ansiedad" element={<AnsiedadEvaluacion />} />
