@@ -39,6 +39,18 @@ const DepresionEvaluacion = () => {
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = value;
     setAnswers(newAnswers);
+    
+    // Auto-advance to next question after a short delay
+    setTimeout(() => {
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      } else {
+        // If it's the last question, show results
+        const calculatedScore = newAnswers.reduce((sum, answerValue) => sum + parseInt(answerValue || "0"), 0);
+        setScore(calculatedScore);
+        setIsComplete(true);
+      }
+    }, 300); // 300ms delay for better UX
   };
 
   const handleNext = () => {
@@ -128,20 +140,9 @@ const DepresionEvaluacion = () => {
             Anterior
           </Button>
           
-          <Button
-            onClick={handleNext}
-            disabled={!answers[currentQuestion]}
-            className="flex items-center"
-          >
-            {currentQuestion < questions.length - 1 ? (
-              <>
-                Siguiente
-                <ChevronRight className="ml-1 h-4 w-4" />
-              </>
-            ) : (
-              "Ver Resultados"
-            )}
-          </Button>
+          <div className="text-sm text-muted-foreground flex items-center">
+            Seleccione una respuesta para continuar automáticamente
+          </div>
         </div>
       </div>
     </Layout>
