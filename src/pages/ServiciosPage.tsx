@@ -162,12 +162,12 @@ const ServiciosPage = () => {
                             </div>
                           )}
                           {servicio.id === "psiquiatria" && (
-                            <div className="w-[576px] h-[576px] bg-gradient-to-br from-primary/20 to-primary/5 rounded-full flex items-center justify-center">
-                              <div className="w-96 h-96 bg-white rounded-full shadow-lg flex items-center justify-center">
-                                {React.cloneElement(servicio.icon, { 
-                                  className: "h-48 w-48 text-primary" 
-                                })}
-                              </div>
+                            <div className="w-[576px] h-[576px] rounded-full overflow-hidden shadow-lg">
+                              <img 
+                                src="/lovable-uploads/613be515-831a-4a66-ba32-1bd4ba4fb034.png"
+                                alt="Consulta Psiquiátrica - Dr. Victor Adorno"
+                                className="w-full h-full object-cover"
+                              />
                             </div>
                           )}
                         </div>
