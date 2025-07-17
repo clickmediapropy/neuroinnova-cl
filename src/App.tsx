@@ -23,6 +23,7 @@ import TerminosCondicionesPage from "./pages/TerminosCondicionesPage";
 import AvisoLegalPage from "./pages/AvisoLegalPage";
 import ServiciosPage from "./pages/ServiciosPage";
 import CondicionesPage from "./pages/CondicionesPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/servicios" element={<ServiciosPage />} />
