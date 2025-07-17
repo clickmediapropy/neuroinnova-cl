@@ -52,9 +52,9 @@ const ServiceCard = ({
         isSmall && "p-5"
       )}>
         <div className={cn(
-          "mb-4 flex items-center",
+          "mb-4 flex items-start", // Changed from items-center to items-start for better alignment
           isLarge && "mb-5",
-          badge && "pr-20" // Add padding-right when badge exists to prevent overlap
+          badge && "pr-24" // Increased from pr-20 to pr-24 for more space
         )}>
           <div className={cn(
             "flex shrink-0 items-center justify-center rounded-full bg-primary-light",
@@ -64,7 +64,8 @@ const ServiceCard = ({
           </div>
           <h3 className={cn(
             "ml-4 font-semibold text-foreground leading-tight",
-            isLarge ? "text-xl md:text-2xl" : "text-lg"
+            isLarge ? "text-xl md:text-2xl" : "text-lg",
+            "break-words" // Add word breaking for long titles
           )}>
             {title}
           </h3>
