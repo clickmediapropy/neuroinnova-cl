@@ -17,6 +17,7 @@ import TOCPage from "./pages/TOCPage";
 import DolorCronicoPage from "./pages/DolorCronicoPage";
 import RehabilitacionPostACVPage from "./pages/RehabilitacionPostACVPage";
 import ContactoPage from "./pages/ContactoPage";
+import AgendarConsultaPage from "./pages/AgendarConsultaPage";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/condiciones/dolor-cronico" element={<DolorCronicoPage />} />
           <Route path="/condiciones/rehabilitacion-post-acv" element={<RehabilitacionPostACVPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
+          <Route path="/agendar-consulta" element={<AgendarConsultaPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
