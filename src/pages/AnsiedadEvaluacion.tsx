@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import AssessmentResults from "@/components/assessment/AssessmentResults";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -29,6 +30,8 @@ const AnsiedadEvaluacion = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(questions.length).fill(""));
+  const [isComplete, setIsComplete] = useState(false);
+  const [score, setScore] = useState(0);
   
   const handleAnswerChange = (value: string) => {
     const newAnswers = [...answers];
@@ -40,10 +43,9 @@ const AnsiedadEvaluacion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      // Navigate to results page once implemented
-      // For now, just alert the score
-      const score = answers.reduce((sum, value) => sum + parseInt(value || "0"), 0);
-      alert(`Su puntuación es: ${score}. Esta página de resultados se implementará próximamente.`);
+      const calculatedScore = answers.reduce((sum, value) => sum + parseInt(value || "0"), 0);
+      setScore(calculatedScore);
+      setIsComplete(true);
     }
   };
 
@@ -53,7 +55,18 @@ const AnsiedadEvaluacion = () => {
     }
   };
 
+  const handleReset = () => {
+    setCurrentQuestion(0);
+    setAnswers(Array(questions.length).fill(""));
+    setIsComplete(false);
+    setScore(0);
+  };
+
   const progress = ((currentQuestion + 1) / questions.length) * 100;
+  
+  if (isComplete) {
+    return <AssessmentResults type="anxiety" score={score} onReset={handleReset} />;
+  }
   
   return (
     <Layout>
