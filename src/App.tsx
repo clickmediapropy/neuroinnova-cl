@@ -12,6 +12,10 @@ import EMTTMSPage from "./pages/EMTTMSPage";
 import TDCSPage from "./pages/TDCSPage";
 import PsiquiatriaTradicionalPage from "./pages/PsiquiatriaTradicionalPage";
 import DepresionResistentePage from "./pages/DepresionResistentePage";
+import AnsiedadPage from "./pages/AnsiedadPage";
+import TOCPage from "./pages/TOCPage";
+import DolorCronicoPage from "./pages/DolorCronicoPage";
+import RehabilitacionPostACVPage from "./pages/RehabilitacionPostACVPage";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +34,10 @@ const App = () => (
           <Route path="/servicios/tdcs" element={<TDCSPage />} />
           <Route path="/servicios/psiquiatria-tradicional" element={<PsiquiatriaTradicionalPage />} />
           <Route path="/condiciones/depresion-resistente" element={<DepresionResistentePage />} />
+          <Route path="/condiciones/ansiedad" element={<AnsiedadPage />} />
+          <Route path="/condiciones/toc" element={<TOCPage />} />
+          <Route path="/condiciones/dolor-cronico" element={<DolorCronicoPage />} />
+          <Route path="/condiciones/rehabilitacion-post-acv" element={<RehabilitacionPostACVPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
