@@ -74,10 +74,14 @@ const TrustAuthority = () => {
 
           <div className="bg-white rounded-lg p-6 border border-border/60">
             <div className="flex items-center mb-4">
-              <div className="h-8 w-8 rounded-full bg-primary-light flex items-center justify-center">
-                <span className="text-primary font-bold">Dr.</span>
+              <div className="w-16 h-16 rounded-full overflow-hidden bg-primary-light flex-shrink-0">
+                <img 
+                  src="/lovable-uploads/a51ffd80-b2ab-449d-b6cb-b011f76a3e1f.png" 
+                  alt="Dr. Victor Adorno"
+                  className="w-full h-full object-cover object-top"
+                />
               </div>
-              <h3 className="text-xl font-semibold ml-3">Dr. Victor Adorno</h3>
+              <h3 className="text-xl font-semibold ml-4">Dr. Victor Adorno</h3>
             </div>
             <p className="text-muted-foreground mb-4">
               Psiquiatra especializado en técnicas avanzadas de neuromodulación, con formación internacional y dedicado a traer tecnologías innovadoras a Paraguay.
