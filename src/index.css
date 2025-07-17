@@ -8,51 +8,71 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Clean white background for medical aesthetic */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 222 20% 18%;
 
+    /* Medical card styling */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 20% 18%;
 
+    /* Popover/dropdowns */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 222 20% 18%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary: Medical blue - NeuroInnova brand color #2C5F8B */
+    --primary: 210 51% 36%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Primary light for subtle backgrounds */
+    --primary-light: 210 51% 95%;
+    --primary-light-foreground: 210 51% 36%;
 
+    /* Secondary: Light clinical gray */
     --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-foreground: 222 20% 18%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted elements */
+    --muted: 220 20% 94%;
+    --muted-foreground: 215 25% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent: Subtle highlight - NeuroInnova secondary color #7CB342 */
+    --accent: 90 48% 48%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Success/positive messaging */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 142 70% 95%;
+    --success-light-foreground: 142 76% 36%;
+    
+    /* Warning */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --warning-light: 38 92% 95%;
+    --warning-light-foreground: 38 92% 30%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive/error */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Interface elements */
+    --border: 220 20% 90%;
+    --input: 220 20% 90%;
+    --ring: 210 51% 36%;
 
-    --radius: 0.5rem;
+    /* Border radius for softer medical interface */
+    --radius: 0.4rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar styling */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 20% 18%;
+    --sidebar-primary: 210 51% 36%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96.1%;
+    --sidebar-accent-foreground: 222 20% 18%;
+    --sidebar-border: 220 20% 90%;
+    --sidebar-ring: 210 51% 36%;
   }
 
   .dark {
