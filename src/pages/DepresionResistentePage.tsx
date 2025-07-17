@@ -3,6 +3,7 @@ import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 const DepresionResistentePage = () => {
   return (
@@ -387,10 +388,10 @@ const DepresionResistentePage = () => {
                 Ya no necesita viajar a Buenos Aires o São Paulo para acceder a este tratamiento avanzado.
               </p>
               <Button size="lg" asChild>
-                <a href="/servicios/emt-tms" className="flex items-center">
+                <Link to="/servicios/emt-tms" className="flex items-center">
                   Conocer Más Sobre EMT/TMS
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+                </Link>
               </Button>
             </div>
           </div>
@@ -489,7 +490,7 @@ const DepresionResistentePage = () => {
                 para determinar si EMT/TMS es adecuado para usted.
               </p>
               <Button size="lg" asChild>
-                <a href="/servicios/emt-tms#contacto">Solicitar Evaluación</a>
+                <a href="/agendar-consulta">Solicitar Evaluación</a>
               </Button>
             </div>
           </div>
@@ -534,7 +535,7 @@ const DepresionResistentePage = () => {
             
             <div className="space-y-4">
               <Button size="lg" variant="secondary" asChild>
-                <a href="/servicios/emt-tms">Descubra EMT/TMS - La Solución para Depresión Resistente</a>
+                <Link to="/servicios/emt-tms">Descubra EMT/TMS - La Solución para Depresión Resistente</Link>
               </Button>
               <p className="text-primary-foreground/80 text-sm">
                 Consulta de evaluación disponible | (+595) 21 605 535

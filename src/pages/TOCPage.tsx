@@ -3,6 +3,7 @@ import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 const TOCPage = () => {
   return (
@@ -383,7 +384,7 @@ const TOCPage = () => {
                   </ul>
                   
                   <Button className="w-full" asChild>
-                    <a href="/servicios/emt-tms">Conocer EMT/TMS para TOC</a>
+                    <Link to="/servicios/emt-tms">Conocer EMT/TMS para TOC</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -468,7 +469,7 @@ const TOCPage = () => {
                 </div>
               </div>
               <Button size="lg" asChild>
-                <a href="/servicios/psiquiatria-tradicional">Evaluación Integral</a>
+                <Link to="/agendar-consulta">Evaluación Integral</Link>
               </Button>
             </div>
           </div>
@@ -513,7 +514,7 @@ const TOCPage = () => {
             
             <div className="space-y-4">
               <Button size="lg" variant="secondary" asChild>
-                <a href="/servicios/emt-tms">Descubra EMT/TMS para TOC</a>
+                <Link to="/servicios/emt-tms">Descubra EMT/TMS para TOC</Link>
               </Button>
               <p className="text-primary-foreground/80 text-sm">
                 Consulta especializada en TOC | (+595) 21 605 535

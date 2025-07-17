@@ -3,6 +3,7 @@ import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 const AnsiedadPage = () => {
   return (
@@ -365,7 +366,7 @@ const AnsiedadPage = () => {
                   </ul>
                   
                   <Button className="w-full" asChild>
-                    <a href="/servicios/emt-tms">Conocer EMT/TMS</a>
+                    <Link to="/servicios/emt-tms">Conocer EMT/TMS</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -397,7 +398,7 @@ const AnsiedadPage = () => {
                   </ul>
                   
                   <Button className="w-full" variant="outline" asChild>
-                    <a href="/servicios/tdcs">Conocer tDCS</a>
+                    <Link to="/servicios/tdcs">Conocer tDCS</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -413,7 +414,7 @@ const AnsiedadPage = () => {
                 específicas de cada paciente.
               </p>
               <Button size="lg" asChild>
-                <a href="/servicios/psiquiatria-tradicional">Consulta Integral</a>
+                <Link to="/servicios/psiquiatria-tradicional">Consulta Integral</Link>
               </Button>
             </div>
           </div>
@@ -442,7 +443,7 @@ const AnsiedadPage = () => {
                 durante las últimas dos semanas.
               </p>
               <Button size="lg" asChild>
-                <a href="/autoevaluacion/ansiedad">Comenzar Evaluación</a>
+                <Link to="/autoevaluacion/ansiedad">Comenzar Evaluación</Link>
               </Button>
             </div>
             
@@ -492,7 +493,7 @@ const AnsiedadPage = () => {
             
             <div className="space-y-4">
               <Button size="lg" variant="secondary" asChild>
-                <a href="/servicios/psiquiatria-tradicional">Solicitar Consulta Especializada</a>
+                <Link to="/agendar-consulta">Solicitar Consulta Especializada</Link>
               </Button>
               <p className="text-primary-foreground/80 text-sm">
                 Evaluación profesional disponible | (+595) 21 605 535

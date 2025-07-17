@@ -3,6 +3,7 @@ import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 const DolorCronicoPage = () => {
   return (
@@ -425,7 +426,7 @@ const DolorCronicoPage = () => {
                   </ul>
                   
                   <Button className="w-full" asChild>
-                    <a href="/servicios/tdcs">Conocer tDCS para Dolor</a>
+                    <Link to="/servicios/tdcs">Conocer tDCS para Dolor</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -465,7 +466,7 @@ const DolorCronicoPage = () => {
                   </ul>
                   
                   <Button className="w-full" variant="outline" asChild>
-                    <a href="/servicios/emt-tms">Conocer EMT/TMS</a>
+                    <Link to="/servicios/emt-tms">Conocer EMT/TMS</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -501,7 +502,7 @@ const DolorCronicoPage = () => {
                 </div>
                 <div className="text-center">
                   <Button size="lg" asChild>
-                    <a href="/servicios/psiquiatria-tradicional">Consulta Especializada en Dolor</a>
+                    <Link to="/agendar-consulta">Consulta Especializada en Dolor</Link>
                   </Button>
                 </div>
               </CardContent>
@@ -548,7 +549,7 @@ const DolorCronicoPage = () => {
             
             <div className="space-y-4">
               <Button size="lg" variant="secondary" asChild>
-                <a href="/servicios/tdcs">Explorar Opciones de Neuromodulación</a>
+                <Link to="/servicios/tdcs">Explorar Opciones de Neuromodulación</Link>
               </Button>
               <p className="text-primary-foreground/80 text-sm">
                 Consulta especializada en dolor crónico | (+595) 21 605 535

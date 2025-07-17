@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import ContactForm from "@/components/forms/ContactForm";
+import { Link } from "react-router-dom";
 
 const PsiquiatriaTradicionalPage = () => {
   return (
@@ -20,7 +21,7 @@ const PsiquiatriaTradicionalPage = () => {
               el cuidado integral de su salud mental.
             </p>
             <Button size="lg" asChild>
-              <a href="#contacto">Agende su Consulta Psiquiátrica</a>
+              <Link to="/agendar-consulta">Agende su Consulta Psiquiátrica</Link>
             </Button>
           </div>
         </div>
@@ -400,7 +401,7 @@ const PsiquiatriaTradicionalPage = () => {
                         al tratamiento psiquiátrico tradicional.
                       </p>
                       <Button variant="outline" size="sm" asChild>
-                        <a href="/servicios/emt-tms">Conocer más sobre EMT/TMS</a>
+                        <Link to="/servicios/emt-tms">Conocer más sobre EMT/TMS</Link>
                       </Button>
                     </div>
                   </div>
@@ -423,7 +424,7 @@ const PsiquiatriaTradicionalPage = () => {
                         tratamiento psiquiátrico convencional.
                       </p>
                       <Button variant="outline" size="sm" asChild>
-                        <a href="/servicios/tdcs">Conocer más sobre tDCS</a>
+                        <Link to="/servicios/tdcs">Conocer más sobre tDCS</Link>
                       </Button>
                     </div>
                   </div>
@@ -556,7 +557,7 @@ const PsiquiatriaTradicionalPage = () => {
               completa y personalizada.
             </p>
             <Button size="lg" variant="secondary" asChild className="mb-4">
-              <a href="#contacto">Solicitar Cita</a>
+              <Link to="/agendar-consulta">Solicitar Cita</Link>
             </Button>
             <p className="text-primary-foreground/80 text-sm">
               Ofrecemos atención psiquiátrica integral con acceso exclusivo a tecnologías avanzadas cuando sea necesario.

@@ -3,6 +3,7 @@ import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 const RehabilitacionPostACVPage = () => {
   return (
@@ -126,7 +127,7 @@ const RehabilitacionPostACVPage = () => {
                   </ul>
                   
                   <Button className="w-full" asChild>
-                    <a href="/servicios/tdcs">Conocer tDCS para Rehabilitación</a>
+                    <Link to="/servicios/tdcs">Conocer tDCS para Rehabilitación</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -154,7 +155,7 @@ const RehabilitacionPostACVPage = () => {
                   </ul>
                   
                   <Button className="w-full" variant="outline" asChild>
-                    <a href="/servicios/psiquiatria-tradicional">Evaluación Integral</a>
+                    <Link to="/servicios/psiquiatria-tradicional">Evaluación Integral</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -175,7 +176,7 @@ const RehabilitacionPostACVPage = () => {
               acelerar y mejorar significativamente su proceso de recuperación.
             </p>
             <Button size="lg" variant="secondary" asChild>
-              <a href="/servicios/tdcs">Explorar Rehabilitación Avanzada</a>
+              <Link to="/servicios/tdcs">Explorar Rehabilitación Avanzada</Link>
             </Button>
           </div>
         </div>
