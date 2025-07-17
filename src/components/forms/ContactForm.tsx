@@ -103,13 +103,13 @@ const ContactForm = ({
     const numericValue = value.replace(/\D/g, '');
     
     if (countryCode === '+595') {
-      // Paraguay format: XXXX XXX XXX
-      if (numericValue.length <= 4) {
+      // Paraguay format: 9XX XXX XXX (3 sets of 3 numbers, starting with 9)
+      if (numericValue.length <= 3) {
         return numericValue;
-      } else if (numericValue.length <= 7) {
-        return `${numericValue.slice(0, 4)} ${numericValue.slice(4)}`;
+      } else if (numericValue.length <= 6) {
+        return `${numericValue.slice(0, 3)} ${numericValue.slice(3)}`;
       } else {
-        return `${numericValue.slice(0, 4)} ${numericValue.slice(4, 7)} ${numericValue.slice(7, 10)}`;
+        return `${numericValue.slice(0, 3)} ${numericValue.slice(3, 6)} ${numericValue.slice(6, 9)}`;
       }
     }
     return numericValue;
@@ -199,7 +199,7 @@ const ContactForm = ({
                       )}
                     />
                     <Input 
-                      placeholder={form.watch('codigoPais') === '+595' ? '9XXX XXX XXX' : 'Número telefónico'}
+                      placeholder={form.watch('codigoPais') === '+595' ? '9XX XXX XXX' : 'Número telefónico'}
                       className="rounded-l-none"
                       value={field.value}
                       onChange={(e) => {
