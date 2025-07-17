@@ -10,6 +10,7 @@ import DepresionEvaluacion from "./pages/DepresionEvaluacion";
 import AnsiedadEvaluacion from "./pages/AnsiedadEvaluacion";
 import EMTTMSPage from "./pages/EMTTMSPage";
 import TDCSPage from "./pages/TDCSPage";
+import PsiquiatriaTradicionalPage from "./pages/PsiquiatriaTradicionalPage";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/autoevaluacion/ansiedad" element={<AnsiedadEvaluacion />} />
           <Route path="/servicios/emt-tms" element={<EMTTMSPage />} />
           <Route path="/servicios/tdcs" element={<TDCSPage />} />
+          <Route path="/servicios/psiquiatria-tradicional" element={<PsiquiatriaTradicionalPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
