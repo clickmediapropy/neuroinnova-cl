@@ -37,12 +37,14 @@ interface ContactFormProps {
   variant?: "default" | "inline" | "compact";
   sourcePage?: string;
   webhookUrl?: string;
+  defaultService?: string;
 }
 
 const ContactForm = ({ 
   variant = "default", 
   sourcePage = "contact-page",
-  webhookUrl = "https://webhook.site/contact-form" // Placeholder, would be replaced with real GoHighLevel webhook
+  webhookUrl = "https://webhook.site/contact-form", // Placeholder, would be replaced with real GoHighLevel webhook
+  defaultService = ""
 }: ContactFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -53,7 +55,7 @@ const ContactForm = ({
       nombre: "",
       email: "",
       telefono: "",
-      servicio: "",
+      servicio: defaultService || "",
       mensaje: "",
     },
   });
