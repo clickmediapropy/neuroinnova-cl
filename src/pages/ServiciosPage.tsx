@@ -93,45 +93,47 @@ const ServiciosPage = () => {
                       servicio.featured ? 'border-primary/20 bg-primary/5' : ''
                     }`}
                   >
-                    {servicio.badge && (
-                      <div className="absolute top-6 right-6 z-10">
-                        <Badge variant="secondary" className="bg-primary text-primary-foreground">
-                          {servicio.badge}
-                        </Badge>
-                      </div>
-                    )}
+                     {servicio.badge && (
+                       <div className="absolute top-3 right-3 md:top-6 md:right-6 z-10">
+                         <Badge variant="secondary" className="bg-primary text-primary-foreground text-xs md:text-sm">
+                           {servicio.badge}
+                         </Badge>
+                       </div>
+                     )}
                     
-                    <div className="grid md:grid-cols-2 gap-8 p-8">
+                    <div className="grid md:grid-cols-2 gap-8 p-4 md:p-8">
                       {/* Content */}
-                      <div className="space-y-6">
-                        <div className="flex items-start space-x-4">
-                          <div className="flex-shrink-0 p-3 bg-primary/10 rounded-xl">
-                            {servicio.icon}
+                      <div className="space-y-4 md:space-y-6 order-2 md:order-1">
+                        <div className="flex items-start space-x-3 md:space-x-4">
+                          <div className="flex-shrink-0 p-2 md:p-3 bg-primary/10 rounded-xl">
+                            {React.cloneElement(servicio.icon, { 
+                              className: "h-6 w-6 md:h-8 md:w-8 text-primary" 
+                            })}
                           </div>
-                          <div className="flex-1 min-w-0 pr-16">
-                            <CardTitle className="text-2xl font-bold text-foreground mb-3">
+                          <div className="flex-1 min-w-0 pr-8 md:pr-16">
+                            <CardTitle className="text-xl md:text-2xl font-bold text-foreground mb-2 md:mb-3">
                               {servicio.title}
                             </CardTitle>
-                            <CardDescription className="text-base text-muted-foreground">
+                            <CardDescription className="text-sm md:text-base text-muted-foreground">
                               {servicio.description}
                             </CardDescription>
                           </div>
                         </div>
 
-                        <div className="space-y-4">
-                          <h4 className="font-semibold text-foreground">Características principales:</h4>
+                        <div className="space-y-3 md:space-y-4">
+                          <h4 className="font-semibold text-foreground text-sm md:text-base">Características principales:</h4>
                           <ul className="space-y-2">
                             {servicio.features.map((feature, idx) => (
-                              <li key={idx} className="flex items-start space-x-3">
-                                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                                <span className="text-muted-foreground">{feature}</span>
+                              <li key={idx} className="flex items-start space-x-2 md:space-x-3">
+                                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-primary rounded-full mt-1.5 md:mt-2 flex-shrink-0" />
+                                <span className="text-sm md:text-base text-muted-foreground">{feature}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
 
-                        <div className="pt-4">
-                          <Button asChild className="group">
+                        <div className="pt-3 md:pt-4">
+                          <Button asChild className="group w-full md:w-auto">
                             <Link to={servicio.url}>
                               Más Información
                               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -141,10 +143,10 @@ const ServiciosPage = () => {
                       </div>
 
                       {/* Visual/Stats */}
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center justify-center order-1 md:order-2 py-4 md:py-0">
                         <div className="relative">
                           {servicio.id === "emt-tms" && (
-                            <div className="w-[576px] h-[576px] rounded-full overflow-hidden shadow-lg">
+                            <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] xl:w-[576px] xl:h-[576px] rounded-full overflow-hidden shadow-lg">
                               <img 
                                 src="/lovable-uploads/b5a6f141-5909-42f4-8f59-c3d1cad59c14.png"
                                 alt="Tratamiento EMT/TMS"
@@ -153,7 +155,7 @@ const ServiciosPage = () => {
                             </div>
                           )}
                           {servicio.id === "tdcs" && (
-                            <div className="w-[576px] h-[576px] rounded-full overflow-hidden shadow-lg">
+                            <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] xl:w-[576px] xl:h-[576px] rounded-full overflow-hidden shadow-lg">
                               <img 
                                 src="/lovable-uploads/be3fcff2-e9c7-4a0a-94c7-c3e36bd16ccf.png"
                                 alt="Tratamiento tDCS"
@@ -162,7 +164,7 @@ const ServiciosPage = () => {
                             </div>
                           )}
                           {servicio.id === "psiquiatria" && (
-                            <div className="w-[576px] h-[576px] rounded-full overflow-hidden shadow-lg">
+                            <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] xl:w-[576px] xl:h-[576px] rounded-full overflow-hidden shadow-lg">
                               <img 
                                 src="/lovable-uploads/613be515-831a-4a66-ba32-1bd4ba4fb034.png"
                                 alt="Consulta Psiquiátrica - Dr. Victor Adorno"
