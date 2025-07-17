@@ -39,8 +39,8 @@ const ServiceCard = ({
       )}
     >
       {badge && (
-        <div className="absolute top-4 right-4 z-10">
-          <Button variant="badge" size="badge">
+        <div className="absolute top-4 right-4 z-10 max-w-[120px]">
+          <Button variant="badge" size="badge" className="text-xs px-2 py-1 h-auto whitespace-nowrap">
             {badge}
           </Button>
         </div>
@@ -52,9 +52,9 @@ const ServiceCard = ({
         isSmall && "p-5"
       )}>
         <div className={cn(
-          "mb-4 flex items-start", // Changed from items-center to items-start for better alignment
+          "mb-4 flex items-start",
           isLarge && "mb-5",
-          badge && "pr-24" // Increased from pr-20 to pr-24 for more space
+          badge && "pr-32" // Significantly increased padding - from pr-24 to pr-32 (8rem/128px)
         )}>
           <div className={cn(
             "flex shrink-0 items-center justify-center rounded-full bg-primary-light",
@@ -65,7 +65,7 @@ const ServiceCard = ({
           <h3 className={cn(
             "ml-4 font-semibold text-foreground leading-tight",
             isLarge ? "text-xl md:text-2xl" : "text-lg",
-            "break-words" // Add word breaking for long titles
+            "break-words max-w-full" // Ensure title respects container width
           )}>
             {title}
           </h3>
