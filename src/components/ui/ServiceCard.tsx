@@ -39,8 +39,8 @@ const ServiceCard = ({
       )}
     >
       {badge && (
-        <div className="absolute top-4 right-4 z-10 max-w-[120px]">
-          <Button variant="badge" size="badge" className="text-xs px-2 py-1 h-auto whitespace-nowrap">
+        <div className="absolute top-4 right-4 z-10">
+          <Button variant="badge" size="badge" className="text-xs px-3 py-1.5 h-auto whitespace-nowrap min-w-fit">
             {badge}
           </Button>
         </div>
