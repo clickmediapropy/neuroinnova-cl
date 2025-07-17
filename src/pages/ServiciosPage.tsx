@@ -143,13 +143,33 @@ const ServiciosPage = () => {
                       {/* Visual/Stats */}
                       <div className="flex items-center justify-center">
                         <div className="relative">
-                           <div className="w-48 h-48 rounded-full overflow-hidden shadow-lg">
-                             <img 
-                               src="/lovable-uploads/b5a6f141-5909-42f4-8f59-c3d1cad59c14.png"
-                               alt="Tratamiento TMS"
-                               className="w-full h-full object-cover"
-                             />
-                           </div>
+                          {servicio.id === "emt-tms" && (
+                            <div className="w-[576px] h-[576px] rounded-full overflow-hidden shadow-lg">
+                              <img 
+                                src="/lovable-uploads/b5a6f141-5909-42f4-8f59-c3d1cad59c14.png"
+                                alt="Tratamiento EMT/TMS"
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                          {servicio.id === "tdcs" && (
+                            <div className="w-[576px] h-[576px] rounded-full overflow-hidden shadow-lg">
+                              <img 
+                                src="/lovable-uploads/be3fcff2-e9c7-4a0a-94c7-c3e36bd16ccf.png"
+                                alt="Tratamiento tDCS"
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                          {servicio.id === "psiquiatria" && (
+                            <div className="w-[576px] h-[576px] bg-gradient-to-br from-primary/20 to-primary/5 rounded-full flex items-center justify-center">
+                              <div className="w-96 h-96 bg-white rounded-full shadow-lg flex items-center justify-center">
+                                {React.cloneElement(servicio.icon, { 
+                                  className: "h-48 w-48 text-primary" 
+                                })}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
