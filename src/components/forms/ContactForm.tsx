@@ -26,6 +26,7 @@ import { useToast } from "@/hooks/use-toast";
 const formSchema = z.object({
   nombre: z.string().min(2, { message: "Por favor ingrese su nombre completo" }),
   email: z.string().email({ message: "Por favor ingrese un correo electrónico válido" }),
+  codigoPais: z.string().min(1, { message: "Seleccione un código de país" }),
   telefono: z.string().min(5, { message: "Por favor ingrese su número telefónico" }),
   servicio: z.string().optional(),
   mensaje: z.string().optional(),
@@ -54,6 +55,7 @@ const ContactForm = ({
     defaultValues: {
       nombre: "",
       email: "",
+      codigoPais: "+595",
       telefono: "",
       servicio: defaultService || "",
       mensaje: "",
@@ -94,6 +96,41 @@ const ContactForm = ({
       setIsSubmitting(false);
     }
   };
+
+  // Format phone number for Paraguay
+  const formatPhoneNumber = (value: string, countryCode: string) => {
+    // Remove all non-numeric characters
+    const numericValue = value.replace(/\D/g, '');
+    
+    if (countryCode === '+595') {
+      // Paraguay format: XXXX XXX XXX
+      if (numericValue.length <= 4) {
+        return numericValue;
+      } else if (numericValue.length <= 7) {
+        return `${numericValue.slice(0, 4)} ${numericValue.slice(4)}`;
+      } else {
+        return `${numericValue.slice(0, 4)} ${numericValue.slice(4, 7)} ${numericValue.slice(7, 10)}`;
+      }
+    }
+    return numericValue;
+  };
+
+  const handlePhoneChange = (value: string) => {
+    const countryCode = form.getValues('codigoPais');
+    const formatted = formatPhoneNumber(value, countryCode);
+    form.setValue('telefono', formatted);
+  };
+
+  const countryCodes = [
+    { code: '+595', country: 'Paraguay', flag: '🇵🇾' },
+    { code: '+54', country: 'Argentina', flag: '🇦🇷' },
+    { code: '+55', country: 'Brasil', flag: '🇧🇷' },
+    { code: '+56', country: 'Chile', flag: '🇨🇱' },
+    { code: '+57', country: 'Colombia', flag: '🇨🇴' },
+    { code: '+598', country: 'Uruguay', flag: '🇺🇾' },
+    { code: '+1', country: 'Estados Unidos', flag: '🇺🇸' },
+    { code: '+34', country: 'España', flag: '🇪🇸' },
+  ];
 
   const isCompact = variant === "compact";
   const isInline = variant === "inline";
@@ -137,7 +174,40 @@ const ContactForm = ({
               <FormItem>
                 <FormLabel className={isCompact ? "text-sm" : ""}>Teléfono</FormLabel>
                 <FormControl>
-                  <Input placeholder="+595 XXX XXX XXX" {...field} />
+                  <div className="flex">
+                    <FormField
+                      control={form.control}
+                      name="codigoPais"
+                      render={({ field: countryField }) => (
+                        <Select onValueChange={countryField.onChange} defaultValue={countryField.value}>
+                          <FormControl>
+                            <SelectTrigger className="w-[140px] rounded-r-none border-r-0">
+                              <SelectValue />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="bg-white border border-border shadow-md z-50">
+                            {countryCodes.map((country) => (
+                              <SelectItem key={country.code} value={country.code}>
+                                <div className="flex items-center gap-2">
+                                  <span>{country.flag}</span>
+                                  <span>{country.code}</span>
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                    <Input 
+                      placeholder={form.watch('codigoPais') === '+595' ? '9XXX XXX XXX' : 'Número telefónico'}
+                      className="rounded-l-none"
+                      value={field.value}
+                      onChange={(e) => {
+                        handlePhoneChange(e.target.value);
+                        field.onChange(e);
+                      }}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
