@@ -146,7 +146,7 @@ const ServiciosPage = () => {
                       <div className="flex items-center justify-center order-1 md:order-2 py-4 md:py-0">
                         <div className="relative">
                           {servicio.id === "emt-tms" && (
-                            <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] xl:w-[576px] xl:h-[576px] rounded-full overflow-hidden shadow-lg">
+                            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg">
                               <img 
                                 src="/lovable-uploads/b5a6f141-5909-42f4-8f59-c3d1cad59c14.png"
                                 alt="Tratamiento EMT/TMS"
@@ -155,7 +155,7 @@ const ServiciosPage = () => {
                             </div>
                           )}
                           {servicio.id === "tdcs" && (
-                            <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] xl:w-[576px] xl:h-[576px] rounded-full overflow-hidden shadow-lg">
+                            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg">
                               <img 
                                 src="/lovable-uploads/be3fcff2-e9c7-4a0a-94c7-c3e36bd16ccf.png"
                                 alt="Tratamiento tDCS"
@@ -164,7 +164,7 @@ const ServiciosPage = () => {
                             </div>
                           )}
                           {servicio.id === "psiquiatria" && (
-                            <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] xl:w-[576px] xl:h-[576px] rounded-full overflow-hidden shadow-lg">
+                            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg">
                               <img 
                                 src="/lovable-uploads/613be515-831a-4a66-ba32-1bd4ba4fb034.png"
                                 alt="Consulta Psiquiátrica - Dr. Victor Adorno"
