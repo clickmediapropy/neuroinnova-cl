@@ -12,60 +12,62 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* EMT/TMS Service - Featured */}
-          <ServiceCard
-            title="Estimulación Magnética Transcraneal (EMT/TMS)"
-            description="Tecnología no invasiva que utiliza campos magnéticos para estimular áreas específicas del cerebro, efectiva para depresión resistente a medicamentos."
-            icon={<Zap className="h-6 w-6 text-primary" />}
-            badge="EXCLUSIVO EN PARAGUAY"
-            benefits={[
-              "Tratamiento no invasivo y sin dolor",
-              "Sin efectos secundarios sistémicos",
-              "Aprobado por FDA y CE",
-              "Efectivo para depresión resistente",
-              "Sesiones ambulatorias de 20-40 minutos"
-            ]}
-            url="/servicios/emt-tms"
-            buttonText="Más Información"
-            size="large"
-            className="md:col-span-3 lg:col-span-2"
-          />
+        <div className="max-w-7xl mx-auto">
+          {/* Featured EMT/TMS Service - Full Width */}
+          <div className="mb-8">
+            <ServiceCard
+              title="Estimulación Magnética Transcraneal (EMT/TMS)"
+              description="Tecnología no invasiva que utiliza campos magnéticos para estimular áreas específicas del cerebro, efectiva para depresión resistente a medicamentos."
+              icon={<Zap className="h-6 w-6 text-primary" />}
+              badge="EXCLUSIVO EN PARAGUAY"
+              benefits={[
+                "Tratamiento no invasivo y sin dolor",
+                "Sin efectos secundarios sistémicos",
+                "Aprobado por FDA y CE",
+                "Efectivo para depresión resistente",
+                "Sesiones ambulatorias de 20-40 minutos"
+              ]}
+              url="/servicios/emt-tms"
+              buttonText="Más Información"
+              size="large"
+            />
+          </div>
 
-          {/* tDCS Service */}
-          <ServiceCard
-            title="Estimulación Transcraneal por Corriente Directa (tDCS)"
-            description="Técnica de neuromodulación que aplica corriente eléctrica de baja intensidad para modular la actividad neuronal y estimular la plasticidad cerebral."
-            icon={<Brain className="h-6 w-6 text-primary" />}
-            badge="PIONERO EN PARAGUAY"
-            benefits={[
-              "Rehabilitación neurológica",
-              "Manejo del dolor crónico",
-              "Estimulación cognitiva",
-              "Procedimiento no invasivo",
-              "Se puede combinar con otras terapias"
-            ]}
-            url="/servicios/tdcs"
-            buttonText="Conozca Más"
-            className="lg:row-start-2"
-          />
+          {/* Other Services - Equal Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* tDCS Service */}
+            <ServiceCard
+              title="Estimulación Transcraneal por Corriente Directa (tDCS)"
+              description="Técnica de neuromodulación que aplica corriente eléctrica de baja intensidad para modular la actividad neuronal y estimular la plasticidad cerebral."
+              icon={<Brain className="h-6 w-6 text-primary" />}
+              badge="PIONERO EN PARAGUAY"
+              benefits={[
+                "Rehabilitación neurológica",
+                "Manejo del dolor crónico",
+                "Estimulación cognitiva",
+                "Procedimiento no invasivo",
+                "Se puede combinar con otras terapias"
+              ]}
+              url="/servicios/tdcs"
+              buttonText="Conozca Más"
+            />
 
-          {/* Traditional Psychiatry Service */}
-          <ServiceCard
-            title="Consulta Psiquiátrica"
-            description="Atención psiquiátrica integral con enfoque en el diagnóstico preciso y manejo personalizado de condiciones de salud mental."
-            icon={<Stethoscope className="h-6 w-6 text-primary" />}
-            benefits={[
-              "Evaluación psiquiátrica completa",
-              "Manejo de medicamentos",
-              "Integración con psicoterapia",
-              "Planificación de tratamiento continuo",
-              "Apoyo familiar cuando sea necesario"
-            ]}
-            url="/servicios/consulta-psiquiatrica"
-            buttonText="Información"
-            className="lg:row-start-2"
-          />
+            {/* Traditional Psychiatry Service */}
+            <ServiceCard
+              title="Consulta Psiquiátrica"
+              description="Atención psiquiátrica integral con enfoque en el diagnóstico preciso y manejo personalizado de condiciones de salud mental."
+              icon={<Stethoscope className="h-6 w-6 text-primary" />}
+              benefits={[
+                "Evaluación psiquiátrica completa",
+                "Manejo de medicamentos",
+                "Integración con psicoterapia",
+                "Planificación de tratamiento continuo",
+                "Apoyo familiar cuando sea necesario"
+              ]}
+              url="/servicios/psiquiatria-tradicional"
+              buttonText="Información"
+            />
+          </div>
         </div>
       </div>
     </section>
