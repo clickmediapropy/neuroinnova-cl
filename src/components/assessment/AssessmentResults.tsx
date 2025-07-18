@@ -274,7 +274,6 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
           headers: {
             'Content-Type': 'application/json',
           },
-          mode: 'no-cors', // Required for external webhooks
           body: JSON.stringify(webhookData),
         });
 
