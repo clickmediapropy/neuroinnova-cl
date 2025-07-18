@@ -1,5 +1,5 @@
 import React from "react";
-import { Zap, Brain, Stethoscope, ArrowRight } from "lucide-react";
+import { Zap, Brain, Stethoscope, Monitor, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -52,6 +52,21 @@ const ServiciosPage = () => {
         "Apoyo familiar cuando sea necesario"
       ],
       url: "/servicios/psiquiatria-tradicional"
+    },
+    {
+      id: "rehacom",
+      title: "RehaCom - Rehabilitación Cognitiva",
+      description: "Software alemán especializado para rehabilitación de funciones cognitivas afectadas por lesiones cerebrales o trastornos neurológicos.",
+      icon: <Monitor className="h-8 w-8 text-primary" />,
+      badge: "REHABILITACIÓN COGNITIVA AVANZADA",
+      features: [
+        "27+ módulos especializados en español",
+        "Entrenamiento adaptativo personalizado",
+        "Ideal para post-ACV y lesiones cerebrales",
+        "Seguimiento remoto del progreso",
+        "Complementa terapias de neuromodulación"
+      ],
+      url: "/servicios/rehacom"
     }
   ];
 
@@ -170,6 +185,11 @@ const ServiciosPage = () => {
                                 alt="Consulta Psiquiátrica - Dr. Victor Adorno"
                                 className="w-full h-full object-cover"
                               />
+                            </div>
+                          )}
+                          {servicio.id === "rehacom" && (
+                            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 flex items-center justify-center">
+                              <Monitor className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 text-primary opacity-80" />
                             </div>
                           )}
                         </div>

@@ -1,4 +1,4 @@
-import { Zap, Brain, Stethoscope } from "lucide-react";
+import { Zap, Brain, Stethoscope, Monitor } from "lucide-react";
 import ServiceCard from "../ui/ServiceCard";
 
 const Services = () => {
@@ -33,8 +33,8 @@ const Services = () => {
             />
           </div>
 
-          {/* Other Services - Equal Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
+          {/* Other Services - 2x2 Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
             {/* tDCS Service */}
             <ServiceCard
               title="Estimulación Transcraneal por Corriente Directa (tDCS)"
@@ -66,6 +66,23 @@ const Services = () => {
               ]}
               url="/servicios/psiquiatria-tradicional"
               buttonText="Información"
+            />
+
+            {/* RehaCom Service */}
+            <ServiceCard
+              title="RehaCom - Rehabilitación Cognitiva"
+              description="Software alemán especializado para rehabilitación de funciones cognitivas afectadas por lesiones cerebrales o trastornos neurológicos."
+              icon={<Monitor className="h-6 w-6 text-primary" />}
+              badge="REHABILITACIÓN COGNITIVA AVANZADA"
+              benefits={[
+                "27+ módulos especializados en español",
+                "Entrenamiento adaptativo personalizado",
+                "Ideal para post-ACV y lesiones cerebrales",
+                "Seguimiento remoto del progreso",
+                "Complementa terapias de neuromodulación"
+              ]}
+              url="/servicios/rehacom"
+              buttonText="Descubrir Más"
             />
           </div>
         </div>

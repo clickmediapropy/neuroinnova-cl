@@ -34,6 +34,7 @@ import ServiciosPage from "./pages/ServiciosPage";
 import CondicionesPage from "./pages/CondicionesPage";
 import ScrollToTop from "./components/ScrollToTop";
 import TestWebhookPage from "./pages/TestWebhookPage";
+import RehaComPage from "./pages/servicios/RehaComPage";
 
 const queryClient = new QueryClient();
 
@@ -62,6 +63,7 @@ const App = () => (
           <Route path="/servicios/emt-tms" element={<EMTTMSPage />} />
           <Route path="/servicios/tdcs" element={<TDCSPage />} />
           <Route path="/servicios/psiquiatria-tradicional" element={<PsiquiatriaTradicionalPage />} />
+          <Route path="/servicios/rehacom" element={<RehaComPage />} />
           <Route path="/condiciones" element={<CondicionesPage />} />
           <Route path="/condiciones/depresion-resistente" element={<DepresionResistentePage />} />
           <Route path="/condiciones/ansiedad" element={<AnsiedadPage />} />
