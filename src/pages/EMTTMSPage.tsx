@@ -5,6 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import ContactForm from "@/components/forms/ContactForm";
+import brainMagneticField from "@/assets/brain-magnetic-field.jpg";
+import tmsEquipmentSetup from "@/assets/tms-equipment-setup.jpg";
+import brainActivityComparison from "@/assets/brain-activity-comparison.jpg";
+import electromagneticStimulation from "@/assets/electromagnetic-stimulation.jpg";
 
 const EMTTMSPage = () => {
   return (
@@ -71,6 +75,13 @@ const EMTTMSPage = () => {
             <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl p-8 mb-8 border border-primary/10">
               {/* Header */}
               <div className="text-center mb-8">
+                <div className="mb-6">
+                  <img 
+                    src={brainMagneticField} 
+                    alt="Campo magnético para sanar - Visualización del cerebro con estimulación magnética"
+                    className="w-full max-w-md mx-auto rounded-lg shadow-md"
+                  />
+                </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-primary mb-4">
                   Campo Magnético para Sanar
                 </h3>
@@ -114,6 +125,14 @@ const EMTTMSPage = () => {
                         <div>• Interruptor de pie</div>
                       </div>
                     </div>
+
+                    <div className="mt-4">
+                      <img 
+                        src={tmsEquipmentSetup} 
+                        alt="Configuración del equipo EMT/TMS"
+                        className="w-full rounded-lg shadow-sm"
+                      />
+                    </div>
                   </div>
 
                   <div className="bg-warning/10 border border-warning/20 rounded-lg p-4">
@@ -127,6 +146,13 @@ const EMTTMSPage = () => {
                 {/* Right Column - How It Works */}
                 <div className="space-y-6">
                   <div className="bg-white/50 rounded-lg p-6 border border-primary/20">
+                    <div className="mb-4">
+                      <img 
+                        src={electromagneticStimulation} 
+                        alt="Estimulación electromagnética del cerebro"
+                        className="w-full max-w-xs mx-auto rounded-lg shadow-sm"
+                      />
+                    </div>
                     <h4 className="text-xl font-semibold text-primary mb-4">
                       ¿Cómo Opera?
                     </h4>
@@ -184,6 +210,14 @@ const EMTTMSPage = () => {
                 <h4 className="text-xl font-semibold text-primary mb-4 text-center">
                   Visualización de la Actividad Cerebral
                 </h4>
+                
+                <div className="mb-6">
+                  <img 
+                    src={brainActivityComparison} 
+                    alt="Comparación de actividad cerebral antes, durante y después del tratamiento EMT/TMS"
+                    className="w-full rounded-lg shadow-md"
+                  />
+                </div>
                 
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="text-center">
