@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ChevronRight, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/ui/logo";
 
 const Hero = () => {
   return (
@@ -8,6 +9,11 @@ const Hero = () => {
       <div className="container">
         <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center">
           <div className="flex flex-col space-y-6">
+            {/* Logo positioned above headline */}
+            <div className="mb-4">
+              <Logo className="h-20 md:h-28 lg:h-32 w-auto" />
+            </div>
+            
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-foreground">
                 Primer Centro de Neuromodulación de Paraguay

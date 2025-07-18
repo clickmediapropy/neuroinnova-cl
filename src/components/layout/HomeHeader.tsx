@@ -23,14 +23,7 @@ const HomeHeader = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-card border-b border-primary/20 shadow-sm backdrop-blur-sm">
-      {/* Large Logo Section */}
-      <div className="bg-gradient-to-b from-background to-muted/30 border-b border-border/40">
-        <div className="container py-8 md:py-12 text-center">
-          <Logo className="h-20 md:h-28 lg:h-36 w-auto mx-auto" />
-        </div>
-      </div>
-
-      {/* Navigation Section - No Gap */}
+      {/* Navigation Section - No Logo */}
       <div className="container flex h-16 items-center justify-between">        
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center space-x-1">
