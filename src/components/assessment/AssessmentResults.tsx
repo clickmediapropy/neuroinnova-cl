@@ -30,13 +30,13 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
   const navigate = useNavigate();
   const { toast } = useToast();
   const [formData, setFormData] = useState<LeadFormData>({
-    nombre: "",
-    apellido: "",
-    email: "",
-    telefono: "",
-    edad: null,
-    sexo: null,
-    ciudad: ""
+    nombre: "Nicolas",
+    apellido: "Test",
+    email: "test@example.com",
+    telefono: "+595991123456",
+    edad: 32,
+    sexo: "masculino",
+    ciudad: "Asunción"
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 

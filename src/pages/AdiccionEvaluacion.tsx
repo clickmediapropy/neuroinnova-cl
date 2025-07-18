@@ -117,6 +117,14 @@ const AdiccionEvaluacion = () => {
     setScore(0);
   };
 
+  
+  // TEMPORARY: Test function for development
+  const goToTestResults = () => {
+    setAnswers(Array(questions.length).fill(2)); // Fill with test values
+    setScore(20); // Test score
+    setIsComplete(true);
+  };
+
   const progress = ((currentQuestion + 1) / questions.length) * 100;
   const currentOptions = getOptionsForQuestion(currentQuestion);
   
@@ -186,6 +194,15 @@ const AdiccionEvaluacion = () => {
           >
             <ChevronLeft className="mr-1 h-4 w-4" />
             Anterior
+          </Button>
+          
+          {/* TEMPORARY DEV BUTTON - REMOVE WHEN TESTING IS COMPLETE */}
+          <Button
+            variant="destructive"
+            onClick={goToTestResults}
+            className="text-xs"
+          >
+            🔧 TEST RESULTS
           </Button>
           
           <div className="text-sm text-protected-muted flex items-center">
