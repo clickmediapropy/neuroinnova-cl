@@ -242,8 +242,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       
       // Show success message
       toast({
-        title: "Evaluación completada",
-        description: "Sus resultados han sido enviados. Nos pondremos en contacto pronto.",
+        title: "¡Datos enviados!",
+        description: "Sus resultados le serán enviados por WhatsApp en breve.",
       });
       
       // Navigate to home or a thank you page
@@ -265,15 +265,15 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
   return (
     <Layout>
-      <div className="container py-12 max-w-3xl assessment-bg">
+      <div className="container py-12 max-w-3xl">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            {getIcon()}
+            <CheckCircle className="h-12 w-12 text-success" />
           </div>
           <h1 className="text-3xl font-bold text-primary mb-4">
-            Resultados de su Evaluación
+            ¡Evaluación Completada!
           </h1>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-lg text-muted-foreground mb-6">
             Gracias por completar la evaluación de {
               type === "depression" ? "depresión" :
               type === "anxiety" ? "ansiedad" :
@@ -290,19 +290,20 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
             }.
           </p>
           
-          <div className="bg-card rounded-lg border shadow-sm p-6 mb-8">
+          <div className="bg-primary/5 rounded-lg border border-primary/20 p-6 mb-8">
             <div className="flex flex-col items-center">
-              <div className="text-5xl font-bold mb-2">{score}</div>
-              <div className={`text-${severityInfo.color} font-semibold mb-4`}>
-                Nivel: {severityInfo.level}
-              </div>
-              <p className="text-muted-foreground">{getMessage()}</p>
+              <h3 className="text-xl font-semibold mb-3 text-primary">
+                Sus resultados le serán enviados por WhatsApp
+              </h3>
+              <p className="text-muted-foreground text-center">
+                Complete sus datos a continuación para recibir un análisis detallado de sus resultados y recomendaciones personalizadas directamente en WhatsApp.
+              </p>
             </div>
           </div>
         </div>
         
         <div className="bg-card rounded-lg border shadow-sm p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Complete sus datos para recibir más información</h2>
+          <h2 className="text-xl font-semibold mb-4">Complete sus datos para recibir sus resultados</h2>
           
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -409,7 +410,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
                 disabled={isSubmitting}
                 size="lg"
               >
-                {getCTAText()}
+                Enviar y Recibir Resultados por WhatsApp
                 <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
               
