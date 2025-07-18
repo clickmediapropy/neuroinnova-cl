@@ -483,9 +483,16 @@ const TDCSPage = () => {
                 ¿Tiene más preguntas sobre la terapia tDCS? Nuestro equipo está disponible para responder
                 todas sus consultas y ayudarle a determinar si este tratamiento es adecuado para su situación.
               </p>
-              <Button variant="outline" asChild>
-                <a href="tel:+59521605535">Llámenos: (+595) 21 605 535</a>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button variant="outline" asChild>
+                  <a href="tel:+59521605535">Llámenos: (+595) 21 605 535</a>
+                </Button>
+                <Button className="bg-green-500 hover:bg-green-600" asChild>
+                  <a href="https://wa.me/595991800886?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20el%20tratamiento%20tDCS.%20¿Podrían%20ayudarme%20con%20una%20consulta?" target="_blank" rel="noopener noreferrer">
+                    Consultar por WhatsApp
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -502,9 +509,16 @@ const TDCSPage = () => {
               Ofrecemos evaluaciones personalizadas para determinar si la terapia tDCS 
               puede beneficiar su condición específica y desarrollar un plan de tratamiento adaptado.
             </p>
-            <Button size="lg" variant="secondary" asChild className="mb-4">
-              <a href="#contacto">Solicitar Información</a>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
+              <Button size="lg" variant="secondary" asChild>
+                <a href="#contacto">Solicitar Información</a>
+              </Button>
+              <Button size="lg" className="bg-green-500 hover:bg-green-600" asChild>
+                <a href="https://wa.me/595991800886?text=Hola,%20me%20gustaría%20solicitar%20información%20sobre%20el%20tratamiento%20tDCS.%20¿Podrían%20ayudarme%20con%20más%20detalles?" target="_blank" rel="noopener noreferrer">
+                  Solicitar por WhatsApp
+                </a>
+              </Button>
+            </div>
             <p className="text-primary-foreground/80 text-sm">
               NeuroInnova es pionero en Paraguay ofreciendo esta tecnología avanzada de neuromodulación.
             </p>

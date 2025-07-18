@@ -442,9 +442,16 @@ const AnsiedadPage = () => {
                 Cuestionario validado clínicamente que evalúa síntomas de ansiedad 
                 durante las últimas dos semanas.
               </p>
-              <Button size="lg" asChild>
-                <Link to="/autoevaluacion/ansiedad">Comenzar Evaluación</Link>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" asChild>
+                  <Link to="/autoevaluacion/ansiedad">Comenzar Evaluación</Link>
+                </Button>
+                <Button size="lg" className="bg-green-500 hover:bg-green-600" asChild>
+                  <a href="https://wa.me/595991800886?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20la%20evaluación%20de%20ansiedad.%20¿Podrían%20ayudarme%20con%20el%20proceso?" target="_blank" rel="noopener noreferrer">
+                    Consultar por WhatsApp
+                  </a>
+                </Button>
+              </div>
             </div>
             
             <p className="text-sm text-muted-foreground">
@@ -495,9 +502,16 @@ const AnsiedadPage = () => {
               <Button size="lg" variant="secondary" asChild>
                 <Link to="/agendar-consulta">Solicitar Consulta Especializada</Link>
               </Button>
-              <p className="text-primary-foreground/80 text-sm">
-                Evaluación profesional disponible | (+595) 21 605 535
-              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <p className="text-primary-foreground/80 text-sm">
+                  Evaluación profesional disponible | (+595) 21 605 535
+                </p>
+                <Button size="sm" className="bg-green-500 hover:bg-green-600" asChild>
+                  <a href="https://wa.me/595991800886?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20tratamientos%20para%20ansiedad.%20¿Podrían%20ayudarme%20con%20una%20consulta%20especializada?" target="_blank" rel="noopener noreferrer">
+                    Consultar por WhatsApp
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

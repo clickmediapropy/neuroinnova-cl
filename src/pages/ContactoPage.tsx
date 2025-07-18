@@ -14,9 +14,9 @@ const ContactoPage = () => {
       icon: MessageCircle,
       title: "WhatsApp",
       description: "Respuesta inmediata",
-      detail: "(+595) 981 175 253",
+      detail: "(+595) 991 800 886",
       action: "Enviar Mensaje",
-      href: "https://wa.me/595981175253",
+      href: "https://wa.me/595991800886?text=Hola,%20me%20gustaría%20obtener%20información%20sobre%20sus%20servicios%20y%20horarios%20de%20atención.",
       color: "bg-green-500 hover:bg-green-600"
     },
     {
@@ -208,7 +208,7 @@ const ContactoPage = () => {
                 <CardContent>
                   <div className="aspect-video w-full rounded-lg overflow-hidden">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.517542285252!2d-57.5877!3d-25.2637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDE1JzQ5LjMiUyA1N8KwMzUnMTUuNyJX!5e0!3m2!1ses!2spy!4v1234567890123"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.517542285252!2d-57.5877!3d-25.2637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da8b8b8b8b8b8%3A0x8b8b8b8b8b8b8b8b!2sDr.+Eduardo+L%C3%B3pez+Moreira+4612%2C+Asunci%C3%B3n%2C+Paraguay!5e0!3m2!1ses!2spy!4v1705584000000"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
@@ -221,7 +221,7 @@ const ContactoPage = () => {
                   <div className="mt-4 text-center">
                     <Button asChild variant="outline">
                       <a 
-                        href="https://maps.google.com/?q=Dr.+Eduardo+López+Moreira+4612,+Asunción,+Paraguay"
+                        href="https://maps.google.com/?q=Dr.+Eduardo+L%C3%B3pez+Moreira+4612+esq.+Legi%C3%B3n+Civil+Extranjera,+Asunci%C3%B3n,+Paraguay"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -291,10 +291,10 @@ const ContactoPage = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <Button size="lg" className="bg-green-500 hover:bg-green-600" asChild>
-                    <a href="https://wa.me/595981175253" target="_blank" rel="noopener noreferrer">
-                      <MessageCircle className="h-5 w-5 mr-2" />
-                      WhatsApp de Urgencias
-                    </a>
+                                         <a href="https://wa.me/595991800886?text=URGENCIA:%20Necesito%20ayuda%20inmediata%20con%20una%20situación%20de%20salud%20mental." target="_blank" rel="noopener noreferrer">
+                        <MessageCircle className="h-5 w-5 mr-2" />
+                        WhatsApp de Urgencias
+                      </a>
                   </Button>
                   <p className="text-sm text-muted-foreground">
                     Disponible 24/7 para situaciones que requieren atención inmediata

@@ -97,37 +97,25 @@ async function deleteCustomField(fieldId) {
   }
 }
 
-// Campos personalizados para el historial de evaluaciones
+// Campos personalizados para el formulario de contacto
 const customFields = [
   {
-    name: 'Historial de Evaluaciones',
-    dataType: 'LARGE_TEXT',
-    placeholder: 'Historial completo de todas las evaluaciones realizadas',
-    position: 500
-  },
-  {
-    name: 'Última Evaluación - Fecha',
-    dataType: 'DATE',
-    placeholder: 'Fecha de la última evaluación realizada',
-    position: 550
-  },
-  {
-    name: 'Última Evaluación - Tipo',
+    name: 'Servicio de Interés',
     dataType: 'TEXT',
-    placeholder: 'Tipo de la última evaluación (PHQ-9, GAD-7, etc.)',
-    position: 600
+    placeholder: 'Servicio de interés del formulario de contacto',
+    position: 750
   },
   {
-    name: 'Última Evaluación - Puntaje',
-    dataType: 'NUMERICAL',
-    placeholder: 'Puntaje obtenido en la última evaluación',
-    position: 650
-  },
-  {
-    name: 'Última Evaluación - Nivel',
+    name: 'Source Page',
     dataType: 'TEXT',
-    placeholder: 'Nivel de severidad de la última evaluación',
-    position: 700
+    placeholder: 'Página de origen del formulario',
+    position: 800
+  },
+  {
+    name: 'Form Type',
+    dataType: 'TEXT',
+    placeholder: 'Tipo de formulario (contacto, evaluación, etc.)',
+    position: 850
   }
 ];
 

@@ -202,7 +202,7 @@ const AgendarConsultaPage = () => {
                       Volver al Inicio
                     </Button>
                     <Button 
-                      onClick={() => window.location.href = 'https://wa.me/595981175253'}
+                      onClick={() => window.location.href = 'https://wa.me/595991800886?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada.%20¿Podrían%20ayudarme%20con%20el%20proceso%20de%20agendamiento?'}
                       className="bg-green-500 hover:bg-green-600"
                     >
                       Contactar por WhatsApp

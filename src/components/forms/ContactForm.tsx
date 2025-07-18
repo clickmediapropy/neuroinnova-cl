@@ -66,18 +66,63 @@ const ContactForm = ({
     setIsSubmitting(true);
     
     try {
-      // Add hidden fields for CRM integration
-      const submissionData = {
-        ...data,
-        sourcePage,
-        timestamp: new Date().toISOString(),
-        formType: "contact-form",
+      // Split nombre into first_name and last_name
+      const nameParts = data.nombre.trim().split(' ');
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || '';
+      
+      // Format phone number for GoHighLevel
+      const fullPhone = `${data.codigoPais}${data.telefono.replace(/\s/g, '')}`;
+      
+      // Map service to readable text
+      const getServiceText = (service: string) => {
+        switch (service) {
+          case 'emt-tms': return 'Estimulación Magnética Transcraneal (EMT/TMS)';
+          case 'tdcs': return 'Estimulación Transcraneal por Corriente Directa (tDCS)';
+          case 'consulta-psiquiatrica': return 'Consulta Psiquiátrica';
+          case 'otro': return 'Otro servicio';
+          default: return service;
+        }
       };
       
-      // In a real implementation, this would be a fetch to the GoHighLevel webhook
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
+      // Prepare data for GoHighLevel webhook with correct field mapping
+      const webhookData = {
+        // Standard fields from GoHighLevel form
+        "first_name": firstName,
+        "lastName": lastName,
+        "email": data.email,
+        "phone": fullPhone,
+        
+        // Custom fields mapped to GoHighLevel form fields
+        "GV3kzQc2ELggE7d2KLSk": data.mensaje || `Interés en: ${getServiceText(data.servicio)}`,
+        "eI3874kqFkPMClPIqy0G": "Website", // How they heard about us
+        "terms_and_conditions": "true", // Terms accepted
+        
+        // New custom fields created in GoHighLevel
+        "contact.servicio_de_inters": getServiceText(data.servicio),
+        "contact.source_page": sourcePage,
+        "contact.form_type": "contact-form",
+        
+        // Additional tracking fields
+        "timestamp": new Date().toISOString()
+      };
       
-      console.log("Form submission data:", submissionData);
+      console.log("Sending to GoHighLevel webhook:", webhookData);
+      
+      // Send to GoHighLevel webhook
+      const response = await fetch('https://api.leadconnectorhq.com/widget/form/xEWjSwHbRZICYI0jXXrW', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(webhookData),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      console.log("Webhook request sent successfully");
       
       toast({
         title: "Mensaje enviado con éxito",

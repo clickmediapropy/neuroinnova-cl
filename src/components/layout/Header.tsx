@@ -76,7 +76,7 @@ const Header = () => {
             <span>(+595) 21 605 535</span>
           </a>
           <Button size="sm" asChild>
-            <a href="https://wa.me/595981175253" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/595991800886?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada." target="_blank" rel="noopener noreferrer">
               Agende su Consulta
             </a>
           </Button>
@@ -85,7 +85,7 @@ const Header = () => {
         {/* Mobile contact info */}
         <div className="md:hidden ml-auto">
           <Button size="sm" asChild>
-            <a href="https://wa.me/595981175253" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/595991800886?text=Hola,%20necesito%20información%20sobre%20consultas%20médicas." target="_blank" rel="noopener noreferrer">
               Consulta
             </a>
           </Button>
@@ -130,7 +130,7 @@ const Header = () => {
                   <span>(+595) 21 605 535</span>
                 </a>
                 <Button size="sm" onClick={closeMenu} asChild>
-                  <a href="https://wa.me/595981175253" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/595991800886?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada." target="_blank" rel="noopener noreferrer">
                     Agende su Consulta
                   </a>
                 </Button>

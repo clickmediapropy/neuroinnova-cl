@@ -72,10 +72,10 @@ const Hero = () => {
                 className="text-2xl px-12 py-8 h-auto group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300"
                 asChild
               >
-                <a 
-                  href="https://wa.me/+595981175253" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
+                                  <a 
+                    href="https://wa.me/+595991800886?text=Hola,%20me%20interesa%20agendar%20una%20consulta%20inicial%20para%20evaluación%20de%20salud%20mental." 
+                    target="_blank" 
+                    rel="noopener noreferrer"
                   className="flex items-center font-semibold"
                 >
                   <MessageCircle className="mr-4 h-7 w-7" />
