@@ -37,10 +37,13 @@ const HomeHeader = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-card border-b border-primary/20 shadow-sm backdrop-blur-sm">
-      {/* Navigation Section - No Logo */}
-      <div className="container flex h-16 items-center justify-between">        
-        {/* Desktop navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
+      {/* Navigation Section with Logo */}
+      <div className="container flex h-16 items-center justify-between">
+        {/* Logo and Desktop navigation */}
+        <div className="flex items-center space-x-8">
+          <Logo className="h-16 w-auto" />
+          
+          <nav className="hidden md:flex items-center space-x-1">
           <NavLink to="/" end className={getNavLinkClass}>
             Inicio
           </NavLink>
@@ -56,7 +59,8 @@ const HomeHeader = () => {
           <NavLink to="/contacto" className={getNavLinkClass}>
             Contacto
           </NavLink>
-        </nav>
+          </nav>
+        </div>
 
         {/* Mobile menu button - positioned at start for mobile */}
         <div className="md:hidden">
