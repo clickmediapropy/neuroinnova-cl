@@ -1,42 +1,27 @@
 import { useState } from "react";
-import { Brain, Users, Monitor, TrendingUp, Clock, Languages, Award, ChevronRight } from "lucide-react";
+import { Brain, Users, Monitor, TrendingUp, Clock, Languages, Award, ChevronRight, HelpCircle, CheckCircle } from "lucide-react";
 import Layout from "@/components/layout/Layout";
-import ServiceDetail from "@/components/sections/ServiceDetail";
-import FAQ from "@/components/sections/FAQ";
-import ContactForm from "@/components/forms/ContactForm";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import ContactForm from "@/components/forms/ContactForm";
 import { useToast } from "@/hooks/use-toast";
 
 const RehaComPage = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const { toast } = useToast();
 
-  const faqs = [
-    {
-      question: "¿Qué es RehaCom?",
-      answer: "RehaCom es un software de rehabilitación cognitiva computarizada desarrollado por neuropsicólogos alemanes con más de 20 años de experiencia. Permite rehabilitar déficits cognitivos en atención, concentración, memoria y percepción mediante módulos de entrenamiento personalizados."
-    },
-    {
-      question: "¿Para qué condiciones está indicado RehaCom?",
-      answer: "RehaCom está indicado para pacientes con déficits cognitivos resultantes de: accidentes cerebrovasculares (ACV), traumatismo craneoencefálico, esclerosis múltiple, enfermedades neurodegenerativas, deterioro cognitivo leve/demencia, TDAH, esquizofrenia, depresión y trastornos por abuso de sustancias."
-    },
-    {
-      question: "¿Cómo funciona el entrenamiento con RehaCom?",
-      answer: "El software se adapta automáticamente al rendimiento del paciente, ajustando la dificultad de los ejercicios en tiempo real. Esto reduce la frustración y optimiza el aprendizaje. Cada sesión dura típicamente entre 30-45 minutos y se realizan 2-3 veces por semana."
-    },
-    {
-      question: "¿Cuáles son los módulos disponibles?",
-      answer: "RehaCom cuenta con más de 27 módulos en español que cubren: atención (dividida, sostenida, selectiva), memoria (de trabajo, verbal, visual), funciones ejecutivas, campo visual, percepción espacial, y habilidades visuomotoras, entre otros."
-    },
-    {
-      question: "¿Se puede usar RehaCom de forma remota?",
-      answer: "Sí, RehaCom ofrece licencias por internet que permiten al paciente continuar su entrenamiento desde casa. El terapeuta puede monitorear el progreso y ajustar el programa de forma remota, lo cual es ideal para mantener la continuidad del tratamiento."
-    },
-    {
-      question: "¿Cómo se integra RehaCom con otros tratamientos?",
-      answer: "RehaCom complementa perfectamente otros tratamientos como la estimulación transcraneal (tDCS y TMS). La combinación de neuromodulación con entrenamiento cognitivo potencia los resultados, especialmente en rehabilitación post-ACV y lesiones cerebrales."
+  const handleCTA = () => {
+    const element = document.getElementById('contacto');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      toast({
+        title: "Información de contacto",
+        description: "Por favor, complete el formulario al final de la página para más información.",
+      });
     }
-  ];
+  };
 
   const benefits = [
     {
@@ -84,18 +69,6 @@ const RehaComPage = () => {
     "Lesiones cerebrales adquiridas"
   ];
 
-  const handleCTA = () => {
-    const element = document.getElementById('contacto');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      toast({
-        title: "Información de contacto",
-        description: "Por favor, complete el formulario al final de la página para más información.",
-      });
-    }
-  };
-
   return (
     <Layout>
       {/* Hero Section */}
@@ -103,13 +76,9 @@ const RehaComPage = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <Button
-                variant="badge"
-                size="badge"
-                className="mb-8"
-              >
+              <Badge className="mb-8 bg-accent text-white text-sm py-1.5 px-4 rounded-full">
                 REHABILITACIÓN COGNITIVA AVANZADA
-              </Button>
+              </Badge>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground">
                 RehaCom: Rehabilitación Cognitiva Computarizada
               </h1>
@@ -122,9 +91,11 @@ const RehaComPage = () => {
                   Solicitar Evaluación
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
-                <Button size="lg" variant="outline" onClick={() => setIsExpanded(!isExpanded)}>
-                  <Award className="mr-2 h-5 w-5" />
-                  Ver Certificaciones
+                <Button size="lg" variant="outline" asChild>
+                  <a href="#como-funciona">
+                    <Award className="mr-2 h-5 w-5" />
+                    Cómo Funciona
+                  </a>
                 </Button>
               </div>
             </div>
@@ -152,26 +123,62 @@ const RehaComPage = () => {
         </div>
       </section>
 
-      {/* Service Details */}
-      <ServiceDetail
-        title="¿Qué es RehaCom?"
-        description="RehaCom es un sistema computarizado de rehabilitación cognitiva desarrollado en Alemania, diseñado específicamente para ayudar a pacientes con déficits cognitivos a recuperar y mejorar sus funciones mentales."
-        details={[
-          "Software desarrollado por neuropsicólogos con más de 20 años de experiencia clínica",
-          "Sistema adaptativo que ajusta automáticamente la dificultad según el rendimiento del paciente",
-          "Más de 27 módulos de entrenamiento disponibles en español",
-          "Validado científicamente y recomendado por sociedades profesionales alemanas",
-          "Permite rehabilitación presencial y remota con seguimiento profesional",
-          "Genera informes detallados del progreso para optimizar el tratamiento"
-        ]}
-        imageSrc="/images/rehacom-software.jpg"
-        imageAlt="Software RehaCom en acción"
-        isExpanded={isExpanded}
-        onToggle={() => setIsExpanded(!isExpanded)}
-      />
+      {/* What is RehaCom Section */}
+      <section className="py-16 bg-background">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center mb-8">
+              <Brain className="h-8 w-8 text-primary mr-4" />
+              <h2 className="text-3xl font-bold text-primary">¿Qué es RehaCom?</h2>
+            </div>
+            
+            <p className="mb-6 text-foreground">
+              RehaCom es un sistema computarizado de rehabilitación cognitiva desarrollado en Alemania, 
+              diseñado específicamente para ayudar a pacientes con déficits cognitivos a recuperar y 
+              mejorar sus funciones mentales.
+            </p>
+
+            <div className="bg-muted/50 rounded-lg p-6 mb-6">
+              <h3 className="font-semibold mb-4">Características Principales:</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                  <span>Software desarrollado por neuropsicólogos con más de 20 años de experiencia clínica</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                  <span>Sistema adaptativo que ajusta automáticamente la dificultad según el rendimiento del paciente</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                  <span>Más de 27 módulos de entrenamiento disponibles en español</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                  <span>Validado científicamente y recomendado por sociedades profesionales alemanas</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                  <span>Permite rehabilitación presencial y remota con seguimiento profesional</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
+                  <span>Genera informes detallados del progreso para optimizar el tratamiento</span>
+                </li>
+              </ul>
+            </div>
+
+            <p className="text-foreground">
+              El software se adapta al nivel de cada paciente, reduciendo la frustración y maximizando el 
+              potencial de recuperación. Cada módulo está diseñado para trabajar funciones cognitivas 
+              específicas, permitiendo un tratamiento integral y personalizado.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Benefits Grid */}
-      <section className="py-16 bg-secondary/10">
+      <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -181,11 +188,11 @@ const RehaComPage = () => {
               {benefits.map((benefit, index) => {
                 const Icon = benefit.icon;
                 return (
-                  <div key={index} className="bg-background rounded-lg p-6 shadow-lg border">
+                  <Card key={index} className="p-6">
                     <Icon className="h-12 w-12 text-primary mb-4" />
                     <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
                     <p className="text-muted-foreground">{benefit.description}</p>
-                  </div>
+                  </Card>
                 );
               })}
             </div>
@@ -194,7 +201,7 @@ const RehaComPage = () => {
       </section>
 
       {/* Conditions Section */}
-      <section className="py-16">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -202,7 +209,7 @@ const RehaComPage = () => {
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
               {conditions.map((condition, index) => (
-                <div key={index} className="flex items-center space-x-3 p-4 bg-secondary/10 rounded-lg">
+                <div key={index} className="flex items-center space-x-3 p-4 bg-muted/50 rounded-lg">
                   <Brain className="h-5 w-5 text-primary flex-shrink-0" />
                   <span className="text-foreground">{condition}</span>
                 </div>
@@ -223,7 +230,7 @@ const RehaComPage = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-16 bg-secondary/10">
+      <section className="py-16 bg-muted/30" id="como-funciona">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -273,10 +280,90 @@ const RehaComPage = () => {
       </section>
 
       {/* FAQ Section */}
-      <FAQ 
-        title="Preguntas Frecuentes sobre RehaCom" 
-        faqs={faqs}
-      />
+      <section className="py-16 bg-background">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center mb-8">
+              <HelpCircle className="h-8 w-8 text-primary mr-4" />
+              <h2 className="text-3xl font-bold text-primary">Preguntas Frecuentes sobre RehaCom</h2>
+            </div>
+            
+            <Accordion type="single" collapsible className="mb-8">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>¿Qué es RehaCom?</AccordionTrigger>
+                <AccordionContent>
+                  RehaCom es un software de rehabilitación cognitiva computarizada desarrollado por neuropsicólogos 
+                  alemanes con más de 20 años de experiencia. Permite rehabilitar déficits cognitivos en atención, 
+                  concentración, memoria y percepción mediante módulos de entrenamiento personalizados.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-2">
+                <AccordionTrigger>¿Para qué condiciones está indicado RehaCom?</AccordionTrigger>
+                <AccordionContent>
+                  RehaCom está indicado para pacientes con déficits cognitivos resultantes de: accidentes 
+                  cerebrovasculares (ACV), traumatismo craneoencefálico, esclerosis múltiple, enfermedades 
+                  neurodegenerativas, deterioro cognitivo leve/demencia, TDAH, esquizofrenia, depresión y 
+                  trastornos por abuso de sustancias.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-3">
+                <AccordionTrigger>¿Cómo funciona el entrenamiento con RehaCom?</AccordionTrigger>
+                <AccordionContent>
+                  El software se adapta automáticamente al rendimiento del paciente, ajustando la dificultad 
+                  de los ejercicios en tiempo real. Esto reduce la frustración y optimiza el aprendizaje. 
+                  Cada sesión dura típicamente entre 30-45 minutos y se realizan 2-3 veces por semana.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-4">
+                <AccordionTrigger>¿Cuáles son los módulos disponibles?</AccordionTrigger>
+                <AccordionContent>
+                  RehaCom cuenta con más de 27 módulos en español que cubren: atención (dividida, sostenida, 
+                  selectiva), memoria (de trabajo, verbal, visual), funciones ejecutivas, campo visual, 
+                  percepción espacial, y habilidades visuomotoras, entre otros.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-5">
+                <AccordionTrigger>¿Se puede usar RehaCom de forma remota?</AccordionTrigger>
+                <AccordionContent>
+                  Sí, RehaCom ofrece licencias por internet que permiten al paciente continuar su entrenamiento 
+                  desde casa. El terapeuta puede monitorear el progreso y ajustar el programa de forma remota, 
+                  lo cual es ideal para mantener la continuidad del tratamiento.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="item-6">
+                <AccordionTrigger>¿Cómo se integra RehaCom con otros tratamientos?</AccordionTrigger>
+                <AccordionContent>
+                  RehaCom complementa perfectamente otros tratamientos como la estimulación transcraneal 
+                  (tDCS y TMS). La combinación de neuromodulación con entrenamiento cognitivo potencia los 
+                  resultados, especialmente en rehabilitación post-ACV y lesiones cerebrales.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            
+            <div className="text-center">
+              <p className="mb-6 text-muted-foreground">
+                ¿Tiene más preguntas sobre RehaCom? Nuestro equipo está disponible para responder
+                todas sus consultas y ayudarle a determinar si este tratamiento es adecuado para usted.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button variant="outline" asChild>
+                  <a href="tel:+59521605535">Llámenos: (+595) 21 605 535</a>
+                </Button>
+                <Button className="bg-green-500 hover:bg-green-600" asChild>
+                  <a href="https://wa.me/595991800886?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20RehaCom.%20¿Podrían%20ayudarme%20con%20una%20consulta?" target="_blank" rel="noopener noreferrer">
+                    Consultar por WhatsApp
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="py-16 bg-primary text-primary-foreground">
