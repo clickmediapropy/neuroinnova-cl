@@ -8,6 +8,15 @@ import NotFound from "./pages/NotFound";
 import Autoevaluacion from "./pages/Autoevaluacion";
 import DepresionEvaluacion from "./pages/DepresionEvaluacion";
 import AnsiedadEvaluacion from "./pages/AnsiedadEvaluacion";
+import BipolarEvaluacion from "./pages/BipolarEvaluacion";
+import PTSDEvaluacion from "./pages/PTSDEvaluacion";
+import PsicosisEvaluacion from "./pages/PsicosisEvaluacion";
+import ADHDEvaluacion from "./pages/ADHDEvaluacion";
+import TrastornoAlimentarioEvaluacion from "./pages/TrastornoAlimentarioEvaluacion";
+import AdiccionEvaluacion from "./pages/AdiccionEvaluacion";
+import DepresionPostpartoEvaluacion from "./pages/DepresionPostpartoEvaluacion";
+import EvaluacionPadresEvaluacion from "./pages/EvaluacionPadresEvaluacion";
+import JovenesEvaluacion from "./pages/JovenesEvaluacion";
 import EMTTMSPage from "./pages/EMTTMSPage";
 import TDCSPage from "./pages/TDCSPage";
 import PsiquiatriaTradicionalPage from "./pages/PsiquiatriaTradicionalPage";
@@ -40,6 +49,15 @@ const App = () => (
           <Route path="/autoevaluacion" element={<Autoevaluacion />} />
           <Route path="/autoevaluacion/depresion" element={<DepresionEvaluacion />} />
           <Route path="/autoevaluacion/ansiedad" element={<AnsiedadEvaluacion />} />
+          <Route path="/autoevaluacion/bipolar" element={<BipolarEvaluacion />} />
+          <Route path="/autoevaluacion/ptsd" element={<PTSDEvaluacion />} />
+          <Route path="/autoevaluacion/psicosis" element={<PsicosisEvaluacion />} />
+          <Route path="/autoevaluacion/adhd" element={<ADHDEvaluacion />} />
+          <Route path="/autoevaluacion/trastorno-alimentario" element={<TrastornoAlimentarioEvaluacion />} />
+          <Route path="/autoevaluacion/adiccion" element={<AdiccionEvaluacion />} />
+          <Route path="/autoevaluacion/depresion-postparto" element={<DepresionPostpartoEvaluacion />} />
+          <Route path="/autoevaluacion/padres-hijos" element={<EvaluacionPadresEvaluacion />} />
+          <Route path="/autoevaluacion/jovenes" element={<JovenesEvaluacion />} />
           <Route path="/servicios/emt-tms" element={<EMTTMSPage />} />
           <Route path="/servicios/tdcs" element={<TDCSPage />} />
           <Route path="/servicios/psiquiatria-tradicional" element={<PsiquiatriaTradicionalPage />} />

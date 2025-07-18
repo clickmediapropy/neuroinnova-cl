@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 
-export type AssessmentType = "depression" | "anxiety" | "bipolar" | "ptsd" | "psychosis" | "adhd" | "eating-disorder" | "addiction";
+export type AssessmentType = "depression" | "anxiety" | "bipolar" | "ptsd" | "psychosis" | "adhd" | "eating-disorder" | "addiction" | "postpartum-depression" | "parent-child-mental-health" | "youth-mental-health";
 
 interface AssessmentResultsProps {
   type: AssessmentType;
@@ -79,6 +79,18 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       if (score <= 15) return { level: "Uso riesgoso", color: "warning" };
       if (score <= 25) return { level: "Uso problemático", color: "warning" };
       return { level: "Dependencia probable", color: "destructive" };
+    } else if (type === "postpartum-depression") {
+      if (score <= 9) return { level: "Síntomas mínimos", color: "success" };
+      if (score <= 12) return { level: "Síntomas leves", color: "warning" };
+      return { level: "Probable depresión postparto", color: "destructive" };
+    } else if (type === "parent-child-mental-health") {
+      if (score <= 14) return { level: "Funcionamiento normal", color: "success" };
+      if (score <= 24) return { level: "Atención recomendada", color: "warning" };
+      return { level: "Evaluación urgente requerida", color: "destructive" };
+    } else if (type === "youth-mental-health") {
+      if (score <= 18) return { level: "Síntomas mínimos", color: "success" };
+      if (score <= 30) return { level: "Síntomas moderados", color: "warning" };
+      return { level: "Síntomas significativos", color: "destructive" };
     }
     return { level: "No determinado", color: "muted" };
   };
@@ -190,6 +202,9 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
           case "adhd": return "ADHD/TDAH";
           case "eating-disorder": return "Trastorno Alimentario";
           case "addiction": return "Uso de Sustancias";
+          case "postpartum-depression": return "Depresión Postparto";
+          case "parent-child-mental-health": return "Salud Mental Infantil";
+          case "youth-mental-health": return "Salud Mental Juvenil";
           default: return "Evaluación Mental";
         }
       };
@@ -268,6 +283,9 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
               type === "adhd" ? "TDAH" :
               type === "eating-disorder" ? "trastorno alimentario" :
               type === "addiction" ? "uso de sustancias" :
+              type === "postpartum-depression" ? "depresión postparto" :
+              type === "parent-child-mental-health" ? "salud mental de su hijo/a" :
+              type === "youth-mental-health" ? "salud mental juvenil" :
               "salud mental"
             }.
           </p>
