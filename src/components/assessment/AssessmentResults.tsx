@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 
-export type AssessmentType = "depression" | "anxiety";
+export type AssessmentType = "depression" | "anxiety" | "bipolar" | "ptsd" | "psychosis" | "adhd" | "eating-disorder" | "addiction";
 
 interface AssessmentResultsProps {
   type: AssessmentType;
@@ -47,55 +47,105 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       if (score <= 14) return { level: "Moderada", color: "warning" };
       if (score <= 19) return { level: "Moderadamente severa", color: "warning" };
       return { level: "Severa", color: "destructive" };
-    } else {
-      // anxiety
+    } else if (type === "anxiety") {
       if (score <= 4) return { level: "Mínima", color: "success" };
       if (score <= 9) return { level: "Leve", color: "success" };
       if (score <= 14) return { level: "Moderada", color: "warning" };
       return { level: "Severa", color: "destructive" };
+    } else if (type === "bipolar") {
+      if (score <= 6) return { level: "Bajo riesgo", color: "success" };
+      if (score <= 9) return { level: "Riesgo moderado", color: "warning" };
+      return { level: "Alto riesgo", color: "destructive" };
+    } else if (type === "ptsd") {
+      if (score <= 30) return { level: "Síntomas mínimos", color: "success" };
+      if (score <= 44) return { level: "Síntomas leves", color: "success" };
+      if (score <= 59) return { level: "Síntomas moderados", color: "warning" };
+      return { level: "Síntomas severos", color: "destructive" };
+    } else if (type === "psychosis") {
+      if (score <= 5) return { level: "Bajo riesgo", color: "success" };
+      if (score <= 15) return { level: "Riesgo moderado", color: "warning" };
+      return { level: "Alto riesgo", color: "destructive" };
+    } else if (type === "adhd") {
+      if (score <= 24) return { level: "Síntomas mínimos", color: "success" };
+      if (score <= 39) return { level: "Síntomas leves", color: "success" };
+      if (score <= 54) return { level: "Síntomas moderados", color: "warning" };
+      return { level: "Síntomas severos", color: "destructive" };
+    } else if (type === "eating-disorder") {
+      if (score <= 5) return { level: "Bajo riesgo", color: "success" };
+      if (score <= 12) return { level: "Riesgo moderado", color: "warning" };
+      return { level: "Alto riesgo", color: "destructive" };
+    } else if (type === "addiction") {
+      if (score <= 7) return { level: "Uso bajo riesgo", color: "success" };
+      if (score <= 15) return { level: "Uso riesgoso", color: "warning" };
+      if (score <= 25) return { level: "Uso problemático", color: "warning" };
+      return { level: "Dependencia probable", color: "destructive" };
     }
+    return { level: "No determinado", color: "muted" };
   };
 
   const severityInfo = getSeverityLevel();
   
   const getMessage = () => {
-    if (score <= 4) {
-      return "Sus resultados indican niveles mínimos. Esto sugiere que actualmente no presenta síntomas significativos. Es recomendable mantener hábitos saludables y realizar evaluaciones periódicas.";
+    const severityInfo = getSeverityLevel();
+    
+    if (type === "bipolar" || type === "psychosis" || type === "eating-disorder") {
+      if (severityInfo.color === "success") {
+        return "Sus resultados indican un nivel bajo de riesgo. Mantenga hábitos saludables y consulte si tiene preocupaciones.";
+      }
+      if (severityInfo.color === "warning") {
+        return "Sus resultados sugieren la presencia de algunos síntomas. Recomendamos una evaluación profesional para mayor claridad.";
+      }
+      return "Sus resultados indican síntomas significativos. Es importante buscar ayuda profesional para una evaluación completa.";
     }
-    if (score <= 9) {
-      return "Sus resultados indican niveles leves. Aunque los síntomas son manejables, es importante monitorear su evolución y considerar una consulta preventiva.";
+    
+    if (type === "addiction") {
+      if (severityInfo.color === "success") {
+        return "Sus patrones de uso parecen estar dentro de rangos de bajo riesgo. Mantenga el consumo responsable.";
+      }
+      if (severityInfo.color === "warning") {
+        return "Sus resultados sugieren patrones de uso que podrían requerir atención. Considere una consulta profesional.";
+      }
+      return "Sus resultados indican patrones de uso problemáticos. Recomendamos buscar ayuda especializada en adicciones.";
     }
-    if (score <= 14) {
+    
+    // Default messages for other types
+    if (score <= 9 || severityInfo.color === "success") {
+      return "Sus resultados indican niveles mínimos o leves. Aunque los síntomas son manejables, es importante monitorear su evolución y considerar una consulta preventiva.";
+    }
+    if (score <= 14 || severityInfo.color === "warning") {
       return "Sus resultados indican niveles moderados. Recomendamos agendar una evaluación profesional para un diagnóstico adecuado y opciones de tratamiento.";
     }
     return "Sus resultados indican niveles significativos. Es importante buscar ayuda profesional pronto para recibir el apoyo y tratamiento adecuados.";
   };
 
   const getIcon = () => {
-    if (score <= 9) {
+    const severityInfo = getSeverityLevel();
+    if (severityInfo.color === "success") {
       return <CheckCircle className="h-12 w-12 text-success" />;
     }
-    if (score <= 14) {
+    if (severityInfo.color === "warning") {
       return <AlertTriangle className="h-12 w-12 text-warning" />;
     }
     return <AlertCircle className="h-12 w-12 text-destructive" />;
   };
 
   const getCTAText = () => {
-    if (score <= 9) {
+    const severityInfo = getSeverityLevel();
+    if (severityInfo.color === "success") {
       return "Agende una consulta preventiva";
     }
-    if (score <= 14) {
+    if (severityInfo.color === "warning") {
       return "Recomendamos agendar una evaluación profesional";
     }
     return "Es importante buscar ayuda profesional pronto";
   };
 
   const getCTAVariant = () => {
-    if (score <= 9) {
+    const severityInfo = getSeverityLevel();
+    if (severityInfo.color === "success") {
       return "default";
     }
-    if (score <= 14) {
+    if (severityInfo.color === "warning") {
       return "secondary";
     }
     return "destructive";
@@ -129,11 +179,27 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
     }
 
     try {
+      // Get assessment type name for webhook
+      const getAssessmentTypeName = () => {
+        switch (type) {
+          case "depression": return "PHQ-9 Depresión";
+          case "anxiety": return "GAD-7 Ansiedad";
+          case "bipolar": return "Trastorno Bipolar";
+          case "ptsd": return "PTSD Estrés Postraumático";
+          case "psychosis": return "Evaluación Psicosis";
+          case "adhd": return "ADHD/TDAH";
+          case "eating-disorder": return "Trastorno Alimentario";
+          case "addiction": return "Uso de Sustancias";
+          default: return "Evaluación Mental";
+        }
+      };
+
       // Prepare data for GoHighLevel webhook with exact parameters requested
       const webhookData = {
         "Puntaje Total": score,
-        "Nivel de Depresión": type === "depression" ? severityInfo.level : "",
-        "Nivel de Ansiedad": type === "anxiety" ? severityInfo.level : "",
+        "Nivel de Severidad": severityInfo.level,
+        "Tipo de Test": type,
+        "Categoria de Severidad": severityInfo.level,
         "Nombre": formData.nombre,
         "Apellido": formData.apellido,
         "Email": formData.email,
@@ -141,7 +207,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         "Edad": formData.edad,
         "Sexo": formData.sexo,
         "Ciudad": formData.ciudad,
-        "Tipo de Evaluacion": type === "depression" ? "PHQ-9 Depresión" : "GAD-7 Ansiedad"
+        "Tipo de Evaluacion": getAssessmentTypeName()
       };
 
       console.log("Sending to GoHighLevel webhook:", webhookData);
@@ -193,7 +259,17 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
             Resultados de su Evaluación
           </h1>
           <p className="text-muted-foreground mb-6">
-            Gracias por completar la evaluación de {type === "depression" ? "depresión" : "ansiedad"}.
+            Gracias por completar la evaluación de {
+              type === "depression" ? "depresión" :
+              type === "anxiety" ? "ansiedad" :
+              type === "bipolar" ? "trastorno bipolar" :
+              type === "ptsd" ? "estrés postraumático" :
+              type === "psychosis" ? "síntomas psicóticos" :
+              type === "adhd" ? "TDAH" :
+              type === "eating-disorder" ? "trastorno alimentario" :
+              type === "addiction" ? "uso de sustancias" :
+              "salud mental"
+            }.
           </p>
           
           <div className="bg-card rounded-lg border shadow-sm p-6 mb-8">
