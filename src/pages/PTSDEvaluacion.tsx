@@ -109,17 +109,17 @@ const PTSDEvaluacion = () => {
           </div>
         </div>
         
-        <h1 className="text-3xl font-bold text-center text-primary mb-2">
+        <h1 className="text-3xl font-bold text-center text-primary mb-2 text-protected">
           Autoevaluación de Estrés Postraumático
         </h1>
         
-        <p className="text-center text-muted-foreground mb-8">
+        <p className="text-center text-protected-muted mb-8">
           Este cuestionario evalúa síntomas relacionados con experiencias traumáticas.
           Responda según cómo se ha sentido durante el último mes.
         </p>
         
         <div className="mb-8">
-          <div className="flex justify-between text-sm text-muted-foreground mb-2">
+          <div className="flex justify-between text-sm text-protected-muted mb-2">
             <span>Pregunta {currentQuestion + 1} de {questions.length}</span>
             <span>{Math.round(progress)}%</span>
           </div>
@@ -127,10 +127,10 @@ const PTSDEvaluacion = () => {
         </div>
         
         <div className="bg-card rounded-lg border shadow-sm p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-6">
+          <h2 className="text-xl font-semibold mb-6 text-protected">
             En el último mes, ¿qué tan molesto ha sido por...
           </h2>
-          <h3 className="text-lg mb-6">
+          <h3 className="text-lg mb-6 text-protected">
             {questions[currentQuestion]}
           </h3>
           
@@ -161,7 +161,7 @@ const PTSDEvaluacion = () => {
             Anterior
           </Button>
           
-          <div className="text-sm text-muted-foreground flex items-center">
+          <div className="text-sm text-protected-muted flex items-center">
             Seleccione una respuesta para continuar automáticamente
           </div>
         </div>

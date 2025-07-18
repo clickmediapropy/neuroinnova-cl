@@ -129,112 +129,143 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
-  /* Hero Background Animations - Multi-Layer System */
-
-  /* Layer 1: Neural Network Base - ENHANCED VISIBILITY */
-  .neural-network-bg {
+  /* Hero Background Animations - SOLO PARA HERO PAGE */
+  #hero-neuromodulation .neural-network-bg {
     position: relative;
     background: 
-      radial-gradient(circle at 15% 25%, hsl(var(--primary) / 0.15) 0%, transparent 40%),
-      radial-gradient(circle at 85% 75%, hsl(var(--accent) / 0.12) 0%, transparent 35%),
-      radial-gradient(circle at 45% 10%, hsl(var(--primary) / 0.08) 0%, transparent 30%),
-      radial-gradient(circle at 65% 90%, hsl(var(--accent) / 0.10) 0%, transparent 25%);
+      radial-gradient(circle at 15% 25%, hsl(var(--primary) / 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, hsl(var(--accent) / 0.06) 0%, transparent 35%),
+      radial-gradient(circle at 45% 10%, hsl(var(--primary) / 0.04) 0%, transparent 30%),
+      radial-gradient(circle at 65% 90%, hsl(var(--accent) / 0.05) 0%, transparent 25%);
     animation: neural-base-flow 12s ease-in-out infinite;
+    transform: translateZ(0);
+    isolation: isolate;
   }
 
-  .neural-network-bg::before {
+  #hero-neuromodulation .neural-network-bg::before {
     content: '';
     position: absolute;
     inset: 0;
     background: 
-      linear-gradient(45deg, transparent 48%, hsl(var(--primary) / 0.06) 49%, hsl(var(--primary) / 0.06) 51%, transparent 52%),
-      linear-gradient(-45deg, transparent 48%, hsl(var(--accent) / 0.05) 49%, hsl(var(--accent) / 0.05) 51%, transparent 52%);
+      linear-gradient(45deg, transparent 48%, hsl(var(--primary) / 0.03) 49%, hsl(var(--primary) / 0.03) 51%, transparent 52%),
+      linear-gradient(-45deg, transparent 48%, hsl(var(--accent) / 0.025) 49%, hsl(var(--accent) / 0.025) 51%, transparent 52%);
     background-size: 120px 120px, 80px 80px;
     animation: neural-grid-shift 20s linear infinite;
-    opacity: 0.8;
+    opacity: 0.6;
+    transform: translateZ(0);
   }
 
-  .neural-network-bg::after {
+  #hero-neuromodulation .neural-network-bg::after {
     content: '';
     position: absolute;
     inset: 0;
     background: 
-      radial-gradient(circle at 25% 60%, hsl(var(--primary) / 0.1) 1px, transparent 2px),
-      radial-gradient(circle at 75% 40%, hsl(var(--accent) / 0.08) 1px, transparent 2px),
-      radial-gradient(circle at 50% 80%, hsl(var(--primary) / 0.06) 1px, transparent 2px);
+      radial-gradient(circle at 25% 60%, hsl(var(--primary) / 0.05) 1px, transparent 2px),
+      radial-gradient(circle at 75% 40%, hsl(var(--accent) / 0.04) 1px, transparent 2px),
+      radial-gradient(circle at 50% 80%, hsl(var(--primary) / 0.03) 1px, transparent 2px);
     background-size: 100px 100px, 150px 150px, 120px 120px;
     animation: neural-nodes-pulse 8s ease-in-out infinite;
+    transform: translateZ(0);
   }
 
-  /* Layer 2: Electromagnetic Field Visualization */
-  .electromagnetic-field {
+  /* Layer 2: Electromagnetic Field - SOLO HERO */
+  #hero-neuromodulation .electromagnetic-field {
     position: relative;
     width: 100%;
     height: 100%;
     background: 
-      radial-gradient(ellipse 400px 200px at 30% 40%, transparent 30%, hsl(var(--primary) / 0.05) 35%, hsl(var(--primary) / 0.08) 40%, transparent 60%),
-      radial-gradient(ellipse 350px 180px at 70% 60%, transparent 30%, hsl(var(--primary) / 0.04) 35%, hsl(var(--primary) / 0.06) 40%, transparent 60%);
+      radial-gradient(ellipse 400px 200px at 30% 40%, transparent 30%, hsl(var(--primary) / 0.025) 35%, hsl(var(--primary) / 0.04) 40%, transparent 60%),
+      radial-gradient(ellipse 350px 180px at 70% 60%, transparent 30%, hsl(var(--primary) / 0.02) 35%, hsl(var(--primary) / 0.03) 40%, transparent 60%);
     animation: electromagnetic-pulse 10s ease-in-out infinite;
-    mix-blend-mode: multiply;
+    transform: translateZ(0);
+    isolation: isolate;
   }
 
-  .electromagnetic-field::before {
+  #hero-neuromodulation .electromagnetic-field::before {
     content: '';
     position: absolute;
     inset: 0;
     background: 
-      conic-gradient(from 0deg at 30% 40%, transparent 0deg, hsl(var(--primary) / 0.03) 90deg, transparent 180deg, hsl(var(--primary) / 0.02) 270deg, transparent 360deg),
-      conic-gradient(from 180deg at 70% 60%, transparent 0deg, hsl(var(--primary) / 0.02) 90deg, transparent 180deg, hsl(var(--primary) / 0.03) 270deg, transparent 360deg);
+      conic-gradient(from 0deg at 30% 40%, transparent 0deg, hsl(var(--primary) / 0.015) 90deg, transparent 180deg, hsl(var(--primary) / 0.01) 270deg, transparent 360deg),
+      conic-gradient(from 180deg at 70% 60%, transparent 0deg, hsl(var(--primary) / 0.01) 90deg, transparent 180deg, hsl(var(--primary) / 0.015) 270deg, transparent 360deg);
     animation: electromagnetic-rotation 25s linear infinite;
-    opacity: 0.7;
+    opacity: 0.5;
+    transform: translateZ(0);
   }
 
-  /* Layer 3: Electrical Stimulation Patterns (tDCS) */
-  .electrical-stimulation {
+  /* Layer 3: Electrical Stimulation - SOLO HERO */
+  #hero-neuromodulation .electrical-stimulation {
     position: relative;
     width: 100%;
     height: 100%;
     background: 
-      linear-gradient(90deg, transparent 48%, hsl(var(--accent) / 0.03) 49%, hsl(var(--accent) / 0.05) 50%, hsl(var(--accent) / 0.03) 51%, transparent 52%),
-      linear-gradient(0deg, transparent 48%, hsl(var(--accent) / 0.02) 49%, hsl(var(--accent) / 0.04) 50%, hsl(var(--accent) / 0.02) 51%, transparent 52%);
+      linear-gradient(90deg, transparent 48%, hsl(var(--accent) / 0.015) 49%, hsl(var(--accent) / 0.025) 50%, hsl(var(--accent) / 0.015) 51%, transparent 52%),
+      linear-gradient(0deg, transparent 48%, hsl(var(--accent) / 0.01) 49%, hsl(var(--accent) / 0.02) 50%, hsl(var(--accent) / 0.01) 51%, transparent 52%);
     background-size: 200px 200px, 180px 180px;
     animation: electrical-grid-flow 15s ease-in-out infinite;
-    opacity: 0.5;
+    opacity: 0.4;
+    transform: translateZ(0);
+    isolation: isolate;
   }
 
-  .electrical-stimulation::after {
+  #hero-neuromodulation .electrical-stimulation::after {
     content: '';
     position: absolute;
     inset: 0;
     background: 
-      radial-gradient(circle at 20% 30%, hsl(var(--accent) / 0.08) 2px, transparent 3px),
-      radial-gradient(circle at 80% 70%, hsl(var(--accent) / 0.06) 2px, transparent 3px),
-      radial-gradient(circle at 60% 50%, hsl(var(--accent) / 0.04) 1px, transparent 2px);
+      radial-gradient(circle at 20% 30%, hsl(var(--accent) / 0.04) 2px, transparent 3px),
+      radial-gradient(circle at 80% 70%, hsl(var(--accent) / 0.03) 2px, transparent 3px),
+      radial-gradient(circle at 60% 50%, hsl(var(--accent) / 0.02) 1px, transparent 2px);
     background-size: 160px 160px, 140px 140px, 120px 120px;
     animation: electrical-nodes-pulse 6s ease-in-out infinite;
+    transform: translateZ(0);
   }
 
-  /* Layer 4: Particle Flow System */
-  .particle-flow {
+  /* Layer 4: Particle Flow - SOLO HERO */
+  #hero-neuromodulation .particle-flow {
     position: relative;
     width: 100%;
     height: 100%;
     background: 
-      radial-gradient(circle at 10% 20%, hsl(var(--primary) / 0.03) 1px, transparent 2px),
-      radial-gradient(circle at 90% 80%, hsl(var(--accent) / 0.04) 1px, transparent 2px),
-      radial-gradient(circle at 30% 70%, hsl(var(--primary) / 0.02) 1px, transparent 2px),
-      radial-gradient(circle at 70% 30%, hsl(var(--accent) / 0.03) 1px, transparent 2px),
-      radial-gradient(circle at 50% 10%, hsl(var(--primary) / 0.02) 1px, transparent 2px),
-      radial-gradient(circle at 20% 90%, hsl(var(--accent) / 0.02) 1px, transparent 2px);
+      radial-gradient(circle at 10% 20%, hsl(var(--primary) / 0.015) 1px, transparent 2px),
+      radial-gradient(circle at 90% 80%, hsl(var(--accent) / 0.02) 1px, transparent 2px),
+      radial-gradient(circle at 30% 70%, hsl(var(--primary) / 0.01) 1px, transparent 2px),
+      radial-gradient(circle at 70% 30%, hsl(var(--accent) / 0.015) 1px, transparent 2px),
+      radial-gradient(circle at 50% 10%, hsl(var(--primary) / 0.01) 1px, transparent 2px),
+      radial-gradient(circle at 20% 90%, hsl(var(--accent) / 0.01) 1px, transparent 2px);
     background-size: 180px 180px, 220px 220px, 160px 160px, 200px 200px, 140px 140px, 190px 190px;
     animation: particle-drift 18s linear infinite;
+    transform: translateZ(0);
+    isolation: isolate;
   }
 
-  /* Performance Optimizations */
-  .hero-animation-layer {
-    will-change: transform, opacity;
+  /* Protección de Texto para todas las páginas */
+  .text-protected {
+    position: relative;
+    z-index: 10;
+    color: hsl(var(--foreground));
     backface-visibility: hidden;
-    transform-style: preserve-3d;
+    perspective: 1000px;
+    contain: style layout;
+    isolation: isolate;
+  }
+
+  .text-protected-muted {
+    position: relative;
+    z-index: 10;
+    color: hsl(var(--muted-foreground)) !important;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    contain: style layout;
+    isolation: isolate;
+  }
+
+  /* Performance Optimizations - SOLO HERO */
+  #hero-neuromodulation .hero-animation-layer {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    isolation: isolate;
   }
 
   /* Neural Network Animation Background */
@@ -247,14 +278,16 @@ All colors MUST be HSL.
     animation: neural-flow 20s ease-in-out infinite;
   }
 
-  /* Medical Tech Grid Animation */
+  /* Medical Tech Grid Animation - SIMPLIFICADO */
   .medical-grid-bg {
     background-image: 
-      linear-gradient(90deg, hsl(var(--primary) / 0.03) 1px, transparent 1px),
-      linear-gradient(hsl(var(--primary) / 0.03) 1px, transparent 1px),
-      radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.05) 0%, transparent 70%);
+      linear-gradient(90deg, hsl(var(--primary) / 0.015) 1px, transparent 1px),
+      linear-gradient(hsl(var(--primary) / 0.015) 1px, transparent 1px),
+      radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.025) 0%, transparent 70%);
     background-size: 60px 60px, 60px 60px, 200px 200px;
     animation: grid-pulse 8s ease-in-out infinite;
+    transform: translateZ(0);
+    isolation: isolate;
   }
 
   /* Floating Particles for Service Cards */

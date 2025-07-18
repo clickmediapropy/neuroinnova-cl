@@ -166,17 +166,17 @@ const DepresionPostpartoEvaluacion = () => {
           </div>
         </div>
         
-        <h1 className="text-3xl font-bold text-center text-primary mb-2">
+        <h1 className="text-3xl font-bold text-center text-primary mb-2 text-protected">
           Evaluación de Depresión Postparto
         </h1>
         
-        <p className="text-center text-muted-foreground mb-8">
+        <p className="text-center text-protected-muted mb-8">
           Esta evaluación está diseñada para madres y padres nuevos o esperando bebé.
           Responda según cómo se ha sentido durante la última semana.
         </p>
         
         <div className="mb-8">
-          <div className="flex justify-between text-sm text-muted-foreground mb-2">
+          <div className="flex justify-between text-sm text-protected-muted mb-2">
             <span>Pregunta {currentQuestion + 1} de {questions.length}</span>
             <span>{Math.round(progress)}%</span>
           </div>
@@ -218,7 +218,7 @@ const DepresionPostpartoEvaluacion = () => {
             Anterior
           </Button>
           
-          <div className="text-sm text-muted-foreground flex items-center">
+          <div className="text-sm text-protected-muted flex items-center">
             Seleccione una respuesta para continuar automáticamente
           </div>
         </div>
