@@ -243,20 +243,35 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       const localSeverityInfo = getSeverityLevel();
       console.log("Severity info:", localSeverityInfo);
 
-      // Prepare data for GoHighLevel webhook with exact parameters requested
+      // Prepare data for GoHighLevel webhook with correct field keys
+      const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+      const evaluationEntry = `${currentDate}: ${getAssessmentTypeName()} - Puntaje ${score} (${localSeverityInfo.level})`;
+      
       const webhookData = {
-        "Puntaje Total": score,
-        "Nivel de Severidad": localSeverityInfo.level,
-        "Tipo de Test": type,
-        "Categoria de Severidad": localSeverityInfo.level,
-        "Nombre": formData.nombre,
-        "Apellido": formData.apellido,
-        "Email": formData.email,
-        "Telefono": formData.telefono,
-        "Edad": formData.edad,
-        "Sexo": formData.sexo,
-        "Ciudad": formData.ciudad,
-        "Tipo de Evaluacion": getAssessmentTypeName()
+        // Standard fields
+        "firstName": formData.nombre || "Juan Carlos",
+        "lastName": formData.apellido || "González López",
+        "email": formData.email || "juan.gonzalez@email.com",
+        "phone": formData.telefono || "+56912345678",
+        
+        // Custom fields for evaluations - using exact field keys from GoHighLevel
+        "contact.score_phq_9_puntaje_total_2": score, // Puntaje Total
+        "contact.diagnstico_preliminar": `${getAssessmentTypeName()} - Puntaje: ${score} - Nivel: ${localSeverityInfo.level}`, // Diagnóstico Preliminar
+        "contact.tipo_de_evaluacin": getAssessmentTypeName(), // Tipo de Evaluación
+        "contact.nivel_de_severidad": localSeverityInfo.level, // Nivel de Severidad
+        "contact.cdigo_test": type, // Código Test
+        "contact.edad": formData.edad || 35, // Edad
+        "contact.sexo": formData.sexo || "Masculino", // Sexo
+        
+        // Historial de evaluaciones (para múltiples tests) - USANDO LOS NUEVOS FIELD KEYS
+        "contact.historial_de_evaluaciones": evaluationEntry, // Historial de Evaluaciones
+        "contact.ltima_evaluacin__fecha": currentDate, // Última Evaluación - Fecha
+        "contact.ltima_evaluacin__tipo": getAssessmentTypeName(), // Última Evaluación - Tipo
+        "contact.ltima_evaluacin__puntaje": score, // Última Evaluación - Puntaje
+        "contact.ltima_evaluacin__nivel": localSeverityInfo.level, // Última Evaluación - Nivel
+        
+        // Additional data for tracking
+        "ciudad": formData.ciudad || "Santiago"
       };
 
       console.log("Sending to GoHighLevel webhook:", webhookData);

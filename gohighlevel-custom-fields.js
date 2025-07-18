@@ -1,24 +1,28 @@
 // GoHighLevel Custom Fields API Script
 // Reemplaza YOUR_API_KEY con tu API key válido
 
-const API_KEY = 'YOUR_API_KEY'; // Reemplazar con tu API key
+const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6IkxtazN5TUdzTE81TlViYUdsWmVCIiwidmVyc2lvbiI6MSwiaWF0IjoxNzUyODEwNTE0MDM3LCJzdWIiOiJwZm1UNDJFNU8xMVNFYno1M3VKcyJ9.Rurx7_B0q6_hs6RKR7CP_I1xSiyZpF-9veoVMAxJcjc'; // Tu JWT token
+const LOCATION_ID = 'Lmk3yMGsLO5NUbaGlZeB'; // Tu Location ID
 const BASE_URL = 'https://rest.gohighlevel.com/v1';
 
 // Headers comunes
 const headers = {
   'Authorization': `Bearer ${API_KEY}`,
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
+  'Version': '2021-07-28'
 };
 
 // 1. Obtener todos los Custom Fields
 async function getCustomFields() {
   try {
-    const response = await fetch(`${BASE_URL}/contacts/custom-fields`, {
+    const response = await fetch(`${BASE_URL}/custom-fields`, {
       method: 'GET',
       headers: headers
     });
     
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error response:', errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
@@ -33,13 +37,15 @@ async function getCustomFields() {
 // 2. Crear un nuevo Custom Field
 async function createCustomField(fieldData) {
   try {
-    const response = await fetch(`${BASE_URL}/contacts/custom-fields`, {
+    const response = await fetch(`${BASE_URL}/custom-fields`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(fieldData)
     });
     
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error response:', errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
@@ -54,7 +60,7 @@ async function createCustomField(fieldData) {
 // 3. Modificar un Custom Field existente
 async function updateCustomField(fieldId, fieldData) {
   try {
-    const response = await fetch(`${BASE_URL}/contacts/custom-fields/${fieldId}`, {
+    const response = await fetch(`${BASE_URL}/custom-fields/${fieldId}`, {
       method: 'PUT',
       headers: headers,
       body: JSON.stringify(fieldData)
@@ -75,7 +81,7 @@ async function updateCustomField(fieldId, fieldData) {
 // 4. Eliminar un Custom Field
 async function deleteCustomField(fieldId) {
   try {
-    const response = await fetch(`${BASE_URL}/contacts/custom-fields/${fieldId}`, {
+    const response = await fetch(`${BASE_URL}/custom-fields/${fieldId}`, {
       method: 'DELETE',
       headers: headers
     });
@@ -91,31 +97,95 @@ async function deleteCustomField(fieldId) {
   }
 }
 
-// Ejemplo de uso
+// Campos personalizados para el historial de evaluaciones
+const customFields = [
+  {
+    name: 'Historial de Evaluaciones',
+    dataType: 'LARGE_TEXT',
+    placeholder: 'Historial completo de todas las evaluaciones realizadas',
+    position: 500
+  },
+  {
+    name: 'Última Evaluación - Fecha',
+    dataType: 'DATE',
+    placeholder: 'Fecha de la última evaluación realizada',
+    position: 550
+  },
+  {
+    name: 'Última Evaluación - Tipo',
+    dataType: 'TEXT',
+    placeholder: 'Tipo de la última evaluación (PHQ-9, GAD-7, etc.)',
+    position: 600
+  },
+  {
+    name: 'Última Evaluación - Puntaje',
+    dataType: 'NUMERICAL',
+    placeholder: 'Puntaje obtenido en la última evaluación',
+    position: 650
+  },
+  {
+    name: 'Última Evaluación - Nivel',
+    dataType: 'TEXT',
+    placeholder: 'Nivel de severidad de la última evaluación',
+    position: 700
+  }
+];
+
+// Función principal para crear todos los campos
 async function main() {
   console.log('=== GoHighLevel Custom Fields API ===');
+  console.log(`Location ID: ${LOCATION_ID}`);
+  console.log(`API Key: ${API_KEY.substring(0, 20)}...`);
   
-  // 1. Obtener campos existentes
+  // 1. Primero obtener campos existentes para verificar
   console.log('\n1. Obteniendo Custom Fields existentes...');
   const existingFields = await getCustomFields();
   
-  // 2. Crear un nuevo campo (ejemplo)
-  console.log('\n2. Creando nuevo Custom Field...');
-  const newField = {
-    name: 'puntaje_total',
-    type: 'number',
-    required: false,
-    description: 'Puntaje total de la evaluación'
-  };
+  if (existingFields) {
+    console.log(`\nTotal de campos existentes: ${existingFields.length || 0}`);
+    if (existingFields.customFields && Array.isArray(existingFields.customFields)) {
+      console.log('Campos existentes:');
+      existingFields.customFields.forEach(field => {
+        console.log(`- ${field.name} (${field.dataType}) - Key: ${field.fieldKey}`);
+      });
+    }
+  }
   
-  // await createCustomField(newField);
+  // 2. Crear los nuevos campos
+  console.log('\n2. Creando nuevos Custom Fields...\n');
   
-  // 3. Modificar un campo existente (ejemplo)
-  // await updateCustomField('FIELD_ID', { name: 'nuevo_nombre' });
+  for (const field of customFields) {
+    console.log(`Creando campo: ${field.name} (${field.dataType})`);
+    console.log(`Placeholder: ${field.placeholder}`);
+    
+    try {
+      const result = await createCustomField(field);
+      if (result) {
+        console.log(`✓ Campo "${field.name}" creado exitosamente`);
+        console.log(`  Field Key: ${result.fieldKey || 'N/A'}\n`);
+      } else {
+        console.log(`✗ Error al crear campo "${field.name}"\n`);
+      }
+    } catch (error) {
+      console.error(`✗ Error al crear campo "${field.name}":`, error.message, '\n');
+    }
+    
+    // Pequeña pausa entre solicitudes para evitar rate limiting
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  }
   
-  // 4. Eliminar un campo (ejemplo)
-  // await deleteCustomField('FIELD_ID');
+  console.log('\n=== Proceso completado ===');
+  
+  // 3. Verificar campos creados
+  console.log('\n3. Verificando campos creados...');
+  const updatedFields = await getCustomFields();
+  
+  if (updatedFields && updatedFields.customFields) {
+    console.log(`\nTotal de campos después de la creación: ${updatedFields.customFields.length || 0}`);
+  }
 }
 
 // Ejecutar el script
-main(); 
+main().catch(error => {
+  console.error('Error en la ejecución:', error);
+}); 
