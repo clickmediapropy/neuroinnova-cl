@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/50 to-background pt-20 pb-16 md:pt-24 md:pb-20">
+    <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/60 via-background to-background pt-20 pb-16 md:pt-24 md:pb-20">
       <div className="container">
         <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center">
           <div className="flex flex-col space-y-6">
@@ -38,7 +38,7 @@ const Hero = () => {
           </div>
 
           <div className="md:ml-auto">
-            <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden shadow-lg border border-border/50">
+            <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden shadow-lg border border-primary/20 bg-card">
               {/* Placeholder for hero image - in production, replace with actual image */}
               <img 
                 src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80" 

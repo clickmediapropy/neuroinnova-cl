@@ -33,7 +33,7 @@ const ServiceCard = ({
   return (
     <div 
       className={cn(
-        "relative flex flex-col rounded-lg border border-border/60 bg-white shadow-sm transition-shadow hover:shadow overflow-hidden",
+        "relative flex flex-col rounded-lg border border-border/60 bg-card shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/30 overflow-hidden",
         isLarge && "md:col-span-2",
         className
       )}
@@ -57,7 +57,7 @@ const ServiceCard = ({
           badge && "pr-32" // Significantly increased padding - from pr-24 to pr-32 (8rem/128px)
         )}>
           <div className={cn(
-            "flex shrink-0 items-center justify-center rounded-full bg-primary-light",
+            "flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary-light to-accent/20",
             isLarge ? "h-14 w-14" : "h-12 w-12" 
           )}>
             {icon}

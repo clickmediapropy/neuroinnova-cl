@@ -22,7 +22,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background border-b border-border/40 shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-card border-b border-primary/20 shadow-sm backdrop-blur-sm">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center">
           <Link to="/" className="mr-6">
@@ -71,7 +71,7 @@ const Header = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-background border-b border-border/40 shadow-md z-50">
+        <div className="md:hidden absolute top-16 left-0 right-0 bg-card border-b border-primary/20 shadow-md z-50 backdrop-blur-sm">
           <div className="container py-4 space-y-4">
             <nav className="flex flex-col space-y-3">
               <NavLink to="/" end className={getNavLinkClass} onClick={closeMenu}>

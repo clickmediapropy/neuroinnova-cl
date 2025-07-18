@@ -12,10 +12,12 @@ const TrustAuthority = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white rounded-lg p-6 border border-border/60">
+          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md">
             <div className="flex items-center mb-4">
-              <Shield className="h-8 w-8 text-primary mr-3" />
-              <h3 className="text-xl font-semibold">Único Centro Especializado</h3>
+              <div className="p-2 rounded-full bg-gradient-to-br from-primary-light to-accent/20">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold ml-3">Único Centro Especializado</h3>
             </div>
             <p className="text-muted-foreground mb-4">
               Somos el primer y único centro en Paraguay que ofrece tratamientos de neuromodulación avanzada con EMT/TMS y tDCS, evitando a nuestros pacientes viajes costosos a Buenos Aires o São Paulo.
@@ -32,10 +34,12 @@ const TrustAuthority = () => {
             </ul>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-border/60">
+          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md">
             <div className="flex items-center mb-4">
-              <Award className="h-8 w-8 text-primary mr-3" />
-              <h3 className="text-xl font-semibold">Tecnología Certificada</h3>
+              <div className="p-2 rounded-full bg-gradient-to-br from-primary-light to-accent/20">
+                <Award className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold ml-3">Tecnología Certificada</h3>
             </div>
             <p className="text-muted-foreground mb-4">
               Utilizamos equipos y protocolos aprobados por organismos reguladores internacionales, garantizando la seguridad y eficacia de nuestros tratamientos.
@@ -52,10 +56,12 @@ const TrustAuthority = () => {
             </ul>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-border/60">
+          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md">
             <div className="flex items-center mb-4">
-              <Microscope className="h-8 w-8 text-primary mr-3" />
-              <h3 className="text-xl font-semibold">Resultados Clínicos Comprobados</h3>
+              <div className="p-2 rounded-full bg-gradient-to-br from-primary-light to-accent/20">
+                <Microscope className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold ml-3">Resultados Clínicos Comprobados</h3>
             </div>
             <p className="text-muted-foreground mb-4">
               Nuestros tratamientos han demostrado eficacia significativa en condiciones resistentes a terapias convencionales, ofreciendo esperanza donde otras opciones han fallado.
@@ -72,7 +78,7 @@ const TrustAuthority = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-border/60">
+          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md">
             <div className="flex items-center mb-4">
               <div className="w-16 h-16 rounded-full overflow-hidden bg-primary-light flex-shrink-0">
                 <img 

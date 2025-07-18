@@ -8,11 +8,11 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Clean white background for medical aesthetic */
-    --background: 0 0% 100%;
+    /* Subtle gradient background for warmth */
+    --background: 210 40% 98%;
     --foreground: 222 20% 18%;
 
-    /* Medical card styling */
+    /* Medical card styling with subtle tint */
     --card: 0 0% 100%;
     --card-foreground: 222 20% 18%;
 
@@ -28,13 +28,13 @@ All colors MUST be HSL.
     --primary-light: 210 51% 95%;
     --primary-light-foreground: 210 51% 36%;
 
-    /* Secondary: Light clinical gray */
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 20% 18%;
+    /* Secondary: Soft primary tint */
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 210 51% 36%;
 
-    /* Muted elements */
-    --muted: 220 20% 94%;
-    --muted-foreground: 215 25% 40%;
+    /* Muted elements with more character */
+    --muted: 210 20% 92%;
+    --muted-foreground: 215 25% 45%;
 
     /* Accent: Subtle highlight - NeuroInnova secondary color #7CB342 */
     --accent: 90 48% 48%;
@@ -121,5 +121,9 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background-image: 
+      radial-gradient(circle at 20% 50%, hsl(var(--primary) / 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(var(--accent) / 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, hsl(var(--primary) / 0.02) 0%, transparent 50%);
   }
 }
