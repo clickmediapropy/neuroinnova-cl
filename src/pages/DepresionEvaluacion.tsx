@@ -90,7 +90,7 @@ const DepresionEvaluacion = () => {
   
   return (
     <Layout>
-      <div className="container py-12 max-w-3xl medical-grid-bg">
+      <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center mb-8">
           <div className="w-16 h-16 rounded-full bg-primary-light flex items-center justify-center mb-4">
             <Brain className="h-8 w-8 text-primary" />
