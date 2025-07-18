@@ -195,6 +195,15 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
     
     setIsSubmitting(true);
 
+    // Add early error catching
+    window.addEventListener('error', (event) => {
+      console.error("Global error caught:", event.error);
+    });
+
+    window.addEventListener('unhandledrejection', (event) => {
+      console.error("Unhandled promise rejection:", event.reason);
+    });
+
     // Validate required fields
     if (!formData.nombre || !formData.apellido || !formData.email || !formData.telefono) {
       console.log("Validation failed - missing required fields");
