@@ -187,6 +187,56 @@ All colors MUST be HSL.
     animation: assessment-flow 10s ease-in-out infinite;
   }
 
+  /* EMT/TMS Hero Animated Background */
+  .emt-hero-bg {
+    background: 
+      radial-gradient(ellipse at 20% 30%, hsl(var(--primary) / 0.15) 0%, transparent 70%),
+      radial-gradient(ellipse at 80% 70%, hsl(var(--accent) / 0.12) 0%, transparent 70%),
+      linear-gradient(135deg, hsl(var(--primary-light)) 0%, hsl(var(--primary-light) / 0.8) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .emt-hero-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      /* Magnetic field lines */
+      linear-gradient(45deg, transparent 40%, hsl(var(--primary) / 0.1) 50%, transparent 60%),
+      linear-gradient(-45deg, transparent 40%, hsl(var(--accent) / 0.08) 50%, transparent 60%),
+      /* Electric particles */
+      radial-gradient(circle at 10% 20%, hsl(var(--primary) / 0.6) 1px, transparent 1px),
+      radial-gradient(circle at 30% 80%, hsl(var(--accent) / 0.5) 1px, transparent 1px),
+      radial-gradient(circle at 70% 30%, hsl(var(--primary) / 0.4) 1px, transparent 1px),
+      radial-gradient(circle at 90% 70%, hsl(var(--accent) / 0.6) 1px, transparent 1px);
+    background-size: 200px 200px, 250px 250px, 60px 60px, 80px 80px, 100px 100px, 120px 120px;
+    animation: magneticField 25s linear infinite;
+    pointer-events: none;
+  }
+  
+  .emt-hero-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      /* Lightning bolts effect */
+      linear-gradient(90deg, transparent 45%, hsl(var(--accent) / 0.2) 47%, hsl(var(--primary) / 0.3) 50%, hsl(var(--accent) / 0.2) 53%, transparent 55%),
+      linear-gradient(180deg, transparent 30%, hsl(var(--primary) / 0.15) 32%, transparent 34%),
+      /* Energy grains */
+      radial-gradient(circle at 25% 25%, hsl(var(--accent) / 0.8) 0.5px, transparent 0.5px),
+      radial-gradient(circle at 75% 75%, hsl(var(--primary) / 0.7) 0.5px, transparent 0.5px);
+    background-size: 300px 100px, 150px 300px, 40px 40px, 60px 60px;
+    animation: electricBolts 15s ease-in-out infinite reverse;
+    pointer-events: none;
+  }
+
   /* Contact Form Tech Background */
   .contact-tech-bg {
     background-image: 
@@ -255,4 +305,42 @@ All colors MUST be HSL.
 @keyframes tech-slide {
   0% { background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px; }
   100% { background-position: 40px 40px, -40px 40px, 40px -40px, -40px -40px; }
+}
+
+@keyframes magneticField {
+  0% { 
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  25% { 
+    transform: translateX(20px) translateY(-10px) rotate(90deg);
+    opacity: 1;
+  }
+  50% { 
+    transform: translateX(0) translateY(-20px) rotate(180deg);
+    opacity: 0.9;
+  }
+  75% { 
+    transform: translateX(-20px) translateY(-10px) rotate(270deg);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateX(0) translateY(0) rotate(360deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes electricBolts {
+  0%, 100% {
+    transform: translateX(0) scale(1);
+    opacity: 0.6;
+  }
+  33% {
+    transform: translateX(30px) scale(1.1);
+    opacity: 0.9;
+  }
+  66% {
+    transform: translateX(-20px) scale(0.9);
+    opacity: 0.7;
+  }
 }

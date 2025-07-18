@@ -14,7 +14,7 @@ const EMTTMSPage = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="bg-primary-light py-16 md:py-24">
+      <section className="emt-hero-bg py-16 md:py-24">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
             <Badge className="mb-4 bg-accent text-white text-sm py-1.5 px-4 rounded-full">
