@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import ContactForm from "@/components/forms/ContactForm";
+import tdcsImage from "@/assets/tdcs-treatment-professional.jpg";
 
 const TDCSPage = () => {
   return (
@@ -67,12 +68,12 @@ const TDCSPage = () => {
               </Card>
             </div>
             
-            <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-8">
-              <div className="text-center p-8">
-                <p className="text-muted-foreground">
-                  [Imagen ilustrativa del equipo tDCS y su aplicación]
-                </p>
-              </div>
+            <div className="aspect-video bg-muted rounded-lg overflow-hidden mb-8">
+              <img 
+                src={tdcsImage} 
+                alt="Equipo tDCS en aplicación clínica - Estimulación Transcraneal por Corriente Directa"
+                className="w-full h-full object-cover"
+              />
             </div>
             
             <p className="text-foreground">
