@@ -110,7 +110,7 @@ const ContactForm = ({
       console.log("Sending to GoHighLevel webhook:", webhookData);
       
       // Send to GoHighLevel webhook
-      const response = await fetch('https://api.leadconnectorhq.com/widget/form/xEWjSwHbRZICYI0jXXrW', {
+      const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/2EyoyOYn1MsthDEpkq7Z', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
