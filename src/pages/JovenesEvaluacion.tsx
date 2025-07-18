@@ -99,24 +99,24 @@ const JovenesEvaluacion = () => {
   
   return (
     <Layout>
-      <div className="container py-12 max-w-3xl medical-grid-bg">
+      <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center mb-8">
           <div className="w-16 h-16 rounded-full bg-primary-light flex items-center justify-center mb-4">
             <Sparkles className="h-8 w-8 text-primary" />
           </div>
         </div>
         
-        <h1 className="text-3xl font-bold text-center text-primary mb-2">
+        <h1 className="text-3xl font-bold text-center text-primary mb-2 text-protected">
           Evaluación de Salud Mental para Jóvenes
         </h1>
         
-        <p className="text-center text-muted-foreground mb-8">
+        <p className="text-center text-protected-muted mb-8">
           Esta evaluación está diseñada para jóvenes de 11 a 17 años que están preocupados 
           por sus emociones, atención o comportamientos.
         </p>
         
         <div className="mb-8">
-          <div className="flex justify-between text-sm text-muted-foreground mb-2">
+          <div className="flex justify-between text-sm text-protected-muted mb-2">
             <span>Pregunta {currentQuestion + 1} de {questions.length}</span>
             <span>{Math.round(progress)}%</span>
           </div>
@@ -155,7 +155,7 @@ const JovenesEvaluacion = () => {
             Anterior
           </Button>
           
-          <div className="text-sm text-muted-foreground flex items-center">
+          <div className="text-sm text-protected-muted flex items-center">
             Seleccione una respuesta para continuar automáticamente
           </div>
         </div>
