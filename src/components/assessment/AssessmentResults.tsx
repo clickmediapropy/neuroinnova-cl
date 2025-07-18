@@ -239,15 +239,15 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         }
       };
 
-      const severityInfo = getSeverityLevel();
-      console.log("Severity info:", severityInfo);
+      const localSeverityInfo = getSeverityLevel();
+      console.log("Severity info:", localSeverityInfo);
 
       // Prepare data for GoHighLevel webhook with exact parameters requested
       const webhookData = {
         "Puntaje Total": score,
-        "Nivel de Severidad": severityInfo.level,
+        "Nivel de Severidad": localSeverityInfo.level,
         "Tipo de Test": type,
-        "Categoria de Severidad": severityInfo.level,
+        "Categoria de Severidad": localSeverityInfo.level,
         "Nombre": formData.nombre,
         "Apellido": formData.apellido,
         "Email": formData.email,
