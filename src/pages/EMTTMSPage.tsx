@@ -67,12 +67,179 @@ const EMTTMSPage = () => {
               </Card>
             </div>
             
-            <div className="rounded-lg overflow-hidden mb-8">
-              <img 
-                src="/lovable-uploads/905d14d2-51b6-46c7-9f38-29c7f68f5dc8.png" 
-                alt="Campo magnético para sanar - Estimulación Magnética Transcraneal EMT/TMS"
-                className="w-full h-auto object-cover"
-              />
+            {/* EMT/TMS Infographic Section */}
+            <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl p-8 mb-8 border border-primary/10">
+              {/* Header */}
+              <div className="text-center mb-8">
+                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-4">
+                  Campo Magnético para Sanar
+                </h3>
+                <p className="text-lg text-muted-foreground">
+                  Estimulación Magnética Transcraneal EMT/TMS
+                </p>
+              </div>
+
+              {/* Treatment Setup Visualization */}
+              <div className="grid lg:grid-cols-2 gap-8 mb-8">
+                {/* Left Column - Treatment Process */}
+                <div className="space-y-6">
+                  <div className="bg-white/50 rounded-lg p-6 border border-primary/20">
+                    <h4 className="text-xl font-semibold text-primary mb-4">
+                      Configuración del Tratamiento
+                    </h4>
+                    
+                    <div className="space-y-4">
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 bg-accent rounded-full mr-3"></div>
+                        <span className="text-sm font-medium">Duración: aproximadamente 40 minutos por sesión</span>
+                      </div>
+                      
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 bg-success rounded-full mr-3"></div>
+                        <span className="text-sm font-medium">Sin dolor, sin anestesia, terapia ambulatoria</span>
+                      </div>
+                      
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 bg-primary rounded-full mr-3"></div>
+                        <span className="text-sm font-medium">Entretenimiento: TV o música durante la sesión</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 p-4 bg-primary/5 rounded-lg">
+                      <h5 className="font-semibold text-primary mb-2">Componentes del Equipo:</h5>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div>• Bobina de estimulación</div>
+                        <div>• Soporte ajustable</div>
+                        <div>• Estimulador principal</div>
+                        <div>• Interruptor de pie</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-warning/10 border border-warning/20 rounded-lg p-4">
+                    <h5 className="font-semibold text-warning mb-2">Medidas Previas al Tratamiento:</h5>
+                    <p className="text-sm text-muted-foreground">
+                      Evaluación médica completa y determinación de la zona cerebral específica a estimular.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Right Column - How It Works */}
+                <div className="space-y-6">
+                  <div className="bg-white/50 rounded-lg p-6 border border-primary/20">
+                    <h4 className="text-xl font-semibold text-primary mb-4">
+                      ¿Cómo Opera?
+                    </h4>
+                    
+                    <div className="space-y-6">
+                      <div className="flex items-start">
+                        <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 flex-shrink-0 mt-1">
+                          1
+                        </div>
+                        <div>
+                          <h5 className="font-semibold mb-2">Comunicación Celular</h5>
+                          <p className="text-sm text-muted-foreground">
+                            Las células cerebrales se comunican a través de la liberación de neurotransmisores
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start">
+                        <div className="bg-accent text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 flex-shrink-0 mt-1">
+                          2
+                        </div>
+                        <div>
+                          <h5 className="font-semibold mb-2">Campo Magnético</h5>
+                          <p className="text-sm text-muted-foreground">
+                            Una bobina especial genera un campo magnético en la región cerebral deseada
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start">
+                        <div className="bg-success text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 flex-shrink-0 mt-1">
+                          3
+                        </div>
+                        <div>
+                          <h5 className="font-semibold mb-2">Estimulación Neural</h5>
+                          <p className="text-sm text-muted-foreground">
+                            Las células nerviosas son estimuladas, regresando la actividad cerebral a niveles normales
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
+                    <h5 className="font-semibold text-destructive mb-2">Contraindicaciones:</h5>
+                    <p className="text-sm text-muted-foreground">
+                      Pacientes con implantes metálicos en la cabeza, marcapasos, o historial de epilepsia requieren evaluación especial.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Brain Activity Visualization */}
+              <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg p-6 border border-primary/20">
+                <h4 className="text-xl font-semibold text-primary mb-4 text-center">
+                  Visualización de la Actividad Cerebral
+                </h4>
+                
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <div className="w-20 h-20 bg-gradient-to-br from-destructive/20 to-destructive/40 rounded-full mx-auto mb-3 flex items-center justify-center">
+                      <BrainCircuit className="h-10 w-10 text-destructive" />
+                    </div>
+                    <h5 className="font-semibold mb-2">Antes del Tratamiento</h5>
+                    <p className="text-sm text-muted-foreground">
+                      Actividad neural alterada en regiones específicas
+                    </p>
+                  </div>
+
+                  <div className="text-center">
+                    <div className="w-20 h-20 bg-gradient-to-br from-warning/20 to-warning/40 rounded-full mx-auto mb-3 flex items-center justify-center">
+                      <div className="w-8 h-8 bg-warning rounded-full animate-pulse"></div>
+                    </div>
+                    <h5 className="font-semibold mb-2">Durante EMT/TMS</h5>
+                    <p className="text-sm text-muted-foreground">
+                      Estimulación magnética dirigida y precisa
+                    </p>
+                  </div>
+
+                  <div className="text-center">
+                    <div className="w-20 h-20 bg-gradient-to-br from-success/20 to-success/40 rounded-full mx-auto mb-3 flex items-center justify-center">
+                      <CheckCircle className="h-10 w-10 text-success" />
+                    </div>
+                    <h5 className="font-semibold mb-2">Después del Tratamiento</h5>
+                    <p className="text-sm text-muted-foreground">
+                      Actividad cerebral normalizada y equilibrada
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Who Cannot Receive This Therapy */}
+              <div className="mt-6 bg-muted/50 rounded-lg p-6 border border-muted">
+                <h5 className="font-semibold text-center mb-4">¿Quién NO puede recibir esta terapia?</h5>
+                <div className="grid md:grid-cols-2 gap-4 text-sm">
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-destructive rounded-full mr-3"></div>
+                    <span>Pacientes con marcapasos cardíaco</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-destructive rounded-full mr-3"></div>
+                    <span>Implantes metálicos en la cabeza</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-destructive rounded-full mr-3"></div>
+                    <span>Historial de convulsiones no controladas</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-destructive rounded-full mr-3"></div>
+                    <span>Embarazo (por precaución)</span>
+                  </div>
+                </div>
+              </div>
             </div>
             
             <p className="text-foreground">
