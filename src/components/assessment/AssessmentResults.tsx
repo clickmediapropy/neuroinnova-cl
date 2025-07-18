@@ -210,6 +210,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
     console.log("Validation passed, proceeding with webhook call");
 
     try {
+      console.log("=== TRY BLOCK STARTED ===");
+      
       // Get assessment type name for webhook
       const getAssessmentTypeName = () => {
         switch (type) {
@@ -249,16 +251,32 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       console.log("Request body:", JSON.stringify(webhookData));
       
       // Send to GoHighLevel webhook
-      const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        mode: 'no-cors', // Required for external webhooks
-        body: JSON.stringify(webhookData),
-      });
+      console.log("About to call fetch...");
+      console.log("Is fetch available?", typeof fetch);
+      console.log("Window object:", typeof window);
+      
+      try {
+        const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          mode: 'no-cors', // Required for external webhooks
+          body: JSON.stringify(webhookData),
+        });
 
-      console.log("Webhook request sent successfully");
+        console.log("Fetch completed, response:", response);
+        console.log("Response type:", response.type);
+        console.log("Response status:", response.status);
+        console.log("Response ok:", response.ok);
+        
+        console.log("Webhook request sent successfully");
+      } catch (fetchError) {
+        console.error("Fetch error occurred:", fetchError);
+        console.error("Fetch error message:", fetchError.message);
+        console.error("Fetch error stack:", fetchError.stack);
+        throw fetchError;
+      }
       // Since we're using no-cors, we can't check response status
       // but the request will be sent
       
