@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Brain, ChevronLeft, ChevronRight } from "lucide-react";
 import Layout from "@/components/layout/Layout";
-import ContactForm from "@/components/forms/ContactForm";
+import AssessmentResults from "@/components/assessment/AssessmentResults";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -80,39 +80,11 @@ const DepresionEvaluacion = () => {
   
   if (isComplete) {
     return (
-      <Layout>
-        <div className="container py-12 max-w-3xl">
-          <div className="flex items-center justify-center mb-8">
-            <div className="w-16 h-16 rounded-full bg-primary-light flex items-center justify-center mb-4">
-              <Brain className="h-8 w-8 text-primary" />
-            </div>
-          </div>
-          
-          <h1 className="text-3xl font-bold text-center text-primary mb-2">
-            Evaluación Completada
-          </h1>
-          
-          <p className="text-center text-muted-foreground mb-8">
-            Gracias por completar la autoevaluación. Complete el formulario a continuación 
-            y le enviaremos sus resultados por WhatsApp junto con información sobre nuestros tratamientos.
-          </p>
-          
-          <div className="bg-card rounded-lg border shadow-sm p-6">
-            <h2 className="text-xl font-semibold mb-2">Recibir Resultados por WhatsApp</h2>
-            <p className="text-muted-foreground mb-6">Complete sus datos para recibir los resultados de su evaluación</p>
-            <ContactForm 
-              defaultService="Consulta Psiquiátrica"
-              sourcePage="depresion-evaluacion"
-            />
-          </div>
-          
-          <div className="text-center mt-6">
-            <Button variant="outline" onClick={handleReset}>
-              Realizar Nueva Evaluación
-            </Button>
-          </div>
-        </div>
-      </Layout>
+      <AssessmentResults 
+        type="depression"
+        score={score}
+        onReset={handleReset}
+      />
     );
   }
   

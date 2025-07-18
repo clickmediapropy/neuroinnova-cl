@@ -18,11 +18,12 @@ interface AssessmentResultsProps {
 
 interface LeadFormData {
   nombre: string;
+  apellido: string;
   email: string;
-  celular: string;
-  edad: string;
+  telefono: string;
+  edad: number | null;
+  sexo: string | null;
   ciudad: string;
-  sexo: string;
 }
 
 const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => {
@@ -30,11 +31,12 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
   const { toast } = useToast();
   const [formData, setFormData] = useState<LeadFormData>({
     nombre: "",
+    apellido: "",
     email: "",
-    celular: "",
-    edad: "",
-    ciudad: "",
-    sexo: ""
+    telefono: "",
+    edad: null,
+    sexo: null,
+    ciudad: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -105,7 +107,10 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ 
+      ...prev, 
+      [name]: name === 'edad' ? (value ? parseInt(value) : null) : value 
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -113,7 +118,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
     setIsSubmitting(true);
 
     // Validate required fields
-    if (!formData.nombre || !formData.email || !formData.celular) {
+    if (!formData.nombre || !formData.apellido || !formData.email || !formData.telefono) {
       toast({
         title: "Error",
         description: "Por favor complete todos los campos requeridos.",
@@ -124,34 +129,35 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
     }
 
     try {
-      // Prepare data for webhook
+      // Prepare data for GoHighLevel webhook with exact parameters requested
       const webhookData = {
-        ...formData,
-        test_type: type === "depression" ? "PHQ-9" : "GAD-7",
-        score,
-        severity: severityInfo.level,
-        timestamp: new Date().toISOString(),
-        source: window.location.href
+        "Puntaje Total": score,
+        "Nivel de Depresión": type === "depression" ? severityInfo.level : "",
+        "Nivel de Ansiedad": type === "anxiety" ? severityInfo.level : "",
+        "Nombre": formData.nombre,
+        "Apellido": formData.apellido,
+        "Email": formData.email,
+        "Telefono": formData.telefono,
+        "Edad": formData.edad,
+        "Sexo": formData.sexo,
+        "Ciudad": formData.ciudad,
+        "Tipo de Evaluacion": type === "depression" ? "PHQ-9 Depresión" : "GAD-7 Ansiedad"
       };
 
-      // This would normally go to a GoHighLevel webhook
-      // For now, we'll just log it and show a success message
-      console.log("Sending to webhook:", webhookData);
+      console.log("Sending to GoHighLevel webhook:", webhookData);
       
-      // In a real implementation, you would send to the webhook like this:
-      /*
-      const response = await fetch('https://your-gohighlevel-webhook-url/assessment-complete', {
+      // Send to GoHighLevel webhook
+      const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        mode: 'no-cors', // Required for external webhooks
         body: JSON.stringify(webhookData),
       });
-      
-      if (!response.ok) {
-        throw new Error('Failed to submit assessment results');
-      }
-      */
+
+      // Since we're using no-cors, we can't check response status
+      // but the request will be sent
       
       // Show success message
       toast({
@@ -218,6 +224,17 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
               </div>
               
               <div className="space-y-2">
+                <Label htmlFor="apellido">Apellido <span className="text-destructive">*</span></Label>
+                <Input
+                  id="apellido"
+                  name="apellido"
+                  value={formData.apellido}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
                 <Label htmlFor="email">Email <span className="text-destructive">*</span></Label>
                 <Input
                   id="email"
@@ -230,25 +247,34 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="celular">Celular <span className="text-destructive">*</span></Label>
+                <Label htmlFor="telefono">Teléfono <span className="text-destructive">*</span></Label>
                 <Input
-                  id="celular"
-                  name="celular"
-                  value={formData.celular}
+                  id="telefono"
+                  name="telefono"
+                  value={formData.telefono}
                   onChange={handleInputChange}
+                  placeholder="+595 9XX XXX XXX"
                   required
                 />
               </div>
               
               <div className="space-y-2">
                 <Label htmlFor="edad">Edad</Label>
-                <Input
-                  id="edad"
-                  name="edad"
-                  type="number"
-                  value={formData.edad}
-                  onChange={handleInputChange}
-                />
+                <Select
+                  value={formData.edad?.toString() || ""}
+                  onValueChange={(value) => handleSelectChange("edad", value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccione edad" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Array.from({ length: 83 }, (_, i) => i + 18).map((age) => (
+                      <SelectItem key={age} value={age.toString()}>
+                        {age} años
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               
               <div className="space-y-2">
@@ -258,13 +284,14 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
                   name="ciudad"
                   value={formData.ciudad}
                   onChange={handleInputChange}
+                  placeholder="Ej. Asunción"
                 />
               </div>
               
               <div className="space-y-2">
                 <Label htmlFor="sexo">Sexo</Label>
                 <Select
-                  value={formData.sexo}
+                  value={formData.sexo || ""}
                   onValueChange={(value) => handleSelectChange("sexo", value)}
                 >
                   <SelectTrigger>
