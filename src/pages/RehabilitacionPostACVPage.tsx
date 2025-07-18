@@ -9,7 +9,7 @@ const RehabilitacionPostACVPage = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="bg-primary-light py-16 md:py-24">
+      <section className="hero-animated-bg py-16 md:py-24">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
@@ -30,7 +30,7 @@ const RehabilitacionPostACVPage = () => {
       </section>
 
       {/* Understanding Post-Stroke Recovery */}
-      <section className="py-16 bg-background">
+      <section className="py-16 neural-bg">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center mb-8">

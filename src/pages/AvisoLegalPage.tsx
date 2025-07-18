@@ -5,9 +5,9 @@ import { AlertTriangle, Shield, FileText, Stethoscope, Brain } from "lucide-reac
 const AvisoLegalPage = () => {
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
+      <div className="min-h-screen hero-animated-bg">
         {/* Header */}
-        <section className="pt-24 pb-16">
+        <section className="pt-24 pb-16 neural-bg">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <div className="flex items-center justify-center mb-6">
@@ -27,7 +27,7 @@ const AvisoLegalPage = () => {
         </section>
 
         {/* Content */}
-        <section className="pb-16">
+        <section className="pb-16 contact-tech-bg">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto space-y-8">
               

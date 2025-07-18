@@ -10,7 +10,7 @@ const TDCSPage = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="bg-primary-light py-16 md:py-24">
+      <section className="hero-animated-bg py-16 md:py-24">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
             <Badge className="mb-4 bg-accent text-white text-sm py-1.5 px-4 rounded-full">
@@ -30,7 +30,7 @@ const TDCSPage = () => {
       </section>
 
       {/* What is tDCS Section */}
-      <section className="py-16 bg-background">
+      <section className="py-16 neural-bg">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center mb-8">

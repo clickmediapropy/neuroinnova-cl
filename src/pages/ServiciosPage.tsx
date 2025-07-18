@@ -57,9 +57,9 @@ const ServiciosPage = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
+      <div className="min-h-screen hero-animated-bg">
         {/* Hero Section */}
-        <section className="pt-24 pb-16">
+        <section className="pt-24 pb-16 neural-bg">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -82,7 +82,7 @@ const ServiciosPage = () => {
         </section>
 
         {/* Services Grid */}
-        <section className="pb-16">
+        <section className="pb-16 neural-bg">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid gap-8">
@@ -183,7 +183,7 @@ const ServiciosPage = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-primary/5">
+        <section className="py-16 assessment-bg">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl font-bold text-foreground mb-6">

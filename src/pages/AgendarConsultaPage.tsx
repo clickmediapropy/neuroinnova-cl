@@ -162,7 +162,7 @@ const AgendarConsultaPage = () => {
   if (isConfirmed) {
     return (
       <Layout>
-        <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 flex items-center justify-center">
+        <div className="min-h-screen assessment-bg flex items-center justify-center">
           <div className="container mx-auto px-4">
             <Card className="max-w-2xl mx-auto text-center">
               <CardHeader>
@@ -219,9 +219,9 @@ const AgendarConsultaPage = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
+      <div className="min-h-screen hero-animated-bg">
         {/* Header */}
-        <section className="pt-24 pb-8">
+        <section className="pt-24 pb-8 neural-bg">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
