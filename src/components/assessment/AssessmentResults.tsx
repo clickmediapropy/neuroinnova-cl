@@ -209,26 +209,26 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
     console.log("Validation passed, proceeding with webhook call");
 
+    // Get assessment type name for webhook
+    const getAssessmentTypeName = () => {
+      switch (type) {
+        case "depression": return "PHQ-9 Depresión";
+        case "anxiety": return "GAD-7 Ansiedad";
+        case "bipolar": return "Trastorno Bipolar";
+        case "ptsd": return "PTSD Estrés Postraumático";
+        case "psychosis": return "Evaluación Psicosis";
+        case "adhd": return "ADHD/TDAH";
+        case "eating-disorder": return "Trastorno Alimentario";
+        case "addiction": return "Uso de Sustancias";
+        case "postpartum-depression": return "Depresión Postparto";
+        case "parent-child-mental-health": return "Salud Mental Infantil";
+        case "youth-mental-health": return "Salud Mental Juvenil";
+        default: return "Evaluación Mental";
+      }
+    };
+
     try {
       console.log("=== TRY BLOCK STARTED ===");
-      
-      // Get assessment type name for webhook
-      const getAssessmentTypeName = () => {
-        switch (type) {
-          case "depression": return "PHQ-9 Depresión";
-          case "anxiety": return "GAD-7 Ansiedad";
-          case "bipolar": return "Trastorno Bipolar";
-          case "ptsd": return "PTSD Estrés Postraumático";
-          case "psychosis": return "Evaluación Psicosis";
-          case "adhd": return "ADHD/TDAH";
-          case "eating-disorder": return "Trastorno Alimentario";
-          case "addiction": return "Uso de Sustancias";
-          case "postpartum-depression": return "Depresión Postparto";
-          case "parent-child-mental-health": return "Salud Mental Infantil";
-          case "youth-mental-health": return "Salud Mental Juvenil";
-          default: return "Evaluación Mental";
-        }
-      };
 
       // Prepare data for GoHighLevel webhook with exact parameters requested
       const webhookData = {
