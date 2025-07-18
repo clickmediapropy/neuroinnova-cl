@@ -4,17 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
 import { useHeaderHeight } from "@/hooks/useHeaderHeight";
 import heroImage from "@/assets/hero-neuromodulation.jpg";
-
 const Hero = () => {
   const headerHeight = useHeaderHeight();
-  
-  return (
-    <section 
-      className="relative overflow-hidden hero-animated-bg pb-16 md:pb-20"
-      style={{ 
-        paddingTop: `${headerHeight + 32}px` // Dynamic padding: header height + 32px buffer
-      }}
-    >
+  return <section className="relative overflow-hidden hero-animated-bg pb-16 md:pb-20" style={{
+    paddingTop: `${headerHeight + 32}px` // Dynamic padding: header height + 32px buffer
+  }}>
       <div className="container">
         <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center">
           <div className="flex flex-col space-y-6">
@@ -24,9 +18,7 @@ const Hero = () => {
             </div>
             
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-foreground">
-                Primer Centro de Neuromodulación de Paraguay
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-foreground">Primer y Unico Centro de Neuromodulación de Paraguay</h1>
               <p className="text-xl text-muted-foreground">
                 Esperanza para pacientes con condiciones resistentes al tratamiento convencional
               </p>
@@ -54,17 +46,11 @@ const Hero = () => {
 
           <div className="md:ml-auto">
             <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden shadow-lg border border-primary/20 bg-card">
-              <img 
-                src="/lovable-uploads/fce7615a-1bd3-44bd-967b-ffb187401b2e.png" 
-                alt="Tratamientos EMT/TMS y tDCS de NeuroInnova" 
-                className="h-full w-full object-cover"
-              />
+              <img src="/lovable-uploads/fce7615a-1bd3-44bd-967b-ffb187401b2e.png" alt="Tratamientos EMT/TMS y tDCS de NeuroInnova" className="h-full w-full object-cover" />
             </div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
