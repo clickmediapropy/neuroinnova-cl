@@ -243,20 +243,28 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       const localSeverityInfo = getSeverityLevel();
       console.log("Severity info:", localSeverityInfo);
 
+      // Prepare diagnostic text
+      const diagnosticoPreliminar = `Evaluación: ${getAssessmentTypeName()}
+Puntaje: ${score}
+Nivel: ${localSeverityInfo.level}
+Recomendación: ${getMessage()}`;
+
       // Prepare data for GoHighLevel webhook with exact parameters requested
       const webhookData = {
-        "Puntaje Total": score,
-        "Nivel de Severidad": localSeverityInfo.level,
-        "Tipo de Test": type,
-        "Categoria de Severidad": localSeverityInfo.level,
-        "Nombre": formData.nombre,
-        "Apellido": formData.apellido,
-        "Email": formData.email,
-        "Telefono": formData.telefono,
-        "Edad": formData.edad,
-        "Sexo": formData.sexo,
-        "Ciudad": formData.ciudad,
-        "Tipo de Evaluacion": getAssessmentTypeName()
+        "first_name": formData.nombre,
+        "last_name": formData.apellido,
+        "email": formData.email,
+        "phone": formData.telefono,
+        "puntaje_total_PHQ9": score,
+        "diagnostico_preliminar": diagnosticoPreliminar,
+        "edad": formData.edad,
+        "sexo": formData.sexo,
+        "ciudad": formData.ciudad,
+        // Si CT es Ciudad, usa esto:
+        "CT": formData.ciudad,
+        // Campos adicionales para tracking
+        "tipo_evaluacion": getAssessmentTypeName(),
+        "nivel_severidad": localSeverityInfo.level
       };
 
       console.log("Sending to GoHighLevel webhook:", webhookData);
