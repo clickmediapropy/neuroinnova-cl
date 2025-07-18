@@ -3,6 +3,7 @@ import { ChevronRight, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
 import { useHeaderHeight } from "@/hooks/useHeaderHeight";
+import heroImage from "@/assets/hero-neuromodulation.jpg";
 
 const Hero = () => {
   const headerHeight = useHeaderHeight();
@@ -53,9 +54,8 @@ const Hero = () => {
 
           <div className="md:ml-auto">
             <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden shadow-lg border border-primary/20 bg-card">
-              {/* Placeholder for hero image - in production, replace with actual image */}
               <img 
-                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80" 
+                src={heroImage} 
                 alt="Equipamiento médico avanzado de neuromodulación" 
                 className="h-full w-full object-cover"
               />
