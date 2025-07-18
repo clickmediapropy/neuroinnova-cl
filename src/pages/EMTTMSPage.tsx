@@ -67,12 +67,12 @@ const EMTTMSPage = () => {
               </Card>
             </div>
             
-            <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-8">
-              <div className="text-center p-8">
-                <p className="text-muted-foreground">
-                  [Imagen ilustrativa del equipo EMT/TMS y su aplicación]
-                </p>
-              </div>
+            <div className="rounded-lg overflow-hidden mb-8">
+              <img 
+                src="/lovable-uploads/905d14d2-51b6-46c7-9f38-29c7f68f5dc8.png" 
+                alt="Campo magnético para sanar - Estimulación Magnética Transcraneal EMT/TMS"
+                className="w-full h-auto object-cover"
+              />
             </div>
             
             <p className="text-foreground">
