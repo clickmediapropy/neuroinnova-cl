@@ -281,8 +281,14 @@ All colors MUST be HSL.
 }
 
 @keyframes grid-pulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.02); }
+  0%, 100% { 
+    background-position: 0% 0%, 0% 0%, 0% 0%;
+    opacity: 0.6; 
+  }
+  50% { 
+    background-position: 30% 30%, -30% -30%, 20% 20%;
+    opacity: 1; 
+  }
 }
 
 @keyframes particles-float {

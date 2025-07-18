@@ -41,7 +41,7 @@ const conditions = [
 
 const ConditionsTreated = () => {
   return (
-    <section className="py-16 medical-grid-bg bg-white relative">
+    <section className="py-16 neural-bg bg-white relative">
       <div className="container">
         <div className="mx-auto max-w-3xl text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight mb-4">Condiciones Tratadas</h2>
