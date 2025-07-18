@@ -97,8 +97,8 @@ const Footer = () => {
               </li>
               <li className="flex">
                 <Mail className="h-5 w-5 text-primary shrink-0 mr-3" />
-                <a href="mailto:info@neuroinnova.com.py" className="text-sm hover:text-primary">
-                  info@neuroinnova.com.py
+                <a href="mailto:dr.victoradorno@gmail.com" className="text-sm hover:text-primary">
+                  dr.victoradorno@gmail.com
                 </a>
               </li>
               <li className="flex">
