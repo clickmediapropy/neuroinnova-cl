@@ -27,16 +27,18 @@ interface LeadFormData {
 }
 
 const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => {
+  console.log("AssessmentResults component rendered with:", { type, score });
+  
   const navigate = useNavigate();
   const { toast } = useToast();
   const [formData, setFormData] = useState<LeadFormData>({
-    nombre: "Nicolas",
-    apellido: "Test",
-    email: "test@example.com",
-    telefono: "+595991123456",
-    edad: 32,
-    sexo: "masculino",
-    ciudad: "Asunción"
+    nombre: "",
+    apellido: "",
+    email: "",
+    telefono: "",
+    edad: null,
+    sexo: null,
+    ciudad: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -165,22 +167,33 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    console.log(`Input changed: ${name} = ${value}`);
+    setFormData(prev => {
+      const newData = { ...prev, [name]: value };
+      console.log("Updated form data:", newData);
+      return newData;
+    });
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData(prev => ({ 
-      ...prev, 
-      [name]: name === 'edad' ? (value ? parseInt(value) : null) : value 
-    }));
+    console.log(`Select changed: ${name} = ${value}`);
+    setFormData(prev => {
+      const newData = { 
+        ...prev, 
+        [name]: name === 'edad' ? (value ? parseInt(value) : null) : value 
+      };
+      console.log("Updated form data:", newData);
+      return newData;
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("=== FORM SUBMISSION STARTED ===");
+    console.log("Event:", e);
+    console.log("Form data at submission:", formData);
+    
     setIsSubmitting(true);
-
-    console.log("Form submission started");
-    console.log("Form data:", formData);
 
     // Validate required fields
     if (!formData.nombre || !formData.apellido || !formData.email || !formData.telefono) {
@@ -232,6 +245,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       };
 
       console.log("Sending to GoHighLevel webhook:", webhookData);
+      console.log("Webhook URL:", 'https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35');
+      console.log("Request body:", JSON.stringify(webhookData));
       
       // Send to GoHighLevel webhook
       const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35', {
@@ -243,6 +258,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         body: JSON.stringify(webhookData),
       });
 
+      console.log("Webhook request sent successfully");
       // Since we're using no-cors, we can't check response status
       // but the request will be sent
       
@@ -259,6 +275,10 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       
     } catch (error) {
       console.error("Error submitting assessment:", error);
+      console.error("Error details:", {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined
+      });
       toast({
         title: "Error",
         description: "Hubo un problema al enviar sus resultados. Por favor intente nuevamente.",
@@ -415,8 +435,9 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
                 variant={getCTAVariant()}
                 disabled={isSubmitting}
                 size="lg"
+                onClick={() => console.log("Submit button clicked!")}
               >
-                Enviar y Recibir Resultados por WhatsApp
+                {isSubmitting ? "Enviando..." : "Enviar y Recibir Resultados por WhatsApp"}
                 <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
               

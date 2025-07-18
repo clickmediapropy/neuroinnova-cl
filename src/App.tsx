@@ -33,6 +33,7 @@ import AvisoLegalPage from "./pages/AvisoLegalPage";
 import ServiciosPage from "./pages/ServiciosPage";
 import CondicionesPage from "./pages/CondicionesPage";
 import ScrollToTop from "./components/ScrollToTop";
+import TestWebhookPage from "./pages/TestWebhookPage";
 
 const queryClient = new QueryClient();
 
@@ -72,6 +73,7 @@ const App = () => (
           <Route path="/politica-privacidad" element={<PoliticaPrivacidadPage />} />
           <Route path="/terminos-condiciones" element={<TerminosCondicionesPage />} />
           <Route path="/aviso-legal" element={<AvisoLegalPage />} />
+          <Route path="/test-webhook" element={<TestWebhookPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
