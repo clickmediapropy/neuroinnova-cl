@@ -217,6 +217,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
     }
 
     console.log("Validation passed, proceeding with webhook call");
+    console.log("CODE VERSION: 2024-01-18-FIX");
 
     try {
       console.log("=== TRY BLOCK STARTED ===");
