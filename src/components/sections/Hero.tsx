@@ -55,8 +55,8 @@ const Hero = () => {
           <div className="md:ml-auto">
             <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden shadow-lg border border-primary/20 bg-card">
               <img 
-                src={heroImage} 
-                alt="Equipamiento médico avanzado de neuromodulación" 
+                src="/lovable-uploads/fce7615a-1bd3-44bd-967b-ffb187401b2e.png" 
+                alt="Tratamientos EMT/TMS y tDCS de NeuroInnova" 
                 className="h-full w-full object-cover"
               />
             </div>
