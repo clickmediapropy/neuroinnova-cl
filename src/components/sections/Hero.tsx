@@ -102,7 +102,7 @@ const Hero = () => {
           <div className="relative flex items-center justify-center md:justify-end">
             {/* EMT vs tDCS Illustration */}
             <img
-              src="/images/emt-tdcs-illustration.png"
+              src="/lovable-uploads/94c23aa8-a0d8-499d-9070-3c814a5a51ff.png"
               alt="EMT/TMS vs tDCS Neuromodulation Illustration"
               className="absolute right-0 bottom-0 md:right-8 md:bottom-6 max-w-[460px] w-full h-auto object-contain opacity-95 pointer-events-none"
             />
