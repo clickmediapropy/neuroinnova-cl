@@ -179,8 +179,12 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
     e.preventDefault();
     setIsSubmitting(true);
 
+    console.log("Form submission started");
+    console.log("Form data:", formData);
+
     // Validate required fields
     if (!formData.nombre || !formData.apellido || !formData.email || !formData.telefono) {
+      console.log("Validation failed - missing required fields");
       toast({
         title: "Error",
         description: "Por favor complete todos los campos requeridos.",
@@ -189,6 +193,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       setIsSubmitting(false);
       return;
     }
+
+    console.log("Validation passed, proceeding with webhook call");
 
     try {
       // Get assessment type name for webhook
