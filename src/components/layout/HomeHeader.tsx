@@ -38,10 +38,10 @@ const HomeHeader = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-card border-b border-primary/20 shadow-sm backdrop-blur-sm">
       {/* Navigation Section with Logo */}
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-14 sm:h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo and Desktop navigation */}
-        <div className="flex items-center space-x-8">
-          <Logo className="h-16 w-auto" />
+        <div className="flex items-center space-x-4 sm:space-x-8">
+          <Logo className="h-12 sm:h-14 md:h-16 w-auto" />
           
           <nav className="hidden md:flex items-center space-x-1">
           <NavLink to="/" end className={getNavLinkClass}>
@@ -83,7 +83,7 @@ const HomeHeader = () => {
 
         {/* Mobile contact info - positioned at end */}
         <div className="md:hidden ml-auto">
-          <Button size="sm" asChild>
+          <Button size="sm" className="text-xs sm:text-sm px-3 sm:px-4" asChild>
             <a href="https://wa.me/595991800886?text=Hola,%20necesito%20información%20sobre%20consultas%20médicas." target="_blank" rel="noopener noreferrer">
               Consulta
             </a>
@@ -100,8 +100,8 @@ const HomeHeader = () => {
             onClick={closeMenu}
           />
           {/* Mobile menu */}
-          <div className="md:hidden fixed top-16 left-0 right-0 bg-card border-b border-primary/20 shadow-lg z-50 animate-slide-in-right">
-            <div className="container py-4 space-y-4">
+          <div className="md:hidden fixed top-14 sm:top-16 left-0 right-0 bg-card border-b border-primary/20 shadow-lg z-50 animate-slide-in-right">
+            <div className="container py-4 space-y-4 px-4 sm:px-6">
               <nav className="flex flex-col space-y-3">
                 <NavLink to="/" end className={getNavLinkClass} onClick={closeMenu}>
                   Inicio

@@ -41,31 +41,31 @@ const conditions = [
 
 const ConditionsTreated = () => {
   return (
-    <section className="py-16 neural-bg bg-white relative">
-      <div className="container">
-        <div className="mx-auto max-w-3xl text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">Condiciones Tratadas</h2>
-          <p className="text-lg text-muted-foreground">
+    <section className="py-12 sm:py-16 neural-bg bg-white relative">
+      <div className="container px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4">Condiciones Tratadas</h2>
+          <p className="text-base sm:text-lg text-muted-foreground px-4 sm:px-0">
             Nuestras tecnologías avanzadas ofrecen soluciones para condiciones neuropsiquiátricas complejas
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {conditions.map((condition) => (
             <Link 
               key={condition.id}
               to={condition.url}
-              className="flex flex-col p-6 rounded-lg border border-border/60 bg-white hover:shadow-md transition-shadow card-hover-effect service-particles"
+              className="flex flex-col p-4 sm:p-6 rounded-lg border border-border/60 bg-white hover:shadow-md transition-shadow card-hover-effect service-particles"
             >
-              <div className="mb-4 flex items-center">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-light">
-                  <condition.icon className="h-6 w-6 text-primary" />
+              <div className="mb-3 sm:mb-4 flex items-center">
+                <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full bg-primary-light">
+                  <condition.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
-                <h3 className="ml-4 font-semibold text-lg text-foreground">
+                <h3 className="ml-3 sm:ml-4 font-semibold text-base sm:text-lg text-foreground">
                   {condition.title}
                 </h3>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 {condition.description}
               </p>
             </Link>

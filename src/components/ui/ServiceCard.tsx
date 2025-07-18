@@ -39,32 +39,32 @@ const ServiceCard = ({
       )}
     >
       {badge && (
-        <div className="absolute top-4 right-4 z-10">
-          <Button variant="badge" size="badge" className="text-xs px-3 py-1.5 h-auto whitespace-nowrap min-w-fit">
+        <div className="absolute top-2 sm:top-4 right-2 sm:right-4 z-10">
+          <Button variant="badge" size="badge" className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 h-auto whitespace-nowrap min-w-fit">
             {badge}
           </Button>
         </div>
       )}
       
       <div className={cn(
-        "flex flex-col p-6",
-        isLarge && "md:p-8",
-        isSmall && "p-5"
+        "flex flex-col p-4 sm:p-6",
+        isLarge && "sm:p-6 md:p-8",
+        isSmall && "p-4 sm:p-5"
       )}>
         <div className={cn(
-          "mb-4 flex items-start",
-          isLarge && "mb-5",
-          badge && "pr-32" // Significantly increased padding - from pr-24 to pr-32 (8rem/128px)
+          "mb-3 sm:mb-4 flex items-start",
+          isLarge && "sm:mb-5",
+          badge && "pr-20 sm:pr-32" // Reduced padding on mobile
         )}>
           <div className={cn(
             "flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary-light to-accent/20",
-            isLarge ? "h-14 w-14" : "h-12 w-12" 
+            isLarge ? "h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14" : "h-10 w-10 sm:h-12 sm:w-12" 
           )}>
             {icon}
           </div>
           <h3 className={cn(
-            "ml-4 font-semibold text-foreground leading-tight",
-            isLarge ? "text-xl md:text-2xl" : "text-lg",
+            "ml-3 sm:ml-4 font-semibold text-foreground leading-tight",
+            isLarge ? "text-base sm:text-lg md:text-xl lg:text-2xl" : "text-base sm:text-lg",
             "break-words max-w-full" // Ensure title respects container width
           )}>
             {title}
@@ -73,17 +73,17 @@ const ServiceCard = ({
         
         <p className={cn(
           "text-muted-foreground",
-          isLarge ? "text-base" : "text-sm"
+          isLarge ? "text-sm sm:text-base" : "text-sm"
         )}>
           {description}
         </p>
         
         {benefits && benefits.length > 0 && (
-          <ul className="mt-4 space-y-2">
+          <ul className="mt-3 sm:mt-4 space-y-1.5 sm:space-y-2">
             {benefits.map((benefit, index) => (
               <li key={index} className="flex items-start">
                 <span className="mr-2 mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                <span className={isLarge ? "text-sm" : "text-xs"}>{benefit}</span>
+                <span className={isLarge ? "text-xs sm:text-sm" : "text-xs"}>{benefit}</span>
               </li>
             ))}
           </ul>

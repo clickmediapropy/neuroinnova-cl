@@ -3,18 +3,18 @@ import ServiceCard from "../ui/ServiceCard";
 
 const Services = () => {
   return (
-    <section className="py-16 neural-bg relative">
-      <div className="container">
-        <div className="mx-auto max-w-3xl text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">Nuestros Servicios</h2>
-          <p className="text-lg text-muted-foreground">
+    <section className="py-12 sm:py-16 neural-bg relative">
+      <div className="container px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4">Nuestros Servicios</h2>
+          <p className="text-base sm:text-lg text-muted-foreground px-4 sm:px-0">
             Tecnologías avanzadas de neuromodulación para tratar condiciones resistentes a terapias convencionales
           </p>
         </div>
 
         <div className="max-w-7xl mx-auto">
           {/* Featured EMT/TMS Service - Full Width */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <ServiceCard
               title="Estimulación Magnética Transcraneal (EMT/TMS)"
               description="Tecnología no invasiva que utiliza campos magnéticos para estimular áreas específicas del cerebro, efectiva para depresión resistente a medicamentos."
@@ -34,7 +34,7 @@ const Services = () => {
           </div>
 
           {/* Other Services - Equal Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
             {/* tDCS Service */}
             <ServiceCard
               title="Estimulación Transcraneal por Corriente Directa (tDCS)"
