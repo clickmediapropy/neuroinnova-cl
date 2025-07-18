@@ -9,7 +9,7 @@ import { MapPin, Phone, Mail } from "lucide-react";
 
 const Index = () => {
   return (
-    <Layout>
+    <Layout isHomePage={true}>
       <Hero />
       <Services />
       <TrustAuthority />

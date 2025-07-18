@@ -1,16 +1,18 @@
 import { ReactNode } from "react";
 import Header from "./Header";
+import HomeHeader from "./HomeHeader";
 import Footer from "./Footer";
 import WhatsAppButton from "../ui/WhatsAppButton";
 
 interface LayoutProps {
   children: ReactNode;
+  isHomePage?: boolean;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, isHomePage = false }: LayoutProps) => {
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      {isHomePage ? <HomeHeader /> : <Header />}
       <main className="flex-1">
         {children}
       </main>
