@@ -131,14 +131,14 @@ All colors MUST be HSL.
 @layer utilities {
   /* Hero Background Animations - Multi-Layer System */
 
-  /* Layer 1: Neural Network Base */
+  /* Layer 1: Neural Network Base - ENHANCED VISIBILITY */
   .neural-network-bg {
     position: relative;
     background: 
-      radial-gradient(circle at 15% 25%, hsl(var(--primary) / 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 85% 75%, hsl(var(--accent) / 0.06) 0%, transparent 35%),
-      radial-gradient(circle at 45% 10%, hsl(var(--primary) / 0.04) 0%, transparent 30%),
-      radial-gradient(circle at 65% 90%, hsl(var(--accent) / 0.05) 0%, transparent 25%);
+      radial-gradient(circle at 15% 25%, hsl(var(--primary) / 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, hsl(var(--accent) / 0.12) 0%, transparent 35%),
+      radial-gradient(circle at 45% 10%, hsl(var(--primary) / 0.08) 0%, transparent 30%),
+      radial-gradient(circle at 65% 90%, hsl(var(--accent) / 0.10) 0%, transparent 25%);
     animation: neural-base-flow 12s ease-in-out infinite;
   }
 
@@ -147,11 +147,11 @@ All colors MUST be HSL.
     position: absolute;
     inset: 0;
     background: 
-      linear-gradient(45deg, transparent 48%, hsl(var(--primary) / 0.02) 49%, hsl(var(--primary) / 0.02) 51%, transparent 52%),
-      linear-gradient(-45deg, transparent 48%, hsl(var(--accent) / 0.02) 49%, hsl(var(--accent) / 0.02) 51%, transparent 52%);
+      linear-gradient(45deg, transparent 48%, hsl(var(--primary) / 0.06) 49%, hsl(var(--primary) / 0.06) 51%, transparent 52%),
+      linear-gradient(-45deg, transparent 48%, hsl(var(--accent) / 0.05) 49%, hsl(var(--accent) / 0.05) 51%, transparent 52%);
     background-size: 120px 120px, 80px 80px;
     animation: neural-grid-shift 20s linear infinite;
-    opacity: 0.6;
+    opacity: 0.8;
   }
 
   .neural-network-bg::after {

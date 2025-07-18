@@ -13,30 +13,30 @@ const Hero = () => {
         paddingTop: `${headerHeight}px`
       }}
     >
-      {/* Multi-Layer Background Animation System */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Layer 1: Neural Network Base */}
-        <div className="absolute inset-0 opacity-40 hero-animation-layer">
+      {/* Multi-Layer Background Animation System - MUCH MORE VISIBLE */}
+      <div className="absolute inset-0 overflow-hidden z-0">
+        {/* Layer 1: Neural Network Base - Much higher opacity */}
+        <div className="absolute inset-0 opacity-80">
           <div className="neural-network-bg h-full w-full"></div>
         </div>
         
-        {/* Layer 2: Electromagnetic Field Visualization */}
-        <div className="absolute inset-0 opacity-30 hero-animation-layer">
+        {/* Layer 2: Electromagnetic Field Visualization - Higher opacity */}
+        <div className="absolute inset-0 opacity-60">
           <div className="electromagnetic-field h-full w-full"></div>
         </div>
         
-        {/* Layer 3: Electrical Stimulation Patterns */}
-        <div className="absolute inset-0 opacity-25 hero-animation-layer">
+        {/* Layer 3: Electrical Stimulation Patterns - Higher opacity */}
+        <div className="absolute inset-0 opacity-50">
           <div className="electrical-stimulation h-full w-full"></div>
         </div>
         
-        {/* Layer 4: Particle Flow System */}
-        <div className="absolute inset-0 opacity-20 hero-animation-layer">
+        {/* Layer 4: Particle Flow System - Higher opacity */}
+        <div className="absolute inset-0 opacity-40">
           <div className="particle-flow h-full w-full"></div>
         </div>
       </div>
 
-      <div className="container relative z-10">
+      <div className="container relative z-20">
         <div className="flex min-h-[600px] items-center justify-center">
           {/* CENTERED TEXT ZONE - Full Width */}
           <div className="flex flex-col justify-center items-center space-y-8 text-center max-w-5xl">
