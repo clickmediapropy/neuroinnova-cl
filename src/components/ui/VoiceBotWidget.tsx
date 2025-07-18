@@ -34,7 +34,7 @@ const VoiceBotWidget = () => {
   return (
     <iframe 
       ref={frameRef}
-      src="https://iframes.ai/o/1752815276551x600093233708531700?color=10A37F&icon="
+      src="https://iframes.ai/o/1752815276551x600093233708531700?color=10A37F&icon=calendar"
       allow="microphone"
       style={{
         position: 'fixed',
@@ -47,7 +47,7 @@ const VoiceBotWidget = () => {
         zIndex: 50
       }}
       id="assistantFrame"
-      title="Asistente Virtual de NeuroInnova"
+      title="Asistente Virtual de NeuroInnova - Agendar Consulta"
     />
   );
 };

@@ -3,6 +3,7 @@ import Header from "./Header";
 import HomeHeader from "./HomeHeader";
 import Footer from "./Footer";
 import VoiceBotWidget from "../ui/VoiceBotWidget";
+import FirstVisitTooltip from "../ui/FirstVisitTooltip";
 
 interface LayoutProps {
   children: ReactNode;
@@ -18,6 +19,7 @@ const Layout = ({ children, isHomePage = false }: LayoutProps) => {
       </main>
       <Footer />
       <VoiceBotWidget />
+      <FirstVisitTooltip />
     </div>
   );
 };
