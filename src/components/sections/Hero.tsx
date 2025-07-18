@@ -2,10 +2,18 @@ import { Link } from "react-router-dom";
 import { ChevronRight, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
+import { useHeaderHeight } from "@/hooks/useHeaderHeight";
 
 const Hero = () => {
+  const headerHeight = useHeaderHeight();
+  
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/60 via-background to-background pt-32 pb-16 md:pt-32 md:pb-20">
+    <section 
+      className="relative overflow-hidden bg-gradient-to-b from-primary-light/60 via-background to-background pb-16 md:pb-20"
+      style={{ 
+        paddingTop: `${headerHeight + 32}px` // Dynamic padding: header height + 32px buffer
+      }}
+    >
       <div className="container">
         <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center">
           <div className="flex flex-col space-y-6">
