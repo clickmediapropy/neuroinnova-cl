@@ -5,7 +5,7 @@ import { Logo } from "@/components/ui/logo";
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/60 via-background to-background pt-24 pb-16 md:pt-32 md:pb-20">
+    <section className="relative overflow-hidden bg-gradient-to-b from-primary-light/60 via-background to-background pt-32 pb-16 md:pt-32 md:pb-20">
       <div className="container">
         <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center">
           <div className="flex flex-col space-y-6">
