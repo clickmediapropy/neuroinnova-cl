@@ -136,8 +136,9 @@ const ContactForm = ({
   const isInline = variant === "inline";
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+    <div className="contact-tech-bg rounded-lg p-4">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className={isInline ? "grid grid-cols-1 md:grid-cols-3 gap-4" : "space-y-4"}>
           <FormField
             control={form.control}
@@ -266,8 +267,9 @@ const ContactForm = ({
           {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
         </Button>
-      </form>
-    </Form>
+        </form>
+      </Form>
+    </div>
   );
 };
 

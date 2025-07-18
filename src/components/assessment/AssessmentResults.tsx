@@ -184,7 +184,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
   return (
     <Layout>
-      <div className="container py-12 max-w-3xl">
+      <div className="container py-12 max-w-3xl assessment-bg">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             {getIcon()}

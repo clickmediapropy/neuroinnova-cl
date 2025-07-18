@@ -2,7 +2,7 @@ import { Shield, Microscope, Award, Check } from "lucide-react";
 
 const TrustAuthority = () => {
   return (
-    <section className="py-16 bg-primary-light">
+    <section className="py-16 bg-primary-light neural-bg relative">
       <div className="container">
         <div className="mx-auto max-w-3xl text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight mb-4">¿Por qué NeuroInnova?</h2>
@@ -12,7 +12,7 @@ const TrustAuthority = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md">
+            <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md card-hover-effect service-particles">
             <div className="flex items-center mb-4">
               <div className="p-2 rounded-full bg-gradient-to-br from-primary-light to-accent/20">
                 <Shield className="h-6 w-6 text-primary" />
@@ -34,7 +34,7 @@ const TrustAuthority = () => {
             </ul>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md">
+          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md card-hover-effect service-particles">
             <div className="flex items-center mb-4">
               <div className="p-2 rounded-full bg-gradient-to-br from-primary-light to-accent/20">
                 <Award className="h-6 w-6 text-primary" />
@@ -56,7 +56,7 @@ const TrustAuthority = () => {
             </ul>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md">
+          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md card-hover-effect service-particles">
             <div className="flex items-center mb-4">
               <div className="p-2 rounded-full bg-gradient-to-br from-primary-light to-accent/20">
                 <Microscope className="h-6 w-6 text-primary" />
@@ -78,7 +78,7 @@ const TrustAuthority = () => {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md">
+          <div className="bg-card rounded-lg p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md card-hover-effect service-particles">
             <div className="flex items-center mb-4">
               <div className="w-16 h-16 rounded-full overflow-hidden bg-primary-light flex-shrink-0">
                 <img 

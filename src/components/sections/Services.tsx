@@ -3,7 +3,7 @@ import ServiceCard from "../ui/ServiceCard";
 
 const Services = () => {
   return (
-    <section className="py-16 bg-muted/50">
+    <section className="py-16 neural-bg relative">
       <div className="container">
         <div className="mx-auto max-w-3xl text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight mb-4">Nuestros Servicios</h2>

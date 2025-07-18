@@ -41,7 +41,7 @@ const conditions = [
 
 const ConditionsTreated = () => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 medical-grid-bg bg-white relative">
       <div className="container">
         <div className="mx-auto max-w-3xl text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight mb-4">Condiciones Tratadas</h2>
@@ -55,7 +55,7 @@ const ConditionsTreated = () => {
             <Link 
               key={condition.id}
               to={condition.url}
-              className="flex flex-col p-6 rounded-lg border border-border/60 bg-white hover:shadow-md transition-shadow"
+              className="flex flex-col p-6 rounded-lg border border-border/60 bg-white hover:shadow-md transition-shadow card-hover-effect service-particles"
             >
               <div className="mb-4 flex items-center">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-light">

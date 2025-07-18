@@ -10,7 +10,7 @@ const Hero = () => {
   
   return (
     <section 
-      className="relative overflow-hidden bg-gradient-to-b from-primary-light/60 via-background to-background pb-16 md:pb-20"
+      className="relative overflow-hidden hero-animated-bg pb-16 md:pb-20"
       style={{ 
         paddingTop: `${headerHeight + 32}px` // Dynamic padding: header height + 32px buffer
       }}

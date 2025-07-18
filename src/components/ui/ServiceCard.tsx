@@ -33,7 +33,7 @@ const ServiceCard = ({
   return (
     <div 
       className={cn(
-        "relative flex flex-col rounded-lg border border-border/60 bg-card shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/30 overflow-hidden",
+        "relative flex flex-col rounded-lg border border-border/60 bg-card shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/30 overflow-hidden service-particles card-hover-effect",
         isLarge && "md:col-span-2",
         className
       )}
