@@ -464,7 +464,12 @@ const AgendarConsultaPage = () => {
                               <FormItem>
                                 <FormLabel>Teléfono *</FormLabel>
                                 <FormControl>
-                                  <Input {...field} placeholder="+595 xxx xxx xxx" />
+                                  <Input 
+                                    {...field} 
+                                    type="tel"
+                                    inputMode="numeric"
+                                    placeholder="+595 xxx xxx xxx" 
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>

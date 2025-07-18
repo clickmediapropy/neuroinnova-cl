@@ -245,6 +245,8 @@ const ContactForm = ({
                       )}
                     />
                     <Input 
+                      type="tel"
+                      inputMode="numeric"
                       placeholder={form.watch('codigoPais') === '+595' ? '9XX XXX XXX' : 'Número telefónico'}
                       className="rounded-l-none"
                       value={field.value}

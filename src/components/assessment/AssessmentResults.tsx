@@ -417,6 +417,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
                 <Input
                   id="telefono"
                   name="telefono"
+                  type="tel"
+                  inputMode="numeric"
                   value={formData.telefono}
                   onChange={handleInputChange}
                   placeholder="+595 9XX XXX XXX"
