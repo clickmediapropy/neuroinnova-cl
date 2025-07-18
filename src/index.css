@@ -350,3 +350,10 @@ All colors MUST be HSL.
     opacity: 0.7;
   }
 }
+
+/* Additional Hover Effects */
+@layer utilities {
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+}
