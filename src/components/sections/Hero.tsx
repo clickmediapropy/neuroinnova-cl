@@ -13,9 +13,27 @@ const Hero = () => {
         paddingTop: `${headerHeight}px`
       }}
     >
-      {/* Neural Network Background */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="neural-network-bg h-full w-full"></div>
+      {/* Multi-Layer Background Animation System */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Layer 1: Neural Network Base */}
+        <div className="absolute inset-0 opacity-40 hero-animation-layer">
+          <div className="neural-network-bg h-full w-full"></div>
+        </div>
+        
+        {/* Layer 2: Electromagnetic Field Visualization */}
+        <div className="absolute inset-0 opacity-30 hero-animation-layer">
+          <div className="electromagnetic-field h-full w-full"></div>
+        </div>
+        
+        {/* Layer 3: Electrical Stimulation Patterns */}
+        <div className="absolute inset-0 opacity-25 hero-animation-layer">
+          <div className="electrical-stimulation h-full w-full"></div>
+        </div>
+        
+        {/* Layer 4: Particle Flow System */}
+        <div className="absolute inset-0 opacity-20 hero-animation-layer">
+          <div className="particle-flow h-full w-full"></div>
+        </div>
       </div>
 
       <div className="container relative z-10">
