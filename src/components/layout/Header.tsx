@@ -38,32 +38,39 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-card border-b border-primary/20 shadow-sm backdrop-blur-sm">
       <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center">
-          <Link to="/" className="mr-6">
-            <Logo className="h-10 w-auto" />
+        {/* Logo and Desktop navigation */}
+        <div className="flex items-center space-x-8">
+          <Link to="/" className="">
+            <Logo className="h-16 w-auto" />
           </Link>
+          
+          <nav className="hidden md:flex items-center space-x-1">
+            <NavLink to="/" end className={getNavLinkClass}>
+              Inicio
+            </NavLink>
+            <NavLink to="/servicios" className={getNavLinkClass}>
+              Servicios
+            </NavLink>
+            <NavLink to="/autoevaluacion" className={getNavLinkClass}>
+              Autoevaluación
+            </NavLink>
+            <NavLink to="/condiciones" className={getNavLinkClass}>
+              Condiciones
+            </NavLink>
+            <NavLink to="/contacto" className={getNavLinkClass}>
+              Contacto
+            </NavLink>
+          </nav>
         </div>
-        
-        {/* Desktop navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
-          <NavLink to="/" end className={getNavLinkClass}>
-            Inicio
-          </NavLink>
-          <NavLink to="/servicios" className={getNavLinkClass}>
-            Servicios
-          </NavLink>
-          <NavLink to="/autoevaluacion" className={getNavLinkClass}>
-            Autoevaluación
-          </NavLink>
-          <NavLink to="/condiciones" className={getNavLinkClass}>
-            Condiciones
-          </NavLink>
-          <NavLink to="/contacto" className={getNavLinkClass}>
-            Contacto
-          </NavLink>
-        </nav>
 
-        <div className="hidden md:flex items-center space-x-4">
+        {/* Mobile menu button */}
+        <div className="md:hidden">
+          <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Menu">
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
+
+        <div className="hidden md:flex items-center space-x-4 ml-auto">
           <a href="tel:+59521605535" className="flex items-center text-sm text-foreground hover:text-primary">
             <Phone className="mr-1 h-4 w-4" />
             <span>(+595) 21 605 535</span>
@@ -75,10 +82,12 @@ const Header = () => {
           </Button>
         </div>
 
-        {/* Mobile menu button */}
-        <div className="md:hidden flex items-center">
-          <Button variant="ghost" size="icon" onClick={toggleMenu} aria-label="Menu">
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        {/* Mobile contact info */}
+        <div className="md:hidden ml-auto">
+          <Button size="sm" asChild>
+            <a href="https://wa.me/595981175253" target="_blank" rel="noopener noreferrer">
+              Consulta
+            </a>
           </Button>
         </div>
       </div>
