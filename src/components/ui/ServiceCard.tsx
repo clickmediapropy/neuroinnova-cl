@@ -38,37 +38,41 @@ const ServiceCard = ({
         className
       )}
     >
-      {badge && (
-        <div className="absolute top-2 sm:top-4 right-2 sm:right-4 z-10">
-          <Button variant="badge" size="badge" className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 h-auto whitespace-nowrap min-w-fit">
-            {badge}
-          </Button>
-        </div>
-      )}
-      
       <div className={cn(
         "flex flex-col p-4 sm:p-6",
         isLarge && "sm:p-6 md:p-8",
         isSmall && "p-4 sm:p-5"
       )}>
-        <div className={cn(
-          "mb-3 sm:mb-4 flex items-start",
-          isLarge && "sm:mb-5",
-          badge && "pr-20 sm:pr-32" // Reduced padding on mobile
-        )}>
+        {/* Header section with proper flex layout */}
+        <div className="mb-3 sm:mb-4">
+          {/* Badge positioned at the top */}
+          {badge && (
+            <div className="flex justify-end mb-2 sm:mb-3">
+              <Button variant="badge" size="badge" className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 sm:py-1.5 h-auto whitespace-nowrap">
+                {badge}
+              </Button>
+            </div>
+          )}
+          
+          {/* Icon and title section */}
           <div className={cn(
-            "flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary-light to-accent/20",
-            isLarge ? "h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14" : "h-10 w-10 sm:h-12 sm:w-12" 
+            "flex items-start",
+            isLarge && "sm:mb-1"
           )}>
-            {icon}
+            <div className={cn(
+              "flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary-light to-accent/20",
+              isLarge ? "h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14" : "h-10 w-10 sm:h-12 sm:w-12" 
+            )}>
+              {icon}
+            </div>
+            <h3 className={cn(
+              "ml-3 sm:ml-4 font-semibold text-foreground leading-tight",
+              isLarge ? "text-base sm:text-lg md:text-xl lg:text-2xl" : "text-base sm:text-lg",
+              "break-words" // Ensure title breaks properly
+            )}>
+              {title}
+            </h3>
           </div>
-          <h3 className={cn(
-            "ml-3 sm:ml-4 font-semibold text-foreground leading-tight",
-            isLarge ? "text-base sm:text-lg md:text-xl lg:text-2xl" : "text-base sm:text-lg",
-            "break-words max-w-full" // Ensure title respects container width
-          )}>
-            {title}
-          </h3>
         </div>
         
         <p className={cn(
