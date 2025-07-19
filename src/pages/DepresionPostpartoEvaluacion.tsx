@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { getAssessmentQuestions } from "@/data/assessmentQuestions";
 
 // Obtener preguntas mejoradas del archivo de datos
-const questionData = getAssessmentQuestions('postpartumDepression');
+const questionData = getAssessmentQuestions('postpartum-depression');
 
 const getOptionsForQuestion = (questionIndex: number) => {
   if (questionIndex === 0) { // Able to laugh
