@@ -40,8 +40,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/servicios/consulta-psiquiatrica" className="text-sm text-foreground hover:text-primary">
+                <Link to="/servicios/psiquiatria-tradicional" className="text-sm text-foreground hover:text-primary">
                   Consulta Psiquiátrica
+                </Link>
+              </li>
+              <li>
+                <Link to="/servicios/rehacom" className="text-sm text-foreground hover:text-primary">
+                  RehaCom - Rehabilitación Cognitiva
                 </Link>
               </li>
               <li>
@@ -72,7 +77,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contacto" className="text-sm text-foreground hover:text-primary">
+                <Link to="/agendar-consulta" className="text-sm text-foreground hover:text-primary">
                   Agendar Consulta
                 </Link>
               </li>
