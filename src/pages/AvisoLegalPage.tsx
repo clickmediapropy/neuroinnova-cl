@@ -81,9 +81,9 @@ const AvisoLegalPage = () => {
                     <h4 className="font-semibold mb-2">Emergencias Médicas:</h4>
                     <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                       <p className="text-red-700 font-medium">
-                        EN CASO DE EMERGENCIA MÉDICA O PSIQUIÁTRICA, LLAME INMEDIATAMENTE AL 911 
-                        O DIRÍJASE AL SERVICIO DE EMERGENCIAS MÁS CERCANO. NO USE ESTE SITIO WEB 
-                        PARA COMUNICAR EMERGENCIAS.
+                        EN CASO DE EMERGENCIA MÉDICA O PSIQUIÁTRICA, LLAME INMEDIATAMENTE AL 147 
+                        (LÍNEA NACIONAL DE EMERGENCIAS) O DIRÍJASE AL SERVICIO DE EMERGENCIAS MÁS CERCANO. 
+                        NO USE ESTE SITIO WEB PARA COMUNICAR EMERGENCIAS.
                       </p>
                     </div>
                   </div>

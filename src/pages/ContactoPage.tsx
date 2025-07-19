@@ -290,15 +290,31 @@ const ContactoPage = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button size="lg" className="bg-green-500 hover:bg-green-600" asChild>
-                                         <a href="https://wa.me/595991800886?text=URGENCIA:%20Necesito%20ayuda%20inmediata%20con%20una%20situación%20de%20salud%20mental." target="_blank" rel="noopener noreferrer">
+                  <div className="space-y-3">
+                    <Button size="lg" variant="destructive" className="w-full" asChild>
+                      <a href="tel:147" className="flex items-center justify-center">
+                        <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        Emergencias: 147
+                      </a>
+                    </Button>
+                    <p className="text-xs text-center text-muted-foreground">
+                      Línea nacional de emergencias del gobierno
+                    </p>
+                  </div>
+                  
+                  <div className="border-t pt-4">
+                    <Button size="lg" className="bg-green-500 hover:bg-green-600 w-full" asChild>
+                      <a href="https://wa.me/595991800886?text=URGENCIA:%20Necesito%20ayuda%20inmediata%20con%20una%20situación%20de%20salud%20mental." target="_blank" rel="noopener noreferrer">
                         <MessageCircle className="h-5 w-5 mr-2" />
                         WhatsApp de Urgencias
                       </a>
-                  </Button>
-                  <p className="text-sm text-muted-foreground">
-                    Disponible 24/7 para situaciones que requieren atención inmediata
-                  </p>
+                    </Button>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Disponible 24/7 para situaciones que requieren atención inmediata
+                    </p>
+                  </div>
                 </CardContent>
               </Card>
             </div>

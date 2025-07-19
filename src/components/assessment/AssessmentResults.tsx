@@ -21,6 +21,7 @@ interface LeadFormData {
   nombre: string;
   apellido: string;
   email: string;
+  codigoPais: string;
   telefono: string;
   edad: number | null;
   sexo: string | null;
@@ -32,16 +33,90 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
   
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  const countryCodes = [
+    { code: '+595', country: 'Paraguay', flag: '🇵🇾' },
+    { code: '+54', country: 'Argentina', flag: '🇦🇷' },
+    { code: '+55', country: 'Brasil', flag: '🇧🇷' },
+    { code: '+56', country: 'Chile', flag: '🇨🇱' },
+    { code: '+57', country: 'Colombia', flag: '🇨🇴' },
+    { code: '+598', country: 'Uruguay', flag: '🇺🇾' },
+    { code: '+1', country: 'Estados Unidos', flag: '🇺🇸' },
+    { code: '+34', country: 'España', flag: '🇪🇸' },
+    { code: '+52', country: 'México', flag: '🇲🇽' },
+  ];
   const [formData, setFormData] = useState<LeadFormData>({
     nombre: "",
     apellido: "",
     email: "",
+    codigoPais: "+595",
     telefono: "",
     edad: null,
     sexo: null,
     ciudad: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Format phone number based on country
+  const formatPhoneNumber = (value: string, countryCode: string) => {
+    // Remove all non-numeric characters
+    const numericValue = value.replace(/\D/g, '');
+    
+    if (countryCode === '+595') {
+      // Paraguay format: 9XX XXX XXX
+      if (numericValue.length <= 3) {
+        return numericValue;
+      } else if (numericValue.length <= 6) {
+        return `${numericValue.slice(0, 3)} ${numericValue.slice(3)}`;
+      } else {
+        return `${numericValue.slice(0, 3)} ${numericValue.slice(3, 6)} ${numericValue.slice(6, 9)}`;
+      }
+    } else if (countryCode === '+54') {
+      // Argentina format: 11 XXXX XXXX (Buenos Aires) or 9 XXX XXX XXXX (other regions)
+      if (numericValue.length <= 2) {
+        return numericValue;
+      } else if (numericValue.length <= 6) {
+        return `${numericValue.slice(0, 2)} ${numericValue.slice(2)}`;
+      } else {
+        return `${numericValue.slice(0, 2)} ${numericValue.slice(2, 6)} ${numericValue.slice(6, 10)}`;
+      }
+    } else if (countryCode === '+1') {
+      // US format: (XXX) XXX-XXXX
+      if (numericValue.length <= 3) {
+        return numericValue;
+      } else if (numericValue.length <= 6) {
+        return `(${numericValue.slice(0, 3)}) ${numericValue.slice(3)}`;
+      } else {
+        return `(${numericValue.slice(0, 3)}) ${numericValue.slice(3, 6)}-${numericValue.slice(6, 10)}`;
+      }
+    } else if (countryCode === '+34') {
+      // Spain format: XXX XX XX XX
+      if (numericValue.length <= 3) {
+        return numericValue;
+      } else if (numericValue.length <= 5) {
+        return `${numericValue.slice(0, 3)} ${numericValue.slice(3)}`;
+      } else if (numericValue.length <= 7) {
+        return `${numericValue.slice(0, 3)} ${numericValue.slice(3, 5)} ${numericValue.slice(5)}`;
+      } else {
+        return `${numericValue.slice(0, 3)} ${numericValue.slice(3, 5)} ${numericValue.slice(5, 7)} ${numericValue.slice(7, 9)}`;
+      }
+    } else if (countryCode === '+52') {
+      // Mexico format: XX XXXX XXXX
+      if (numericValue.length <= 2) {
+        return numericValue;
+      } else if (numericValue.length <= 6) {
+        return `${numericValue.slice(0, 2)} ${numericValue.slice(2)}`;
+      } else {
+        return `${numericValue.slice(0, 2)} ${numericValue.slice(2, 6)} ${numericValue.slice(6, 10)}`;
+      }
+    }
+    return numericValue;
+  };
+
+  const handlePhoneChange = (value: string) => {
+    const formatted = formatPhoneNumber(value, formData.codigoPais);
+    setFormData(prev => ({ ...prev, telefono: formatted }));
+  };
 
   // Validar el puntaje antes de procesar
   const scoreValidation = validateScore(type, score);
@@ -146,7 +221,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
     });
 
     // Validate required fields
-    if (!formData.nombre || !formData.apellido || !formData.email || !formData.telefono) {
+    if (!formData.nombre || !formData.apellido || !formData.email || !formData.telefono || !formData.codigoPais) {
       console.log("Validation failed - missing required fields");
       toast({
         title: "Error",
@@ -209,12 +284,15 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
       const evaluationEntry = `${currentDate}: ${getAssessmentTypeName()} - Puntaje ${score} (${localSeverityInfo.level})`;
       
+      // Format full phone number for GoHighLevel
+      const fullPhone = `${formData.codigoPais}${formData.telefono.replace(/\s/g, '')}`;
+      
       const webhookData = {
         // Standard fields
         "firstName": formData.nombre || "Juan Carlos",
         "lastName": formData.apellido || "González López",
         "email": formData.email || "juan.gonzalez@email.com",
-        "phone": formData.telefono || "+56912345678",
+        "phone": fullPhone || "+595991800886",
         
         // Custom fields for evaluations - using exact field keys from GoHighLevel
         "contact.score_phq_9_puntaje_total_2": score, // Puntaje Total
@@ -305,7 +383,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       <div className="container py-12 max-w-3xl">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            {getIcon()}
+            <CheckCircle className="h-12 w-12 text-success" />
           </div>
           <h1 className="text-3xl font-bold text-primary mb-4">
             ¡Evaluación Completada!
@@ -330,17 +408,11 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
           <div className="bg-primary/5 rounded-lg border border-primary/20 p-6 mb-8">
             <div className="flex flex-col items-center">
               <h3 className="text-xl font-semibold mb-3 text-primary">
-                Sus resultados: {severityInfo.level}
+                Sus resultados están listos
               </h3>
-              <p className="text-muted-foreground text-center mb-4">
-                {getMessage()}
+              <p className="text-muted-foreground text-center">
+                Complete el formulario a continuación y le enviaremos sus resultados detallados y recomendaciones personalizadas por WhatsApp.
               </p>
-              <div className="bg-secondary/20 p-4 rounded-md">
-                <p className="text-sm font-medium text-primary mb-2">Recomendación:</p>
-                <p className="text-sm text-muted-foreground">
-                  {clinicalResult?.solucion_recomendada || getCTAText()}
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -386,16 +458,37 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
               
               <div className="space-y-2">
                 <Label htmlFor="telefono">Teléfono <span className="text-destructive">*</span></Label>
-                <Input
-                  id="telefono"
-                  name="telefono"
-                  type="tel"
-                  inputMode="numeric"
-                  value={formData.telefono}
-                  onChange={handleInputChange}
-                  placeholder="+595 9XX XXX XXX"
-                  required
-                />
+                <div className="flex">
+                  <Select
+                    value={formData.codigoPais}
+                    onValueChange={(value) => handleSelectChange("codigoPais", value)}
+                  >
+                    <SelectTrigger className="w-[150px] rounded-r-none border-r-0 h-12">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white border border-border shadow-md z-50">
+                      {countryCodes.map((country) => (
+                        <SelectItem key={country.code} value={country.code}>
+                          <div className="flex items-center gap-2">
+                            <span>{country.flag}</span>
+                            <span>{country.code}</span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Input
+                    id="telefono"
+                    name="telefono"
+                    type="tel"
+                    inputMode="numeric"
+                    className="rounded-l-none"
+                    value={formData.telefono}
+                    onChange={(e) => handlePhoneChange(e.target.value)}
+                    placeholder={formData.codigoPais === '+595' ? '9XX XXX XXX' : 'Número telefónico'}
+                    required
+                  />
+                </div>
               </div>
               
               <div className="space-y-2">
