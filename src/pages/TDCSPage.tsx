@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import ContactForm from "@/components/forms/ContactForm";
-import tdcsImage from "@/assets/tdcs-treatment-professional.jpg";
+// Removed import - using YouTube video instead
 
 const TDCSPage = () => {
   return (
@@ -69,10 +69,16 @@ const TDCSPage = () => {
             </div>
             
             <div className="aspect-video bg-muted rounded-lg overflow-hidden mb-8">
-              <img 
-                src={tdcsImage} 
-                alt="Equipo tDCS en aplicación clínica - Estimulación Transcraneal por Corriente Directa"
-                className="w-full h-full object-cover"
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/KNpyhgcr7iE?si=LPfugepqqkbDecIT" 
+                title="Tratamiento tDCS - Estimulación Transcraneal por Corriente Directa" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerPolicy="strict-origin-when-cross-origin" 
+                allowFullScreen
+                className="w-full h-full"
               />
             </div>
             
