@@ -6,10 +6,10 @@ const VoiceBotWidget = () => {
       loading="eager"
       style={{
         position: 'fixed',
-        bottom: '24px',
-        right: '24px',
-        width: '200px',
-        height: '200px',
+        bottom: '20px',
+        right: '20px',
+        width: '120px',
+        height: '120px',
         border: 'none',
         zIndex: 50
       }}
