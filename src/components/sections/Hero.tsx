@@ -8,10 +8,11 @@ const Hero = () => {
   return (
     <section 
       id="hero-neuromodulation"
-      className="relative overflow-hidden min-h-screen bg-gradient-to-br from-background via-background to-primary/5"
+      className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5"
       style={{ 
-        paddingTop: `${headerHeight}px`
-      }}
+        paddingTop: `${headerHeight}px`,
+        '--header-height': `${headerHeight}px`
+      } as React.CSSProperties}
     >
       {/* Multi-Layer Background Animation System - MUCH MORE VISIBLE */}
       <div className="absolute inset-0 overflow-hidden z-0">
@@ -37,20 +38,20 @@ const Hero = () => {
       </div>
 
       <div className="container relative z-20">
-        <div className="flex min-h-[calc(100vh-80px)] items-center justify-center py-6 sm:py-12 md:py-16">
+        <div className="flex items-center justify-center py-8 sm:py-12 md:py-16 lg:py-20">
           {/* CENTERED TEXT ZONE - Full Width */}
-          <div className="flex flex-col justify-center items-center space-y-6 sm:space-y-8 text-center max-w-5xl px-4">
+          <div className="flex flex-col justify-center items-center space-y-4 sm:space-y-6 md:space-y-8 text-center max-w-5xl px-4">
             {/* Headline */}
-            <div className="space-y-4 md:space-y-8">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[1.05]">
+            <div className="space-y-3 sm:space-y-4 md:space-y-6">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">
                 <span className="text-primary font-extrabold">Primer y Único</span><br />
                 <span className="text-foreground">Centro de</span><br />
-                <span className="text-foreground text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">Neuromodulación</span><br />
+                <span className="text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">Neuromodulación</span><br />
                 <span className="text-accent font-extrabold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent">de Paraguay</span>
               </h1>
               
               {/* Sub-headline */}
-              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-muted-foreground leading-relaxed max-w-4xl">
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-muted-foreground leading-relaxed max-w-4xl">
                 Tecnologías avanzadas <span className="font-semibold text-primary">EMT/TMS</span> y <span className="font-semibold text-primary">tDCS</span> para tratar condiciones resistentes a terapias convencionales
               </p>
             </div>
@@ -66,10 +67,10 @@ const Hero = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 pt-6 sm:pt-8 md:pt-10 w-full sm:w-auto max-w-lg sm:max-w-none">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 pt-2 sm:pt-4 md:pt-6 w-full sm:w-auto max-w-lg sm:max-w-none">
               <Button 
                 size="lg" 
-                className="text-lg sm:text-xl md:text-2xl lg:text-3xl px-8 sm:px-10 md:px-12 lg:px-14 py-5 sm:py-7 md:py-9 h-auto group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-8 md:px-10 lg:px-12 py-4 sm:py-5 md:py-6 lg:py-7 h-auto group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
                 asChild
               >
                                   <a 
@@ -78,22 +79,22 @@ const Hero = () => {
                     rel="noopener noreferrer"
                   className="flex items-center justify-center font-semibold"
                 >
-                  <MessageCircle className="mr-3 sm:mr-4 md:mr-5 h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
+                  <MessageCircle className="mr-2 sm:mr-3 md:mr-4 h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
                   Agende su Consulta
-                  <ArrowRight className="ml-3 sm:ml-4 md:ml-5 h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 sm:ml-3 md:ml-4 h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 transition-transform group-hover:translate-x-1" />
                 </a>
               </Button>
               
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="text-lg sm:text-xl md:text-2xl lg:text-3xl px-8 sm:px-10 md:px-12 lg:px-14 py-5 sm:py-7 md:py-9 h-auto group border-2 border-primary/30 hover:border-primary hover:bg-primary/5 font-semibold w-full sm:w-auto"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-8 md:px-10 lg:px-12 py-4 sm:py-5 md:py-6 lg:py-7 h-auto group border-2 border-primary/30 hover:border-primary hover:bg-primary/5 font-semibold w-full sm:w-auto"
                 asChild
               >
                 <Link to="/autoevaluacion" className="flex items-center justify-center">
-                  <Brain className="mr-3 sm:mr-4 md:mr-5 h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
+                  <Brain className="mr-2 sm:mr-3 md:mr-4 h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
                   ¿Es Candidato?
-                  <ArrowRight className="ml-3 sm:ml-4 md:ml-5 h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 sm:ml-3 md:ml-4 h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
             </div>
