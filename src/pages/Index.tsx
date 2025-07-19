@@ -6,18 +6,54 @@ import ConditionsTreated from "@/components/sections/ConditionsTreated";
 import PatientJourney from "@/components/sections/PatientJourney";
 import ContactForm from "@/components/forms/ContactForm";
 import { MapPin, Phone, Mail } from "lucide-react";
+import AnimatedParticles from "@/components/ui/AnimatedParticles";
+import { useEffect } from "react";
+import "@/styles/animations.css";
 
 const Index = () => {
+  useEffect(() => {
+    // Initialize scroll reveal animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with scroll-reveal class
+    document.querySelectorAll('.scroll-reveal').forEach(el => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <Layout isHomePage={true}>
+      <AnimatedParticles />
       <Hero />
-      <Services />
-      <TrustAuthority />
-      <ConditionsTreated />
-      <PatientJourney />
+      <div className="scroll-reveal">
+        <Services />
+      </div>
+      <div className="scroll-reveal" style={{ transitionDelay: '0.2s' }}>
+        <TrustAuthority />
+      </div>
+      <div className="scroll-reveal" style={{ transitionDelay: '0.4s' }}>
+        <ConditionsTreated />
+      </div>
+      <div className="scroll-reveal" style={{ transitionDelay: '0.6s' }}>
+        <PatientJourney />
+      </div>
       
       {/* Contact Section */}
-      <section className="py-12 sm:py-16 bg-muted/50">
+      <section className="py-12 sm:py-16 bg-muted/50 scroll-reveal" style={{ transitionDelay: '0.8s' }}>
         <div className="container px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4">Contáctenos</h2>

@@ -3,6 +3,7 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import "@/styles/animations.css"
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
@@ -62,13 +63,60 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const [ripples, setRipples] = React.useState<Array<{ x: number; y: number; id: number }>>([]);
+    const buttonRef = React.useRef<HTMLButtonElement>(null);
+    
+    const createRipple = (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (asChild) return;
+      
+      const button = buttonRef.current || event.currentTarget;
+      const rect = button.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const id = Date.now();
+      
+      setRipples(prev => [...prev, { x, y, id }]);
+      
+      setTimeout(() => {
+        setRipples(prev => prev.filter(ripple => ripple.id !== id));
+      }, 600);
+    };
+    
     const Comp = asChild ? Slot : "button"
+    
+    if (asChild) {
+      return (
+        <Comp
+          className={cn(buttonVariants({ variant, size, className }))}
+          ref={ref}
+          {...props}
+        />
+      )
+    }
+    
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
+        className={cn(buttonVariants({ variant, size, className }), "relative overflow-hidden hover-lift")}
+        ref={(node) => {
+          buttonRef.current = node;
+          if (typeof ref === 'function') ref(node);
+          else if (ref) ref.current = node;
+        }}
+        onMouseDown={createRipple}
         {...props}
-      />
+      >
+        {ripples.map(ripple => (
+          <span
+            key={ripple.id}
+            className="ripple"
+            style={{
+              left: ripple.x,
+              top: ripple.y,
+            }}
+          />
+        ))}
+        {props.children}
+      </Comp>
     )
   }
 )

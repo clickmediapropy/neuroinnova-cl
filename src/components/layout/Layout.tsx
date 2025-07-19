@@ -4,6 +4,7 @@ import HomeHeader from "./HomeHeader";
 import Footer from "./Footer";
 import VoiceBotWidget from "../ui/VoiceBotWidget";
 import FirstVisitTooltip from "../ui/FirstVisitTooltip";
+import FloatingActions from "../ui/FloatingActions";
 
 interface LayoutProps {
   children: ReactNode;
@@ -20,6 +21,7 @@ const Layout = ({ children, isHomePage = false }: LayoutProps) => {
       <Footer />
       <VoiceBotWidget />
       <FirstVisitTooltip />
+      <FloatingActions />
     </div>
   );
 };

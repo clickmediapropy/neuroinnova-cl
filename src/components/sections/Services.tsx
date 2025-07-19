@@ -6,8 +6,8 @@ const Services = () => {
     <section className="py-12 sm:py-16 neural-bg relative">
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4">Nuestros Servicios</h2>
-          <p className="text-base sm:text-lg text-muted-foreground px-4 sm:px-0">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4 text-shimmer">Nuestros Servicios</h2>
+          <p className="text-base sm:text-lg text-muted-foreground px-4 sm:px-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             Tecnologías avanzadas de neuromodulación para tratar condiciones resistentes a terapias convencionales
           </p>
         </div>
@@ -34,7 +34,7 @@ const Services = () => {
           </div>
 
           {/* Other Services - 2x2 Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto stagger-animation">
             {/* tDCS Service */}
             <ServiceCard
               title="Estimulación Transcraneal por Corriente Directa (tDCS)"

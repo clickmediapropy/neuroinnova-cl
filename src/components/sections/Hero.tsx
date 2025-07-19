@@ -44,10 +44,10 @@ const Hero = () => {
             {/* Headline */}
             <div className="space-y-3 sm:space-y-4 md:space-y-6">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">
-                <span className="text-primary font-extrabold">Primer y Único</span><br />
-                <span className="text-foreground">Centro de</span><br />
-                <span className="text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">Neuromodulación</span><br />
-                <span className="text-accent font-extrabold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent">de Paraguay</span>
+                <span className="text-primary font-extrabold animate-fade-in-down" style={{ animationDelay: '0.1s' }}>Primer y Único</span><br />
+                <span className="text-foreground animate-fade-in-left" style={{ animationDelay: '0.3s' }}>Centro de</span><br />
+                <span className="text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl animate-fade-in-right" style={{ animationDelay: '0.5s' }}>Neuromodulación</span><br />
+                <span className="text-accent font-extrabold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent animate-gradient animate-fade-in-up" style={{ animationDelay: '0.7s' }}>de Paraguay</span>
               </h1>
               
               {/* Sub-headline */}
@@ -57,8 +57,8 @@ const Hero = () => {
             </div>
 
             {/* Badge */}
-            <div className="inline-flex px-4">
-              <div className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 bg-primary/10 border border-primary/20 rounded-full">
+            <div className="inline-flex px-4 animate-scale-in" style={{ animationDelay: '0.9s' }}>
+              <div className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 bg-primary/10 border border-primary/20 rounded-full animate-glow hover-lift">
                 <span className="text-base sm:text-lg md:text-xl font-semibold text-primary flex items-center gap-2">
                   <span className="w-2 sm:w-3 h-2 sm:h-3 bg-accent rounded-full animate-pulse"></span>
                   Tecnología FDA Aprobada
@@ -67,10 +67,10 @@ const Hero = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 pt-2 sm:pt-4 md:pt-6 w-full sm:w-auto max-w-lg sm:max-w-none">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 pt-2 sm:pt-4 md:pt-6 w-full sm:w-auto max-w-lg sm:max-w-none stagger-animation">
               <Button 
                 size="lg" 
-                className="text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-8 md:px-10 lg:px-12 py-4 sm:py-5 md:py-6 lg:py-7 h-auto group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-8 md:px-10 lg:px-12 py-4 sm:py-5 md:py-6 lg:py-7 h-auto group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto hover-lift animate-pulse-slow"
                 asChild
               >
                                   <a 

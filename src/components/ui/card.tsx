@@ -1,20 +1,43 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import "@/styles/animations.css"
 
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-lg border bg-card text-card-foreground shadow-sm",
-      className
-    )}
-    {...props}
-  />
-))
+>(({ className, ...props }, ref) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+  
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-500 hover-lift",
+        "relative overflow-hidden",
+        className
+      )}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      {...props}
+    >
+      {/* Morphing background shape */}
+      <div 
+        className={cn(
+          "absolute -inset-10 opacity-0 transition-opacity duration-500",
+          isHovered && "opacity-100"
+        )}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 morph-shape" />
+      </div>
+      
+      {/* Card content */}
+      <div className="relative z-10">
+        {props.children}
+      </div>
+    </div>
+  )
+})
 Card.displayName = "Card"
 
 const CardHeader = React.forwardRef<

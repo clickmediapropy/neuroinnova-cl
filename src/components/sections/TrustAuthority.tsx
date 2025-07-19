@@ -5,14 +5,14 @@ const TrustAuthority = () => {
     <section className="py-12 sm:py-16 bg-primary-light neural-bg relative">
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4">¿Por qué NeuroInnova?</h2>
-          <p className="text-base sm:text-lg text-muted-foreground px-4 sm:px-0">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4 text-shimmer">¿Por qué NeuroInnova?</h2>
+          <p className="text-base sm:text-lg text-muted-foreground px-4 sm:px-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             Tecnología de vanguardia con enfoque médico centrado en el paciente
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            <div className="bg-card rounded-lg p-4 sm:p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md card-hover-effect service-particles">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 stagger-animation">
+            <div className="bg-card rounded-lg p-4 sm:p-6 border border-border/60 hover:border-primary/30 transition-all duration-300 hover:shadow-md card-hover-effect service-particles tilt-3d">
             <div className="flex items-center mb-3 sm:mb-4">
               <div className="p-1.5 sm:p-2 rounded-full bg-gradient-to-br from-primary-light to-accent/20">
                 <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />

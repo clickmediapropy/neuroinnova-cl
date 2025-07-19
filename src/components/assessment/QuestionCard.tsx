@@ -32,7 +32,7 @@ const QuestionCard = ({
   onValueChange
 }: QuestionCardProps) => {
   return (
-    <div className="bg-card rounded-lg border shadow-sm p-6 mb-8">
+    <div className="bg-card rounded-lg border shadow-sm p-6 mb-8 animate-fade-in-up hover-lift transition-all duration-300">
       <div className="space-y-4">
         {/* Pregunta principal */}
         <h2 className="text-xl font-semibold flex items-start gap-2">
