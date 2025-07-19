@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { getAssessmentQuestions } from "@/data/assessmentQuestions";
 
 // Obtener preguntas mejoradas del archivo de datos
-const questionData = getAssessmentQuestions('youthMentalHealth');
+const questionData = getAssessmentQuestions('youth-mental-health');
 
 const options = [
   { label: "No, nunca", value: "0", points: 0 },
