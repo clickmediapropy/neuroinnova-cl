@@ -1,31 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AlertTriangle, ChevronLeft, ChevronRight } from "lucide-react";
+import { AlertTriangle, ChevronLeft } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import AssessmentResults from "@/components/assessment/AssessmentResults";
+import QuestionCard from "@/components/assessment/QuestionCard";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { getAssessmentQuestions } from "@/data/assessmentQuestions";
 
-// AUDIT (Alcohol Use Disorders Identification Test) and DAST (Drug Abuse Screening Test) questions
-const questions = [
-  "¿Con qué frecuencia consume bebidas alcohólicas?",
-  "¿Cuántas bebidas alcohólicas consume en un día típico cuando bebe?",
-  "¿Con qué frecuencia consume seis o más bebidas alcohólicas en una sola ocasión?",
-  "¿Con qué frecuencia en el último año ha sido incapaz de parar de beber una vez había empezado?",
-  "¿Con qué frecuencia en el último año no pudo hacer lo que se esperaba de usted porque había bebido?",
-  "¿Con qué frecuencia en el último año ha necesitado beber en ayunas para recuperarse después de haber bebido mucho el día anterior?",
-  "¿Con qué frecuencia en el último año ha tenido remordimientos o sentimientos de culpa después de haber bebido?",
-  "¿Con qué frecuencia en el último año no ha podido recordar lo que sucedió la noche anterior porque había estado bebiendo?",
-  "¿Usted o alguna otra persona han resultado heridos como consecuencia de su consumo de alcohol?",
-  "¿Algún familiar, amigo, médico o profesional sanitario ha mostrado preocupación por su consumo de alcohol o le ha sugerido que deje de beber?",
-  "¿Ha usado drogas diferentes al alcohol en el último año?",
-  "¿Alguna vez ha sentido que necesita usar drogas o alcohol para funcionar normalmente?",
-  "¿Ha tratado de reducir o detener el uso de sustancias pero no ha podido?",
-  "¿Su uso de sustancias ha causado problemas en su trabajo, escuela o relaciones?",
-  "¿Ha mentido a familiares o amigos sobre cuánto usa sustancias?"
-];
+// Obtener preguntas mejoradas del archivo de datos
+const questionData = getAssessmentQuestions('addiction');
 
 const getOptionsForQuestion = (questionIndex: number) => {
   if (questionIndex === 0) { // Frequency of drinking
@@ -72,7 +56,7 @@ const getOptionsForQuestion = (questionIndex: number) => {
 const AdiccionEvaluacion = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<string[]>(Array(questions.length).fill(""));
+  const [answers, setAnswers] = useState<string[]>(Array(questionData.length).fill(""));
   const [isComplete, setIsComplete] = useState(false);
   const [score, setScore] = useState(0);
   
@@ -83,7 +67,7 @@ const AdiccionEvaluacion = () => {
     
     // Auto-advance to next question after a short delay
     setTimeout(() => {
-      if (currentQuestion < questions.length - 1) {
+      if (currentQuestion < questionData.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
         // If it's the last question, show results
@@ -95,7 +79,7 @@ const AdiccionEvaluacion = () => {
   };
 
   const handleNext = () => {
-    if (currentQuestion < questions.length - 1) {
+    if (currentQuestion < questionData.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       const calculatedScore = answers.reduce((sum, value) => sum + parseInt(value || "0"), 0);
@@ -112,20 +96,11 @@ const AdiccionEvaluacion = () => {
 
   const handleReset = () => {
     setCurrentQuestion(0);
-    setAnswers(Array(questions.length).fill(""));
+    setAnswers(Array(questionData.length).fill(""));
     setIsComplete(false);
     setScore(0);
   };
-
-  
-  // TEMPORARY: Test function for development
-  const goToTestResults = () => {
-    setAnswers(Array(questions.length).fill(2)); // Fill with test values
-    setScore(20); // Test score
-    setIsComplete(true);
-  };
-
-  const progress = ((currentQuestion + 1) / questions.length) * 100;
+  const progress = ((currentQuestion + 1) / questionData.length) * 100;
   const currentOptions = getOptionsForQuestion(currentQuestion);
   
   if (isComplete) {
@@ -147,45 +122,33 @@ const AdiccionEvaluacion = () => {
           </div>
         </div>
         
-        <h1 className="text-3xl font-bold text-center text-primary mb-2 text-protected">
+        <h1 className="text-3xl font-bold text-center text-primary mb-2">
           Autoevaluación de Uso de Sustancias
         </h1>
         
-        <p className="text-center text-protected-muted mb-8">
+        <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
           Este cuestionario evalúa patrones de uso de alcohol y otras sustancias.
           Responda honestamente según sus experiencias en el último año.
         </p>
         
         <div className="mb-8">
-          <div className="flex justify-between text-sm text-protected-muted mb-2">
-            <span>Pregunta {currentQuestion + 1} de {questions.length}</span>
+          <div className="flex justify-between text-sm text-muted-foreground mb-2">
+            <span>Pregunta {currentQuestion + 1} de {questionData.length}</span>
             <span>{Math.round(progress)}%</span>
           </div>
           <Progress value={progress} className="h-2" />
         </div>
         
-        <div className="bg-card rounded-lg border shadow-sm p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-6">
-            {questions[currentQuestion]}
-          </h2>
-          
-          <RadioGroup
-            value={answers[currentQuestion]}
-            onValueChange={handleAnswerChange}
-            className="space-y-4"
-          >
-            {currentOptions.map((option) => (
-              <div key={option.value} className="flex items-center space-x-3 p-3 rounded-md hover:bg-muted/50">
-                <RadioGroupItem value={option.value} id={`option-${option.value}`} />
-                <Label htmlFor={`option-${option.value}`} className="flex-grow cursor-pointer">
-                  {option.label}
-                </Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </div>
+        <QuestionCard
+          question={questionData[currentQuestion].question}
+          description={questionData[currentQuestion].description}
+          examples={questionData[currentQuestion].examples}
+          options={currentOptions}
+          value={answers[currentQuestion]}
+          onValueChange={handleAnswerChange}
+        />
         
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <Button
             variant="outline"
             onClick={handlePrevious}
@@ -196,16 +159,7 @@ const AdiccionEvaluacion = () => {
             Anterior
           </Button>
           
-          {/* TEMPORARY DEV BUTTON - REMOVE WHEN TESTING IS COMPLETE */}
-          <Button
-            variant="destructive"
-            onClick={goToTestResults}
-            className="text-xs"
-          >
-            🔧 TEST RESULTS
-          </Button>
-          
-          <div className="text-sm text-protected-muted flex items-center">
+          <div className="text-sm text-muted-foreground">
             Seleccione una respuesta para continuar automáticamente
           </div>
         </div>

@@ -1,25 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Brain, ChevronLeft, ChevronRight } from "lucide-react";
+import { Heart, ChevronLeft } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import AssessmentResults from "@/components/assessment/AssessmentResults";
+import QuestionCard from "@/components/assessment/QuestionCard";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { getAssessmentQuestions } from "@/data/assessmentQuestions";
 
-// PHQ-9 questionnaire data
-const questions = [
-  "Poco interés o placer en hacer cosas",
-  "Sentirse decaído/a, deprimido/a, o desesperanzado/a",
-  "Dificultad para dormir o permanecer dormido o dormir demasiado",
-  "Sentirse cansado/a o con poca energía",
-  "Con poco apetito o comer demasiado",
-  "Sentirse mal consigo mismo o sentir que uno es un fracaso o que le ha fallado a su familia o a sí mismo",
-  "Dificultad para concentrarse en cosas, tales como leer el diario o ver la televisión",
-  "¿Se ha movido o hablado más lentamente que otras personas lo notaron? O por el contrario — ha estado más inquieto/a e intranquilo/a, moviéndose más de lo habitual",
-  "Pensamientos de que usted estaría mejor muerto/a, o de hacerse daño a sí mismo/a de alguna manera"
-];
+// Obtener preguntas mejoradas del archivo de datos
+const questionData = getAssessmentQuestions('depression');
 
 const options = [
   { label: "Nunca", value: "0", points: 0 },
@@ -31,7 +21,7 @@ const options = [
 const DepresionEvaluacion = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<string[]>(Array(questions.length).fill(""));
+  const [answers, setAnswers] = useState<string[]>(Array(questionData.length).fill(""));
   const [isComplete, setIsComplete] = useState(false);
   const [score, setScore] = useState(0);
   
@@ -42,7 +32,7 @@ const DepresionEvaluacion = () => {
     
     // Auto-advance to next question after a short delay
     setTimeout(() => {
-      if (currentQuestion < questions.length - 1) {
+      if (currentQuestion < questionData.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
         // If it's the last question, show results
@@ -53,16 +43,6 @@ const DepresionEvaluacion = () => {
     }, 300); // 300ms delay for better UX
   };
 
-  const handleNext = () => {
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      const calculatedScore = answers.reduce((sum, value) => sum + parseInt(value || "0"), 0);
-      setScore(calculatedScore);
-      setIsComplete(true);
-    }
-  };
-
   const handlePrevious = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
@@ -71,20 +51,12 @@ const DepresionEvaluacion = () => {
 
   const handleReset = () => {
     setCurrentQuestion(0);
-    setAnswers(Array(questions.length).fill(""));
+    setAnswers(Array(questionData.length).fill(""));
     setIsComplete(false);
     setScore(0);
   };
 
-  
-  // TEMPORARY: Test function for development
-  const goToTestResults = () => {
-    setAnswers(Array(questions.length).fill(2)); // Fill with test values
-    setScore(18); // Test score
-    setIsComplete(true);
-  };
-
-  const progress = ((currentQuestion + 1) / questions.length) * 100;
+  const progress = ((currentQuestion + 1) / questionData.length) * 100;
   
   if (isComplete) {
     return (
@@ -98,52 +70,39 @@ const DepresionEvaluacion = () => {
   
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 max-w-3xl">
         <div className="flex items-center justify-center mb-8">
           <div className="w-16 h-16 rounded-full bg-primary-light flex items-center justify-center mb-4">
-            <Brain className="h-8 w-8 text-primary" />
+            <Heart className="h-8 w-8 text-primary" />
           </div>
         </div>
         
-        <h1 className="text-3xl font-bold text-center text-primary mb-2 text-protected">
+        <h1 className="text-3xl font-bold text-center text-primary mb-2">
           Autoevaluación de Depresión
         </h1>
         
-        <p className="text-center text-protected-muted mb-8">
-          Este cuestionario lo ayudará a evaluar si padece de algún estado de depresión.
-          Responda según cómo se ha sentido durante las últimas dos semanas.
+        <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+          Este cuestionario evalúa síntomas de depresión. Responda según cómo se ha sentido durante las últimas dos semanas.
         </p>
         
         <div className="mb-8">
-          <div className="flex justify-between text-sm text-protected-muted mb-2">
-            <span>Pregunta {currentQuestion + 1} de {questions.length}</span>
+          <div className="flex justify-between text-sm text-muted-foreground mb-2">
+            <span>Pregunta {currentQuestion + 1} de {questionData.length}</span>
             <span>{Math.round(progress)}%</span>
           </div>
           <Progress value={progress} className="h-2" />
         </div>
         
-        <div className="bg-card rounded-lg border shadow-sm p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-6">
-            {questions[currentQuestion]}
-          </h2>
-          
-          <RadioGroup
-            value={answers[currentQuestion]}
-            onValueChange={handleAnswerChange}
-            className="space-y-4"
-          >
-            {options.map((option) => (
-              <div key={option.value} className="flex items-center space-x-3 p-3 rounded-md hover:bg-muted/50">
-                <RadioGroupItem value={option.value} id={`option-${option.value}`} />
-                <Label htmlFor={`option-${option.value}`} className="flex-grow cursor-pointer">
-                  {option.label}
-                </Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </div>
+        <QuestionCard
+          question={questionData[currentQuestion].question}
+          description={questionData[currentQuestion].description}
+          examples={questionData[currentQuestion].examples}
+          options={options}
+          value={answers[currentQuestion]}
+          onValueChange={handleAnswerChange}
+        />
         
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <Button
             variant="outline"
             onClick={handlePrevious}
@@ -154,16 +113,7 @@ const DepresionEvaluacion = () => {
             Anterior
           </Button>
           
-          {/* TEMPORARY DEV BUTTON - REMOVE WHEN TESTING IS COMPLETE */}
-          <Button
-            variant="destructive"
-            onClick={goToTestResults}
-            className="text-xs"
-          >
-            🔧 TEST RESULTS
-          </Button>
-          
-          <div className="text-sm text-protected-muted flex items-center">
+          <div className="text-sm text-muted-foreground">
             Seleccione una respuesta para continuar automáticamente
           </div>
         </div>

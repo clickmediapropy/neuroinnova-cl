@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { getClinicalInterpretation, getSeverityColor, validateScore } from "@/data/clinicalScoring";
 
 export type AssessmentType = "depression" | "anxiety" | "bipolar" | "ptsd" | "psychosis" | "adhd" | "eating-disorder" | "addiction" | "postpartum-depression" | "parent-child-mental-health" | "youth-mental-health";
 
@@ -42,94 +43,36 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Validar el puntaje antes de procesar
+  const scoreValidation = validateScore(type, score);
+  if (!scoreValidation.isValid) {
+    console.error("Score validation failed:", scoreValidation.message);
+    console.error(`Type: ${type}, Score: ${score}, Valid range: ${scoreValidation.minScore}-${scoreValidation.maxScore}`);
+  }
+
+  // Obtener la interpretación clínica validada
+  const clinicalResult = getClinicalInterpretation(type, score);
+  
   const getSeverityLevel = () => {
-    if (type === "depression") {
-      if (score <= 4) return { level: "Mínima", color: "success" };
-      if (score <= 9) return { level: "Leve", color: "success" };
-      if (score <= 14) return { level: "Moderada", color: "warning" };
-      if (score <= 19) return { level: "Moderadamente severa", color: "warning" };
-      return { level: "Severa", color: "destructive" };
-    } else if (type === "anxiety") {
-      if (score <= 4) return { level: "Mínima", color: "success" };
-      if (score <= 9) return { level: "Leve", color: "success" };
-      if (score <= 14) return { level: "Moderada", color: "warning" };
-      return { level: "Severa", color: "destructive" };
-    } else if (type === "bipolar") {
-      if (score <= 6) return { level: "Bajo riesgo", color: "success" };
-      if (score <= 9) return { level: "Riesgo moderado", color: "warning" };
-      return { level: "Alto riesgo", color: "destructive" };
-    } else if (type === "ptsd") {
-      if (score <= 30) return { level: "Síntomas mínimos", color: "success" };
-      if (score <= 44) return { level: "Síntomas leves", color: "success" };
-      if (score <= 59) return { level: "Síntomas moderados", color: "warning" };
-      return { level: "Síntomas severos", color: "destructive" };
-    } else if (type === "psychosis") {
-      if (score <= 5) return { level: "Bajo riesgo", color: "success" };
-      if (score <= 15) return { level: "Riesgo moderado", color: "warning" };
-      return { level: "Alto riesgo", color: "destructive" };
-    } else if (type === "adhd") {
-      if (score <= 24) return { level: "Síntomas mínimos", color: "success" };
-      if (score <= 39) return { level: "Síntomas leves", color: "success" };
-      if (score <= 54) return { level: "Síntomas moderados", color: "warning" };
-      return { level: "Síntomas severos", color: "destructive" };
-    } else if (type === "eating-disorder") {
-      if (score <= 5) return { level: "Bajo riesgo", color: "success" };
-      if (score <= 12) return { level: "Riesgo moderado", color: "warning" };
-      return { level: "Alto riesgo", color: "destructive" };
-    } else if (type === "addiction") {
-      if (score <= 7) return { level: "Uso bajo riesgo", color: "success" };
-      if (score <= 15) return { level: "Uso riesgoso", color: "warning" };
-      if (score <= 25) return { level: "Uso problemático", color: "warning" };
-      return { level: "Dependencia probable", color: "destructive" };
-    } else if (type === "postpartum-depression") {
-      if (score <= 9) return { level: "Síntomas mínimos", color: "success" };
-      if (score <= 12) return { level: "Síntomas leves", color: "warning" };
-      return { level: "Probable depresión postparto", color: "destructive" };
-    } else if (type === "parent-child-mental-health") {
-      if (score <= 14) return { level: "Funcionamiento normal", color: "success" };
-      if (score <= 24) return { level: "Atención recomendada", color: "warning" };
-      return { level: "Evaluación urgente requerida", color: "destructive" };
-    } else if (type === "youth-mental-health") {
-      if (score <= 18) return { level: "Síntomas mínimos", color: "success" };
-      if (score <= 30) return { level: "Síntomas moderados", color: "warning" };
-      return { level: "Síntomas significativos", color: "destructive" };
+    if (!clinicalResult) {
+      return { level: "No determinado", color: "muted" as const };
     }
-    return { level: "No determinado", color: "muted" };
+    
+    return {
+      level: clinicalResult.categoria,
+      color: getSeverityColor(clinicalResult.categoria)
+    };
   };
 
   const severityInfo = getSeverityLevel();
   
   const getMessage = () => {
-    const severityInfo = getSeverityLevel();
-    
-    if (type === "bipolar" || type === "psychosis" || type === "eating-disorder") {
-      if (severityInfo.color === "success") {
-        return "Sus resultados indican un nivel bajo de riesgo. Mantenga hábitos saludables y consulte si tiene preocupaciones.";
-      }
-      if (severityInfo.color === "warning") {
-        return "Sus resultados sugieren la presencia de algunos síntomas. Recomendamos una evaluación profesional para mayor claridad.";
-      }
-      return "Sus resultados indican síntomas significativos. Es importante buscar ayuda profesional para una evaluación completa.";
+    if (!clinicalResult) {
+      return "No se pudo interpretar el resultado. Por favor, contacte con soporte.";
     }
     
-    if (type === "addiction") {
-      if (severityInfo.color === "success") {
-        return "Sus patrones de uso parecen estar dentro de rangos de bajo riesgo. Mantenga el consumo responsable.";
-      }
-      if (severityInfo.color === "warning") {
-        return "Sus resultados sugieren patrones de uso que podrían requerir atención. Considere una consulta profesional.";
-      }
-      return "Sus resultados indican patrones de uso problemáticos. Recomendamos buscar ayuda especializada en adicciones.";
-    }
-    
-    // Default messages for other types
-    if (score <= 9 || severityInfo.color === "success") {
-      return "Sus resultados indican niveles mínimos o leves. Aunque los síntomas son manejables, es importante monitorear su evolución y considerar una consulta preventiva.";
-    }
-    if (score <= 14 || severityInfo.color === "warning") {
-      return "Sus resultados indican niveles moderados. Recomendamos agendar una evaluación profesional para un diagnóstico adecuado y opciones de tratamiento.";
-    }
-    return "Sus resultados indican niveles significativos. Es importante buscar ayuda profesional pronto para recibir el apoyo y tratamiento adecuados.";
+    // Usar la descripción del problema del sistema clínico
+    return clinicalResult.descripcion_problema;
   };
 
   const getIcon = () => {
@@ -144,14 +87,12 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
   };
 
   const getCTAText = () => {
-    const severityInfo = getSeverityLevel();
-    if (severityInfo.color === "success") {
-      return "Agende una consulta preventiva";
+    if (!clinicalResult) {
+      return "Consulte con un profesional";
     }
-    if (severityInfo.color === "warning") {
-      return "Recomendamos agendar una evaluación profesional";
-    }
-    return "Es importante buscar ayuda profesional pronto";
+    
+    // Usar la solución recomendada del sistema clínico
+    return clinicalResult.solucion_recomendada;
   };
 
   const getCTAVariant = () => {
@@ -221,27 +162,48 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
     try {
       console.log("=== TRY BLOCK STARTED ===");
+      
+      // Validate score before sending
+      if (!scoreValidation.isValid) {
+        console.error("Invalid score detected:", scoreValidation.message);
+        toast({
+          title: "Error",
+          description: "Puntaje inválido detectado. Por favor, contacte con soporte.",
+          variant: "destructive"
+        });
+        setIsSubmitting(false);
+        return;
+      }
 
       // Get assessment type name for webhook
       const getAssessmentTypeName = () => {
+        if (!clinicalResult) {
+          return "Evaluación Mental";
+        }
+        return clinicalResult.testName;
+      };
+      
+      // Get Spanish name for assessment
+      const getSpanishAssessmentName = () => {
         switch (type) {
-          case "depression": return "PHQ-9 Depresión";
-          case "anxiety": return "GAD-7 Ansiedad";
-          case "bipolar": return "Trastorno Bipolar";
-          case "ptsd": return "PTSD Estrés Postraumático";
-          case "psychosis": return "Evaluación Psicosis";
-          case "adhd": return "ADHD/TDAH";
-          case "eating-disorder": return "Trastorno Alimentario";
-          case "addiction": return "Uso de Sustancias";
-          case "postpartum-depression": return "Depresión Postparto";
-          case "parent-child-mental-health": return "Salud Mental Infantil";
-          case "youth-mental-health": return "Salud Mental Juvenil";
-          default: return "Evaluación Mental";
+          case "depression": return "Evaluación de Depresión (PHQ-9)";
+          case "anxiety": return "Evaluación de Ansiedad (GAD-7)";
+          case "bipolar": return "Evaluación de Trastorno Bipolar (MDQ)";
+          case "ptsd": return "Evaluación de Estrés Postraumático (PC-PTSD-5)";
+          case "psychosis": return "Evaluación de Riesgo de Psicosis (PQ-B)";
+          case "adhd": return "Evaluación de TDAH (ASRS)";
+          case "eating-disorder": return "Evaluación de Trastorno Alimentario (SWED)";
+          case "addiction": return "Evaluación de Uso de Sustancias (AUDIT)";
+          case "postpartum-depression": return "Evaluación de Depresión Postparto (EPDS)";
+          case "parent-child-mental-health": return "Evaluación de Salud Mental Infantil (PSC-35)";
+          case "youth-mental-health": return "Evaluación de Salud Mental Juvenil (PSC-35)";
+          default: return "Evaluación de Salud Mental";
         }
       };
 
       const localSeverityInfo = getSeverityLevel();
       console.log("Severity info:", localSeverityInfo);
+      console.log("Clinical result:", clinicalResult);
 
       // Prepare data for GoHighLevel webhook with correct field keys
       const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
@@ -257,11 +219,15 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         // Custom fields for evaluations - using exact field keys from GoHighLevel
         "contact.score_phq_9_puntaje_total_2": score, // Puntaje Total
         "contact.diagnstico_preliminar": `${getAssessmentTypeName()} - Puntaje: ${score} - Nivel: ${localSeverityInfo.level}`, // Diagnóstico Preliminar
-        "contact.tipo_de_evaluacin": getAssessmentTypeName(), // Tipo de Evaluación
+        "contact.tipo_de_evaluacin": getAssessmentTypeName(), // Tipo de Evaluación (código técnico)
+        "contact.tipo_evaluacion_espanol": getSpanishAssessmentName(), // Tipo de Evaluación (español)
         "contact.nivel_de_severidad": localSeverityInfo.level, // Nivel de Severidad
-        "contact.cdigo_test": type, // Código Test
         "contact.edad": formData.edad || 35, // Edad
         "contact.sexo": formData.sexo || "Masculino", // Sexo
+        
+        // Agregar campos adicionales del sistema clínico
+        "contact.descripcion_problema": clinicalResult?.descripcion_problema || "No disponible",
+        "contact.solucion_recomendada": clinicalResult?.solucion_recomendada || "Consulte con un profesional",
         
         // Historial de evaluaciones (para múltiples tests) - USANDO LOS NUEVOS FIELD KEYS
         "contact.historial_de_evaluaciones": evaluationEntry, // Historial de Evaluaciones
@@ -339,7 +305,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       <div className="container py-12 max-w-3xl">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <CheckCircle className="h-12 w-12 text-success" />
+            {getIcon()}
           </div>
           <h1 className="text-3xl font-bold text-primary mb-4">
             ¡Evaluación Completada!
@@ -364,11 +330,17 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
           <div className="bg-primary/5 rounded-lg border border-primary/20 p-6 mb-8">
             <div className="flex flex-col items-center">
               <h3 className="text-xl font-semibold mb-3 text-primary">
-                Sus resultados le serán enviados por WhatsApp
+                Sus resultados: {severityInfo.level}
               </h3>
-              <p className="text-muted-foreground text-center">
-                Complete sus datos a continuación para recibir un análisis detallado de sus resultados y recomendaciones personalizadas directamente en WhatsApp.
+              <p className="text-muted-foreground text-center mb-4">
+                {getMessage()}
               </p>
+              <div className="bg-secondary/20 p-4 rounded-md">
+                <p className="text-sm font-medium text-primary mb-2">Recomendación:</p>
+                <p className="text-sm text-muted-foreground">
+                  {clinicalResult?.solucion_recomendada || getCTAText()}
+                </p>
+              </div>
             </div>
           </div>
         </div>

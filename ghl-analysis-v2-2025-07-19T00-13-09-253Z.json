@@ -1,0 +1,305 @@
+{
+  "timestamp": "2025-07-19T00:13:09.253Z",
+  "locationId": "Lmk3yMGsLO5NUbaGlZeB",
+  "successfulEndpoint": null,
+  "fields": [
+    {
+      "id": "7lVs3Wl7XI9LtcOfQtwe",
+      "name": "Número Serie Concentrador",
+      "fieldKey": "contact.nmero_serie_concentrador",
+      "placeholder": "Serie del equipo alquilado",
+      "dataType": "TEXT",
+      "position": 50
+    },
+    {
+      "id": "sism8cgX2zi6316Dnjsa",
+      "name": "Dirección IP",
+      "fieldKey": "contact.direccin_ip",
+      "placeholder": "",
+      "dataType": "TEXT",
+      "position": 50
+    },
+    {
+      "id": "FF5IUl3zrHvPZk3Vkl3T",
+      "name": "Campo Temporal Formularios",
+      "fieldKey": "contact.campo_temporal_formularios",
+      "placeholder": "",
+      "dataType": "TEXT",
+      "position": 50
+    },
+    {
+      "id": "itB7PWtgrHieEkXKeGQn",
+      "name": "Campo Temporal Evaluaciones",
+      "fieldKey": "contact.campo_temporal_evaluaciones",
+      "placeholder": "",
+      "dataType": "TEXT",
+      "position": 50
+    },
+    {
+      "id": "JAgZ3flXUmxRK2Bw1GpR",
+      "name": "Fecha Última Consulta",
+      "fieldKey": "contact.fecha_ltima_consulta",
+      "placeholder": "",
+      "dataType": "DATE",
+      "position": 100
+    },
+    {
+      "id": "wdySOFScOAIW989hzyvH",
+      "name": "Fecha Inicio Alquiler",
+      "fieldKey": "contact.fecha_inicio_alquiler",
+      "placeholder": "Fecha de inicio del alquiler",
+      "dataType": "DATE",
+      "position": 100
+    },
+    {
+      "id": "d3VcsCVd1eMe3rigrY8l",
+      "name": "PHQ9 - Puntaje Total",
+      "fieldKey": "contact.score_phq_9_puntaje_total_2",
+      "placeholder": "",
+      "dataType": "NUMERICAL",
+      "position": 100
+    },
+    {
+      "id": "q6dUUoNfZNdFEUuWVkWs",
+      "name": "Tipo de Evaluación",
+      "fieldKey": "contact.tipo_de_evaluacin",
+      "placeholder": "Tipo de evaluación realizada",
+      "dataType": "TEXT",
+      "position": 100
+    },
+    {
+      "id": "YLMP9Jcb0dSXd203BEhh",
+      "name": "Diagnóstico Preliminar",
+      "fieldKey": "contact.diagnstico_preliminar",
+      "placeholder": "Ingrese el diagnóstico preliminar",
+      "dataType": "TEXT",
+      "position": 150
+    },
+    {
+      "id": "BY7vqOpHIfZb3mtL6QZg",
+      "name": "Número de Sesiones",
+      "fieldKey": "contact.nmero_de_sesiones",
+      "placeholder": "",
+      "dataType": "NUMERICAL",
+      "position": 150
+    },
+    {
+      "id": "wOD2mfGxVKVtsunmygdG",
+      "name": "Fecha Fin Alquiler",
+      "fieldKey": "contact.fecha_fin_alquiler",
+      "placeholder": "Fecha de finalización del alquiler",
+      "dataType": "DATE",
+      "position": 150
+    },
+    {
+      "id": "MQkBv6F2XmjD8nCRRSTg",
+      "name": "Nivel de Severidad",
+      "fieldKey": "contact.nivel_de_severidad",
+      "placeholder": "Nivel de severidad de la evaluación",
+      "dataType": "TEXT",
+      "position": 150
+    },
+    {
+      "id": "VUn2ZU78lJCmJ3p9z5Fc",
+      "name": "Medicación Actual",
+      "fieldKey": "contact.medicacin_actual",
+      "placeholder": "",
+      "dataType": "LARGE_TEXT",
+      "position": 200
+    },
+    {
+      "id": "25XkI2WcemIrb5dbGM32",
+      "name": "Código Test",
+      "fieldKey": "contact.cdigo_test",
+      "placeholder": "Código interno del test (depression, anxiety, etc.)",
+      "dataType": "TEXT",
+      "position": 200
+    },
+    {
+      "id": "jw8LMkDODy2TGk6Ojy7A",
+      "name": "Tipo de Tratamiento",
+      "fieldKey": "contact.tipo_de_tratamiento",
+      "placeholder": "",
+      "dataType": "TEXT",
+      "position": 250
+    },
+    {
+      "id": "lCzRiiJdB9VIMeV9agg2",
+      "name": "Historial de Evaluaciones",
+      "fieldKey": "contact.historial_de_evaluaciones",
+      "placeholder": "Historial completo de todas las evaluaciones realizadas",
+      "dataType": "LARGE_TEXT",
+      "position": 250
+    },
+    {
+      "id": "dsZVnA5Z5u0NIF73tLmo",
+      "name": "Presupuesto Total",
+      "fieldKey": "contact.presupuesto_total",
+      "placeholder": "",
+      "dataType": "MONETORY",
+      "position": 300
+    },
+    {
+      "id": "WdhmvQrV2kHriuZzB2jM",
+      "name": "Última Evaluación - Fecha",
+      "fieldKey": "contact.ltima_evaluacin__fecha",
+      "placeholder": "Fecha de la última evaluación realizada",
+      "dataType": "DATE",
+      "position": 300
+    },
+    {
+      "id": "AwLRuPhvgrkseh1m0NFp",
+      "name": "Edad",
+      "fieldKey": "contact.edad",
+      "placeholder": "",
+      "dataType": "NUMERICAL",
+      "position": 350
+    },
+    {
+      "id": "auYqYr36RYlMNA0rcqol",
+      "name": "Diagnostico del Dr. Adorno",
+      "fieldKey": "contact.diagnostico_del_dr_adorno",
+      "placeholder": "",
+      "dataType": "LARGE_TEXT",
+      "position": 350
+    },
+    {
+      "id": "2OqG40RJRPtLOSYyCPXe",
+      "name": "Última Evaluación - Tipo",
+      "fieldKey": "contact.ltima_evaluacin__tipo",
+      "placeholder": "Tipo de la última evaluación (PHQ-9, GAD-7, etc.)",
+      "dataType": "TEXT",
+      "position": 350
+    },
+    {
+      "id": "JtHKHzTR7fLb8kPbYbkz",
+      "name": "Sexo",
+      "fieldKey": "contact.sexo",
+      "placeholder": "",
+      "dataType": "SINGLE_OPTIONS",
+      "position": 400,
+      "picklistOptions": [
+        "Masculino",
+        "Femenino"
+      ]
+    },
+    {
+      "id": "qA4EbA2X7c11xhMgQUpi",
+      "name": "Última Evaluación - Puntaje",
+      "fieldKey": "contact.ltima_evaluacin__puntaje",
+      "placeholder": "Puntaje obtenido en la última evaluación",
+      "dataType": "NUMERICAL",
+      "position": 400
+    },
+    {
+      "id": "NFMoFeJWXLGBxGCHtcDP",
+      "name": "Última Evaluación - Nivel",
+      "fieldKey": "contact.ltima_evaluacin__nivel",
+      "placeholder": "Nivel de severidad de la última evaluación",
+      "dataType": "TEXT",
+      "position": 450
+    },
+    {
+      "id": "GV3kzQc2ELggE7d2KLSk",
+      "name": "Message",
+      "fieldKey": "contact.message",
+      "placeholder": "",
+      "dataType": "LARGE_TEXT",
+      "position": 450
+    },
+    {
+      "id": "9dY1TUMijVQ7U4Ma7EsX",
+      "name": "Servicio de Interés",
+      "fieldKey": "contact.servicio_de_inters",
+      "placeholder": "Servicio de interés del formulario de contacto",
+      "dataType": "TEXT",
+      "position": 500
+    },
+    {
+      "id": "VXqhenmvPPzyWsle23S6",
+      "name": "Gender",
+      "fieldKey": "contact.gender",
+      "placeholder": "",
+      "dataType": "CHECKBOX",
+      "position": 550,
+      "picklistOptions": [
+        "Male",
+        "Female"
+      ]
+    },
+    {
+      "id": "KNkMMImZUQr4W0Vx19ko",
+      "name": "Source Page",
+      "fieldKey": "contact.source_page",
+      "placeholder": "Página de origen del formulario",
+      "dataType": "TEXT",
+      "position": 550
+    },
+    {
+      "id": "eI3874kqFkPMClPIqy0G",
+      "name": "How did you hear about us?",
+      "fieldKey": "contact.how_did_you_hear_about_us",
+      "placeholder": "",
+      "dataType": "CHECKBOX",
+      "position": 600,
+      "picklistOptions": [
+        "Walk In/Friend",
+        "Google",
+        "Facebook",
+        "Other"
+      ]
+    },
+    {
+      "id": "lTXRWmOZDE4fFxjZjhbA",
+      "name": "Form Type",
+      "fieldKey": "contact.form_type",
+      "placeholder": "Tipo de formulario (contacto, evaluación, etc.)",
+      "dataType": "TEXT",
+      "position": 600
+    }
+  ],
+  "plannedOperations": {
+    "moves": {
+      "Seguimiento de Formularios": [
+        "Contact Source",
+        "Contact Type",
+        "Form Type",
+        "Source Page",
+        "Message"
+      ],
+      "Evaluaciones de Salud Mental": [
+        "Tipo De Evaluación",
+        "Nivel De Severidad",
+        "Historial De Evaluaciones",
+        "Última Evaluación - Fecha",
+        "Última Evaluación - Tipo",
+        "Última Evaluación - Puntaje",
+        "Última Evaluación - Nivel",
+        "PHQ9 - Puntaje Total",
+        "Diagnóstico Preliminar"
+      ],
+      "Datos Clínicos": [
+        "Servicio De Interés"
+      ]
+    },
+    "deletes": [
+      "Date Of Birth",
+      "Número De Sesiones",
+      "Presupuesto Total",
+      "Código Test",
+      "Dirección IP"
+    ],
+    "tempDeletes": [
+      "Campo Temporal Formularios",
+      "Campo Temporal Evaluaciones"
+    ],
+    "creates": [
+      {
+        "name": "Form Submission Timestamp",
+        "dataType": "DATE_TIME",
+        "fieldKey": "contact.form_timestamp",
+        "targetFolder": "Seguimiento de Formularios"
+      }
+    ]
+  }
+}

@@ -101,10 +101,7 @@ const ContactForm = ({
         // New custom fields created in GoHighLevel
         "contact.servicio_de_inters": getServiceText(data.servicio),
         "contact.source_page": sourcePage,
-        "contact.form_type": "contact-form",
-        
-        // Additional tracking fields
-        "timestamp": new Date().toISOString()
+        "contact.form_type": "contact-form"
       };
       
       console.log("Sending to GoHighLevel webhook:", webhookData);

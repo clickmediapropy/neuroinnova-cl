@@ -1,34 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Focus, ChevronLeft, ChevronRight } from "lucide-react";
+import { Focus, ChevronLeft } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import AssessmentResults from "@/components/assessment/AssessmentResults";
+import QuestionCard from "@/components/assessment/QuestionCard";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { getAssessmentQuestions } from "@/data/assessmentQuestions";
 
-// ASRS-v1.1 (Adult ADHD Self-Report Scale) questions
-const questions = [
-  "¿Con qué frecuencia tiene problemas para terminar los detalles finales de un proyecto, una vez que ya se han hecho las partes más desafiantes?",
-  "¿Con qué frecuencia tiene dificultad para poner las cosas en orden cuando tiene que hacer una tarea que requiere organización?",
-  "¿Con qué frecuencia tiene problemas para recordar citas u obligaciones?",
-  "Cuando tiene una tarea que requiere mucha reflexión, ¿con qué frecuencia evita o retrasa comenzar?",
-  "¿Con qué frecuencia se inquieta o retuerce las manos o los pies cuando tiene que sentarse durante mucho tiempo?",
-  "¿Con qué frecuencia se siente demasiado activo y obligado a hacer cosas, como si fuera impulsado por un motor?",
-  "¿Con qué frecuencia comete errores por descuido cuando tiene que trabajar en un proyecto aburrido o difícil?",
-  "¿Con qué frecuencia tiene dificultad para mantener su atención cuando está haciendo un trabajo aburrido o repetitivo?",
-  "¿Con qué frecuencia tiene dificultad para concentrarse en lo que le dicen las personas, incluso cuando le hablan directamente?",
-  "¿Con qué frecuencia coloca mal o tiene dificultad para encontrar cosas en casa o en el trabajo?",
-  "¿Con qué frecuencia se distrae por actividad o ruido a su alrededor?",
-  "¿Con qué frecuencia se levanta de su asiento en reuniones u otras situaciones en las que se espera que permanezca sentado?",
-  "¿Con qué frecuencia se siente inquieto o impaciente?",
-  "¿Con qué frecuencia tiene dificultad para relajarse cuando tiene tiempo para usted?",
-  "¿Con qué frecuencia se encuentra hablando demasiado cuando está en situaciones sociales?",
-  "Cuando está en una conversación, ¿con qué frecuencia se encuentra terminando las oraciones de las personas con las que está hablando, antes de que puedan terminar por sí mismas?",
-  "¿Con qué frecuencia tiene dificultad para esperar su turno en situaciones en las que se requiere tomar turnos?",
-  "¿Con qué frecuencia interrumpe a otros cuando están ocupados?"
-];
+// Obtener preguntas mejoradas del archivo de datos
+const questionData = getAssessmentQuestions('adhd');
 
 const options = [
   { label: "Nunca", value: "0", points: 0 },
@@ -41,7 +22,7 @@ const options = [
 const ADHDEvaluacion = () => {
   const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<string[]>(Array(questions.length).fill(""));
+  const [answers, setAnswers] = useState<string[]>(Array(questionData.length).fill(""));
   const [isComplete, setIsComplete] = useState(false);
   const [score, setScore] = useState(0);
   
@@ -52,7 +33,7 @@ const ADHDEvaluacion = () => {
     
     // Auto-advance to next question after a short delay
     setTimeout(() => {
-      if (currentQuestion < questions.length - 1) {
+      if (currentQuestion < questionData.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
         // If it's the last question, show results
@@ -63,16 +44,6 @@ const ADHDEvaluacion = () => {
     }, 300); // 300ms delay for better UX
   };
 
-  const handleNext = () => {
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      const calculatedScore = answers.reduce((sum, value) => sum + parseInt(value || "0"), 0);
-      setScore(calculatedScore);
-      setIsComplete(true);
-    }
-  };
-
   const handlePrevious = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
@@ -81,20 +52,12 @@ const ADHDEvaluacion = () => {
 
   const handleReset = () => {
     setCurrentQuestion(0);
-    setAnswers(Array(questions.length).fill(""));
+    setAnswers(Array(questionData.length).fill(""));
     setIsComplete(false);
     setScore(0);
   };
 
-  
-  // TEMPORARY: Test function for development
-  const goToTestResults = () => {
-    setAnswers(Array(questions.length).fill(2)); // Fill with test values
-    setScore(45); // Test score
-    setIsComplete(true);
-  };
-
-  const progress = ((currentQuestion + 1) / questions.length) * 100;
+  const progress = ((currentQuestion + 1) / questionData.length) * 100;
   
   if (isComplete) {
     return (
@@ -108,52 +71,40 @@ const ADHDEvaluacion = () => {
   
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 max-w-3xl">
         <div className="flex items-center justify-center mb-8">
           <div className="w-16 h-16 rounded-full bg-primary-light flex items-center justify-center mb-4">
             <Focus className="h-8 w-8 text-primary" />
           </div>
         </div>
         
-        <h1 className="text-3xl font-bold text-center text-primary mb-2 text-protected">
+        <h1 className="text-3xl font-bold text-center text-primary mb-2">
           Autoevaluación de TDAH
         </h1>
         
-        <p className="text-center text-protected-muted mb-8">
+        <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
           Este cuestionario evalúa síntomas de Trastorno por Déficit de Atención e Hiperactividad.
           Responda según cómo se ha sentido durante los últimos 6 meses.
         </p>
         
         <div className="mb-8">
-          <div className="flex justify-between text-sm text-protected-muted mb-2">
-            <span>Pregunta {currentQuestion + 1} de {questions.length}</span>
+          <div className="flex justify-between text-sm text-muted-foreground mb-2">
+            <span>Pregunta {currentQuestion + 1} de {questionData.length}</span>
             <span>{Math.round(progress)}%</span>
           </div>
           <Progress value={progress} className="h-2" />
         </div>
         
-        <div className="bg-card rounded-lg border shadow-sm p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-6">
-            {questions[currentQuestion]}
-          </h2>
-          
-          <RadioGroup
-            value={answers[currentQuestion]}
-            onValueChange={handleAnswerChange}
-            className="space-y-4"
-          >
-            {options.map((option) => (
-              <div key={option.value} className="flex items-center space-x-3 p-3 rounded-md hover:bg-muted/50">
-                <RadioGroupItem value={option.value} id={`option-${option.value}`} />
-                <Label htmlFor={`option-${option.value}`} className="flex-grow cursor-pointer">
-                  {option.label}
-                </Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </div>
+        <QuestionCard
+          question={questionData[currentQuestion].question}
+          description={questionData[currentQuestion].description}
+          examples={questionData[currentQuestion].examples}
+          options={options}
+          value={answers[currentQuestion]}
+          onValueChange={handleAnswerChange}
+        />
         
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <Button
             variant="outline"
             onClick={handlePrevious}
@@ -164,16 +115,7 @@ const ADHDEvaluacion = () => {
             Anterior
           </Button>
           
-          {/* TEMPORARY DEV BUTTON - REMOVE WHEN TESTING IS COMPLETE */}
-          <Button
-            variant="destructive"
-            onClick={goToTestResults}
-            className="text-xs"
-          >
-            🔧 TEST RESULTS
-          </Button>
-          
-          <div className="text-sm text-protected-muted flex items-center">
+          <div className="text-sm text-muted-foreground">
             Seleccione una respuesta para continuar automáticamente
           </div>
         </div>
