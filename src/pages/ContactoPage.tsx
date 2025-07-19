@@ -300,7 +300,7 @@ const ContactoPage = () => {
                       </a>
                     </Button>
                     <p className="text-xs text-center text-muted-foreground">
-                      Línea nacional de emergencias del gobierno
+                      Línea nacional de emergencias del gobierno de Paraguay
                     </p>
                   </div>
                   
