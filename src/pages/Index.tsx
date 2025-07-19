@@ -64,10 +64,10 @@ const Index = () => {
                   <div>
                     <p className="font-medium text-sm sm:text-base">Email</p>
                     <a 
-                      href="mailto:info@neuroinnova.com.py" 
+                      href="mailto:dr.victoradorno@gmail.com" 
                       className="text-xs sm:text-sm text-muted-foreground hover:text-primary mt-1 block break-all"
                     >
-                      info@neuroinnova.com.py
+                      dr.victoradorno@gmail.com
                     </a>
                   </div>
                 </div>

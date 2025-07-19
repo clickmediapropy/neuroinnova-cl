@@ -29,7 +29,7 @@ interface LeadFormData {
 }
 
 const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => {
-  console.log("AssessmentResults component rendered with:", { type, score });
+  // Component initialization
   
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -120,10 +120,6 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
   // Validar el puntaje antes de procesar
   const scoreValidation = validateScore(type, score);
-  if (!scoreValidation.isValid) {
-    console.error("Score validation failed:", scoreValidation.message);
-    console.error(`Type: ${type}, Score: ${score}, Valid range: ${scoreValidation.minScore}-${scoreValidation.maxScore}`);
-  }
 
   // Obtener la interpretación clínica validada
   const clinicalResult = getClinicalInterpretation(type, score);
@@ -183,46 +179,27 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(`Input changed: ${name} = ${value}`);
-    setFormData(prev => {
-      const newData = { ...prev, [name]: value };
-      console.log("Updated form data:", newData);
-      return newData;
-    });
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    console.log(`Select changed: ${name} = ${value}`);
-    setFormData(prev => {
-      const newData = { 
-        ...prev, 
-        [name]: name === 'edad' ? (value ? parseInt(value) : null) : value 
-      };
-      console.log("Updated form data:", newData);
-      return newData;
-    });
+    setFormData(prev => ({ 
+      ...prev, 
+      [name]: name === 'edad' ? (value ? parseInt(value) : null) : value 
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("=== FORM SUBMISSION STARTED ===");
-    console.log("Event:", e);
-    console.log("Form data at submission:", formData);
+    // Form submission started
     
     setIsSubmitting(true);
 
-    // Add early error catching
-    window.addEventListener('error', (event) => {
-      console.error("Global error caught:", event.error);
-    });
-
-    window.addEventListener('unhandledrejection', (event) => {
-      console.error("Unhandled promise rejection:", event.reason);
-    });
+    // Handle form submission
 
     // Validate required fields
     if (!formData.nombre || !formData.apellido || !formData.email || !formData.telefono || !formData.codigoPais) {
-      console.log("Validation failed - missing required fields");
+      // Validation failed
       toast({
         title: "Error",
         description: "Por favor complete todos los campos requeridos.",
@@ -232,15 +209,14 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       return;
     }
 
-    console.log("Validation passed, proceeding with webhook call");
-    console.log("CODE VERSION: 2024-01-18-FIX");
+    // Proceed with webhook call
 
     try {
-      console.log("=== TRY BLOCK STARTED ===");
+      // Process webhook data
       
       // Validate score before sending
       if (!scoreValidation.isValid) {
-        console.error("Invalid score detected:", scoreValidation.message);
+        // Invalid score detected
         toast({
           title: "Error",
           description: "Puntaje inválido detectado. Por favor, contacte con soporte.",
@@ -277,8 +253,6 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       };
 
       const localSeverityInfo = getSeverityLevel();
-      console.log("Severity info:", localSeverityInfo);
-      console.log("Clinical result:", clinicalResult);
 
       // Prepare data for GoHighLevel webhook with correct field keys
       const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
@@ -318,14 +292,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         "ciudad": formData.ciudad || "Santiago"
       };
 
-      console.log("Sending to GoHighLevel webhook:", webhookData);
-      console.log("Webhook URL:", 'https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35');
-      console.log("Request body:", JSON.stringify(webhookData));
-      
       // Send to GoHighLevel webhook
-      console.log("About to call fetch...");
-      console.log("Is fetch available?", typeof fetch);
-      console.log("Window object:", typeof window);
       
       try {
         const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35', {
@@ -336,16 +303,9 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
           body: JSON.stringify(webhookData),
         });
 
-        console.log("Fetch completed, response:", response);
-        console.log("Response type:", response.type);
-        console.log("Response status:", response.status);
-        console.log("Response ok:", response.ok);
-        
-        console.log("Webhook request sent successfully");
+        // Webhook request sent successfully
       } catch (fetchError) {
-        console.error("Fetch error occurred:", fetchError);
-        console.error("Fetch error message:", fetchError.message);
-        console.error("Fetch error stack:", fetchError.stack);
+        // Fetch error occurred
         throw fetchError;
       }
       // Since we're using no-cors, we can't check response status
@@ -363,11 +323,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       }, 2000);
       
     } catch (error) {
-      console.error("Error submitting assessment:", error);
-      console.error("Error details:", {
-        message: error instanceof Error ? error.message : 'Unknown error',
-        stack: error instanceof Error ? error.stack : undefined
-      });
+      // Error submitting assessment
       toast({
         title: "Error",
         description: "Hubo un problema al enviar sus resultados. Por favor intente nuevamente.",
@@ -547,7 +503,6 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
                 variant={getCTAVariant()}
                 disabled={isSubmitting}
                 size="lg"
-                onClick={() => console.log("Submit button clicked!")}
               >
                 <span className="flex items-center">
                   {isSubmitting ? (

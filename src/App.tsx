@@ -1,42 +1,55 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Loader2 } from "lucide-react";
+import ScrollToTop from "./components/ScrollToTop";
+
+// Eager load critical pages
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Autoevaluacion from "./pages/Autoevaluacion";
-import DepresionEvaluacion from "./pages/DepresionEvaluacion";
-import AnsiedadEvaluacion from "./pages/AnsiedadEvaluacion";
-import BipolarEvaluacion from "./pages/BipolarEvaluacion";
-import PTSDEvaluacion from "./pages/PTSDEvaluacion";
-import PsicosisEvaluacion from "./pages/PsicosisEvaluacion";
-import ADHDEvaluacion from "./pages/ADHDEvaluacion";
-import TrastornoAlimentarioEvaluacion from "./pages/TrastornoAlimentarioEvaluacion";
-import AdiccionEvaluacion from "./pages/AdiccionEvaluacion";
-import DepresionPostpartoEvaluacion from "./pages/DepresionPostpartoEvaluacion";
-import EvaluacionPadresEvaluacion from "./pages/EvaluacionPadresEvaluacion";
-import JovenesEvaluacion from "./pages/JovenesEvaluacion";
-import EMTTMSPage from "./pages/EMTTMSPage";
-import TDCSPage from "./pages/TDCSPage";
-import PsiquiatriaTradicionalPage from "./pages/PsiquiatriaTradicionalPage";
-import DepresionResistentePage from "./pages/DepresionResistentePage";
-import AnsiedadPage from "./pages/AnsiedadPage";
-import TOCPage from "./pages/TOCPage";
-import DolorCronicoPage from "./pages/DolorCronicoPage";
-import RehabilitacionPostACVPage from "./pages/RehabilitacionPostACVPage";
-import ContactoPage from "./pages/ContactoPage";
-import AgendarConsultaPage from "./pages/AgendarConsultaPage";
-import PoliticaPrivacidadPage from "./pages/PoliticaPrivacidadPage";
-import TerminosCondicionesPage from "./pages/TerminosCondicionesPage";
-import AvisoLegalPage from "./pages/AvisoLegalPage";
-import ServiciosPage from "./pages/ServiciosPage";
-import CondicionesPage from "./pages/CondicionesPage";
-import ScrollToTop from "./components/ScrollToTop";
-import TestWebhookPage from "./pages/TestWebhookPage";
-import RehaComPage from "./pages/servicios/RehaComPage";
+
+// Lazy load all other pages
+const Autoevaluacion = lazy(() => import("./pages/Autoevaluacion"));
+const DepresionEvaluacion = lazy(() => import("./pages/DepresionEvaluacion"));
+const AnsiedadEvaluacion = lazy(() => import("./pages/AnsiedadEvaluacion"));
+const BipolarEvaluacion = lazy(() => import("./pages/BipolarEvaluacion"));
+const PTSDEvaluacion = lazy(() => import("./pages/PTSDEvaluacion"));
+const PsicosisEvaluacion = lazy(() => import("./pages/PsicosisEvaluacion"));
+const ADHDEvaluacion = lazy(() => import("./pages/ADHDEvaluacion"));
+const TrastornoAlimentarioEvaluacion = lazy(() => import("./pages/TrastornoAlimentarioEvaluacion"));
+const AdiccionEvaluacion = lazy(() => import("./pages/AdiccionEvaluacion"));
+const DepresionPostpartoEvaluacion = lazy(() => import("./pages/DepresionPostpartoEvaluacion"));
+const EvaluacionPadresEvaluacion = lazy(() => import("./pages/EvaluacionPadresEvaluacion"));
+const JovenesEvaluacion = lazy(() => import("./pages/JovenesEvaluacion"));
+const EMTTMSPage = lazy(() => import("./pages/EMTTMSPage"));
+const TDCSPage = lazy(() => import("./pages/TDCSPage"));
+const PsiquiatriaTradicionalPage = lazy(() => import("./pages/PsiquiatriaTradicionalPage"));
+const DepresionResistentePage = lazy(() => import("./pages/DepresionResistentePage"));
+const AnsiedadPage = lazy(() => import("./pages/AnsiedadPage"));
+const TOCPage = lazy(() => import("./pages/TOCPage"));
+const DolorCronicoPage = lazy(() => import("./pages/DolorCronicoPage"));
+const RehabilitacionPostACVPage = lazy(() => import("./pages/RehabilitacionPostACVPage"));
+const ContactoPage = lazy(() => import("./pages/ContactoPage"));
+const AgendarConsultaPage = lazy(() => import("./pages/AgendarConsultaPage"));
+const PoliticaPrivacidadPage = lazy(() => import("./pages/PoliticaPrivacidadPage"));
+const TerminosCondicionesPage = lazy(() => import("./pages/TerminosCondicionesPage"));
+const AvisoLegalPage = lazy(() => import("./pages/AvisoLegalPage"));
+const ServiciosPage = lazy(() => import("./pages/ServiciosPage"));
+const CondicionesPage = lazy(() => import("./pages/CondicionesPage"));
+const TestWebhookPage = lazy(() => import("./pages/TestWebhookPage"));
+const RehaComPage = lazy(() => import("./pages/servicios/RehaComPage"));
 
 const queryClient = new QueryClient();
+
+// Loading component
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+  </div>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -45,7 +58,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
-        <Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/servicios" element={<ServiciosPage />} />
           <Route path="/autoevaluacion" element={<Autoevaluacion />} />
@@ -78,7 +92,8 @@ const App = () => (
           <Route path="/test-webhook" element={<TestWebhookPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
-        </Routes>
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

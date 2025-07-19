@@ -125,8 +125,8 @@ const ServiciosPage = () => {
                               className: "h-6 w-6 md:h-8 md:w-8 text-primary" 
                             })}
                           </div>
-                          <div className="flex-1 min-w-0 pr-8 md:pr-16">
-                            <CardTitle className="text-xl md:text-2xl font-bold text-foreground mb-2 md:mb-3">
+                          <div className="flex-1 min-w-0">
+                            <CardTitle className="text-xl md:text-2xl font-bold text-foreground mb-2 md:mb-3 pr-20 md:pr-0">
                               {servicio.title}
                             </CardTitle>
                             <CardDescription className="text-sm md:text-base text-muted-foreground">
