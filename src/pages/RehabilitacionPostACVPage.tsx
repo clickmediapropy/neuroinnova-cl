@@ -104,7 +104,7 @@ const RehabilitacionPostACVPage = () => {
             </div>
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <Card className="bg-card border-2 border-primary/20">
+              <Card className="bg-card border-2 border-primary/20 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
                     <Activity className="h-12 w-12 text-primary mx-auto mb-4" />
@@ -132,7 +132,7 @@ const RehabilitacionPostACVPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card border-2 border-primary/20">
+              <Card className="bg-card border-2 border-primary/20 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
                     <Brain className="h-12 w-12 text-primary mx-auto mb-4" />

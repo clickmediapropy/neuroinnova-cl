@@ -141,7 +141,7 @@ const DolorCronicoPage = () => {
             <h2 className="text-3xl font-bold text-primary text-center mb-12">Impacto del Dolor Crónico</h2>
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4 text-primary">Síntomas Físicos</h3>
                   <ul className="space-y-3">
@@ -177,7 +177,7 @@ const DolorCronicoPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4 text-primary">Síntomas Emocionales</h3>
                   <ul className="space-y-3">
@@ -213,7 +213,7 @@ const DolorCronicoPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4 text-primary">Limitaciones Funcionales</h3>
                   <ul className="space-y-3">
@@ -237,7 +237,7 @@ const DolorCronicoPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4 text-primary">Consecuencias Cognitivas</h3>
                   <ul className="space-y-3">
@@ -280,7 +280,7 @@ const DolorCronicoPage = () => {
             </p>
             
             <div className="space-y-6 mb-8">
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Analgésicos Opioides</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -306,7 +306,7 @@ const DolorCronicoPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Antiinflamatorios y Medicamentos Neuropáticos</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -333,7 +333,7 @@ const DolorCronicoPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Fisioterapia y Rehabilitación</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -391,7 +391,7 @@ const DolorCronicoPage = () => {
             </div>
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <Card className="bg-card border-2 border-primary/20 hover:shadow-lg transition-shadow">
+              <Card className="bg-card border-2 border-primary/20 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
                     <Zap className="h-12 w-12 text-primary mx-auto mb-4" />
@@ -431,7 +431,7 @@ const DolorCronicoPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card border-2 border-primary/20 hover:shadow-lg transition-shadow">
+              <Card className="bg-card border-2 border-primary/20 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
                     <Brain className="h-12 w-12 text-primary mx-auto mb-4" />
@@ -472,7 +472,7 @@ const DolorCronicoPage = () => {
               </Card>
             </div>
             
-            <Card className="bg-primary-light">
+            <Card className="bg-primary-light transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold text-primary text-center mb-6">
                   Enfoque Multimodal Personalizado

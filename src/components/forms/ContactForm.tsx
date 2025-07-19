@@ -203,7 +203,7 @@ const ContactForm = ({
               <FormItem>
                 <FormLabel className={isCompact ? "text-sm" : ""}>Correo Electrónico</FormLabel>
                 <FormControl>
-                  <Input placeholder="ejemplo@correo.com" {...field} />
+                  <Input type="email" placeholder="ejemplo@correo.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -224,7 +224,7 @@ const ContactForm = ({
                       render={({ field: countryField }) => (
                         <Select onValueChange={countryField.onChange} defaultValue={countryField.value}>
                           <FormControl>
-                            <SelectTrigger className="w-[140px] rounded-r-none border-r-0">
+                            <SelectTrigger className="w-[150px] rounded-r-none border-r-0 h-12">
                               <SelectValue />
                             </SelectTrigger>
                           </FormControl>

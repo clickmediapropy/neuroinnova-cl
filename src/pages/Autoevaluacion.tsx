@@ -105,7 +105,7 @@ const Autoevaluacion = () => {
       {assessmentList.map((assessment, index) => {
         const IconComponent = assessment.icon;
         return (
-          <Card key={index} className="shadow-md transition-all hover:shadow-lg h-full">
+          <Card key={index} className="shadow-md transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles h-full">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-center mb-3">
                 <div className="w-14 h-14 rounded-full bg-primary-light flex items-center justify-center">

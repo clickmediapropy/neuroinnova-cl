@@ -129,7 +129,7 @@ const TOCPage = () => {
             <h2 className="text-3xl font-bold text-primary text-center mb-12">Patrones de Síntomas del TOC</h2>
             
             <div className="space-y-8">
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4 text-primary">Ciclo Obsesivo-Compulsivo</h3>
                   <div className="grid md:grid-cols-4 gap-4">
@@ -166,7 +166,7 @@ const TOCPage = () => {
               </Card>
               
               <div className="grid md:grid-cols-2 gap-6">
-                <Card className="bg-card">
+                <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                   <CardContent className="p-6">
                     <h3 className="text-xl font-semibold mb-4 text-primary">Tipos de TOC</h3>
                     <ul className="space-y-3">
@@ -202,7 +202,7 @@ const TOCPage = () => {
                   </CardContent>
                 </Card>
                 
-                <Card className="bg-card">
+                <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                   <CardContent className="p-6">
                     <h3 className="text-xl font-semibold mb-4 text-primary">Compulsiones Ocultas</h3>
                     <p className="text-muted-foreground mb-4">
@@ -261,7 +261,7 @@ const TOCPage = () => {
             </p>
             
             <div className="space-y-6 mb-8">
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Terapia de Exposición y Prevención de Respuesta (EPR)</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -288,7 +288,7 @@ const TOCPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Medicamentos ISRS para TOC</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -349,7 +349,7 @@ const TOCPage = () => {
             </div>
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <Card className="bg-card border-2 border-primary/20 hover:shadow-lg transition-shadow">
+              <Card className="bg-card border-2 border-primary/20 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
                     <Brain className="h-12 w-12 text-primary mx-auto mb-4" />
@@ -389,7 +389,7 @@ const TOCPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4">¿Cómo Funciona para TOC?</h3>
                   

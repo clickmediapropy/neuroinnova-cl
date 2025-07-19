@@ -50,7 +50,7 @@ const EMTTMSPage = () => {
             </p>
             
             <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-4">Tecnología Avanzada</h3>
                   <p className="text-muted-foreground">
@@ -60,7 +60,7 @@ const EMTTMSPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-4">Procedimiento No Invasivo</h3>
                   <p className="text-muted-foreground">

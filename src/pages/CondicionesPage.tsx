@@ -137,7 +137,7 @@ const CondicionesPage = () => {
                 {condiciones.map((condicion, index) => (
                   <Card 
                     key={condicion.id} 
-                    className={`relative overflow-hidden transition-all hover:shadow-lg ${
+                    className={`relative overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles ${
                       condicion.featured ? 'border-primary/20 bg-primary/5' : ''
                     }`}
                   >

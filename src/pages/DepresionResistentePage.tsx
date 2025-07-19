@@ -154,7 +154,7 @@ const DepresionResistentePage = () => {
             </div>
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6 text-center">
                   <div className="text-6xl font-bold text-primary mb-4">30%</div>
                   <h3 className="text-xl font-semibold mb-3">de los casos de depresión</h3>
@@ -165,7 +165,7 @@ const DepresionResistentePage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6 text-center">
                   <div className="text-6xl font-bold text-primary mb-4">2-4</div>
                   <h3 className="text-xl font-semibold mb-3">medicamentos en promedio</h3>
@@ -176,7 +176,7 @@ const DepresionResistentePage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6 text-center">
                   <div className="text-6xl font-bold text-primary mb-4">67%</div>
                   <h3 className="text-xl font-semibold mb-3">experimentan efectos secundarios</h3>
@@ -187,7 +187,7 @@ const DepresionResistentePage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6 text-center">
                   <div className="text-6xl font-bold text-primary mb-4">6-8</div>
                   <h3 className="text-xl font-semibold mb-3">semanas de espera</h3>
@@ -226,7 +226,7 @@ const DepresionResistentePage = () => {
             </p>
             
             <div className="space-y-6 mb-8">
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Variabilidad Genética</h3>
                   <p className="text-muted-foreground">
@@ -237,7 +237,7 @@ const DepresionResistentePage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Circuitos Cerebrales Diferentes</h3>
                   <p className="text-muted-foreground">
@@ -249,7 +249,7 @@ const DepresionResistentePage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Inflamación y Factores Inmunitarios</h3>
                   <p className="text-muted-foreground">
@@ -260,7 +260,7 @@ const DepresionResistentePage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Plasticidad Neural Comprometida</h3>
                   <p className="text-muted-foreground">

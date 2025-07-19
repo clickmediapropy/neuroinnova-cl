@@ -32,7 +32,7 @@ const AvisoLegalPage = () => {
             <div className="max-w-4xl mx-auto space-y-8">
               
               {/* Important Notice */}
-              <Card className="border-orange-200 bg-orange-50">
+              <Card className="border-orange-200 bg-orange-50 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardHeader>
                   <CardTitle className="flex items-center text-orange-800">
                     <AlertTriangle className="h-6 w-6 mr-2" />
@@ -299,7 +299,7 @@ const AvisoLegalPage = () => {
               </Card>
 
               {/* Final Warning */}
-              <Card className="border-red-200 bg-red-50">
+              <Card className="border-red-200 bg-red-50 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardHeader>
                   <CardTitle className="flex items-center text-red-800">
                     <AlertTriangle className="h-6 w-6 mr-2" />

@@ -102,7 +102,7 @@ const AnsiedadPage = () => {
             <h2 className="text-3xl font-bold text-primary text-center mb-12">Síntomas Comunes</h2>
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4 text-primary">Síntomas Emocionales</h3>
                   <ul className="space-y-3">
@@ -130,7 +130,7 @@ const AnsiedadPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4 text-primary">Síntomas Físicos</h3>
                   <ul className="space-y-3">
@@ -158,7 +158,7 @@ const AnsiedadPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4 text-primary">Síntomas Cognitivos</h3>
                   <ul className="space-y-3">
@@ -186,7 +186,7 @@ const AnsiedadPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4 text-primary">Síntomas Conductuales</h3>
                   <ul className="space-y-3">
@@ -233,7 +233,7 @@ const AnsiedadPage = () => {
             </p>
             
             <div className="space-y-6 mb-8">
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Medicamentos Ansiolíticos</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -258,7 +258,7 @@ const AnsiedadPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Antidepresivos (ISRS/IRSN)</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -283,7 +283,7 @@ const AnsiedadPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-3">Psicoterapia Cognitivo-Conductual</h3>
                   <div className="grid md:grid-cols-2 gap-4">

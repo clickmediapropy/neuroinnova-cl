@@ -42,7 +42,7 @@ const PsiquiatriaTradicionalPage = () => {
             </p>
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <div className="mb-4 flex justify-center">
                     <div className="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center">
@@ -60,7 +60,7 @@ const PsiquiatriaTradicionalPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <div className="mb-4 flex justify-center">
                     <div className="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center">
@@ -78,7 +78,7 @@ const PsiquiatriaTradicionalPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <div className="mb-4 flex justify-center">
                     <div className="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center">
@@ -385,7 +385,7 @@ const PsiquiatriaTradicionalPage = () => {
             </p>
             
             <div className="space-y-6 mb-8">
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/3 flex justify-center items-start mb-4 md:mb-0">
@@ -408,7 +408,7 @@ const PsiquiatriaTradicionalPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="p-6">
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/3 flex justify-center items-start mb-4 md:mb-0">

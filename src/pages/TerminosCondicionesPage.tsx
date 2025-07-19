@@ -313,7 +313,7 @@ const TerminosCondicionesPage = () => {
               </Card>
 
               {/* Footer */}
-              <Card className="bg-primary/5 border-primary/20">
+              <Card className="bg-primary/5 border-primary/20 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardHeader>
                   <CardTitle className="flex items-center justify-center">
                     <CheckCircle className="h-6 w-6 mr-2 text-primary" />

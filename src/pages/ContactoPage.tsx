@@ -103,7 +103,7 @@ const ContactoPage = () => {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
               {contactMethods.map((method, index) => (
-                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                <Card key={index} className="text-center hover:shadow-lg transition-shadow transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                   <CardHeader>
                     <div className={`w-16 h-16 rounded-full ${method.color} flex items-center justify-center mx-auto mb-4`}>
                       <method.icon className="h-8 w-8 text-white" />
@@ -280,7 +280,7 @@ const ContactoPage = () => {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto text-center">
-              <Card className="bg-primary/5 border-primary/20">
+              <Card className="bg-primary/5 border-primary/20 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardHeader>
                   <CardTitle className="text-2xl text-primary">
                     ¿Necesita Atención Urgente?

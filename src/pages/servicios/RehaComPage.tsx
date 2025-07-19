@@ -188,7 +188,7 @@ const RehaComPage = () => {
               {benefits.map((benefit, index) => {
                 const Icon = benefit.icon;
                 return (
-                  <Card key={index} className="p-6">
+                  <Card key={index} className="p-6 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                     <Icon className="h-12 w-12 text-primary mb-4" />
                     <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
                     <p className="text-muted-foreground">{benefit.description}</p>

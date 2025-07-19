@@ -279,7 +279,7 @@ const PoliticaPrivacidadPage = () => {
               </Card>
 
               {/* Footer */}
-              <Card className="bg-primary/5 border-primary/20">
+              <Card className="bg-primary/5 border-primary/20 transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <p className="text-center text-primary font-medium">
                     Su privacidad y confianza son fundamentales para nosotros. 

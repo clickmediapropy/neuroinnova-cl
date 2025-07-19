@@ -46,7 +46,7 @@ const TDCSPage = () => {
             </p>
             
             <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-4">Tecnología Innovadora</h3>
                   <p className="text-muted-foreground">
@@ -57,7 +57,7 @@ const TDCSPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-4">Procedimiento No Invasivo</h3>
                   <p className="text-muted-foreground">
@@ -100,7 +100,7 @@ const TDCSPage = () => {
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-4">Rehabilitación Post-ACV</h3>
                   <ul className="space-y-3">
@@ -120,7 +120,7 @@ const TDCSPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-4">Manejo del Dolor Crónico</h3>
                   <ul className="space-y-3">
@@ -140,7 +140,7 @@ const TDCSPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-4">Mejora Cognitiva</h3>
                   <ul className="space-y-3">
@@ -160,7 +160,7 @@ const TDCSPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="bg-card hover:shadow-md transition-shadow">
+              <Card className="bg-card transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-4">Trastornos Psiquiátricos</h3>
                   <ul className="space-y-3">

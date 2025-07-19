@@ -104,7 +104,7 @@ const ServiciosPage = () => {
                 {servicios.map((servicio, index) => (
                   <Card 
                     key={servicio.id} 
-                    className={`relative overflow-hidden transition-all hover:shadow-lg ${
+                    className={`relative overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles ${
                       servicio.featured ? 'border-primary/20 bg-primary/5' : ''
                     }`}
                   >
@@ -161,7 +161,7 @@ const ServiciosPage = () => {
                       <div className="flex items-center justify-center order-1 md:order-2 py-4 md:py-0">
                         <div className="relative">
                           {servicio.id === "emt-tms" && (
-                            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg">
+                            <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg">
                               <img 
                                 src="/lovable-uploads/b5a6f141-5909-42f4-8f59-c3d1cad59c14.png"
                                 alt="Tratamiento EMT/TMS"
@@ -170,7 +170,7 @@ const ServiciosPage = () => {
                             </div>
                           )}
                           {servicio.id === "tdcs" && (
-                            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg">
+                            <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg">
                               <img 
                                 src="/lovable-uploads/be3fcff2-e9c7-4a0a-94c7-c3e36bd16ccf.png"
                                 alt="Tratamiento tDCS"
@@ -179,7 +179,7 @@ const ServiciosPage = () => {
                             </div>
                           )}
                           {servicio.id === "psiquiatria" && (
-                            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg">
+                            <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg">
                               <img 
                                 src="/lovable-uploads/613be515-831a-4a66-ba32-1bd4ba4fb034.png"
                                 alt="Consulta Psiquiátrica - Dr. Victor Adorno"
@@ -188,8 +188,8 @@ const ServiciosPage = () => {
                             </div>
                           )}
                           {servicio.id === "rehacom" && (
-                            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 flex items-center justify-center">
-                              <Monitor className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 text-primary opacity-80" />
+                            <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 flex items-center justify-center">
+                              <Monitor className="w-16 h-16 sm:w-20 sm:h-20 md:w-32 md:h-32 text-primary opacity-80" />
                             </div>
                           )}
                         </div>
