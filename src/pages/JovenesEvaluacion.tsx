@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Heart, ChevronLeft } from "lucide-react";
+import { Heart, ChevronLeft, Sparkles } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import AssessmentResults from "@/components/assessment/AssessmentResults";
 import QuestionCard from "@/components/assessment/QuestionCard";

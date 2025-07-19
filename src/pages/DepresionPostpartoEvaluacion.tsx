@@ -176,7 +176,7 @@ const DepresionPostpartoEvaluacion = () => {
           question={questionData[currentQuestion].question}
           description={questionData[currentQuestion].description}
           examples={questionData[currentQuestion].examples}
-          options={options}
+          options={getOptionsForQuestion(currentQuestion)}
           value={answers[currentQuestion]}
           onValueChange={handleAnswerChange}
         />

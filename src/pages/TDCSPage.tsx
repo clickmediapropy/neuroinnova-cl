@@ -359,7 +359,8 @@ const TDCSPage = () => {
               convencionales no han proporcionado resultados satisfactorios.
             </p>
             
-            <div className="overflow-hidden rounded-lg border mb-8">
+            {/* Tabla responsive - Desktop */}
+            <div className="hidden lg:block overflow-hidden rounded-lg border mb-8">
               <table className="w-full">
                 <thead>
                   <tr className="bg-primary text-primary-foreground">
@@ -396,6 +397,53 @@ const TDCSPage = () => {
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            {/* Cards responsive - Mobile y Tablet */}
+            <div className="lg:hidden space-y-4 mb-8">
+              {[
+                {
+                  aspecto: "Mecanismo de acción",
+                  tdcs: "Estimulación directa de circuitos neuronales",
+                  tradicional: "Principalmente ejercicios mecánicos y repetitivos"
+                },
+                {
+                  aspecto: "Neuroplasticidad",
+                  tdcs: "Facilitación directa y acelerada",
+                  tradicional: "Indirecta y más lenta"
+                },
+                {
+                  aspecto: "Casos estancados",
+                  tdcs: "Puede superar mesetas terapéuticas",
+                  tradicional: "Frecuentemente alcanza límites"
+                },
+                {
+                  aspecto: "Dolor crónico",
+                  tdcs: "Modula vías del dolor a nivel cerebral",
+                  tradicional: "Enfoque principalmente periférico"
+                },
+                {
+                  aspecto: "Complementariedad",
+                  tdcs: "Se integra y potencia otras terapias",
+                  tradicional: "Funciona de forma aislada"
+                }
+              ].map((item, index) => (
+                <div key={index} className="bg-card rounded-lg border overflow-hidden">
+                  <div className="bg-primary text-primary-foreground p-4">
+                    <h4 className="font-semibold">{item.aspecto}</h4>
+                  </div>
+                  <div className="p-4 space-y-4">
+                    <div className="bg-success-light/30 rounded-lg p-3">
+                      <h5 className="font-medium text-sm text-success-light-foreground mb-1">tDCS</h5>
+                      <p className="text-sm">{item.tdcs}</p>
+                    </div>
+                    <div className="bg-muted rounded-lg p-3">
+                      <h5 className="font-medium text-sm text-muted-foreground mb-1">Rehabilitación Tradicional</h5>
+                      <p className="text-sm">{item.tradicional}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
             
             <div className="bg-muted rounded-lg p-6">
