@@ -1197,6 +1197,176 @@ export const assessmentQuestions: AssessmentQuestions = {
         "Hacer cosas que sabes que están mal"
       ]
     }
+  ],
+
+  // SWED - Trastorno Alimentario
+  eatingDisorder: [
+    {
+      question: "¿Se ha sentido culpable después de comer?",
+      description: "Sentimientos negativos relacionados con la alimentación",
+      examples: [
+        "Arrepentimiento después de comer",
+        "Sentir que ha comido demasiado",
+        "Culpa por romper la dieta"
+      ]
+    },
+    {
+      question: "¿Ha sentido que no puede controlar lo que come?",
+      description: "Pérdida de control sobre la alimentación",
+      examples: [
+        "Comer sin poder parar",
+        "Atracones de comida",
+        "Sentir que la comida lo controla"
+      ]
+    },
+    {
+      question: "¿Ha perdido peso recientemente?",
+      description: "Pérdida de peso en los últimos meses",
+      examples: [
+        "Bajar varios kilos sin intentarlo",
+        "Ropa que queda más suelta",
+        "Comentarios de otros sobre su delgadez"
+      ]
+    },
+    {
+      question: "¿Cree que está gordo/a cuando otros dicen que está delgado/a?",
+      description: "Distorsión de la imagen corporal",
+      examples: [
+        "Verse con sobrepeso en el espejo",
+        "No creer los comentarios positivos",
+        "Obsesión con partes del cuerpo"
+      ]
+    },
+    {
+      question: "¿Diría que la comida domina su vida?",
+      description: "Preocupación excesiva por la alimentación",
+      examples: [
+        "Pensar constantemente en comida",
+        "Planificar obsesivamente las comidas",
+        "Evitar eventos sociales por la comida"
+      ]
+    },
+    {
+      question: "¿Qué tan asustado/a está de ganar peso?",
+      description: "Nivel de miedo al aumento de peso",
+      examples: [
+        "Pesarse varias veces al día",
+        "Pánico al ver números más altos",
+        "Evitar alimentos por miedo a engordar"
+      ]
+    },
+    {
+      question: "¿Cuándo fue la última vez que hizo dieta?",
+      description: "Frecuencia de comportamientos dietéticos",
+      examples: [
+        "Restricción calórica severa",
+        "Eliminar grupos de alimentos",
+        "Seguir dietas extremas"
+      ]
+    },
+    {
+      question: "¿Qué tan importante es su peso para su autoestima?",
+      description: "Relación entre peso y valor personal",
+      examples: [
+        "El peso determina su humor del día",
+        "Sentirse valioso solo si está delgado",
+        "Basar la autoestima en el número de la balanza"
+      ]
+    }
+  ],
+
+  // PSC-35 - Evaluación Padres-Hijos
+  parentChild: [
+    {
+      question: "¿Su hijo/a se queja de dolores y molestias?",
+      description: "Quejas físicas frecuentes sin causa médica clara",
+      examples: [
+        "Dolores de cabeza o estómago frecuentes",
+        "Molestias antes de ir a la escuela",
+        "Síntomas que aparecen en situaciones de estrés"
+      ]
+    },
+    {
+      question: "¿Su hijo/a pasa mucho tiempo solo/a?",
+      description: "Aislamiento social o preferencia por la soledad",
+      examples: [
+        "Evitar jugar con otros niños",
+        "Preferir actividades solitarias",
+        "No tener amigos cercanos"
+      ]
+    },
+    {
+      question: "¿Su hijo/a se cansa fácilmente o tiene poca energía?",
+      description: "Fatiga o falta de energía inusual para su edad",
+      examples: [
+        "Cansancio después de poco esfuerzo",
+        "Preferir actividades sedentarias",
+        "Falta de entusiasmo para jugar"
+      ]
+    },
+    {
+      question: "¿Su hijo/a es inquieto/a o no puede estar quieto/a?",
+      description: "Hiperactividad o dificultad para permanecer tranquilo",
+      examples: [
+        "Moverse constantemente en la silla",
+        "Correr cuando debería caminar",
+        "Dificultad para actividades tranquilas"
+      ]
+    },
+    {
+      question: "¿Su hijo/a tiene problemas con el/la maestro/a?",
+      description: "Conflictos o dificultades en el ambiente escolar",
+      examples: [
+        "Llamadas frecuentes de la escuela",
+        "Reportes de mal comportamiento",
+        "Problemas para seguir las reglas"
+      ]
+    },
+    {
+      question: "¿Su hijo/a está menos interesado/a en la escuela?",
+      description: "Pérdida de motivación académica",
+      examples: [
+        "No querer hacer tareas",
+        "Bajar las calificaciones",
+        "Quejas frecuentes sobre la escuela"
+      ]
+    },
+    {
+      question: "¿Su hijo/a actúa como si fuera más pequeño/a?",
+      description: "Comportamientos regresivos o inmaduros",
+      examples: [
+        "Hablar como bebé",
+        "Querer dormir con los padres",
+        "Perder habilidades ya adquiridas"
+      ]
+    },
+    {
+      question: "¿Su hijo/a se niega a obedecer?",
+      description: "Conducta desafiante o desobediencia persistente",
+      examples: [
+        "Ignorar instrucciones deliberadamente",
+        "Hacer lo contrario de lo que se pide",
+        "Desafiar constantemente la autoridad"
+      ]
+    },
+    {
+      question: "¿Su hijo/a tiene dificultades para dormir?",
+      description: "Problemas relacionados con el sueño",
+      examples: [
+        "Dificultad para conciliar el sueño",
+        "Pesadillas frecuentes",
+        "Despertarse varias veces en la noche"
+      ]
+    },
+    {
+      question: "¿Su hijo/a parece preocupado/a o ansioso/a?",
+      description: "Signos de ansiedad o preocupación excesiva",
+      examples: [
+        "Preocuparse por todo",
+        "Miedos irracionales",
+        "Preguntar constantemente '¿qué pasaría si...?'"
+      ]
+    }
   ]
 };
 
