@@ -380,7 +380,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
   return (
     <Layout>
-      <div className="container py-12 max-w-3xl">
+      <div className="container py-8 sm:py-12 max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <CheckCircle className="h-12 w-12 text-success" />
@@ -417,8 +417,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
           </div>
         </div>
         
-        <div className="bg-card rounded-lg border shadow-sm p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Complete sus datos para recibir sus resultados</h2>
+        <div className="bg-card rounded-lg border shadow-sm p-4 sm:p-6 mb-8">
+          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center sm:text-left">Complete sus datos para recibir sus resultados</h2>
           
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -456,22 +456,22 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
                 />
               </div>
               
-              <div className="space-y-2">
+              <div className="space-y-2 md:col-span-2 lg:col-span-1">
                 <Label htmlFor="telefono">Teléfono <span className="text-destructive">*</span></Label>
                 <div className="flex">
                   <Select
                     value={formData.codigoPais}
                     onValueChange={(value) => handleSelectChange("codigoPais", value)}
                   >
-                    <SelectTrigger className="w-[150px] rounded-r-none border-r-0 h-12">
+                    <SelectTrigger className="w-[110px] sm:w-[130px] md:w-[150px] rounded-r-none border-r-0 h-12">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-white border border-border shadow-md z-50">
                       {countryCodes.map((country) => (
                         <SelectItem key={country.code} value={country.code}>
-                          <div className="flex items-center gap-2">
-                            <span>{country.flag}</span>
-                            <span>{country.code}</span>
+                          <div className="flex items-center gap-1 sm:gap-2">
+                            <span className="text-base sm:text-lg">{country.flag}</span>
+                            <span className="text-sm sm:text-base">{country.code}</span>
                           </div>
                         </SelectItem>
                       ))}
@@ -482,7 +482,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
                     name="telefono"
                     type="tel"
                     inputMode="numeric"
-                    className="rounded-l-none"
+                    className="rounded-l-none flex-1"
                     value={formData.telefono}
                     onChange={(e) => handlePhoneChange(e.target.value)}
                     placeholder={formData.codigoPais === '+595' ? '9XX XXX XXX' : 'Número telefónico'}
@@ -540,24 +540,33 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
               </div>
             </div>
             
-            <div className="pt-4 flex flex-col items-center">
+            <div className="pt-4 flex flex-col items-center space-y-4">
               <Button 
                 type="submit" 
-                className="w-full md:w-auto flex items-center justify-center"
+                className="w-full sm:w-auto min-w-[280px] flex items-center justify-center text-sm sm:text-base px-4 sm:px-6"
                 variant={getCTAVariant()}
                 disabled={isSubmitting}
                 size="lg"
                 onClick={() => console.log("Submit button clicked!")}
               >
-                {isSubmitting ? "Enviando..." : "Enviar y Recibir Resultados por WhatsApp"}
-                <ChevronRight className="ml-2 h-4 w-4" />
+                <span className="flex items-center">
+                  {isSubmitting ? (
+                    "Enviando..."
+                  ) : (
+                    <>
+                      <span className="hidden sm:inline">Enviar y Recibir Resultados por WhatsApp</span>
+                      <span className="sm:hidden">Recibir Resultados por WhatsApp</span>
+                    </>
+                  )}
+                  <ChevronRight className="ml-2 h-4 w-4 flex-shrink-0" />
+                </span>
               </Button>
               
               <Button 
                 type="button" 
                 variant="link" 
                 onClick={onReset} 
-                className="mt-4"
+                className="text-sm sm:text-base"
                 disabled={isSubmitting}
               >
                 Volver a realizar la evaluación
