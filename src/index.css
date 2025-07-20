@@ -1,4 +1,4 @@
-/* Import animations - must be before tailwind directives */
+// Cambio aplicado
 @import './styles/animations.css';
 
 @tailwind base;
