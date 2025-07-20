@@ -141,9 +141,36 @@ export async function applyChangesToGitHub(
       // Sort changes by line number in reverse order to avoid offset issues
       const sortedChanges = [...fileChangeList].sort((a, b) => b.lineStart - a.lineStart);
       
+      console.log(`Applying ${sortedChanges.length} changes to ${filePath}`);
+      
       for (const change of sortedChanges) {
-        // Simple replacement - in real implementation, you'd want more sophisticated line-based replacement
-        updatedContent = updatedContent.replace(change.oldCode, change.newCode);
+        console.log(`Looking for: "${change.oldCode}"`);
+        
+        // Try exact match first
+        if (updatedContent.includes(change.oldCode)) {
+          updatedContent = updatedContent.replace(change.oldCode, change.newCode);
+          console.log('✓ Applied change with exact match');
+        } else {
+          // Try to find similar content (trim whitespace)
+          const trimmedOld = change.oldCode.trim();
+          const regex = new RegExp(trimmedOld.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+          
+          if (regex.test(updatedContent)) {
+            updatedContent = updatedContent.replace(regex, change.newCode.trim());
+            console.log('✓ Applied change with regex match');
+          } else {
+            console.warn(`✗ Could not find content to replace in ${filePath}`);
+            console.warn(`Searched for: "${change.oldCode}"`);
+            
+            // If it's a line-based change, try to replace by line number
+            const lines = updatedContent.split('\n');
+            if (change.lineStart > 0 && change.lineStart <= lines.length) {
+              lines[change.lineStart - 1] = change.newCode;
+              updatedContent = lines.join('\n');
+              console.log(`✓ Applied change at line ${change.lineStart}`);
+            }
+          }
+        }
       }
 
       // Update the file

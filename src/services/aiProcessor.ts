@@ -102,11 +102,26 @@ CONTEXTO DEL SITIO:
 ARCHIVOS COMUNES POR SECCIÓN:
 ${JSON.stringify(SECTION_FILE_MAP, null, 2)}
 
+INFORMACIÓN IMPORTANTE DEL SITIO ACTUAL:
+- Número de WhatsApp actual: 595991800886 (aparece en URLs como wa.me/595991800886)
+- Título principal actual: "Centro de Neuromodulación y Psiquiatría"
+- Color principal actual: #2C5F8B (HSL: 205 56% 35%)
+
 EJEMPLOS DE CAMBIOS ESPECÍFICOS:
-- Para números de teléfono/WhatsApp: buscar href="https://wa.me/..." en Header, Footer, Hero
-- Para títulos: buscar etiquetas <h1>, <h2>, etc. en los componentes de sección
-- Para colores: modificar src/index.css variable --primary
-- Para testimonios: agregar al array testimonials en Testimonials.tsx
+1. Para cambiar WhatsApp de 595991800886 a otro número:
+   - Buscar: "wa.me/595991800886" 
+   - Reemplazar con: "wa.me/NUEVONUMERO" (sin espacios ni guiones)
+   - Archivos: Header.tsx, HomeHeader.tsx, Footer.tsx, WhatsAppButton.tsx
+
+2. Para cambiar títulos:
+   - En Hero.tsx buscar el contenido dentro de <h1> o <h2>
+   - Reemplazar el texto completo manteniendo las etiquetas
+
+3. Para cambiar colores:
+   - En src/index.css buscar "--primary: 205 56% 35%;"
+   - Reemplazar con nuevo valor HSL
+
+IMPORTANTE: Los cambios deben ser EXACTOS. El oldCode debe coincidir EXACTAMENTE con lo que está en el archivo actual.
 
 Genera los cambios necesarios en formato JSON.`;
 
@@ -164,14 +179,24 @@ Genera los cambios necesarios en formato JSON.`;
       }
 
       const aiResponse = JSON.parse(data.choices[0].message.content);
+      
+      console.log('Groq response:', aiResponse);
 
       // Validar y ajustar la respuesta
-      return {
+      const processedResponse = {
         files: aiResponse.files || [],
         changes: aiResponse.changes || [],
         commitMessage: aiResponse.commitMessage || `feat: ${request.description.substring(0, 50)}...`,
         requiresReview: aiResponse.requiresReview !== undefined ? aiResponse.requiresReview : true
       };
+      
+      // Si no hay cambios reales, intentar generar basado en la descripción
+      if (processedResponse.changes.length === 0) {
+        console.warn('Groq no generó cambios, usando procesamiento local');
+        throw new Error('No se generaron cambios válidos');
+      }
+      
+      return processedResponse;
 
     } catch (error: any) {
       lastError = error;
@@ -224,32 +249,55 @@ Genera los cambios necesarios en formato JSON.`;
 function generatePhoneChangeResponse(request: ChangeRequest): ProcessedChange {
   const phoneMatch = request.description.match(/(\+?\d[\d\s\-\(\)]+\d)/);
   const newPhone = phoneMatch ? phoneMatch[1] : '(+595) 991 800 886';
+  const cleanPhone = newPhone.replace(/\D/g, '');
+  
+  console.log('Generating phone change for:', newPhone);
   
   return {
     files: [
       'src/components/layout/Header.tsx',
       'src/components/layout/HomeHeader.tsx',
       'src/components/layout/Footer.tsx',
-      'src/components/sections/Hero.tsx',
-      'src/pages/Contact.tsx'
+      'src/components/sections/Hero.tsx'
     ],
     changes: [
       {
         file: 'src/components/layout/Header.tsx',
-        oldCode: 'href="https://wa.me/595991800885"',
-        newCode: `href="https://wa.me/${newPhone.replace(/\D/g, '')}"`,
-        lineStart: 78,
-        lineEnd: 78
+        oldCode: 'wa.me/595991800886',
+        newCode: `wa.me/${cleanPhone}`,
+        lineStart: 0,
+        lineEnd: 0
+      },
+      {
+        file: 'src/components/layout/HomeHeader.tsx',
+        oldCode: 'wa.me/595991800886',
+        newCode: `wa.me/${cleanPhone}`,
+        lineStart: 0,
+        lineEnd: 0
+      },
+      {
+        file: 'src/components/layout/Footer.tsx',
+        oldCode: 'wa.me/595991800886',
+        newCode: `wa.me/${cleanPhone}`,
+        lineStart: 0,
+        lineEnd: 0
       },
       {
         file: 'src/components/sections/Hero.tsx',
-        oldCode: 'href="https://wa.me/595991800885"',
-        newCode: `href="https://wa.me/${newPhone.replace(/\D/g, '')}"`,
-        lineStart: 56,
-        lineEnd: 56
+        oldCode: 'wa.me/595991800886',
+        newCode: `wa.me/${cleanPhone}`,
+        lineStart: 0,
+        lineEnd: 0
+      },
+      {
+        file: 'src/components/ui/WhatsAppButton.tsx',
+        oldCode: 'wa.me/595991800886',
+        newCode: `wa.me/${cleanPhone}`,
+        lineStart: 0,
+        lineEnd: 0
       }
     ],
-    commitMessage: 'feat: Actualizar número de WhatsApp en todo el sitio',
+    commitMessage: `feat: Actualizar número de WhatsApp a ${newPhone}`,
     requiresReview: false
   };
 }
