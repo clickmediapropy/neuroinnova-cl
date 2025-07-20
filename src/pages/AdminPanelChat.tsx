@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import { Lock, Send, Bot, User, Loader2, Check, X, RotateCcw, LogOut, Trash2, AlertCircle, FileText, RefreshCw } from 'lucide-react';
+import { Lock, Send, Bot, User, Loader2, Check, X, RotateCcw, LogOut, Trash2, AlertCircle, FileText, RefreshCw, ArrowDown, Copy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'neuroinnova2024';
@@ -55,8 +55,10 @@ export function AdminPanelChat() {
   const [isTyping, setIsTyping] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const { toast } = useToast();
+  const [isNearBottom, setIsNearBottom] = useState(true);
 
   // Cargar sesión y conversaciones guardadas
   useEffect(() => {
@@ -111,10 +113,20 @@ export function AdminPanelChat() {
     }
   }, [isAuthenticated]);
 
-  // Auto-scroll a nuevos mensajes
+  // Auto-scroll a nuevos mensajes solo si el usuario está cerca del final
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [currentConversation?.messages]);
+    if (isNearBottom) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [currentConversation?.messages, isNearBottom]);
+
+  // Detectar si el usuario está cerca del bottom
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const element = e.currentTarget;
+    const threshold = 150;
+    const isNear = element.scrollHeight - element.scrollTop - element.clientHeight < threshold;
+    setIsNearBottom(isNear);
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -217,6 +229,11 @@ export function AdminPanelChat() {
     setInput('');
     setIsProcessing(true);
     setIsTyping(true);
+    
+    // Reset altura del textarea
+    if (inputRef.current) {
+      inputRef.current.style.height = '60px';
+    }
     
     try {
       // Detectar si es un comando especial
@@ -341,7 +358,7 @@ export function AdminPanelChat() {
           )
         }));
         
-        // Agregar mensaje de confirmación
+        // Agregar mensaje de confirmación con botón de retry si falla
         const confirmMessage: Message = {
           id: Date.now().toString(),
           role: 'system',
@@ -369,14 +386,21 @@ export function AdminPanelChat() {
         variant: 'destructive',
       });
       
-      // Actualizar estado del mensaje
+      // Actualizar estado del mensaje y agregar mensaje de error con retry
       setCurrentConversation(prev => ({
         ...prev!,
-        messages: prev!.messages.map(m => 
+        messages: [...prev!.messages.map(m => 
           m.id === messageId 
             ? { ...m, status: 'failed' as const }
             : m
-        )
+        ), {
+          id: Date.now().toString(),
+          role: 'system',
+          content: `❌ Error: ${error.message || 'No se pudieron aplicar los cambios'}. 
+          
+🔄 [¿Intentar de nuevo?](#retry-${messageId})`,
+          timestamp: new Date()
+        }]
       }));
     } finally {
       setIsProcessing(false);
@@ -400,13 +424,14 @@ export function AdminPanelChat() {
   };
 
   const clearConversations = () => {
-    if (confirm('¿Estás seguro de que quieres borrar todas las conversaciones?')) {
+    const confirmed = window.confirm('¿Estás seguro de que quieres limpiar el chat? Esta acción no se puede deshacer.');
+    if (confirmed) {
       setConversations([]);
       localStorage.removeItem('adminConversations');
       startNewConversation();
       toast({
-        title: 'Conversaciones borradas',
-        description: 'Se han eliminado todas las conversaciones anteriores',
+        title: 'Chat limpiado',
+        description: 'Se han eliminado todos los mensajes',
       });
     }
   };
@@ -846,7 +871,7 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       const form = e.currentTarget.form;
-      if (form) {
+      if (form && !isProcessing && input.trim()) {
         form.requestSubmit();
       }
     }
@@ -909,43 +934,59 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <div className="container mx-auto p-4 flex-1 flex flex-col max-h-screen">
-        <div className="flex justify-between items-center mb-4 flex-shrink-0">
-          <div>
-            <h1 className="text-2xl font-bold">Panel de Administración</h1>
-            <p className="text-sm text-gray-600">
-              Haz cambios a tu sitio web con simples mensajes
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={clearConversations}
-              className="flex items-center gap-2"
-            >
-              <Trash2 className="h-4 w-4" />
-              Limpiar historial
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={handleLogout}
-              className="flex items-center gap-2"
-            >
-              <LogOut className="h-4 w-4" />
-              Cerrar Sesión
-            </Button>
+    <div className="h-screen bg-background flex flex-col">
+      {/* Chat container con altura fija */}
+      <div className="flex flex-col h-full max-w-6xl mx-auto w-full">
+        {/* Header fijo */}
+        <div className="flex-shrink-0 bg-background border-b px-6 py-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-2xl font-bold">Panel de Administración IA</h1>
+              <p className="text-sm text-gray-600">
+                Haz cambios a tu sitio web con simples mensajes
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={clearConversations}
+                className="flex items-center gap-2"
+              >
+                <Trash2 className="h-4 w-4" />
+                Limpiar chat
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={handleLogout}
+                className="flex items-center gap-2"
+              >
+                <LogOut className="h-4 w-4" />
+                Cerrar Sesión
+              </Button>
+            </div>
           </div>
         </div>
 
-        <Card className="flex-1 flex flex-col overflow-hidden">
-          <CardContent className="flex-1 flex flex-col p-0 min-h-0">
-            {/* Área de mensajes */}
-            <div className="flex-1 overflow-y-auto p-4 min-h-0">
-              <div className="space-y-4 pb-4">
-                {currentConversation?.messages.map((message) => (
+        {/* Área de mensajes con scroll */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden px-6 py-4 relative" 
+             style={{ scrollBehavior: 'smooth' }}
+             ref={messagesAreaRef}
+             onScroll={handleScroll}>
+          {/* Indicador de mensajes nuevos arriba */}
+          {!isNearBottom && (
+            <button
+              onClick={() => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })}
+              className="fixed bottom-32 right-8 bg-primary text-white rounded-full p-3 shadow-lg hover:bg-primary/90 transition-all flex items-center gap-2 z-10"
+            >
+              <ArrowDown className="h-5 w-5" />
+              <span className="text-sm">Nuevos mensajes</span>
+            </button>
+          )}
+          
+          <div className="space-y-4 pb-4 max-w-4xl mx-auto w-full">
+            {currentConversation?.messages.map((message) => (
                   <div
                     key={message.id}
                     className={cn(
@@ -965,7 +1006,7 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                     )}>
                       <div
                         className={cn(
-                          "rounded-lg px-4 py-2",
+                          "rounded-lg px-4 py-3 relative group",
                           message.role === 'user' 
                             ? "bg-primary text-primary-foreground" 
                             : message.role === 'system'
@@ -973,6 +1014,21 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                             : "bg-gray-100 prose prose-sm max-w-none"
                         )}
                       >
+                        {/* Botón de copiar para mensajes de asistente */}
+                        {message.role === 'assistant' && (
+                          <button
+                            onClick={() => {
+                              navigator.clipboard.writeText(message.content);
+                              toast({
+                                title: 'Copiado',
+                                description: 'Mensaje copiado al portapapeles',
+                              });
+                            }}
+                            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-gray-200 rounded"
+                          >
+                            <Copy className="h-4 w-4" />
+                          </button>
+                        )}
                         {message.role === 'assistant' && message.content.includes('**') ? (
                           <div dangerouslySetInnerHTML={{ 
                             __html: message.content
@@ -1021,8 +1077,12 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                         <p className="text-xs text-red-600">❌ Error al aplicar cambios</p>
                       )}
                       
-                      <p className="text-xs text-gray-500">
-                        {message.timestamp.toLocaleTimeString()}
+                      {/* Timestamp */}
+                      <p className="text-xs text-gray-500 mt-1">
+                        {message.timestamp.toLocaleTimeString('es-ES', { 
+                          hour: '2-digit', 
+                          minute: '2-digit' 
+                        })}
                       </p>
                     </div>
                     
@@ -1034,48 +1094,62 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                   </div>
                 ))}
                 
-                {isTyping && (
-                  <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Bot className="h-5 w-5 text-primary" />
-                    </div>
-                    <div className="bg-gray-100 rounded-lg px-4 py-2">
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                    </div>
-                  </div>
-                )}
-                
-                <div ref={messagesEndRef} />
+            {/* Indicador de escribiendo */}
+            {isTyping && (
+              <div className="flex gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Bot className="h-5 w-5 text-primary" />
+                </div>
+                <div className="bg-gray-100 rounded-lg px-4 py-3 flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span className="text-sm text-gray-600">Claude está escribiendo...</span>
+                </div>
               </div>
-            </div>
+            )}
             
-            {/* Área de input */}
-            <div className="border-t p-4 flex-shrink-0">
-              <form onSubmit={sendMessage} className="flex gap-2">
-                <Textarea
-                  ref={inputRef}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Escribe aquí lo que quieres cambiar... (Ejemplo: Cambia el número de WhatsApp)"
-                  className="flex-1 min-h-[60px] max-h-[120px]"
-                  disabled={isProcessing}
-                />
-                <Button 
-                  type="submit" 
-                  disabled={isProcessing || !input.trim()}
-                  className="self-end"
-                >
-                  {isProcessing ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <Send className="h-4 w-4" />
-                  )}
-                </Button>
-              </form>
+            <div ref={messagesEndRef} />
+          </div>
+        </div>
+        
+        {/* Área de input fija al bottom */}
+        <div className="flex-shrink-0 bg-background border-t px-6 py-4">
+          <form onSubmit={sendMessage} className="flex gap-3 max-w-4xl mx-auto">
+            <div className="flex-1 relative">
+              <Textarea
+                ref={inputRef}
+                value={input}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  // Auto-resize del textarea
+                  const textarea = e.target;
+                  textarea.style.height = 'auto';
+                  textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+                }}
+                onKeyDown={handleKeyDown}
+                placeholder="Escribe tu solicitud... (Enter para enviar, Shift+Enter para nueva línea)"
+                className="w-full resize-none pr-12"
+                style={{ minHeight: '60px', maxHeight: '120px' }}
+                disabled={isProcessing}
+                rows={1}
+              />
+              <span className="absolute bottom-2 right-2 text-xs text-gray-400">
+                {input.length}/2000
+              </span>
             </div>
-          </CardContent>
-        </Card>
+            <Button 
+              type="submit" 
+              disabled={isProcessing || !input.trim() || input.length > 2000}
+              className="self-end"
+              size="lg"
+            >
+              {isProcessing ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <Send className="h-5 w-5" />
+              )}
+            </Button>
+          </form>
+        </div>
       </div>
     </div>
   );
