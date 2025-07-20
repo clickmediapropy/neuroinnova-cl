@@ -884,23 +884,23 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
   return (
     <div className="h-screen bg-background flex flex-col">
       {/* Chat container con altura fija */}
-      <div className="flex flex-col h-full max-w-6xl mx-auto w-full">
+      <div className="flex flex-col h-full max-w-6xl mx-auto w-full" style={{ maxHeight: '100vh', height: '100dvh' }}>
         {/* Header fijo */}
-        <div className="flex-shrink-0 bg-background border-b px-6 py-4">
-          <div className="flex justify-between items-center">
+        <div className="flex-shrink-0 bg-background border-b px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
             <div>
-              <h1 className="text-2xl font-bold">Panel de Administración IA</h1>
-              <p className="text-sm text-gray-600">
+              <h1 className="text-lg sm:text-2xl font-bold">Panel Admin IA</h1>
+              <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">
                 Haz cambios a tu sitio web con simples mensajes
               </p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {/* Selector de modo */}
-              <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
+              <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1 flex-1 sm:flex-initial">
                 <button
                   onClick={() => setMode('chat')}
                   className={cn(
-                    "px-3 py-1 rounded-md text-sm font-medium transition-all",
+                    "px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-all flex-1 sm:flex-initial",
                     mode === 'chat' 
                       ? "bg-white text-primary shadow-sm" 
                       : "text-gray-600 hover:text-gray-900"
@@ -911,34 +911,34 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                 <button
                   onClick={() => setMode('edit')}
                   className={cn(
-                    "px-3 py-1 rounded-md text-sm font-medium transition-all",
+                    "px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-all flex-1 sm:flex-initial",
                     mode === 'edit' 
                       ? "bg-white text-primary shadow-sm" 
                       : "text-gray-600 hover:text-gray-900"
                   )}
                 >
-                  ✏️ Edición
+                  ✏️ Editar
                 </button>
               </div>
               
-              <div className="flex gap-2">
+              <div className="flex gap-1 sm:gap-2">
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={clearConversations}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-4"
                 >
-                  <Trash2 className="h-4 w-4" />
-                  Limpiar
+                  <Trash2 className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
+                  <span className="hidden sm:inline">Limpiar</span>
                 </Button>
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={handleLogout}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-4"
                 >
-                  <LogOut className="h-4 w-4" />
-                  Salir
+                  <LogOut className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
+                  <span className="hidden sm:inline">Salir</span>
                 </Button>
               </div>
             </div>
@@ -946,7 +946,7 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
         </div>
 
         {/* Área de mensajes con scroll */}
-        <div className="flex-1 overflow-y-auto overflow-x-hidden px-6 py-4 relative" 
+        <div className="flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 py-3 sm:py-4 relative" 
              style={{ scrollBehavior: 'smooth' }}
              ref={messagesAreaRef}
              onScroll={handleScroll}>
@@ -954,35 +954,35 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
           {!isNearBottom && (
             <button
               onClick={() => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })}
-              className="fixed bottom-32 right-8 bg-primary text-white rounded-full p-3 shadow-lg hover:bg-primary/90 transition-all flex items-center gap-2 z-10"
+              className="fixed bottom-24 sm:bottom-32 right-4 sm:right-8 bg-primary text-white rounded-full p-2 sm:p-3 shadow-lg hover:bg-primary/90 transition-all flex items-center gap-1 sm:gap-2 z-10"
             >
-              <ArrowDown className="h-5 w-5" />
-              <span className="text-sm">Nuevos mensajes</span>
+              <ArrowDown className="h-4 sm:h-5 w-4 sm:w-5" />
+              <span className="text-xs sm:text-sm hidden sm:inline">Nuevos mensajes</span>
             </button>
           )}
           
-          <div className="space-y-4 pb-4 max-w-4xl mx-auto w-full">
+          <div className="space-y-3 sm:space-y-4 pb-4 max-w-4xl mx-auto w-full">
             {currentConversation?.messages.map((message) => (
                   <div
                     key={message.id}
                     className={cn(
-                      "flex gap-3",
+                      "flex gap-2 sm:gap-3",
                       message.role === 'user' && "justify-end"
                     )}
                   >
                     {message.role !== 'user' && (
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Bot className="h-5 w-5 text-primary" />
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Bot className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                       </div>
                     )}
                     
                     <div className={cn(
-                      "max-w-[70%] space-y-2",
+                      "max-w-[85%] sm:max-w-[70%] space-y-1 sm:space-y-2",
                       message.role === 'user' && "items-end"
                     )}>
                       <div
                         className={cn(
-                          "rounded-lg px-4 py-3 relative group",
+                          "rounded-lg px-3 sm:px-4 py-2 sm:py-3 relative group",
                           message.role === 'user' 
                             ? "bg-primary text-primary-foreground" 
                             : message.role === 'system'
@@ -1000,35 +1000,35 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                                 description: 'Mensaje copiado al portapapeles',
                               });
                             }}
-                            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-gray-200 rounded"
+                            className="absolute top-1 sm:top-2 right-1 sm:right-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-gray-200 rounded"
                           >
-                            <Copy className="h-4 w-4" />
+                            <Copy className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
                           </button>
                         )}
                         {message.role === 'assistant' && message.content.includes('**') ? (
-                          <div dangerouslySetInnerHTML={{ 
+                          <div className="text-sm sm:text-base" dangerouslySetInnerHTML={{ 
                             __html: message.content
                               .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                               .replace(/\n/g, '<br>')
                               .replace(/```([\s\S]*?)```/g, '<pre class="bg-gray-900 text-gray-100 p-2 rounded text-xs overflow-x-auto"><code>$1</code></pre>')
-                              .replace(/`([^`]+)`/g, '<code class="bg-gray-200 px-1 rounded">$1</code>')
+                              .replace(/`([^`]+)`/g, '<code class="bg-gray-200 px-1 rounded text-xs">$1</code>')
                               .replace(/• /g, '• ')
                           }} />
                         ) : (
-                          <p className="whitespace-pre-wrap">{message.content}</p>
+                          <p className="whitespace-pre-wrap text-sm sm:text-base">{message.content}</p>
                         )}
                       </div>
                       
                       {/* Botones de acción para cambios pendientes */}
                       {message.processedChange && message.status === 'pending' && (
-                        <div className="flex gap-2">
+                        <div className="flex flex-col sm:flex-row gap-2 mt-2">
                           <Button
                             size="sm"
                             onClick={() => applyChanges(message.id)}
                             disabled={isProcessing}
-                            className="flex items-center gap-1"
+                            className="flex items-center justify-center gap-1 text-xs sm:text-sm w-full sm:w-auto"
                           >
-                            <Check className="h-4 w-4" />
+                            <Check className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
                             Aplicar cambios
                           </Button>
                           <Button
@@ -1036,9 +1036,9 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                             variant="outline"
                             onClick={() => rejectChanges(message.id)}
                             disabled={isProcessing}
-                            className="flex items-center gap-1"
+                            className="flex items-center justify-center gap-1 text-xs sm:text-sm w-full sm:w-auto"
                           >
-                            <X className="h-4 w-4" />
+                            <X className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
                             Rechazar
                           </Button>
                         </div>
@@ -1054,7 +1054,7 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                       )}
                       
                       {/* Timestamp */}
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1">
                         {message.timestamp.toLocaleTimeString('es-ES', { 
                           hour: '2-digit', 
                           minute: '2-digit' 
@@ -1063,8 +1063,8 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                     </div>
                     
                     {message.role === 'user' && (
-                      <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                        <User className="h-5 w-5" />
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                        <User className="h-4 w-4 sm:h-5 sm:w-5" />
                       </div>
                     )}
                   </div>
@@ -1072,13 +1072,13 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                 
             {/* Indicador de escribiendo */}
             {isTyping && (
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Bot className="h-5 w-5 text-primary" />
+              <div className="flex gap-2 sm:gap-3">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Bot className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                 </div>
-                <div className="bg-gray-100 rounded-lg px-4 py-3 flex items-center gap-2">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span className="text-sm text-gray-600">Claude está escribiendo...</span>
+                <div className="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-1 sm:gap-2">
+                  <Loader2 className="h-3.5 sm:h-4 w-3.5 sm:w-4 animate-spin" />
+                  <span className="text-xs sm:text-sm text-gray-600">Claude está escribiendo...</span>
                 </div>
               </div>
             )}
@@ -1088,8 +1088,8 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
         </div>
         
         {/* Área de input fija al bottom */}
-        <div className="flex-shrink-0 bg-background border-t px-6 py-4">
-          <form onSubmit={sendMessage} className="flex gap-3 max-w-4xl mx-auto">
+        <div className="flex-shrink-0 bg-background border-t px-4 sm:px-6 py-3 sm:py-4">
+          <form onSubmit={sendMessage} className="flex gap-2 sm:gap-3 max-w-4xl mx-auto">
             <div className="flex-1 relative">
               <Textarea
                 ref={inputRef}
@@ -1103,27 +1103,27 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                 }}
                 onKeyDown={handleKeyDown}
                 placeholder={mode === 'chat' 
-                  ? "Pregúntame sobre el sitio... (Enter para enviar)" 
-                  : "Describe el cambio que quieres hacer... (Enter para enviar)"}
-                className="w-full resize-none pr-12"
-                style={{ minHeight: '60px', maxHeight: '120px' }}
+                  ? "Pregúntame..." 
+                  : "Describe el cambio..."}
+                className="w-full resize-none pr-12 text-sm sm:text-base py-2 sm:py-3"
+                style={{ minHeight: '44px', maxHeight: '120px' }}
                 disabled={isProcessing}
                 rows={1}
               />
-              <span className="absolute bottom-2 right-2 text-xs text-gray-400">
+              <span className="absolute bottom-1 sm:bottom-2 right-2 text-[10px] sm:text-xs text-gray-400">
                 {input.length}/2000
               </span>
             </div>
             <Button 
               type="submit" 
               disabled={isProcessing || !input.trim() || input.length > 2000}
-              className="self-end"
-              size="lg"
+              className="self-end px-3 sm:px-4"
+              size="default"
             >
               {isProcessing ? (
-                <Loader2 className="h-5 w-5 animate-spin" />
+                <Loader2 className="h-4 sm:h-5 w-4 sm:w-5 animate-spin" />
               ) : (
-                <Send className="h-5 w-5" />
+                <Send className="h-4 sm:h-5 w-4 sm:w-5" />
               )}
             </Button>
           </form>
