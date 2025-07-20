@@ -41,7 +41,7 @@ const ServiciosPage = lazy(() => import("./pages/ServiciosPage"));
 const CondicionesPage = lazy(() => import("./pages/CondicionesPage"));
 const TestWebhookPage = lazy(() => import("./pages/TestWebhookPage"));
 const RehaComPage = lazy(() => import("./pages/servicios/RehaComPage"));
-const AdminPanel = lazy(() => import("./pages/AdminPanel"));
+const AdminPanel = lazy(() => import("./pages/AdminPanelChat"));
 
 const queryClient = new QueryClient();
 
