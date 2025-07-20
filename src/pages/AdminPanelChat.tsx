@@ -105,6 +105,14 @@ export function AdminPanelChat() {
     }
   }, [conversations]);
 
+  // Iniciar conversación cuando se autentique
+  useEffect(() => {
+    if (isAuthenticated && !currentConversation) {
+      console.log('Authenticated but no conversation, starting new one');
+      startNewConversation();
+    }
+  }, [isAuthenticated]);
+
   // Auto-scroll a nuevos mensajes
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -128,8 +136,10 @@ export function AdminPanelChat() {
         description: 'Bienvenido al panel de administración',
       });
       
-      // Iniciar nueva conversación
-      startNewConversation();
+      // Iniciar nueva conversación después de un pequeño delay para asegurar que el estado se actualice
+      setTimeout(() => {
+        startNewConversation();
+      }, 100);
     } else {
       setAuthError('Contraseña incorrecta');
     }
@@ -179,7 +189,16 @@ export function AdminPanelChat() {
 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isProcessing || !currentConversation) return;
+    console.log('sendMessage called', { input, isProcessing, currentConversation });
+    
+    if (!input.trim() || isProcessing || !currentConversation) {
+      console.log('Message blocked:', { 
+        hasInput: !!input.trim(), 
+        isProcessing, 
+        hasConversation: !!currentConversation 
+      });
+      return;
+    }
     
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -187,6 +206,8 @@ export function AdminPanelChat() {
       content: input.trim(),
       timestamp: new Date()
     };
+    
+    console.log('Creating user message:', userMessage);
     
     // Agregar mensaje del usuario
     setCurrentConversation(prev => ({
@@ -581,7 +602,10 @@ Los cambios están correctamente aplicados en el repositorio. Si no ves los camb
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      sendMessage(e as any);
+      const form = e.currentTarget.form;
+      if (form) {
+        form.requestSubmit();
+      }
     }
   };
 
