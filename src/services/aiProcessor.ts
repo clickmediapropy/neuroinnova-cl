@@ -115,18 +115,32 @@ ${JSON.stringify(SECTION_FILE_MAP, null, 2)}
 
 INFORMACIÓN IMPORTANTE DEL SITIO ACTUAL:
 - Número de WhatsApp actual: 595991800886 (aparece en URLs como wa.me/595991800886)
-- Título principal actual: "Centro de Neuromodulación y Psiquiatría"
+- Título principal actual en Hero: Está dividido en 4 líneas con spans separados:
+  Línea 1: "Primer y Único"
+  Línea 2: "Centro de"
+  Línea 3: "Neuromodulación"
+  Línea 4: "de Paraguay"
 - Color principal actual: #2C5F8B (HSL: 205 56% 35%)
+
+ESTRUCTURA ACTUAL DEL TÍTULO EN HERO.TSX:
+<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">
+  <span className="text-primary font-extrabold animate-fade-in-down" style={{ animationDelay: '0.1s' }}>Primer y Único</span><br />
+  <span className="text-foreground animate-fade-in-left" style={{ animationDelay: '0.3s' }}>Centro de</span><br />
+  <span className="text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl animate-fade-in-right" style={{ animationDelay: '0.5s' }}>Neuromodulación</span><br />
+  <span className="text-accent font-extrabold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent animate-gradient animate-fade-in-up" style={{ animationDelay: '0.7s' }}>de Paraguay</span>
+</h1>
 
 EJEMPLOS DE CAMBIOS ESPECÍFICOS:
 1. Para cambiar WhatsApp de 595991800886 a otro número:
-   - Buscar: "wa.me/595991800886" 
+   - Buscar: "wa.me/595991800886" o "wa.me/+595991800886"
    - Reemplazar con: "wa.me/NUEVONUMERO" (sin espacios ni guiones)
    - Archivos: Header.tsx, HomeHeader.tsx, Footer.tsx, WhatsAppButton.tsx
 
-2. Para cambiar títulos:
-   - En Hero.tsx buscar el contenido dentro de <h1> o <h2>
-   - Reemplazar el texto completo manteniendo las etiquetas
+2. Para cambiar el título del Hero:
+   - Si quieres cambiar todo a un texto simple como "Estoy probando":
+     Reemplazar TODO el bloque <h1>...</h1> con una versión simplificada
+   - Si quieres cambiar solo una línea específica:
+     Buscar el span específico y cambiar solo su contenido
 
 3. Para cambiar colores:
    - En src/index.css buscar "--primary: 205 56% 35%;"
@@ -327,18 +341,65 @@ function generatePhoneChangeResponse(request: ChangeRequest): ProcessedChange {
 
 function generateContentChangeResponse(request: ChangeRequest): ProcessedChange {
   const files = SECTION_FILE_MAP[request.section] || ['src/components/sections/Hero.tsx'];
+  const description = request.description.toLowerCase();
   
+  // Detectar si es un cambio de título en el Hero
+  if ((description.includes('título') || description.includes('texto')) && 
+      (description.includes('hero') || description.includes('principal') || description.includes('inicio'))) {
+    
+    // Para "Estoy probando" o cambios simples de título
+    if (description.includes('estoy probando') || description.includes('"estoy probando"')) {
+      return {
+        files: ['src/components/sections/Hero.tsx'],
+        changes: [{
+          file: 'src/components/sections/Hero.tsx',
+          oldCode: `              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">
+                <span className="text-primary font-extrabold animate-fade-in-down" style={{ animationDelay: '0.1s' }}>Primer y Único</span><br />
+                <span className="text-foreground animate-fade-in-left" style={{ animationDelay: '0.3s' }}>Centro de</span><br />
+                <span className="text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl animate-fade-in-right" style={{ animationDelay: '0.5s' }}>Neuromodulación</span><br />
+                <span className="text-accent font-extrabold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent animate-gradient animate-fade-in-up" style={{ animationDelay: '0.7s' }}>de Paraguay</span>
+              </h1>`,
+          newCode: `              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">
+                <span className="text-primary font-extrabold animate-fade-in-down" style={{ animationDelay: '0.1s' }}>Estoy probando</span>
+              </h1>`,
+          lineStart: 46,
+          lineEnd: 51
+        }],
+        commitMessage: 'feat: Cambiar título principal del Hero',
+        requiresReview: false
+      };
+    }
+    
+    // Para otros cambios de título, extraer el nuevo texto
+    const newTitleMatch = description.match(/"([^"]+)"|'([^']+)'|para que diga (.+?)(?:\.|$)/);
+    const newTitle = newTitleMatch ? (newTitleMatch[1] || newTitleMatch[2] || newTitleMatch[3]).trim() : 'Nuevo título';
+    
+    return {
+      files: ['src/components/sections/Hero.tsx'],
+      changes: [{
+        file: 'src/components/sections/Hero.tsx',
+        oldCode: 'Primer y Único',
+        newCode: newTitle,
+        lineStart: 47,
+        lineEnd: 47
+      }],
+      commitMessage: `feat: Cambiar título principal a "${newTitle}"`,
+      requiresReview: false
+    };
+  }
+  
+  // Respuesta genérica para otros cambios
   return {
     files: files,
     changes: [{
       file: files[0],
-      oldCode: '<h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">',
-      newCode: '<h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">',
-      lineStart: 45,
-      lineEnd: 45
+      oldCode: '// Contenido a cambiar',
+      newCode: '// Nuevo contenido',
+      lineStart: 1,
+      lineEnd: 1
     }],
     commitMessage: `feat: Actualizar contenido en ${request.section}`,
-    requiresReview: false
+    requiresReview: true
   };
 }
 
