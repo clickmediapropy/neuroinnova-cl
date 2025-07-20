@@ -472,3 +472,5 @@ export function AdminPanel() {
     </Layout>
   );
 }
+
+export default AdminPanel;
