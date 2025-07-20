@@ -162,21 +162,21 @@ export function AdminPanelChat() {
       messages: [{
         id: Date.now().toString(),
         role: 'assistant',
-        content: `¡Hola! Soy tu asistente de IA para administrar el sitio web de NeuroInnova. 🤖
+        content: `¡Hola Dr. Adorno! 👋 Soy tu asistente para actualizar el sitio web de NeuroInnova.
 
 **Puedo ayudarte con:**
-• 📝 Cambiar textos y contenido
-• 🎨 Modificar colores y estilos
-• 📞 Actualizar información de contacto
-• ✨ Agregar nuevos elementos
-• 🔧 Solucionar problemas
+• 📝 Cambiar cualquier texto del sitio
+• 🎨 Modificar colores y tamaños
+• 📱 Actualizar números de contacto y WhatsApp
+• ✨ Agregar testimonios o información nueva
+• 🔧 Resolver cualquier problema
 
-**Comandos especiales:**
-• "no funcionó" - Para troubleshooting
-• "ver logs" - Para revisar el sistema
-• "verificar cambios" - Para confirmar commits
+**Solo dime qué necesitas en palabras simples, por ejemplo:**
+• "Cambia el número de WhatsApp"
+• "Agrega un nuevo testimonio"
+• "Haz el título más grande"
 
-¿Qué cambio te gustaría hacer hoy?`,
+¿Qué te gustaría cambiar hoy?`,
         timestamp: new Date()
       }],
       createdAt: new Date(),
@@ -247,46 +247,59 @@ export function AdminPanelChat() {
       // Simular typing delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Procesar el cambio normal
-      const changeRequest = {
-        id: Date.now().toString(),
-        description: userMessage.content,
-        type: detectChangeType(userMessage.content),
-        priority: 'medium' as const,
-        section: detectSection(userMessage.content),
-        timestamp: new Date(),
-        status: 'processing' as const
-      };
+      // Detectar si es una pregunta o solicitud de información
+      if (isQuestion(lowerContent) || !isChangeRequest(lowerContent)) {
+        // Responder conversacionalmente
+        await handleConversationalResponse(userMessage);
+        return;
+      }
       
-      const { processChangeWithAI } = await import('@/services/aiProcessor');
-      const processedChange = await processChangeWithAI(changeRequest);
-      
-      setIsTyping(false);
-      
-      // Crear mensaje de respuesta con los cambios procesados
-      const responseMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: generateResponseMessage(processedChange),
-        timestamp: new Date(),
-        processedChange,
-        status: 'pending'
-      };
-      
-      setCurrentConversation(prev => ({
-        ...prev!,
-        messages: [...prev!.messages, responseMessage],
-        lastMessageAt: new Date()
-      }));
-      
-      // Actualizar conversaciones
-      setConversations(prev => 
-        prev.map(conv => 
-          conv.id === currentConversation.id 
-            ? { ...currentConversation, messages: [...currentConversation.messages, userMessage, responseMessage], lastMessageAt: new Date() }
-            : conv
-        )
-      );
+      // Si es una solicitud explícita de cambio
+      if (isExplicitChangeRequest(lowerContent)) {
+        // Procesar el cambio
+        const changeRequest = {
+          id: Date.now().toString(),
+          description: userMessage.content,
+          type: detectChangeType(userMessage.content),
+          priority: 'medium' as const,
+          section: detectSection(userMessage.content),
+          timestamp: new Date(),
+          status: 'processing' as const
+        };
+        
+        const { processChangeWithAI } = await import('@/services/aiProcessor');
+        const processedChange = await processChangeWithAI(changeRequest);
+        
+        setIsTyping(false);
+        
+        // Crear mensaje de respuesta con los cambios procesados
+        const responseMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: generateResponseMessage(processedChange),
+          timestamp: new Date(),
+          processedChange,
+          status: 'pending'
+        };
+        
+        setCurrentConversation(prev => ({
+          ...prev!,
+          messages: [...prev!.messages, responseMessage],
+          lastMessageAt: new Date()
+        }));
+        
+        // Actualizar conversaciones
+        setConversations(prev => 
+          prev.map(conv => 
+            conv.id === currentConversation.id 
+              ? { ...currentConversation, messages: [...currentConversation.messages, userMessage, responseMessage], lastMessageAt: new Date() }
+              : conv
+          )
+        );
+      } else {
+        // Respuesta conversacional sugeriendo el cambio
+        await handleSuggestiveResponse(userMessage);
+      }
       
     } catch (error) {
       setIsTyping(false);
@@ -295,7 +308,7 @@ export function AdminPanelChat() {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'Lo siento, hubo un error al procesar tu solicitud. ¿Podrías intentarlo de nuevo o ser más específico?',
+        content: 'Ups, algo no funcionó bien. 😅 ¿Podrías decirme de nuevo qué quieres cambiar? Intenta ser más específico.',
         timestamp: new Date()
       };
       
@@ -334,7 +347,7 @@ export function AdminPanelChat() {
         const confirmMessage: Message = {
           id: Date.now().toString(),
           role: 'system',
-          content: '✅ Cambios aplicados exitosamente. El sitio se actualizará en 2-3 minutos.',
+          content: '✅ ¡Listo! Los cambios se aplicaron correctamente. Tu sitio web se actualizará en 2-3 minutos. 🎉',
           timestamp: new Date()
         };
         
@@ -377,7 +390,7 @@ export function AdminPanelChat() {
     const rejectMessage: Message = {
       id: Date.now().toString(),
       role: 'system',
-      content: '❌ Cambios rechazados. ¿Hay algo más que pueda ayudarte?',
+      content: '👍 Entendido, no aplicaré esos cambios. ¿Hay algo más que quieras modificar?',
       timestamp: new Date()
     };
     
@@ -416,7 +429,7 @@ export function AdminPanelChat() {
       const response: Message = {
         id: Date.now().toString(),
         role: 'assistant',
-        content: 'No encuentro cambios recientes aplicados. ¿Puedes describir qué cambio intentaste hacer?',
+        content: 'No encuentro cambios recientes. 🤔 ¿Podrías decirme qué cambio intentaste hacer para poder ayudarte mejor?',
         timestamp: new Date()
       };
       
@@ -429,29 +442,22 @@ export function AdminPanelChat() {
     }
     
     // Analizar el problema
-    const troubleshootingSteps = `🔍 **Analizando el problema...**
+    const troubleshootingSteps = `🔍 **Revisando qué pasó...**
 
-He encontrado el último cambio aplicado: "${lastAppliedChange.processedChange!.commitMessage}"
+El último cambio que hice fue: "${lastAppliedChange.processedChange!.commitMessage}"
 
-**Pasos de troubleshooting:**
+**¿Por qué puede que no veas los cambios?**
 
-1. **Verificando el commit en GitHub...**
-   - Commit SHA: ${lastAppliedChange.commitSha || 'No disponible'}
-   
-2. **Posibles causas del problema:**
-   - ⏱️ El despliegue puede tardar 2-3 minutos
-   - 🔄 Puede ser necesario limpiar el caché del navegador (Ctrl+F5)
-   - 🌐 Vercel puede estar procesando el deployment
-   
-3. **Acciones que puedo realizar:**
-   - Verificar el estado del deployment en Vercel
-   - Revisar los logs del build
-   - Comprobar si el archivo fue modificado correctamente
-   
-¿Quieres que verifique algo específico? Puedes decirme:
-- "ver logs" para revisar los logs
-- "verificar cambios" para comprobar el último commit
-- "reintentar" para aplicar el cambio nuevamente`;
+1. ⏱️ **Espera un poco más** - Los cambios tardan 2-3 minutos en aparecer
+2. 🔄 **Actualiza tu navegador** - Presiona Ctrl+F5 (o Cmd+Shift+R en Mac)
+3. 🌐 **El sitio se está actualizando** - A veces tarda un poco más
+
+**¿Qué puedo hacer?**
+• Si dices "ver logs" te muestro información técnica
+• Si dices "verificar cambios" reviso si se aplicaron correctamente
+• Si dices "reintentar" intento aplicar el cambio otra vez
+
+¿Qué prefieres hacer?`;
     
     const response: Message = {
       id: Date.now().toString(),
@@ -521,19 +527,21 @@ He encontrado el último cambio aplicado: "${lastAppliedChange.processedChange!.
       const response: Message = {
         id: Date.now().toString(),
         role: 'assistant',
-        content: `✅ **Verificación del repositorio:**
+        content: `✅ **Revisé y los cambios están listos**
 
-**Último push:** ${new Date(repoInfo.pushed_at).toLocaleString()}
-**Branch por defecto:** ${repoInfo.default_branch}
-**URL del repositorio:** ${repoInfo.html_url}
+Los cambios se guardaron hace: ${new Date(repoInfo.pushed_at).toLocaleString('es-ES', { 
+  hour: '2-digit', 
+  minute: '2-digit',
+  day: '2-digit',
+  month: 'short'
+})}
 
-Los cambios están correctamente aplicados en el repositorio. Si no ves los cambios en el sitio web:
+**Si aún no ves los cambios:**
+1. 🕐 Espera 2-3 minutos más
+2. 🔄 Actualiza tu navegador (Ctrl+F5)
+3. 🌐 Asegúrate de estar en el sitio correcto
 
-1. **Espera un poco más** - El deployment puede tardar 2-5 minutos
-2. **Limpia el caché** - Presiona Ctrl+F5 en el navegador
-3. **Verifica la URL** - Asegúrate de estar en https://neuroinnova.saludmental.com.py
-
-¿Necesitas que revise algo más específico?`,
+¿Todo bien o necesitas ayuda con algo más?`,
         timestamp: new Date()
       };
       
@@ -548,7 +556,7 @@ Los cambios están correctamente aplicados en el repositorio. Si no ves los camb
       const errorResponse: Message = {
         id: Date.now().toString(),
         role: 'assistant',
-        content: '❌ No pude conectar con GitHub para verificar el estado. Por favor, intenta nuevamente en unos segundos.',
+        content: '😕 No pude conectar para verificar. Por favor, intenta de nuevo en unos segundos.',
         timestamp: new Date()
       };
       
@@ -580,22 +588,233 @@ Los cambios están correctamente aplicados en el repositorio. Si no ves los camb
   };
 
   const generateResponseMessage = (change: ProcessedChange): string => {
-    let message = 'He preparado los siguientes cambios:\n\n';
+    let message = '✨ **He preparado estos cambios para tu sitio web:**\n\n';
     
-    message += `📝 **Archivos a modificar:**\n`;
+    // Simplificar nombres de archivos
+    message += `📁 **Páginas que se van a actualizar:**\n`;
     change.files.forEach(file => {
-      message += `• ${file}\n`;
+      const simplifiedName = file
+        .replace('src/components/sections/', '')
+        .replace('src/pages/', '')
+        .replace('.tsx', '')
+        .replace('.ts', '')
+        .replace('Home', 'Página principal')
+        .replace('Hero', 'Sección principal')
+        .replace('Header', 'Encabezado')
+        .replace('Footer', 'Pie de página')
+        .replace('Contact', 'Contacto')
+        .replace('Services', 'Servicios')
+        .replace('Testimonials', 'Testimonios');
+      message += `• ${simplifiedName}\n`;
     });
     
-    message += `\n💬 **Descripción:** ${change.commitMessage}\n`;
+    message += `\n💡 **¿Qué va a cambiar?**\n${change.commitMessage}\n`;
     
     if (change.requiresReview) {
-      message += `\n⚠️ **Nota:** Este cambio requiere revisión adicional.`;
+      message += `\n⚠️ **Nota:** Este cambio es más complejo y necesita una revisión especial.`;
     }
     
-    message += `\n\n¿Quieres que aplique estos cambios?`;
+    message += `\n\n¿Te gustaría que aplique estos cambios a tu sitio web?`;
     
     return message;
+  };
+
+  // Detectar si es una pregunta
+  const isQuestion = (text: string): boolean => {
+    const questionPatterns = [
+      '¿', '?', 'qué', 'que', 'cómo', 'como', 'cuál', 'cual', 'cuándo', 'cuando',
+      'dónde', 'donde', 'por qué', 'porque', 'quién', 'quien', 'cuánto', 'cuanto',
+      'puedes', 'puedo', 'es posible', 'se puede', 'hay forma', 'existe',
+      'explica', 'dime', 'muestra', 'enseña', 'ayuda'
+    ];
+    
+    return questionPatterns.some(pattern => text.includes(pattern));
+  };
+
+  // Detectar si es una solicitud de cambio potencial
+  const isChangeRequest = (text: string): boolean => {
+    const changePatterns = [
+      'cambiar', 'modificar', 'actualizar', 'agregar', 'añadir', 'quitar', 'eliminar',
+      'poner', 'hacer', 'mover', 'reemplazar', 'editar', 'arreglar', 'corregir',
+      'mejorar', 'optimizar', 'nuevo', 'diferente', 'otro', 'más grande', 'más pequeño',
+      'color', 'tamaño', 'texto', 'imagen', 'botón', 'enlace', 'página'
+    ];
+    
+    return changePatterns.some(pattern => text.includes(pattern));
+  };
+
+  // Detectar si es una solicitud explícita de cambio
+  const isExplicitChangeRequest = (text: string): boolean => {
+    const explicitPatterns = [
+      'quiero cambiar', 'necesito cambiar', 'por favor cambia', 'cambia',
+      'quiero que', 'necesito que', 'hazme', 'aplica', 'implementa',
+      'actualiza esto', 'modifica esto', 'arregla esto'
+    ];
+    
+    return explicitPatterns.some(pattern => text.includes(pattern));
+  };
+
+  // Manejar respuestas conversacionales
+  const handleConversationalResponse = async (userMessage: Message) => {
+    setIsTyping(true);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    const lowerContent = userMessage.content.toLowerCase();
+    let responseContent = '';
+    
+    // Respuestas específicas a preguntas comunes
+    if (lowerContent.includes('qué puedes hacer') || lowerContent.includes('que puedes hacer')) {
+      responseContent = `¡Hola! Soy tu asistente para administrar el sitio web de NeuroInnova. 🌟
+
+**Puedo ayudarte con:**
+• 📝 Cambiar textos en cualquier parte del sitio
+• 🎨 Modificar colores, tamaños y estilos visuales
+• 📞 Actualizar información de contacto y WhatsApp
+• ➕ Agregar nuevos elementos como testimonios o servicios
+• 🔄 Reorganizar secciones y contenido
+• 🖼️ Cambiar imágenes y elementos visuales
+
+**Algunos ejemplos:**
+- "Cambia el número de WhatsApp"
+- "Agrega un nuevo testimonio de María García"
+- "Haz el título principal más grande"
+- "Cambia el color de los botones a verde"
+
+¿En qué te puedo ayudar hoy?`;
+    } else if (lowerContent.includes('cómo') || lowerContent.includes('como')) {
+      responseContent = `Para hacer cambios en tu sitio web, simplemente dime qué quieres modificar en palabras simples. 😊
+
+**Por ejemplo:**
+- En lugar de decir "modifica el componente Hero", di "cambia el título principal"
+- En lugar de "actualiza el footer", di "cambia la información del pie de página"
+
+**El proceso es simple:**
+1. Me dices qué quieres cambiar
+2. Yo preparo los cambios
+3. Te muestro qué va a cambiar
+4. Tú decides si aplicarlo o no
+
+¿Qué te gustaría cambiar?`;
+    } else if (lowerContent.includes('testimonio')) {
+      responseContent = `Para agregar un nuevo testimonio, necesito esta información:
+
+• **Nombre del paciente** (puede ser anónimo)
+• **Su testimonio** (lo que quiere decir)
+• **Condición tratada** (opcional)
+• **Calificación** (1-5 estrellas)
+
+Por ejemplo: "Agrega un testimonio de Juan Pérez que dice: 'Excelente atención, mi vida cambió completamente' con 5 estrellas"
+
+¿Quieres agregar un testimonio ahora?`;
+    } else if (lowerContent.includes('whatsapp') || lowerContent.includes('teléfono') || lowerContent.includes('telefono')) {
+      responseContent = `El número de WhatsApp actual es: **+595 991 800 886** 📱
+
+¿Quieres cambiarlo por otro número? Solo dime el nuevo número y lo actualizaré en todo el sitio.`;
+    } else if (lowerContent.includes('color')) {
+      responseContent = `Los colores actuales del sitio son:
+• **Azul médico** (color principal)
+• **Verde suave** (color secundario)
+• **Blanco y grises** (fondos y textos)
+
+¿Qué elemento quieres cambiar de color? Por ejemplo:
+- "Cambia el color de los botones a verde"
+- "Haz el fondo más claro"
+- "Cambia el color del título principal a azul oscuro"`;
+    } else {
+      // Respuesta genérica para otras preguntas
+      responseContent = `Entiendo tu pregunta. 🤔
+
+Para ayudarte mejor, ¿podrías decirme específicamente qué parte del sitio web te gustaría modificar?
+
+Puedo cambiar:
+• Textos y títulos
+• Colores y estilos
+• Información de contacto
+• Agregar o quitar elementos
+• Reorganizar secciones
+
+¿Qué te gustaría hacer?`;
+    }
+    
+    setIsTyping(false);
+    
+    const response: Message = {
+      id: Date.now().toString(),
+      role: 'assistant',
+      content: responseContent,
+      timestamp: new Date()
+    };
+    
+    setCurrentConversation(prev => ({
+      ...prev!,
+      messages: [...prev!.messages, response],
+      lastMessageAt: new Date()
+    }));
+  };
+
+  // Manejar respuestas sugestivas (cuando detecta un posible cambio)
+  const handleSuggestiveResponse = async (userMessage: Message) => {
+    setIsTyping(true);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    const lowerContent = userMessage.content.toLowerCase();
+    let suggestion = '';
+    
+    // Analizar qué tipo de cambio podría querer
+    if (lowerContent.includes('título') || lowerContent.includes('titulo')) {
+      suggestion = `Veo que mencionas el título. ¿Te gustaría que cambie el título principal del sitio web?
+
+El título actual es: "Excelencia en Psiquiatría"
+
+Si quieres cambiarlo, solo dime algo como: "Cambia el título principal a [tu nuevo título]"`;
+    } else if (lowerContent.includes('color')) {
+      suggestion = `Mencionas los colores. ¿Qué elemento te gustaría cambiar de color?
+
+Puedo cambiar:
+• El color de los botones
+• El color del fondo
+• El color de los títulos
+• El color de los enlaces
+
+Solo dime, por ejemplo: "Cambia el color de los botones a verde"`;
+    } else if (lowerContent.includes('agregar') || lowerContent.includes('añadir')) {
+      suggestion = `Veo que quieres agregar algo. ¿Qué te gustaría agregar?
+
+Puedo agregar:
+• Nuevos testimonios de pacientes
+• Información de servicios
+• Nuevas secciones
+• Imágenes o elementos visuales
+
+Dime específicamente qué quieres agregar y lo haré.`;
+    } else {
+      suggestion = `Entiendo que quieres hacer un cambio. 🤔
+
+Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
+
+**Ejemplos de cómo pedirlo:**
+• "Cambia el número de WhatsApp a..."
+• "Agrega un testimonio que diga..."
+• "Haz el título más grande"
+• "Cambia el color de los botones a..."
+
+¿Qué cambio específico te gustaría hacer?`;
+    }
+    
+    setIsTyping(false);
+    
+    const response: Message = {
+      id: Date.now().toString(),
+      role: 'assistant',
+      content: suggestion,
+      timestamp: new Date()
+    };
+    
+    setCurrentConversation(prev => ({
+      ...prev!,
+      messages: [...prev!.messages, response],
+      lastMessageAt: new Date()
+    }));
   };
 
   // Función para manejar el Enter en el textarea
@@ -674,7 +893,7 @@ Los cambios están correctamente aplicados en el repositorio. Si no ves los camb
           <div>
             <h1 className="text-2xl font-bold">Panel de Administración</h1>
             <p className="text-sm text-gray-600">
-              Interfaz de chat para modificar el sitio web
+              Haz cambios a tu sitio web con simples mensajes
             </p>
           </div>
           <div className="flex gap-2">
@@ -699,11 +918,11 @@ Los cambios están correctamente aplicados en el repositorio. Si no ves los camb
           </div>
         </div>
 
-        <Card className="h-full flex flex-col">
-          <CardContent className="flex-1 flex flex-col p-0">
+        <Card className="h-full flex flex-col overflow-hidden">
+          <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
             {/* Área de mensajes */}
-            <ScrollArea className="flex-1 p-4">
-              <div className="space-y-4">
+            <ScrollArea className="flex-1 p-4" style={{ height: 'calc(100vh - 400px)', overflowY: 'auto' }}>
+              <div className="space-y-4 pb-4">
                 {currentConversation?.messages.map((message) => (
                   <div
                     key={message.id}
@@ -816,7 +1035,7 @@ Los cambios están correctamente aplicados en el repositorio. Si no ves los camb
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Describe el cambio que quieres hacer..."
+                  placeholder="Escribe aquí lo que quieres cambiar... (Ejemplo: Cambia el número de WhatsApp)"
                   className="flex-1 min-h-[60px] max-h-[120px]"
                   disabled={isProcessing}
                 />
