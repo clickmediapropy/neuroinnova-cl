@@ -21,18 +21,20 @@ interface ProcessedChange {
   requiresReview: boolean;
 }
 
+import { generateSiteSummary, getRelatedFiles, updateSiteMap, findSection, getSectionContext } from './siteMapService';
+
 // Mapeo de secciones a archivos del proyecto
 const SECTION_FILE_MAP: Record<string, string[]> = {
-  'homepage': ['src/pages/Home.tsx', 'src/components/sections/Hero.tsx'],
+  'homepage': ['src/pages/Index.tsx', 'src/components/sections/Hero.tsx'],
   'hero': ['src/components/sections/Hero.tsx'],
-  'services': ['src/components/sections/Services.tsx', 'src/pages/services/'],
+  'services': ['src/components/sections/Services.tsx', 'src/pages/ServiciosPage.tsx'],
   'testimonials': ['src/components/sections/Testimonials.tsx'],
-  'contact': ['src/components/forms/ContactForm.tsx', 'src/pages/Contact.tsx'],
+  'contact': ['src/components/forms/ContactForm.tsx', 'src/pages/ContactoPage.tsx'],
   'header': ['src/components/layout/Header.tsx', 'src/components/layout/HomeHeader.tsx'],
   'footer': ['src/components/layout/Footer.tsx'],
-  'service-pages': ['src/pages/services/'],
-  'condition-pages': ['src/pages/conditions/'],
-  'assessments': ['src/pages/assessments/'],
+  'service-pages': ['src/pages/EMTTMSPage.tsx', 'src/pages/TDCSPage.tsx', 'src/pages/PsiquiatriaTradicionalPage.tsx'],
+  'condition-pages': ['src/pages/DepresionResistentePage.tsx', 'src/pages/AnsiedadPage.tsx', 'src/pages/TOCPage.tsx'],
+  'assessments': ['src/pages/Autoevaluacion.tsx', 'src/pages/DepresionEvaluacion.tsx'],
   'global': ['src/index.css', 'tailwind.config.js', 'src/App.tsx']
 };
 
@@ -96,12 +98,37 @@ REGLAS CRÍTICAS:
 4. Para títulos, incluye las etiquetas HTML completas
 5. Siempre usa rutas completas desde src/`;
 
+    // Obtener información relevante del mapa del sitio
+    const relatedFiles = getRelatedFiles(request.description);
+    const siteSummary = generateSiteSummary();
+    
+    // Buscar contexto específico si menciona una sección
+    let sectionContext = '';
+    const sectionInfo = getSectionContext(request.section);
+    if (sectionInfo) {
+      sectionContext = `
+CONTEXTO DE LA SECCIÓN:
+- Sección: ${sectionInfo.section.name}
+- Descripción: ${sectionInfo.section.description}
+- Archivo: ${sectionInfo.section.file || 'No especificado'}
+- Página contenedora: ${sectionInfo.page?.name || 'No especificada'}
+`;
+    }
+
     const userPrompt = `
 Analiza esta solicitud de cambio para el sitio web NeuroInnova:
 
 SOLICITUD: "${request.description}"
 TIPO: ${request.type}
 SECCIÓN: ${request.section}
+
+MAPA DEL SITIO:
+${siteSummary}
+
+${sectionContext}
+
+ARCHIVOS RELACIONADOS CON LA SOLICITUD:
+${relatedFiles.length > 0 ? relatedFiles.join('\n') : 'Usar archivos por defecto según la sección'}
 
 CONTEXTO DEL SITIO:
 - React + TypeScript + Tailwind CSS
@@ -578,9 +605,17 @@ export async function applyChangesWithGitHub(processedChange: ProcessedChange): 
     );
     
     if (result.success) {
+      // Actualizar el mapa del sitio después de aplicar cambios
+      updateSiteMap({
+        type: processedChange.changes[0].file.includes('.css') ? 'style' : 'content',
+        target: processedChange.files.join(', '),
+        details: processedChange.commitMessage
+      });
+      
       return {
         success: true,
-        message: 'Cambios aplicados exitosamente. El sitio se actualizará en 2-3 minutos.'
+        message: 'Cambios aplicados exitosamente. El sitio se actualizará en 2-3 minutos.',
+        commitSha: result.commitSha
       };
     } else {
       return {

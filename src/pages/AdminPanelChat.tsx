@@ -664,6 +664,9 @@ Los cambios se guardaron hace: ${new Date(repoInfo.pushed_at).toLocaleString('es
     const lowerContent = userMessage.content.toLowerCase();
     let responseContent = '';
     
+    // Importar funciones del mapa del sitio
+    const { findSection, findPage, SITE_STRUCTURE } = await import('@/services/siteMapService');
+    
     // Respuestas específicas a preguntas comunes
     if (lowerContent.includes('qué puedes hacer') || lowerContent.includes('que puedes hacer')) {
       responseContent = `¡Hola! Soy tu asistente para administrar el sitio web de NeuroInnova. 🌟
@@ -722,6 +725,25 @@ Por ejemplo: "Agrega un testimonio de Juan Pérez que dice: 'Excelente atención
 - "Cambia el color de los botones a verde"
 - "Haz el fondo más claro"
 - "Cambia el color del título principal a azul oscuro"`;
+    } else if (lowerContent.includes('páginas') || lowerContent.includes('paginas') || lowerContent.includes('estructura')) {
+      responseContent = `📄 **Estructura del sitio web:**
+
+**Páginas principales:**
+• **Inicio** - Página principal con todas las secciones
+• **Servicios** - EMT/TMS, tDCS, Psiquiatría, RehaCom
+• **Condiciones** - Depresión, Ansiedad, TOC, Dolor crónico, etc.
+• **Autoevaluación** - Cuestionarios de salud mental
+• **Contacto** - Información y formulario de contacto
+
+**Secciones del inicio:**
+• Hero (Banner principal)
+• Características
+• Servicios
+• Testimonios
+• Equipo médico
+• Llamada a la acción
+
+¿Qué página o sección quieres modificar?`;
     } else {
       // Respuesta genérica para otras preguntas
       responseContent = `Entiendo tu pregunta. 🤔
