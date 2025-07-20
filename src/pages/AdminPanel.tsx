@@ -42,6 +42,7 @@ export function AdminPanel() {
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [activeTab, setActiveTab] = useState('new-change');
   const [changeRequest, setChangeRequest] = useState<Partial<ChangeRequest>>({
     type: 'content',
     priority: 'medium',
@@ -155,6 +156,9 @@ export function AdminPanel() {
         title: 'Cambio procesado',
         description: 'Revisa los cambios propuestos antes de aplicar',
       });
+      
+      // Cambiar automáticamente a la pestaña de vista previa
+      setActiveTab('preview');
     } catch (error) {
       setChangeHistory(prev => 
         prev.map(req => 
@@ -213,6 +217,13 @@ export function AdminPanel() {
         // Limpiar el estado
         setProcessedChange(null);
         
+        // Limpiar el formulario de solicitud
+        setChangeRequest({
+          type: 'content',
+          priority: 'medium',
+          section: 'homepage'
+        });
+        
         // Actualizar el historial si es necesario
         setChangeHistory(prev => 
           prev.map(req => 
@@ -221,6 +232,11 @@ export function AdminPanel() {
               : req
           )
         );
+        
+        // Volver a la pestaña de nueva solicitud después de un pequeño delay
+        setTimeout(() => {
+          setActiveTab('new-change');
+        }, 2000);
       } else {
         toast({
           title: 'Error al aplicar cambios',
@@ -317,7 +333,7 @@ export function AdminPanel() {
           </Button>
         </div>
 
-        <Tabs defaultValue="new-change" className="space-y-4">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="new-change">Nueva Solicitud</TabsTrigger>
             <TabsTrigger value="preview">Vista Previa</TabsTrigger>
@@ -531,7 +547,10 @@ export function AdminPanel() {
                       </Button>
                       <Button 
                         variant="outline" 
-                        onClick={() => setProcessedChange(null)}
+                        onClick={() => {
+                          setProcessedChange(null);
+                          setActiveTab('new-change');
+                        }}
                         className="flex-1"
                         disabled={isApplying}
                       >
