@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,8 +8,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import { Lock, Send, Clock, FileText, Eye, RotateCcw } from 'lucide-react';
+import { Lock, Send, Clock, FileText, Eye, RotateCcw, LogOut } from 'lucide-react';
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'neuroinnova2024';
 
@@ -40,6 +41,7 @@ export function AdminPanel() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [changeRequest, setChangeRequest] = useState<Partial<ChangeRequest>>({
     type: 'content',
     priority: 'medium',
@@ -51,11 +53,45 @@ export function AdminPanel() {
   const [processedChange, setProcessedChange] = useState<ProcessedChange | null>(null);
   const { toast } = useToast();
 
+  // Verificar si hay una sesión guardada al cargar el componente
+  useEffect(() => {
+    const savedSession = localStorage.getItem('adminAuthenticated');
+    const sessionExpiry = localStorage.getItem('adminSessionExpiry');
+    
+    if (savedSession === 'true' && sessionExpiry) {
+      const expiryDate = new Date(sessionExpiry);
+      const now = new Date();
+      
+      // Si la sesión no ha expirado, autenticar automáticamente
+      if (now < expiryDate) {
+        setIsAuthenticated(true);
+        toast({
+          title: 'Sesión restaurada',
+          description: 'Bienvenido de vuelta al panel de administración',
+        });
+      } else {
+        // Si expiró, limpiar localStorage
+        localStorage.removeItem('adminAuthenticated');
+        localStorage.removeItem('adminSessionExpiry');
+      }
+    }
+  }, []);
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === ADMIN_PASSWORD) {
       setIsAuthenticated(true);
       setAuthError('');
+      
+      // Si "Recordarme" está marcado, guardar en localStorage
+      if (rememberMe) {
+        localStorage.setItem('adminAuthenticated', 'true');
+        // Establecer expiración en 30 días
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + 30);
+        localStorage.setItem('adminSessionExpiry', expiryDate.toISOString());
+      }
+      
       toast({
         title: 'Acceso concedido',
         description: 'Bienvenido al panel de administración',
@@ -63,6 +99,18 @@ export function AdminPanel() {
     } else {
       setAuthError('Contraseña incorrecta');
     }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setPassword('');
+    // Limpiar localStorage
+    localStorage.removeItem('adminAuthenticated');
+    localStorage.removeItem('adminSessionExpiry');
+    toast({
+      title: 'Sesión cerrada',
+      description: 'Has salido del panel de administración',
+    });
   };
 
   const handleSubmitChange = async (e: React.FormEvent) => {
@@ -221,6 +269,19 @@ export function AdminPanel() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox 
+                  id="remember-me" 
+                  checked={rememberMe}
+                  onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                />
+                <Label 
+                  htmlFor="remember-me" 
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Recordarme por 30 días
+                </Label>
+              </div>
               {authError && (
                 <Alert variant="destructive">
                   <AlertDescription>{authError}</AlertDescription>
@@ -239,11 +300,21 @@ export function AdminPanel() {
   return (
     <Layout>
       <div className="container mx-auto py-8 px-4">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Panel de Administración</h1>
-          <p className="text-gray-600">
-            Solicita cambios al sitio web usando lenguaje natural
-          </p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">Panel de Administración</h1>
+            <p className="text-gray-600">
+              Solicita cambios al sitio web usando lenguaje natural
+            </p>
+          </div>
+          <Button 
+            variant="outline" 
+            onClick={handleLogout}
+            className="flex items-center gap-2"
+          >
+            <LogOut className="h-4 w-4" />
+            Cerrar Sesión
+          </Button>
         </div>
 
         <Tabs defaultValue="new-change" className="space-y-4">
