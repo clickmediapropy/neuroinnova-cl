@@ -1,4 +1,27 @@
-import { Zap, Brain, Stethoscope, Monitor } from "lucide-react";
+export const Services = () => {
+  const services = [
+    {
+      id: 1,
+      title: 'Servicios a Domicilio',
+      description: 'Atendemos a domicilio para una mayor comodidad y accesibilidad de nuestros pacientes.',
+      icon: 'home',
+      color: '#2C5F8B',
+    },
+    // Otros servicios
+  ];
+  return (
+    <section className='bg-white py-8'>
+      <div className='container mx-auto px-4'>
+        <h2 className='text-2xl font-semibold text-gray-800'>Nuestros Servicios</h2>
+        <div className='grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3'>
+          {services.map(service => (
+            <ServiceCard key={service.id} service={service} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 import ServiceCard from "../ui/ServiceCard";
 
 const Services = () => {
