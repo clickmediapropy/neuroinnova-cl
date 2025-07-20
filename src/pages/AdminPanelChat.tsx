@@ -1111,12 +1111,12 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                 rows={1}
               />
               <span className="absolute bottom-1 sm:bottom-2 right-2 text-[10px] sm:text-xs text-gray-400">
-                {input.length}/2000
+                {input.length}/10000
               </span>
             </div>
             <Button 
               type="submit" 
-              disabled={isProcessing || !input.trim() || input.length > 2000}
+              disabled={isProcessing || !input.trim() || input.length > 10000}
               className="self-end px-3 sm:px-4"
               size="default"
             >

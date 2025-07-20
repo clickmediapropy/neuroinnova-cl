@@ -52,6 +52,7 @@ const CHANGE_PATTERNS = {
 const MOONSHOT_API_KEY = 'sk-kf1rXAf4r93JTqtA2UPSAvGUPDkX3bcM0QpjUySc8CLH7oDw';
 const MOONSHOT_MODEL = 'moonshot-v1-128k'; // Modelo más potente con 128K tokens de contexto
 const MOONSHOT_API_URL = 'https://api.moonshot.ai/v1/chat/completions';
+const MAX_OUTPUT_TOKENS = 32768; // Máximo de tokens para output (32K)
 
 // Configuración de reintentos
 const MAX_RETRIES = 3;
@@ -205,7 +206,7 @@ Por favor, responde la pregunta del usuario de manera completa y detallada, bas�
           { role: 'user', content: userPrompt }
         ],
         temperature: 0.7,
-        max_tokens: 2000 // Más tokens para respuestas detalladas
+        max_tokens: MAX_OUTPUT_TOKENS // Máximo de tokens disponibles (32K)
       }),
       signal: controller.signal
     });
@@ -402,7 +403,7 @@ Genera los cambios necesarios en formato JSON.`;
             }
           ],
           temperature: 0.2, // Más preciso para cambios de código
-          max_tokens: 8000  // Más tokens para respuestas detalladas
+          max_tokens: MAX_OUTPUT_TOKENS  // Máximo de tokens disponibles (32K)
         }),
         signal: controller.signal
       });
