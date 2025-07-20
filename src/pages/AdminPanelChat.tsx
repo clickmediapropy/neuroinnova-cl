@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Checkbox } from '@/components/ui/checkbox';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { Lock, Send, Bot, User, Loader2, Check, X, RotateCcw, LogOut, Trash2, AlertCircle, FileText, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -922,10 +921,10 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
           </div>
         </div>
 
-        <Card className="h-full flex flex-col overflow-hidden">
-          <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
+        <Card className="h-[calc(100vh-200px)] flex flex-col">
+          <CardContent className="flex-1 flex flex-col p-0 min-h-0">
             {/* Área de mensajes */}
-            <ScrollArea className="flex-1 p-4" style={{ height: 'calc(100vh - 400px)', overflowY: 'auto' }}>
+            <div className="flex-1 overflow-y-auto p-4">
               <div className="space-y-4 pb-4">
                 {currentConversation?.messages.map((message) => (
                   <div
@@ -1029,7 +1028,7 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                 
                 <div ref={messagesEndRef} />
               </div>
-            </ScrollArea>
+            </div>
             
             {/* Área de input */}
             <div className="border-t p-4">
