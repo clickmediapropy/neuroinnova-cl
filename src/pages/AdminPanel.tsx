@@ -47,6 +47,7 @@ export function AdminPanel() {
   });
   const [changeHistory, setChangeHistory] = useState<ChangeRequest[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isApplying, setIsApplying] = useState(false);
   const [processedChange, setProcessedChange] = useState<ProcessedChange | null>(null);
   const { toast } = useToast();
 
@@ -132,19 +133,54 @@ export function AdminPanel() {
   };
 
   const applyChanges = async () => {
-    // Importar las instrucciones de despliegue
-    const { getDeploymentInstructions } = await import('@/services/aiProcessor');
-    const instructions = getDeploymentInstructions();
+    if (!processedChange) return;
     
+    setIsApplying(true);
+    
+    // Mostrar estado de carga
     toast({
-      title: 'Cambios aplicados',
-      description: 'Los cambios se han guardado localmente. Revisa las instrucciones de despliegue.',
+      title: 'Aplicando cambios...',
+      description: 'Por favor espera mientras se aplican los cambios.',
     });
     
-    // Mostrar instrucciones de despliegue
-    alert(instructions);
-    
-    setProcessedChange(null);
+    try {
+      // Aplicar cambios usando GitHub API
+      const { applyChangesWithGitHub } = await import('@/services/aiProcessor');
+      const result = await applyChangesWithGitHub(processedChange);
+      
+      if (result.success) {
+        toast({
+          title: 'Cambios aplicados exitosamente',
+          description: result.message,
+        });
+        
+        // Limpiar el estado
+        setProcessedChange(null);
+        
+        // Actualizar el historial si es necesario
+        setChangeHistory(prev => 
+          prev.map(req => 
+            req.status === 'completed' 
+              ? { ...req, status: 'completed' as const }
+              : req
+          )
+        );
+      } else {
+        toast({
+          title: 'Error al aplicar cambios',
+          description: result.error || 'Ocurrió un error desconocido',
+          variant: 'destructive',
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: 'Error',
+        description: error.message || 'No se pudieron aplicar los cambios',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsApplying(false);
+    }
   };
 
   if (!isAuthenticated) {
@@ -397,14 +433,28 @@ export function AdminPanel() {
                     )}
 
                     <div className="flex gap-4">
-                      <Button onClick={applyChanges} className="flex-1">
-                        <Eye className="mr-2 h-4 w-4" />
-                        Aplicar Cambios
+                      <Button 
+                        onClick={applyChanges} 
+                        className="flex-1"
+                        disabled={isApplying}
+                      >
+                        {isApplying ? (
+                          <>
+                            <Clock className="mr-2 h-4 w-4 animate-spin" />
+                            Aplicando...
+                          </>
+                        ) : (
+                          <>
+                            <Eye className="mr-2 h-4 w-4" />
+                            Aplicar Cambios
+                          </>
+                        )}
                       </Button>
                       <Button 
                         variant="outline" 
                         onClick={() => setProcessedChange(null)}
                         className="flex-1"
+                        disabled={isApplying}
                       >
                         <RotateCcw className="mr-2 h-4 w-4" />
                         Cancelar

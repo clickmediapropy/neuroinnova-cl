@@ -405,20 +405,37 @@ export function validateChange(change: ProcessedChange): { isValid: boolean; err
   };
 }
 
-// Función para generar instrucciones de despliegue
-export function getDeploymentInstructions(): string {
-  return `
-Para desplegar los cambios realizados:
-
-1. Abre la terminal en el directorio del proyecto
-2. Ejecuta los siguientes comandos:
-   
-   git add .
-   git commit -m "Cambios desde el panel de administración"
-   git push origin main
-
-3. Los cambios se desplegarán automáticamente en Vercel
-
-Nota: Asegúrate de revisar los cambios antes de hacer push.
-  `;
+// Función para aplicar cambios usando GitHub API
+export async function applyChangesWithGitHub(processedChange: ProcessedChange): Promise<{
+  success: boolean;
+  message: string;
+  error?: string;
+}> {
+  try {
+    const { applyChangesToGitHub } = await import('./githubService');
+    
+    const result = await applyChangesToGitHub(
+      processedChange.changes,
+      processedChange.commitMessage
+    );
+    
+    if (result.success) {
+      return {
+        success: true,
+        message: 'Cambios aplicados exitosamente. El sitio se actualizará en 2-3 minutos.'
+      };
+    } else {
+      return {
+        success: false,
+        message: 'Error al aplicar cambios',
+        error: result.error
+      };
+    }
+  } catch (error: any) {
+    return {
+      success: false,
+      message: 'Error al conectar con GitHub',
+      error: error.message
+    };
+  }
 }
