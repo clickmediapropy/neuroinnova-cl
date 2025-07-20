@@ -248,14 +248,14 @@ export function AdminPanelChat() {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Detectar si es una pregunta o solicitud de información
-      if (isQuestion(lowerContent) || !isChangeRequest(lowerContent)) {
+      if (isQuestion(lowerContent) && !isChangeRequest(lowerContent)) {
         // Responder conversacionalmente
         await handleConversationalResponse(userMessage);
         return;
       }
       
-      // Si es una solicitud explícita de cambio
-      if (isExplicitChangeRequest(lowerContent)) {
+      // Si es una solicitud de cambio (explícita o implícita)
+      if (isChangeRequest(lowerContent) || isExplicitChangeRequest(lowerContent)) {
         // Procesar el cambio
         const changeRequest = {
           id: Date.now().toString(),
@@ -634,10 +634,14 @@ Los cambios se guardaron hace: ${new Date(repoInfo.pushed_at).toLocaleString('es
   // Detectar si es una solicitud de cambio potencial
   const isChangeRequest = (text: string): boolean => {
     const changePatterns = [
-      'cambiar', 'modificar', 'actualizar', 'agregar', 'añadir', 'quitar', 'eliminar',
-      'poner', 'hacer', 'mover', 'reemplazar', 'editar', 'arreglar', 'corregir',
-      'mejorar', 'optimizar', 'nuevo', 'diferente', 'otro', 'más grande', 'más pequeño',
-      'color', 'tamaño', 'texto', 'imagen', 'botón', 'enlace', 'página'
+      'cambiar', 'cambia', 'modificar', 'modifica', 'actualizar', 'actualiza', 
+      'agregar', 'agrega', 'añadir', 'añade', 'quitar', 'quita', 'eliminar', 'elimina',
+      'poner', 'pon', 'hacer', 'haz', 'mover', 'mueve', 'reemplazar', 'reemplaza', 
+      'editar', 'edita', 'arreglar', 'arregla', 'corregir', 'corrige',
+      'mejorar', 'mejora', 'optimizar', 'optimiza', 'nuevo', 'nueva', 'diferente', 
+      'otro', 'otra', 'más grande', 'más pequeño', 'mayor', 'menor',
+      'color', 'tamaño', 'texto', 'imagen', 'botón', 'enlace', 'página', 'título', 
+      'principal', 'hero', 'sección'
     ];
     
     return changePatterns.some(pattern => text.includes(pattern));
