@@ -83,7 +83,7 @@ const Header = () => {
           </a>
           <Button size="sm" asChild>
             <a href="https://wa.me/595991800886?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada." target="_blank" rel="noopener noreferrer">
-              Agende su Consulta
+              WhatsApp disponible 24/7
             </a>
           </Button>
         </div>
@@ -96,7 +96,7 @@ const Header = () => {
             asChild
           >
             <a href="https://wa.me/595991800886?text=Hola,%20necesito%20información%20sobre%20consultas%20médicas." target="_blank" rel="noopener noreferrer">
-              Consulta
+              WhatsApp disponible 24/7
             </a>
           </Button>
         </div>
@@ -141,7 +141,7 @@ const Header = () => {
                 </a>
                 <Button size="lg" onClick={closeMenu} className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md active:scale-95 transition-all duration-200 rounded-lg py-3 min-h-[48px] text-base" asChild>
                   <a href="https://wa.me/595991800886?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada." target="_blank" rel="noopener noreferrer">
-                    Agende su Consulta
+                    WhatsApp disponible 24/7
                   </a>
                 </Button>
               </div>

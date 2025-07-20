@@ -543,7 +543,7 @@ const TDCSPage = () => {
                 </Button>
                 <Button className="bg-green-500 hover:bg-green-600" asChild>
                   <a href="https://wa.me/595991800886?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20el%20tratamiento%20tDCS.%20¿Podrían%20ayudarme%20con%20una%20consulta?" target="_blank" rel="noopener noreferrer">
-                    Consultar por WhatsApp
+                    WhatsApp disponible 24/7
                   </a>
                 </Button>
               </div>
@@ -569,7 +569,7 @@ const TDCSPage = () => {
               </Button>
               <Button size="lg" className="bg-green-500 hover:bg-green-600" asChild>
                 <a href="https://wa.me/595991800886?text=Hola,%20me%20gustaría%20solicitar%20información%20sobre%20el%20tratamiento%20tDCS.%20¿Podrían%20ayudarme%20con%20más%20detalles?" target="_blank" rel="noopener noreferrer">
-                  Solicitar por WhatsApp
+                  WhatsApp disponible 24/7
                 </a>
               </Button>
             </div>

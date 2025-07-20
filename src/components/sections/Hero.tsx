@@ -80,7 +80,7 @@ const Hero = () => {
                   className="flex items-center justify-center font-semibold"
                 >
                   <MessageCircle className="mr-2 sm:mr-3 md:mr-4 h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
-                  Agende su Consulta
+                  WhatsApp disponible 24/7
                   <ArrowRight className="ml-2 sm:ml-3 md:ml-4 h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 transition-transform group-hover:translate-x-1" />
                 </a>
               </Button>

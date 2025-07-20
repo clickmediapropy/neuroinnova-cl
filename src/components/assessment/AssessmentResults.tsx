@@ -509,8 +509,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
                     "Enviando..."
                   ) : (
                     <>
-                      <span className="hidden sm:inline">Enviar y Recibir Resultados por WhatsApp</span>
-                      <span className="sm:hidden">Recibir Resultados por WhatsApp</span>
+                      <span className="hidden sm:inline">Enviar y Recibir Resultados por WhatsApp disponible 24/7</span>
+                      <span className="sm:hidden">Recibir Resultados por WhatsApp disponible 24/7</span>
                     </>
                   )}
                   <ChevronRight className="ml-2 h-4 w-4 flex-shrink-0" />

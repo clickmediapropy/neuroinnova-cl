@@ -259,7 +259,7 @@ const CondicionesPage = () => {
                   <Link to="/agendar-consulta">Consulta de Evaluación</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link to="/contacto">Consultar por WhatsApp</Link>
+                  <Link to="/contacto">WhatsApp disponible 24/7</Link>
                 </Button>
               </div>
             </div>
