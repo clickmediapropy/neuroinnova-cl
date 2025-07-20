@@ -44,14 +44,6 @@ const FloatingActions = () => {
           </Button>
         </div>
 
-        {/* Main floating button */}
-        <Button
-          size="icon"
-          className="shadow-lg hover:scale-110 transition-all duration-300 animate-glow w-14 h-14"
-          onClick={() => setIsExpanded(!isExpanded)}
-        >
-          <MessageCircle className={`h-6 w-6 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
-        </Button>
       </div>
     </div>
   );
