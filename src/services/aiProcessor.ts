@@ -46,10 +46,10 @@ const CHANGE_PATTERNS = {
   text: /<p[^>]*>(.*?)<\/p>/g
 };
 
-// Configuración de Groq API
-const GROQ_API_KEY = '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';
-const GROQ_MODEL = 'llama-3-groq-70b-tool-use';
-const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+// Configuración de Moonshot AI
+const MOONSHOT_API_KEY = 'sk-kf1rXAf4r93JTqtA2UPSAvGUPDkX3bcM0QpjUySc8CLH7oDw';
+const MOONSHOT_MODEL = 'moonshot-v1-128k'; // Modelo más potente con 128K tokens de contexto
+const MOONSHOT_API_URL = 'https://api.moonshot.ai/v1/chat/completions';
 
 // Configuración de reintentos
 const MAX_RETRIES = 3;
@@ -61,29 +61,40 @@ export async function processChangeWithAI(request: ChangeRequest): Promise<Proce
   // Intentar con reintentos
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
-      // Preparar el prompt para Groq
-      const systemPrompt = `Eres un asistente AI especializado en modificar código de sitios web médicos.
-Analizas solicitudes en español y generas cambios de código específicos.
+      // Preparar el prompt para Moonshot AI
+      const systemPrompt = `Eres un asistente AI avanzado especializado en modificar código de sitios web médicos React + TypeScript.
+Tienes una ventana de contexto de 128K tokens, lo que te permite analizar archivos completos y generar cambios precisos y complejos.
+
 IMPORTANTE: 
-- SIEMPRE responde en formato JSON estructurado
-- Identifica archivos exactos a modificar
-- Genera código completo y válido
-- Mantén el estilo de código existente
-- La respuesta debe seguir exactamente esta estructura:
+- SIEMPRE responde en formato JSON estructurado válido
+- Analiza cuidadosamente el código actual antes de proponer cambios
+- Identifica archivos exactos a modificar con rutas completas
+- Genera código completo, válido y funcional
+- Mantén el estilo de código existente y las convenciones del proyecto
+- Los cambios deben ser precisos - el oldCode debe coincidir EXACTAMENTE con el código actual
+
+Tu respuesta DEBE seguir EXACTAMENTE esta estructura JSON:
 {
-  "files": ["archivo1.tsx", "archivo2.tsx"],
+  "files": ["src/ruta/archivo1.tsx", "src/ruta/archivo2.tsx"],
   "changes": [
     {
-      "file": "ruta/archivo.tsx",
-      "oldCode": "código actual",
-      "newCode": "código nuevo",
-      "lineStart": número,
-      "lineEnd": número
+      "file": "src/ruta/archivo.tsx",
+      "oldCode": "código exacto actual que será reemplazado",
+      "newCode": "código nuevo que reemplazará al anterior",
+      "lineStart": 0,
+      "lineEnd": 0
     }
   ],
-  "commitMessage": "mensaje descriptivo del commit",
-  "requiresReview": boolean
-}`;
+  "commitMessage": "feat/fix/style: mensaje descriptivo del commit",
+  "requiresReview": false
+}
+
+REGLAS CRÍTICAS:
+1. El campo "oldCode" debe contener el texto EXACTO que está en el archivo, incluyendo espacios y saltos de línea
+2. Si no estás seguro del contenido exacto, usa patrones más pequeños y específicos
+3. Para números de teléfono, busca el patrón completo como "wa.me/595991800886"
+4. Para títulos, incluye las etiquetas HTML completas
+5. Siempre usa rutas completas desde src/`;
 
     const userPrompt = `
 Analiza esta solicitud de cambio para el sitio web NeuroInnova:
@@ -125,18 +136,18 @@ IMPORTANTE: Los cambios deben ser EXACTOS. El oldCode debe coincidir EXACTAMENTE
 
 Genera los cambios necesarios en formato JSON.`;
 
-      // Llamada a Groq API con timeout
+      // Llamada a Moonshot AI con timeout
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 30000); // 30 segundos de timeout
+      const timeout = setTimeout(() => controller.abort(), 60000); // 60 segundos de timeout para modelo más grande
 
-      const response = await fetch(GROQ_API_URL, {
+      const response = await fetch(MOONSHOT_API_URL, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${GROQ_API_KEY}`,
+          'Authorization': `Bearer ${MOONSHOT_API_KEY}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: GROQ_MODEL,
+          model: MOONSHOT_MODEL,
           messages: [
             {
               role: 'system',
@@ -147,9 +158,8 @@ Genera los cambios necesarios en formato JSON.`;
               content: userPrompt
             }
           ],
-          temperature: 0.3,
-          max_tokens: 4000,
-          response_format: { type: "json_object" }
+          temperature: 0.2, // Más preciso para cambios de código
+          max_tokens: 8000  // Más tokens para respuestas detalladas
         }),
         signal: controller.signal
       });
@@ -160,27 +170,40 @@ Genera los cambios necesarios en formato JSON.`;
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
         
-        // Manejo específico de errores de Groq
+        // Manejo específico de errores de Moonshot AI
         if (response.status === 429) {
           throw new Error('Rate limit excedido. Por favor, intenta de nuevo en unos segundos.');
         } else if (response.status === 401) {
-          throw new Error('Error de autenticación con Groq API.');
+          throw new Error('Error de autenticación con Moonshot AI.');
         } else if (response.status === 503) {
-          throw new Error('Servicio de Groq temporalmente no disponible.');
+          throw new Error('Servicio de Moonshot AI temporalmente no disponible.');
         } else {
-          throw new Error(`Groq API error: ${response.status} ${errorData?.error?.message || response.statusText}`);
+          throw new Error(`Moonshot AI error: ${response.status} ${errorData?.error?.message || response.statusText}`);
         }
       }
 
       const data = await response.json();
       
       if (!data.choices || !data.choices[0]?.message?.content) {
-        throw new Error('Respuesta inválida de Groq API');
+        throw new Error('Respuesta inválida de Moonshot AI');
       }
 
-      const aiResponse = JSON.parse(data.choices[0].message.content);
+      // Moonshot AI puede devolver JSON o texto, intentamos parsear
+      let aiResponse;
+      try {
+        aiResponse = JSON.parse(data.choices[0].message.content);
+      } catch (parseError) {
+        console.error('Error parseando respuesta de Moonshot, intentando extraer JSON...');
+        // Intentar extraer JSON del texto
+        const jsonMatch = data.choices[0].message.content.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          aiResponse = JSON.parse(jsonMatch[0]);
+        } else {
+          throw new Error('No se pudo extraer JSON válido de la respuesta');
+        }
+      }
       
-      console.log('Groq response:', aiResponse);
+      console.log('Moonshot AI response:', aiResponse);
 
       // Validar y ajustar la respuesta
       const processedResponse = {
@@ -192,7 +215,7 @@ Genera los cambios necesarios en formato JSON.`;
       
       // Si no hay cambios reales, intentar generar basado en la descripción
       if (processedResponse.changes.length === 0) {
-        console.warn('Groq no generó cambios, usando procesamiento local');
+        console.warn('Moonshot AI no generó cambios, usando procesamiento local');
         throw new Error('No se generaron cambios válidos');
       }
       
@@ -211,7 +234,7 @@ Genera los cambios necesarios en formato JSON.`;
   }
 
   // Si todos los intentos fallan, usar fallback
-  console.error('Todos los intentos con Groq fallaron. Usando procesamiento local.');
+  console.error('Todos los intentos con Moonshot AI fallaron. Usando procesamiento local.');
   
   if (lastError) {
     console.error('Último error:', lastError);
