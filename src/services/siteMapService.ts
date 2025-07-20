@@ -79,7 +79,11 @@ export const SITE_STRUCTURE: SiteMap = {
           id: 'testimonials',
           name: 'Testimonios',
           description: 'Testimonios de pacientes',
-          file: 'src/components/sections/Testimonials.tsx'
+          file: 'src/components/sections/Testimonials.tsx',
+          content: {
+            title: 'Testimonios de Pacientes',
+            subtitle: 'Experiencias reales de personas que han mejorado su calidad de vida'
+          }
         },
         {
           id: 'team',

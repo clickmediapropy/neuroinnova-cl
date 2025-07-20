@@ -57,6 +57,208 @@ const MOONSHOT_API_URL = 'https://api.moonshot.ai/v1/chat/completions';
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; // 1 segundo
 
+// Función para procesar preguntas conversacionales con IA
+export async function processQuestionWithAI(question: string): Promise<string> {
+  try {
+    // Analizar la pregunta para determinar qué información necesita
+    const lowerQuestion = question.toLowerCase();
+    let specificContext = '';
+    
+    // Buscar contexto específico basado en la pregunta
+    if (lowerQuestion.includes('título') || lowerQuestion.includes('titulo')) {
+      const heroSection = findSection('hero');
+      if (heroSection) {
+        specificContext += `\nCONTENIDO DEL HERO/TÍTULO PRINCIPAL:
+- Título actual: "${heroSection.content?.title || 'Único y Primero Centro de Neuromodulación en Paraguay'}"
+- Subtítulo: "${heroSection.content?.subtitle || 'Tecnologías avanzadas EMT/TMS y tDCS'}"
+- Archivo: ${heroSection.file}
+- El título está dividido en 4 líneas con animaciones:
+  * Línea 1: "Único y Primero" (color primario, negrita)
+  * Línea 2: "Centro de" (color normal)
+  * Línea 3: "Neuromodulación" (color normal, tamaño ligeramente menor)
+  * Línea 4: "en Paraguay" (color acento con gradiente)`;
+      }
+    }
+    
+    if (lowerQuestion.includes('servicio')) {
+      const servicesSection = findSection('services');
+      specificContext += `\nSERVICIOS OFRECIDOS:
+1. **EMT/TMS (Estimulación Magnética Transcraneal)**
+   - Tratamiento no invasivo para depresión resistente
+   - Aprobado por FDA
+   - Sin efectos secundarios sistémicos
+   - Página: /servicios/emt-tms
+
+2. **tDCS (Estimulación Transcraneal por Corriente Directa)**
+   - Neuromodulación suave y segura
+   - Mejora funciones cognitivas
+   - Tratamiento de dolor crónico
+   - Página: /servicios/tdcs
+
+3. **Psiquiatría Tradicional**
+   - Evaluación psiquiátrica integral
+   - Manejo farmacológico personalizado
+   - Psicoterapia
+   - Página: /servicios/psiquiatria-tradicional
+
+4. **RehaCom**
+   - Rehabilitación cognitiva computarizada
+   - Entrenamiento de funciones cerebrales
+   - Seguimiento personalizado
+   - Página: /servicios/rehacom`;
+    }
+    
+    if (lowerQuestion.includes('whatsapp') || lowerQuestion.includes('teléfono') || lowerQuestion.includes('telefono') || lowerQuestion.includes('contacto')) {
+      specificContext += `\nINFORMACIÓN DE CONTACTO:
+- WhatsApp: +595 991 800 886 (disponible 24/7)
+- URL de WhatsApp: wa.me/595991800886
+- Email: contacto@neuroinnova.com.py
+- Ubicación: Asunción, Paraguay
+- El botón de WhatsApp aparece en:
+  * Header (navegación)
+  * Hero (botón principal)
+  * Footer (pie de página)
+  * Botón flotante (WhatsAppButton)`;
+    }
+    
+    if (lowerQuestion.includes('doctor') || lowerQuestion.includes('adorno') || lowerQuestion.includes('equipo')) {
+      specificContext += `\nEQUIPO MÉDICO:
+- **Dr. Victor Adorno** - Director Médico
+  * Especialista en Psiquiatría
+  * Experto en Neuromodulación
+  * Formación internacional
+- El equipo aparece en la sección "Team" de la página principal`;
+    }
+    
+    if (lowerQuestion.includes('testimonio')) {
+      specificContext += `\nTESTIMONIOS:
+- Sección de testimonios en la página principal
+- Muestra experiencias de pacientes reales
+- Sistema de calificación con estrellas
+- Se pueden agregar nuevos testimonios
+- Archivo: src/components/sections/Testimonials.tsx`;
+    }
+    
+    if (lowerQuestion.includes('color')) {
+      specificContext += `\nCOLORES DEL SITIO:
+- Color Primario: #2C5F8B (Azul médico) - HSL(210, 51%, 36%)
+- Color Secundario/Accent: #7CB342 (Verde) - HSL(90, 48%, 48%)
+- Fondo: HSL(210, 40%, 98%) - Casi blanco con tinte azul
+- Texto: HSL(222, 20%, 18%) - Gris muy oscuro
+- Los colores se definen en src/index.css`;
+    }
+    
+    // Generar resumen del sitio completo
+    const siteSummary = generateSiteSummary();
+    
+    // Buscar archivos relacionados
+    const relatedFiles = getRelatedFiles(question);
+    
+    const systemPrompt = `Eres un asistente IA inteligente y amigable para el sitio web de NeuroInnova, un centro de psiquiatría y neuromodulación en Paraguay.
+
+Tu tarea es responder preguntas sobre el contenido actual del sitio web de manera precisa, detallada y conversacional.
+
+INSTRUCCIONES IMPORTANTES:
+1. SIEMPRE responde basándote en la información real del sitio proporcionada
+2. Sé específico y detallado - menciona los valores exactos cuando los tengas
+3. Usa un tono amigable, profesional pero accesible
+4. Si la información no está disponible, indícalo claramente
+5. NO sugieras cambios ni modificaciones, solo informa sobre el estado actual
+6. Habla en español de manera natural
+7. Cuando menciones elementos técnicos, explícalos de forma simple
+8. Si la pregunta es sobre "cómo" hacer algo, explica el proceso claramente`;
+
+    const userPrompt = `PREGUNTA DEL USUARIO: "${question}"
+
+ESTRUCTURA COMPLETA DEL SITIO:
+${siteSummary}
+
+${specificContext}
+
+ARCHIVOS RELACIONADOS CON LA PREGUNTA:
+${relatedFiles.length > 0 ? relatedFiles.join('\n') : 'No se identificaron archivos específicos'}
+
+INFORMACIÓN ADICIONAL IMPORTANTE:
+- El sitio usa React + TypeScript + Tailwind CSS
+- Tiene un diseño moderno y profesional
+- Es totalmente responsive (móvil, tablet, desktop)
+- Incluye animaciones sutiles y efectos visuales
+- Tiene sistema de autoevaluación con 11 cuestionarios
+- Formularios de contacto con validación
+
+Por favor, responde la pregunta del usuario de manera completa y detallada, basándote en toda esta información. Si la pregunta requiere información específica que está disponible arriba, úsala. Sé conversacional pero preciso.`;
+
+    // Llamada a Moonshot AI
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 45000); // Más tiempo para respuestas detalladas
+
+    const response = await fetch(MOONSHOT_API_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${MOONSHOT_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: MOONSHOT_MODEL,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 2000 // Más tokens para respuestas detalladas
+      }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeout);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      throw new Error(`Error ${response.status}: ${errorData?.error?.message || response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    if (!data.choices || !data.choices[0]?.message?.content) {
+      throw new Error('Respuesta inválida de la IA');
+    }
+    
+    return data.choices[0].message.content;
+
+  } catch (error: any) {
+    console.error('Error al procesar pregunta con IA:', error);
+    
+    // Respuesta de fallback mejorada basada en la pregunta
+    const lowerQuestion = question.toLowerCase();
+    
+    if (lowerQuestion.includes('título') || lowerQuestion.includes('titulo')) {
+      return `El título principal del sitio es **"Único y Primero Centro de Neuromodulación en Paraguay"**.
+
+Este título aparece en la sección Hero (banner principal) de la página de inicio, dividido en 4 líneas con animaciones especiales.
+
+Aunque tuve un problema técnico, esta información está confirmada en el archivo Hero.tsx.`;
+    }
+    
+    if (lowerQuestion.includes('servicio')) {
+      return `Los servicios principales de NeuroInnova son:
+
+1. **EMT/TMS** - Estimulación Magnética Transcraneal
+2. **tDCS** - Estimulación por Corriente Directa
+3. **Psiquiatría Tradicional**
+4. **RehaCom** - Rehabilitación Cognitiva
+
+Cada servicio tiene su propia página con información detallada. Aunque tuve un problema técnico, estos son los servicios confirmados del sitio.`;
+    }
+    
+    // Fallback genérico
+    return `Lo siento, tuve un problema técnico al procesar tu pregunta. 
+
+Sin embargo, puedo decirte que NeuroInnova es un centro de psiquiatría y neuromodulación ubicado en Asunción, Paraguay, dirigido por el Dr. Victor Adorno.
+
+¿Podrías reformular tu pregunta o ser más específico sobre qué información necesitas?`;
+  }
+}
+
 export async function processChangeWithAI(request: ChangeRequest): Promise<ProcessedChange> {
   let lastError: Error | null = null;
   

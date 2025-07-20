@@ -689,135 +689,56 @@ Los cambios se guardaron hace: ${new Date(repoInfo.pushed_at).toLocaleString('es
     return explicitPatterns.some(pattern => text.includes(pattern));
   };
 
-  // Manejar respuestas conversacionales
+  // Manejar respuestas conversacionales con IA real
   const handleConversationalResponse = async (userMessage: Message) => {
     setIsTyping(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
     
-    const lowerContent = userMessage.content.toLowerCase();
-    let responseContent = '';
-    
-    // Importar funciones del mapa del sitio
-    const { findSection, findPage, SITE_STRUCTURE } = await import('@/services/siteMapService');
-    
-    // Preguntas sobre el contenido actual
-    if (lowerContent.includes('título') && (lowerContent.includes('actual') || lowerContent.includes('cuál') || lowerContent.includes('cual'))) {
-      responseContent = `El título actual de la página principal es:
-
-**"Único y Primero Centro de Neuromodulación en Paraguay"**
-
-Este título aparece en la sección Hero (banner principal) de la página de inicio.
-
-${mode === 'chat' ? '💡 Para cambiarlo, cambia al modo Edición y dime cómo quieres que sea el nuevo título.' : '¿Quieres cambiarlo?'}`;
-    } else if (lowerContent.includes('qué puedes hacer') || lowerContent.includes('que puedes hacer')) {
-      responseContent = `¡Hola! Soy tu asistente para administrar el sitio web de NeuroInnova. 🌟
-
-**Puedo ayudarte con:**
-• 📝 Cambiar textos en cualquier parte del sitio
-• 🎨 Modificar colores, tamaños y estilos visuales
-• 📞 Actualizar información de contacto y WhatsApp
-• ➕ Agregar nuevos elementos como testimonios o servicios
-• 🔄 Reorganizar secciones y contenido
-• 🖼️ Cambiar imágenes y elementos visuales
-
-**Algunos ejemplos:**
-- "Cambia el número de WhatsApp"
-- "Agrega un nuevo testimonio de María García"
-- "Haz el título principal más grande"
-- "Cambia el color de los botones a verde"
-
-¿En qué te puedo ayudar hoy?`;
-    } else if (lowerContent.includes('cómo') || lowerContent.includes('como')) {
-      responseContent = `Para hacer cambios en tu sitio web, simplemente dime qué quieres modificar en palabras simples. 😊
-
-**Por ejemplo:**
-- En lugar de decir "modifica el componente Hero", di "cambia el título principal"
-- En lugar de "actualiza el footer", di "cambia la información del pie de página"
-
-**El proceso es simple:**
-1. Me dices qué quieres cambiar
-2. Yo preparo los cambios
-3. Te muestro qué va a cambiar
-4. Tú decides si aplicarlo o no
-
-¿Qué te gustaría cambiar?`;
-    } else if (lowerContent.includes('testimonio')) {
-      responseContent = `Para agregar un nuevo testimonio, necesito esta información:
-
-• **Nombre del paciente** (puede ser anónimo)
-• **Su testimonio** (lo que quiere decir)
-• **Condición tratada** (opcional)
-• **Calificación** (1-5 estrellas)
-
-Por ejemplo: "Agrega un testimonio de Juan Pérez que dice: 'Excelente atención, mi vida cambió completamente' con 5 estrellas"
-
-¿Quieres agregar un testimonio ahora?`;
-    } else if (lowerContent.includes('whatsapp') || lowerContent.includes('teléfono') || lowerContent.includes('telefono')) {
-      responseContent = `El número de WhatsApp actual es: **+595 991 800 886** 📱
-
-¿Quieres cambiarlo por otro número? Solo dime el nuevo número y lo actualizaré en todo el sitio.`;
-    } else if (lowerContent.includes('color')) {
-      responseContent = `Los colores actuales del sitio son:
-• **Azul médico** (color principal)
-• **Verde suave** (color secundario)
-• **Blanco y grises** (fondos y textos)
-
-¿Qué elemento quieres cambiar de color? Por ejemplo:
-- "Cambia el color de los botones a verde"
-- "Haz el fondo más claro"
-- "Cambia el color del título principal a azul oscuro"`;
-    } else if (lowerContent.includes('páginas') || lowerContent.includes('paginas') || lowerContent.includes('estructura')) {
-      responseContent = `📄 **Estructura del sitio web:**
-
-**Páginas principales:**
-• **Inicio** - Página principal con todas las secciones
-• **Servicios** - EMT/TMS, tDCS, Psiquiatría, RehaCom
-• **Condiciones** - Depresión, Ansiedad, TOC, Dolor crónico, etc.
-• **Autoevaluación** - Cuestionarios de salud mental
-• **Contacto** - Información y formulario de contacto
-
-**Secciones del inicio:**
-• Hero (Banner principal)
-• Características
-• Servicios
-• Testimonios
-• Equipo médico
-• Llamada a la acción
-
-¿Qué página o sección quieres modificar?`;
-    } else if (mode === 'chat') {
-      // En modo chat, dar información útil sobre el sitio
-      responseContent = `Estoy en modo Chat para responder tus preguntas. 💬
-
-Puedes preguntarme cosas como:
-• "¿Cuál es el título actual?"
-• "¿Qué servicios están listados?"
-• "¿Cuál es el número de WhatsApp?"
-• "¿Qué páginas tiene el sitio?"
-• "¿Qué testimonios hay?"
-
-O cualquier otra pregunta sobre el contenido actual del sitio.
-
-${mode === 'chat' ? '💡 Si quieres hacer cambios, cambia al modo Edición con el botón de arriba.' : ''}`;
-    } else {
-      // En modo edición, sugerir cambios
-      responseContent = `Estoy en modo Edición. ✏️
-
-Dime qué quieres cambiar, por ejemplo:
-• "Cambia el título principal a..."
-• "Actualiza el número de WhatsApp a..."
-• "Agrega un nuevo testimonio..."
-• "Cambia el color de los botones a..."
-
-¿Qué cambio quieres hacer?`;
+    try {
+      // Usar la IA para procesar la pregunta
+      const { processQuestionWithAI } = await import('@/services/aiProcessor');
+      const aiResponse = await processQuestionWithAI(userMessage.content);
+      
+      setIsTyping(false);
+      
+      const response: Message = {
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: aiResponse,
+        timestamp: new Date()
+      };
+      
+      setCurrentConversation(prev => ({
+        ...prev!,
+        messages: [...prev!.messages, response],
+        lastMessageAt: new Date()
+      }));
+      
+    } catch (error) {
+      setIsTyping(false);
+      console.error('Error al procesar con IA:', error);
+      
+      // Fallback a respuestas predefinidas si la IA falla
+      await handleConversationalResponseFallback(userMessage);
     }
-    
+  };
+
+  // Respuestas de fallback cuando la IA no está disponible
+  const handleConversationalResponseFallback = async (userMessage: Message) => {
     setIsTyping(false);
     
+    // Solo usar fallback para mensajes muy básicos o errores
     const response: Message = {
       id: Date.now().toString(),
       role: 'assistant',
-      content: responseContent,
+      content: `Lo siento, tuve un problema al procesar tu pregunta. 
+
+Por favor, intenta preguntarme de nuevo. Puedo ayudarte con información sobre:
+• El contenido actual del sitio
+• Los servicios que ofrece NeuroInnova
+• La información de contacto
+• La estructura del sitio web
+
+¿Qué te gustaría saber?`,
       timestamp: new Date()
     };
     
