@@ -53,6 +53,7 @@ export function AdminPanelChat() {
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [mode, setMode] = useState<'chat' | 'edit'>('chat');
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesAreaRef = useRef<HTMLDivElement>(null);
@@ -172,21 +173,24 @@ export function AdminPanelChat() {
       messages: [{
         id: Date.now().toString(),
         role: 'assistant',
-        content: `¡Hola Dr. Adorno! 👋 Soy tu asistente para actualizar el sitio web de NeuroInnova.
+        content: `¡Hola Dr. Adorno! 👋 Soy tu asistente para el sitio web de NeuroInnova.
 
-**Puedo ayudarte con:**
-• 📝 Cambiar cualquier texto del sitio
-• 🎨 Modificar colores y tamaños
-• 📱 Actualizar números de contacto y WhatsApp
-• ✨ Agregar testimonios o información nueva
-• 🔧 Resolver cualquier problema
+**Hay dos modos disponibles:**
 
-**Solo dime qué necesitas en palabras simples, por ejemplo:**
-• "Cambia el número de WhatsApp"
-• "Agrega un nuevo testimonio"
-• "Haz el título más grande"
+**💬 Modo Chat** (actual) - Para preguntas e información
+• Pregúntame sobre el contenido actual del sitio
+• Consulta sobre páginas, secciones o elementos
+• Obtén información sin hacer cambios
 
-¿Qué te gustaría cambiar hoy?`,
+**✏️ Modo Edición** - Para hacer cambios
+• Cambiar textos y contenido
+• Modificar colores y estilos
+• Actualizar información
+• Agregar nuevos elementos
+
+Puedes cambiar de modo en cualquier momento usando los botones arriba.
+
+¿En qué puedo ayudarte?`,
         timestamp: new Date()
       }],
       createdAt: new Date(),
@@ -262,15 +266,19 @@ export function AdminPanelChat() {
       // Simular typing delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Detectar si es una pregunta o solicitud de información
-      if (isQuestion(lowerContent) && !isChangeRequest(lowerContent)) {
-        // Responder conversacionalmente
+      // En modo Chat, siempre responder conversacionalmente
+      if (mode === 'chat') {
         await handleConversationalResponse(userMessage);
         return;
       }
       
-      // Si es una solicitud de cambio (explícita o implícita)
-      if (isChangeRequest(lowerContent) || isExplicitChangeRequest(lowerContent)) {
+      // En modo Edición, procesar cambios
+      if (mode === 'edit') {
+        // Si es una pregunta clara, responder conversacionalmente incluso en modo edición
+        if (isQuestion(lowerContent) && !isChangeRequest(lowerContent)) {
+          await handleConversationalResponse(userMessage);
+          return;
+        }
         // Procesar el cambio
         const changeRequest = {
           id: Date.now().toString(),
@@ -692,8 +700,16 @@ Los cambios se guardaron hace: ${new Date(repoInfo.pushed_at).toLocaleString('es
     // Importar funciones del mapa del sitio
     const { findSection, findPage, SITE_STRUCTURE } = await import('@/services/siteMapService');
     
-    // Respuestas específicas a preguntas comunes
-    if (lowerContent.includes('qué puedes hacer') || lowerContent.includes('que puedes hacer')) {
+    // Preguntas sobre el contenido actual
+    if (lowerContent.includes('título') && (lowerContent.includes('actual') || lowerContent.includes('cuál') || lowerContent.includes('cual'))) {
+      responseContent = `El título actual de la página principal es:
+
+**"Único y Primero Centro de Neuromodulación en Paraguay"**
+
+Este título aparece en la sección Hero (banner principal) de la página de inicio.
+
+${mode === 'chat' ? '💡 Para cambiarlo, cambia al modo Edición y dime cómo quieres que sea el nuevo título.' : '¿Quieres cambiarlo?'}`;
+    } else if (lowerContent.includes('qué puedes hacer') || lowerContent.includes('que puedes hacer')) {
       responseContent = `¡Hola! Soy tu asistente para administrar el sitio web de NeuroInnova. 🌟
 
 **Puedo ayudarte con:**
@@ -769,20 +785,31 @@ Por ejemplo: "Agrega un testimonio de Juan Pérez que dice: 'Excelente atención
 • Llamada a la acción
 
 ¿Qué página o sección quieres modificar?`;
+    } else if (mode === 'chat') {
+      // En modo chat, dar información útil sobre el sitio
+      responseContent = `Estoy en modo Chat para responder tus preguntas. 💬
+
+Puedes preguntarme cosas como:
+• "¿Cuál es el título actual?"
+• "¿Qué servicios están listados?"
+• "¿Cuál es el número de WhatsApp?"
+• "¿Qué páginas tiene el sitio?"
+• "¿Qué testimonios hay?"
+
+O cualquier otra pregunta sobre el contenido actual del sitio.
+
+${mode === 'chat' ? '💡 Si quieres hacer cambios, cambia al modo Edición con el botón de arriba.' : ''}`;
     } else {
-      // Respuesta genérica para otras preguntas
-      responseContent = `Entiendo tu pregunta. 🤔
+      // En modo edición, sugerir cambios
+      responseContent = `Estoy en modo Edición. ✏️
 
-Para ayudarte mejor, ¿podrías decirme específicamente qué parte del sitio web te gustaría modificar?
+Dime qué quieres cambiar, por ejemplo:
+• "Cambia el título principal a..."
+• "Actualiza el número de WhatsApp a..."
+• "Agrega un nuevo testimonio..."
+• "Cambia el color de los botones a..."
 
-Puedo cambiar:
-• Textos y títulos
-• Colores y estilos
-• Información de contacto
-• Agregar o quitar elementos
-• Reorganizar secciones
-
-¿Qué te gustaría hacer?`;
+¿Qué cambio quieres hacer?`;
     }
     
     setIsTyping(false);
@@ -946,25 +973,53 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                 Haz cambios a tu sitio web con simples mensajes
               </p>
             </div>
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={clearConversations}
-                className="flex items-center gap-2"
-              >
-                <Trash2 className="h-4 w-4" />
-                Limpiar chat
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={handleLogout}
-                className="flex items-center gap-2"
-              >
-                <LogOut className="h-4 w-4" />
-                Cerrar Sesión
-              </Button>
+            <div className="flex items-center gap-4">
+              {/* Selector de modo */}
+              <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
+                <button
+                  onClick={() => setMode('chat')}
+                  className={cn(
+                    "px-3 py-1 rounded-md text-sm font-medium transition-all",
+                    mode === 'chat' 
+                      ? "bg-white text-primary shadow-sm" 
+                      : "text-gray-600 hover:text-gray-900"
+                  )}
+                >
+                  💬 Chat
+                </button>
+                <button
+                  onClick={() => setMode('edit')}
+                  className={cn(
+                    "px-3 py-1 rounded-md text-sm font-medium transition-all",
+                    mode === 'edit' 
+                      ? "bg-white text-primary shadow-sm" 
+                      : "text-gray-600 hover:text-gray-900"
+                  )}
+                >
+                  ✏️ Edición
+                </button>
+              </div>
+              
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={clearConversations}
+                  className="flex items-center gap-2"
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Limpiar
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={handleLogout}
+                  className="flex items-center gap-2"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Salir
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -1126,7 +1181,9 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                   textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
                 }}
                 onKeyDown={handleKeyDown}
-                placeholder="Escribe tu solicitud... (Enter para enviar, Shift+Enter para nueva línea)"
+                placeholder={mode === 'chat' 
+                  ? "Pregúntame sobre el sitio... (Enter para enviar)" 
+                  : "Describe el cambio que quieres hacer... (Enter para enviar)"}
                 className="w-full resize-none pr-12"
                 style={{ minHeight: '60px', maxHeight: '120px' }}
                 disabled={isProcessing}
