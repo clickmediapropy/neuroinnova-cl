@@ -144,30 +144,70 @@ export async function applyChangesToGitHub(
       console.log(`Applying ${sortedChanges.length} changes to ${filePath}`);
       
       for (const change of sortedChanges) {
-        console.log(`Looking for: "${change.oldCode}"`);
+        console.log(`Looking for: "${change.oldCode.substring(0, 100)}..."`);
         
         // Try exact match first
         if (updatedContent.includes(change.oldCode)) {
           updatedContent = updatedContent.replace(change.oldCode, change.newCode);
           console.log('✓ Applied change with exact match');
         } else {
-          // Try to find similar content (trim whitespace)
-          const trimmedOld = change.oldCode.trim();
-          const regex = new RegExp(trimmedOld.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+          // Try normalized whitespace match
+          const normalizeWhitespace = (str: string) => str.replace(/\s+/g, ' ').trim();
+          const normalizedOld = normalizeWhitespace(change.oldCode);
+          const normalizedContent = normalizeWhitespace(updatedContent);
           
-          if (regex.test(updatedContent)) {
-            updatedContent = updatedContent.replace(regex, change.newCode.trim());
-            console.log('✓ Applied change with regex match');
-          } else {
-            console.warn(`✗ Could not find content to replace in ${filePath}`);
-            console.warn(`Searched for: "${change.oldCode}"`);
+          if (normalizedContent.includes(normalizedOld)) {
+            // Find the actual content with flexible whitespace
+            const flexibleRegex = new RegExp(
+              change.oldCode
+                .split(/\s+/)
+                .map(part => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+                .join('\\s*'),
+              'g'
+            );
             
-            // If it's a line-based change, try to replace by line number
+            if (flexibleRegex.test(updatedContent)) {
+              updatedContent = updatedContent.replace(flexibleRegex, change.newCode);
+              console.log('✓ Applied change with flexible whitespace match');
+            }
+          } else {
+            // Try line-based replacement for multi-line changes
             const lines = updatedContent.split('\n');
-            if (change.lineStart > 0 && change.lineStart <= lines.length) {
-              lines[change.lineStart - 1] = change.newCode;
-              updatedContent = lines.join('\n');
-              console.log(`✓ Applied change at line ${change.lineStart}`);
+            
+            if (change.lineStart > 0 && change.lineEnd > 0 && 
+                change.lineStart <= lines.length && change.lineEnd <= lines.length) {
+              
+              // Special case: if oldCode contains <h1 element, use direct line replacement
+              if (change.oldCode.includes('<h1') && change.newCode.includes('<h1')) {
+                console.log(`Replacing <h1> element at lines ${change.lineStart}-${change.lineEnd}`);
+                const newLines = change.newCode.split('\n');
+                lines.splice(change.lineStart - 1, change.lineEnd - change.lineStart + 1, ...newLines);
+                updatedContent = lines.join('\n');
+                console.log(`✓ Applied <h1> change by replacing lines ${change.lineStart}-${change.lineEnd}`);
+              } else {
+                // Extract the lines to be replaced
+                const linesToReplace = lines.slice(change.lineStart - 1, change.lineEnd).join('\n');
+                console.log(`Lines ${change.lineStart}-${change.lineEnd}: "${linesToReplace.substring(0, 100)}..."`);
+                
+                // Replace the lines
+                const newLines = change.newCode.split('\n');
+                lines.splice(change.lineStart - 1, change.lineEnd - change.lineStart + 1, ...newLines);
+                updatedContent = lines.join('\n');
+                console.log(`✓ Applied change by replacing lines ${change.lineStart}-${change.lineEnd}`);
+              }
+            } else {
+              console.warn(`✗ Could not find content to replace in ${filePath}`);
+              console.warn(`Searched for: "${change.oldCode.substring(0, 100)}..."`);
+              
+              // Last resort: try partial match on key parts
+              if (change.oldCode.includes('<h1') && change.newCode.includes('<h1')) {
+                // Special handling for HTML elements
+                const h1Regex = /<h1[^>]*>[\s\S]*?<\/h1>/;
+                if (h1Regex.test(updatedContent)) {
+                  updatedContent = updatedContent.replace(h1Regex, change.newCode);
+                  console.log('✓ Applied change by replacing entire <h1> element');
+                }
+              }
             }
           }
         }

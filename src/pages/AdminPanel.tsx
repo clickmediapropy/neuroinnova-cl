@@ -128,8 +128,11 @@ export function AdminPanel() {
 
   const processChangeRequest = async (request: ChangeRequest): Promise<ProcessedChange> => {
     // Usar el servicio de procesamiento de AI
+    console.log('Procesando solicitud:', request);
     const { processChangeWithAI } = await import('@/services/aiProcessor');
-    return processChangeWithAI(request);
+    const result = await processChangeWithAI(request);
+    console.log('Resultado del procesamiento:', result);
+    return result;
   };
 
   const applyChanges = async () => {
@@ -144,9 +147,14 @@ export function AdminPanel() {
     });
     
     try {
+      // Log para debugging
+      console.log('Aplicando cambios:', processedChange);
+      
       // Aplicar cambios usando GitHub API
       const { applyChangesWithGitHub } = await import('@/services/aiProcessor');
       const result = await applyChangesWithGitHub(processedChange);
+      
+      console.log('Resultado de aplicación:', result);
       
       if (result.success) {
         toast({

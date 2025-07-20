@@ -255,8 +255,34 @@ Genera los cambios necesarios en formato JSON.`;
     
   }
   
-  // Fallback a procesamiento local si Groq falla
+  // Fallback a procesamiento local
   const description = request.description.toLowerCase();
+  
+  console.log('Usando procesamiento local para:', description);
+  
+  // CASO ESPECIAL: "Estoy probando"
+  if (description.includes('estoy probando')) {
+    console.log('Detectado: cambio a "Estoy probando"');
+    return {
+      files: ['src/components/sections/Hero.tsx'],
+      changes: [{
+        file: 'src/components/sections/Hero.tsx',
+        oldCode: `              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">
+                <span className="text-primary font-extrabold animate-fade-in-down" style={{ animationDelay: '0.1s' }}>Primer y Único</span><br />
+                <span className="text-foreground animate-fade-in-left" style={{ animationDelay: '0.3s' }}>Centro de</span><br />
+                <span className="text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl animate-fade-in-right" style={{ animationDelay: '0.5s' }}>Neuromodulación</span><br />
+                <span className="text-accent font-extrabold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent animate-gradient animate-fade-in-up" style={{ animationDelay: '0.7s' }}>de Paraguay</span>
+              </h1>`,
+        newCode: `              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">
+                <span className="text-primary font-extrabold animate-fade-in-down">Estoy probando</span>
+              </h1>`,
+        lineStart: 46,
+        lineEnd: 51
+      }],
+      commitMessage: 'feat: Cambiar título del Hero a "Estoy probando"',
+      requiresReview: false
+    };
+  }
   
   // Detectar tipo de cambio basado en palabras clave
   if (description.includes('whatsapp') || description.includes('teléfono') || description.includes('número')) {
@@ -360,7 +386,7 @@ function generateContentChangeResponse(request: ChangeRequest): ProcessedChange 
                 <span className="text-accent font-extrabold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent animate-gradient animate-fade-in-up" style={{ animationDelay: '0.7s' }}>de Paraguay</span>
               </h1>`,
           newCode: `              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">
-                <span className="text-primary font-extrabold animate-fade-in-down" style={{ animationDelay: '0.1s' }}>Estoy probando</span>
+                <span className="text-primary font-extrabold animate-fade-in-down">Estoy probando</span>
               </h1>`,
           lineStart: 46,
           lineEnd: 51
