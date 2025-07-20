@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -833,9 +832,8 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
 
   if (!isAuthenticated) {
     return (
-      <Layout>
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-md w-full space-y-8">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8">
             <div className="text-center">
               <Lock className="mx-auto h-12 w-12 text-gray-400" />
               <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
@@ -885,14 +883,13 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
             </form>
           </div>
         </div>
-      </Layout>
     );
   }
 
   return (
-    <Layout>
-      <div className="container mx-auto py-4 px-4 h-[calc(100vh-200px)]">
-        <div className="flex justify-between items-center mb-4">
+    <div className="min-h-screen bg-background flex flex-col">
+      <div className="container mx-auto p-4 flex-1 flex flex-col max-h-screen">
+        <div className="flex justify-between items-center mb-4 flex-shrink-0">
           <div>
             <h1 className="text-2xl font-bold">Panel de Administración</h1>
             <p className="text-sm text-gray-600">
@@ -921,10 +918,10 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
           </div>
         </div>
 
-        <Card className="h-[calc(100vh-200px)] flex flex-col">
+        <Card className="flex-1 flex flex-col overflow-hidden">
           <CardContent className="flex-1 flex flex-col p-0 min-h-0">
             {/* Área de mensajes */}
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className="flex-1 overflow-y-auto p-4 min-h-0">
               <div className="space-y-4 pb-4">
                 {currentConversation?.messages.map((message) => (
                   <div
@@ -1031,7 +1028,7 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
             </div>
             
             {/* Área de input */}
-            <div className="border-t p-4">
+            <div className="border-t p-4 flex-shrink-0">
               <form onSubmit={sendMessage} className="flex gap-2">
                 <Textarea
                   ref={inputRef}
@@ -1058,7 +1055,7 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
           </CardContent>
         </Card>
       </div>
-    </Layout>
+    </div>
   );
 }
 
