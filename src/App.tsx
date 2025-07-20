@@ -41,6 +41,7 @@ const ServiciosPage = lazy(() => import("./pages/ServiciosPage"));
 const CondicionesPage = lazy(() => import("./pages/CondicionesPage"));
 const TestWebhookPage = lazy(() => import("./pages/TestWebhookPage"));
 const RehaComPage = lazy(() => import("./pages/servicios/RehaComPage"));
+const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 
 const queryClient = new QueryClient();
 
@@ -90,6 +91,7 @@ const App = () => (
           <Route path="/terminos-condiciones" element={<TerminosCondicionesPage />} />
           <Route path="/aviso-legal" element={<AvisoLegalPage />} />
           <Route path="/test-webhook" element={<TestWebhookPage />} />
+          <Route path="/admin" element={<AdminPanel />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>
