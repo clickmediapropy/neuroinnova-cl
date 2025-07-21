@@ -1,0 +1,217 @@
+{
+  "name": "GitHub HTTP Tools para NeuroInnova",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "neuroinnova-admin",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "789bef68-f250-4ac2-a70e-824e357c2add",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-1136, 176]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare Prompts con instrucciones para HTTP tools\nconst fullInput = $input.first().json;\nconst inputData = fullInput.body || fullInput;\nconst type = inputData.type;\nconst request = inputData.request;\nconst question = inputData.question;\n\nconst isChangeRequest = type === 'change_request' && request && request.description;\nconst isQuestion = type === 'question' && question;\n\nconst changeSystemPrompt = `Eres un asistente AI experto en desarrollo web para NeuroInnova.\n\n## HERRAMIENTAS DISPONIBLES (HTTP Requests a GitHub API)\n\n1. **Get File Content** - Lee archivos del repositorio\n   - Descripción: \"Obtener contenido de {path}\"\n   - URL: https://api.github.com/repos/clickmediapropy/neuroinnova-cl/contents/{path}\n   - Método: GET\n   \n2. **Update File** - Actualiza archivos existentes\n   - Descripción: \"Actualizar {path}\"\n   - URL: https://api.github.com/repos/clickmediapropy/neuroinnova-cl/contents/{path}\n   - Método: PUT\n   - Body: {\"message\": \"commit message\", \"content\": \"base64_content\", \"sha\": \"current_sha\"}\n   \n3. **Create File** - Crea nuevos archivos\n   - Descripción: \"Crear {path}\"\n   - URL: https://api.github.com/repos/clickmediapropy/neuroinnova-cl/contents/{path}\n   - Método: PUT\n   - Body: {\"message\": \"commit message\", \"content\": \"base64_content\"}\n\n## PROCESO OBLIGATORIO\n\n1. SIEMPRE usa Get File Content primero para obtener el SHA actual\n2. El contenido debe estar en Base64\n3. Incluye un mensaje de commit descriptivo\n4. Para actualizar, necesitas el SHA del archivo actual\n\n## ESTRUCTURA DEL PROYECTO\n\n- WhatsApp: src/components/ui/WhatsAppButton.tsx (línea 6)\n- Header: src/components/layout/Header.tsx\n- Footer: src/components/layout/Footer.tsx\n- Hero: src/components/sections/Hero.tsx\n\nWhatsApp actual: +595 991 800 886`;\n\nconst changeUserPrompt = isChangeRequest ? \n`CAMBIO SOLICITADO: ${request.description}\n\nUSA LAS HERRAMIENTAS HTTP PARA:\n1. Obtener el archivo actual (GET)\n2. Modificar el contenido\n3. Actualizar el archivo (PUT con el nuevo contenido en base64)\n\nRECUERDA: Debes codificar el contenido en base64 y usar el SHA actual.` : '';\n\nreturn [{\n  json: {\n    systemPrompt: isChangeRequest ? changeSystemPrompt : 'Asistente de NeuroInnova',\n    userPrompt: isChangeRequest ? changeUserPrompt : question || '',\n    originalData: inputData,\n    isChangeRequest\n  }\n}];"
+      },
+      "id": "15acfd27-685f-4eae-8417-ca13ef5e5c8c",
+      "name": "Prepare Prompts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-688, 176]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "options": {
+          "systemMessage": "={{ $json.systemPrompt }}",
+          "maxIterations": 10
+        }
+      },
+      "id": "a9fe9c19-dae6-4231-8720-2dbd7e433e39",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [-464, 176]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/repos/clickmediapropy/neuroinnova-cl/contents/{{ $fromAI('path', 'The file path to read from the repository', 'string') }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {
+          "headers": {
+            "entries": [
+              {
+                "name": "Accept",
+                "value": "application/vnd.github.v3+json"
+              }
+            ]
+          }
+        },
+        "description": "Obtener contenido de {{ $fromAI('path', 'The file path', 'string') }}"
+      },
+      "id": "get-file-tool",
+      "name": "Get File Content",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [-480, 480],
+      "credentials": {
+        "githubApi": {
+          "id": "2HnCPl6Z5QgsnTPI",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "https://api.github.com/repos/clickmediapropy/neuroinnova-cl/contents/{{ $fromAI('path', 'The file path to update', 'string') }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "bodyParametersJson": "={{ $fromAI('body', 'JSON body with message, content (base64), and sha', 'json') }}",
+        "options": {
+          "headers": {
+            "entries": [
+              {
+                "name": "Accept",
+                "value": "application/vnd.github.v3+json"
+              }
+            ]
+          }
+        },
+        "description": "Actualizar {{ $fromAI('path', 'The file path', 'string') }}"
+      },
+      "id": "update-file-tool",
+      "name": "Update File",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [-272, 480],
+      "credentials": {
+        "githubApi": {
+          "id": "2HnCPl6Z5QgsnTPI",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "https://api.github.com/repos/clickmediapropy/neuroinnova-cl/contents/{{ $fromAI('path', 'The file path for the new file', 'string') }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "bodyParametersJson": "={{ $fromAI('body', 'JSON body with message and content (base64)', 'json') }}",
+        "options": {
+          "headers": {
+            "entries": [
+              {
+                "name": "Accept",
+                "value": "application/vnd.github.v3+json"
+              }
+            ]
+          }
+        },
+        "description": "Crear {{ $fromAI('path', 'The file path', 'string') }}"
+      },
+      "id": "create-file-tool",
+      "name": "Create File",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [-80, 480],
+      "credentials": {
+        "githubApi": {
+          "id": "2HnCPl6Z5QgsnTPI",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list"
+        },
+        "options": {
+          "maxTokens": 32768,
+          "temperature": 0.2
+        }
+      },
+      "id": "052272c4-74f1-4c7c-b587-8d829542797e",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [-800, 432],
+      "credentials": {
+        "openAiApi": {
+          "id": "hS0hEj64AU0qZEtW",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const agentOutput = $input.first().json;\nconst originalData = $('Prepare Prompts').first().json.originalData;\nconst isChangeRequest = $('Prepare Prompts').first().json.isChangeRequest;\n\nlet response = {\n  success: true,\n  timestamp: new Date().toISOString()\n};\n\nif (isChangeRequest) {\n  response.type = 'change_request';\n  response.message = 'Cambios procesados exitosamente';\n  response.request = originalData.request;\n  \n  if (agentOutput.steps) {\n    response.actions = agentOutput.steps.map(step => ({\n      tool: step.action?.tool,\n      input: step.action?.toolInput,\n      output: step.observation\n    }));\n  }\n  \n  response.agentSummary = agentOutput.output || agentOutput.text || 'Cambios completados';\n} else {\n  response.type = 'question';\n  response.question = originalData.question;\n  response.answer = agentOutput.output || agentOutput.text || 'No se pudo generar una respuesta';\n}\n\nreturn [{json: response}];"
+      },
+      "id": "66ef793b-4272-4e3d-b36c-d1da9d0169bc",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "038f793d-2c63-445a-94e5-7fe9c1e80baa",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [208, 16]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [[{"node": "Prepare Prompts", "type": "main", "index": 0}]]
+    },
+    "Prepare Prompts": {
+      "main": [[{"node": "AI Agent", "type": "main", "index": 0}]]
+    },
+    "AI Agent": {
+      "main": [[{"node": "Format Response", "type": "main", "index": 0}]]
+    },
+    "Get File Content": {
+      "ai_tool": [[{"node": "AI Agent", "type": "ai_tool", "index": 0}]]
+    },
+    "Update File": {
+      "ai_tool": [[{"node": "AI Agent", "type": "ai_tool", "index": 0}]]
+    },
+    "Create File": {
+      "ai_tool": [[{"node": "AI Agent", "type": "ai_tool", "index": 0}]]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [[{"node": "AI Agent", "type": "ai_languageModel", "index": 0}]]
+    },
+    "Format Response": {
+      "main": [[{"node": "Webhook Response", "type": "main", "index": 0}]]
+    }
+  }
+}
