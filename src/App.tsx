@@ -43,6 +43,7 @@ const TestWebhookPage = lazy(() => import("./pages/TestWebhookPage"));
 const RehaComPage = lazy(() => import("./pages/servicios/RehaComPage"));
 const AdminPanel = lazy(() => import("./pages/AdminPanelChat"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
+const AuroraDemo = lazy(() => import("./pages/AuroraDemo"));
 
 const queryClient = new QueryClient();
 
@@ -94,6 +95,7 @@ const App = () => (
           <Route path="/test-webhook" element={<TestWebhookPage />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/aurora-demo" element={<AuroraDemo />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>
