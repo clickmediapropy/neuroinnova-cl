@@ -57,6 +57,9 @@ const Header = () => {
             <NavLink to="/condiciones" className={getNavLinkClass}>
               Condiciones
             </NavLink>
+            <NavLink to="/blog" className={getNavLinkClass}>
+              Blog
+            </NavLink>
             <NavLink to="/contacto" className={getNavLinkClass}>
               Contacto
             </NavLink>
@@ -125,6 +128,9 @@ const Header = () => {
                 </NavLink>
                 <NavLink to="/condiciones" className={getNavLinkClass} onClick={closeMenu}>
                   Condiciones
+                </NavLink>
+                <NavLink to="/blog" className={getNavLinkClass} onClick={closeMenu}>
+                  Blog
                 </NavLink>
                 <NavLink to="/contacto" className={getNavLinkClass} onClick={closeMenu}>
                   Contacto
