@@ -1,0 +1,2 @@
+Test directo desde Claude Code - ${new Date().toISOString()}
+Este archivo verifica que los cambios se pueden hacer directamente al repositorio.
