@@ -1,3 +1,5 @@
+import { chatLogger } from '@/utils/chatLogger';
+
 interface ChangeRequest {
   id: string;
   description: string;
@@ -49,28 +51,33 @@ export async function sendChangeRequestToN8N(request: ChangeRequest): Promise<N8
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 120000); // 2 minutos de timeout
 
+    const payload = {
+      type: 'change_request',
+      request: {
+        id: request.id,
+        description: request.description,
+        type: request.type,
+        priority: request.priority,
+        section: request.section,
+        timestamp: request.timestamp.toISOString(),
+        status: request.status
+      },
+      metadata: {
+        source: 'neuroinnova-admin-panel',
+        version: '1.0.0',
+        timestamp: new Date().toISOString()
+      }
+    };
+
+    // Log de la solicitud
+    chatLogger.logWebhookRequest(payload, N8N_WEBHOOK_URL);
+
     const response = await fetch(N8N_WEBHOOK_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        type: 'change_request',
-        request: {
-          id: request.id,
-          description: request.description,
-          type: request.type,
-          priority: request.priority,
-          section: request.section,
-          timestamp: request.timestamp.toISOString(),
-          status: request.status
-        },
-        metadata: {
-          source: 'neuroinnova-admin-panel',
-          version: '1.0.0',
-          timestamp: new Date().toISOString()
-        }
-      }),
+      body: JSON.stringify(payload),
       signal: controller.signal
     });
 
@@ -92,8 +99,12 @@ export async function sendChangeRequestToN8N(request: ChangeRequest): Promise<N8
       data = JSON.parse(responseText);
     } catch (parseError) {
       console.error('Error al parsear JSON:', responseText);
+      chatLogger.logError(parseError, 'Error parsing webhook response');
       throw new Error('La respuesta del webhook no es JSON válido');
     }
+    
+    // Log de la respuesta exitosa
+    chatLogger.logWebhookResponse(data, true);
     
     // Validar la respuesta
     if (!data.success && !data.error) {
@@ -114,6 +125,7 @@ export async function sendChangeRequestToN8N(request: ChangeRequest): Promise<N8
     return data;
   } catch (error: any) {
     console.error('Error al comunicarse con N8N:', error);
+    chatLogger.logError(error, 'Error in sendChangeRequestToN8N');
     
     if (error.name === 'AbortError') {
       throw new Error('Timeout: El webhook tardó demasiado en responder');
@@ -138,21 +150,26 @@ export async function sendQuestionToN8N(
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 60000); // 1 minuto de timeout
 
+    const payload = {
+      type: 'question',
+      question,
+      conversationId,
+      metadata: {
+        source: 'neuroinnova-admin-panel-chat',
+        version: '1.0.0',
+        timestamp: new Date().toISOString()
+      }
+    };
+
+    // Log de la pregunta
+    chatLogger.logWebhookRequest(payload, N8N_WEBHOOK_URL);
+
     const response = await fetch(N8N_WEBHOOK_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        type: 'question',
-        question,
-        conversationId,
-        metadata: {
-          source: 'neuroinnova-admin-panel-chat',
-          version: '1.0.0',
-          timestamp: new Date().toISOString()
-        }
-      }),
+      body: JSON.stringify(payload),
       signal: controller.signal
     });
 
@@ -174,8 +191,12 @@ export async function sendQuestionToN8N(
       data = JSON.parse(responseText);
     } catch (parseError) {
       console.error('Error al parsear JSON:', responseText);
+      chatLogger.logError(parseError, 'Error parsing webhook response');
       throw new Error('La respuesta del webhook no es JSON válido');
     }
+    
+    // Log de la respuesta exitosa
+    chatLogger.logWebhookResponse(data, true);
     
     // Manejar la respuesta del workflow n8n
     if (data.type === 'question') {
@@ -193,6 +214,7 @@ export async function sendQuestionToN8N(
     };
   } catch (error: any) {
     console.error('Error al comunicarse con N8N:', error);
+    chatLogger.logError(error, 'Error in sendChangeRequestToN8N');
     
     if (error.name === 'AbortError') {
       throw new Error('Timeout: El webhook tardó demasiado en responder');

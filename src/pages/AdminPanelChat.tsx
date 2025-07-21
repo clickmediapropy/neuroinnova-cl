@@ -7,7 +7,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import { Lock, Send, Bot, User, Loader2, Check, X, RotateCcw, LogOut, Trash2, AlertCircle, FileText, RefreshCw, ArrowDown, Copy } from 'lucide-react';
+import { Lock, Send, Bot, User, Loader2, Check, X, RotateCcw, LogOut, Trash2, AlertCircle, FileText, RefreshCw, ArrowDown, Copy, Download } from 'lucide-react';
+import { chatLogger } from '@/utils/chatLogger';
 import { cn } from '@/lib/utils';
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'neuroinnova2024';
@@ -236,6 +237,9 @@ Puedes cambiar de modo en cualquier momento usando los botones arriba.
     }));
     
     setInput('');
+    
+    // Log del mensaje del usuario
+    chatLogger.logUserMessage(userMessage.content, currentConversation?.id, mode);
     setIsProcessing(true);
     setIsTyping(true);
     
@@ -1079,6 +1083,16 @@ Para poder ayudarte, necesito que me digas exactamente qué quieres modificar.
                 >
                   <Trash2 className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
                   <span className="hidden sm:inline">Limpiar</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => chatLogger.downloadLogs('txt')}
+                  className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-4"
+                  title="Descargar logs de la conversación"
+                >
+                  <Download className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
+                  <span className="hidden sm:inline">Logs</span>
                 </Button>
                 <Button 
                   variant="outline" 
