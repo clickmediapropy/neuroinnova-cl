@@ -31,33 +31,62 @@ import { generateSiteSummary, getRelatedFiles, updateSiteMap, findSection, getSe
 // Funciones auxiliares para diagnóstico
 async function readFileContent(filePath: string): Promise<string | null> {
   try {
-    // En un entorno real, esto leería del sistema de archivos o GitHub
-    // Por ahora, simulamos con contenido conocido
+    // Leer contenido real vía GitHub API
+    const { getFileContent } = await import('./githubService');
+    const content = await getFileContent(filePath);
+    return content;
+  } catch (error) {
+    console.error(`Error leyendo archivo ${filePath}:`, error);
+    // Si falla, usar contenido conocido
     if (filePath === 'src/App.tsx') {
       return `import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// ... rutas del blog
+// ... otras importaciones ...
+
+const BlogPage = lazy(() => import("./pages/BlogPage"));
+
+// ... dentro del Router ...
 <Route path="/blog" element={<BlogPage />} />
-// NO hay ruta para posts individuales como /blog/:slug
+// IMPORTANTE: NO hay ruta para posts individuales como /blog/:slug
+// Solo existe /blog para la lista de posts
 `;
     }
-    return null;
-  } catch (error) {
-    console.error(`Error leyendo archivo ${filePath}:`, error);
     return null;
   }
 }
 
 async function checkBlogFiles(): Promise<string> {
-  // Simular verificación de archivos de blog
-  const files = [
-    { path: 'src/pages/BlogPage.tsx', exists: true },
-    { path: 'src/pages/BlogPostPage.tsx', exists: false },
-    { path: 'src/components/BlogCard.tsx', exists: true },
-    { path: 'src/data/blogPosts.ts', exists: false }
-  ];
-  
-  return files.map(f => `- ${f.path}: ${f.exists ? '✅ Existe' : '❌ No existe'}`).join('\n');
+  // Verificar archivos reales vía GitHub API
+  try {
+    const { checkFileExists } = await import('./githubService');
+    
+    const filesToCheck = [
+      'src/pages/BlogPage.tsx',
+      'src/pages/BlogPostPage.tsx',
+      'src/components/BlogCard.tsx',
+      'src/data/blogPosts.ts',
+      'src/pages/blog/BlogPostTemplate.tsx'
+    ];
+    
+    const results = await Promise.all(
+      filesToCheck.map(async (path) => {
+        const exists = await checkFileExists(path);
+        return { path, exists };
+      })
+    );
+    
+    return results.map(f => `- ${f.path}: ${f.exists ? '✅ Existe' : '❌ No existe'}`).join('\n');
+  } catch (error) {
+    // Fallback si falla
+    const files = [
+      { path: 'src/pages/BlogPage.tsx', exists: true },
+      { path: 'src/pages/BlogPostPage.tsx', exists: false },
+      { path: 'src/components/BlogCard.tsx', exists: true },
+      { path: 'src/data/blogPosts.ts', exists: false }
+    ];
+    
+    return files.map(f => `- ${f.path}: ${f.exists ? '✅ Existe' : '❌ No existe'}`).join('\n');
+  }
 }
 
 // Mapeo de secciones a archivos del proyecto
@@ -360,9 +389,14 @@ REGLAS CRÍTICAS PARA CAMBIOS COMPLETOS:
    - Para blogs, crear estructura completa:
      * BlogPage.tsx para listar posts
      * BlogPostPage.tsx para posts individuales
-     * Ruta dinámica: /blog/:slug
+     * Ruta dinámica: /blog/:slug en App.tsx
      * Sistema de generación de slugs desde títulos
    - Verificar que las URLs generadas coincidan con las esperadas
+   - IMPORTANTE: Si alguien reporta 404 en /blog/[slug], DEBES:
+     1. Crear BlogPostPage.tsx con el contenido del post
+     2. Agregar la ruta dinámica en App.tsx: <Route path="/blog/:slug" element={<BlogPostPage />} />
+     3. Crear el archivo de datos blogPosts.ts con los posts
+     4. Actualizar BlogCard.tsx para generar los links correctos
 
 3. MODIFICACIONES GLOBALES:
    - Si cambias algo que aparece en múltiples lugares (ej: WhatsApp, título), DEBES actualizar TODOS los archivos
@@ -480,6 +514,12 @@ SOLICITUD: "${request.description}"
 TIPO: ${request.type}
 SECCIÓN: ${request.section}
 
+${isDiagnosticRequest ? `
+IMPORTANTE: Esta es una solicitud de DIAGNÓSTICO Y RESOLUCIÓN.
+El usuario está reportando un error 404 o problema que DEBES diagnosticar y resolver completamente.
+NO des respuestas genéricas. DEBES crear todos los archivos necesarios para resolver el problema.
+` : ''}
+
 MAPA DEL SITIO:
 ${siteSummary}
 
@@ -548,6 +588,20 @@ Antes de generar la respuesta, verifica:
 ✓ ¿Actualizaste TODA la navegación?
 ✓ ¿Usaste Layout para envolver páginas?
 ✓ ¿Mantuviste la consistencia del diseño?
+
+EJEMPLO ESPECÍFICO - RESOLVER 404 DE BLOG:
+Si alguien dice "porque esta pagina me da 404? /blog/qu-es-la-estimulaci-n-magn-tica-transcraneal", DEBES:
+
+1. DIAGNOSTICAR:
+   - filesChecked: ["src/App.tsx", "src/pages/BlogPostPage.tsx"]
+   - issuesFound: ["No existe ruta /blog/:slug en App.tsx", "No existe BlogPostPage.tsx"]
+   - recommendations: ["Crear sistema completo de posts individuales"]
+
+2. CREAR TODOS ESTOS ARCHIVOS:
+   - src/pages/BlogPostPage.tsx (página para posts individuales)
+   - src/data/blogPosts.ts (datos de los posts)
+   - Actualizar src/App.tsx (agregar ruta /blog/:slug)
+   - Actualizar src/components/BlogCard.tsx (links correctos)
 
 ADVERTENCIA: Si tu respuesta no incluye TODOS los cambios necesarios, el sitio NO funcionará correctamente.
 

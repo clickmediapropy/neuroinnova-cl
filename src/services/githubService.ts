@@ -283,3 +283,23 @@ export async function getRepositoryInfo() {
     throw error;
   }
 }
+
+// Check if a file exists in the repository
+export async function checkFileExists(filePath: string): Promise<boolean> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${filePath}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${GITHUB_TOKEN}`,
+          'Accept': 'application/vnd.github.v3+json',
+        }
+      }
+    );
+    
+    return response.ok;
+  } catch (error) {
+    console.error(`Error checking if file exists ${filePath}:`, error);
+    return false;
+  }
+}

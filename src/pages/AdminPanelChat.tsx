@@ -725,7 +725,10 @@ Los cambios se guardaron hace: ${new Date(repoInfo.pushed_at).toLocaleString('es
       'mejorar', 'mejora', 'optimizar', 'optimiza', 'nuevo', 'nueva', 'diferente', 
       'otro', 'otra', 'más grande', 'más pequeño', 'mayor', 'menor',
       'color', 'tamaño', 'texto', 'imagen', 'botón', 'enlace', 'página', 'título', 
-      'principal', 'hero', 'sección'
+      'principal', 'hero', 'sección',
+      // Patrones de diagnóstico y resolución
+      '404', 'no existe', 'no funciona', 'error', 'resolver', 'resuelve', 'resuelvelo',
+      'solucionar', 'soluciona', 'construir', 'crear la página', 'que no existe'
     ];
     
     return changePatterns.some(pattern => text.includes(pattern));
