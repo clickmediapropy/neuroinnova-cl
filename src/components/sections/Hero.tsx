@@ -41,20 +41,12 @@ const Hero = () => {
         <div className="flex items-center justify-center py-8 sm:py-12 md:py-16 lg:py-20">
           {/* CENTERED TEXT ZONE - Full Width */}
           <div className="flex flex-col justify-center items-center space-y-4 sm:space-y-6 md:space-y-8 text-center max-w-5xl px-4">
-            {/* Headline */}
-            <div className="space-y-3 sm:space-y-4 md:space-y-6">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">
-  <span className="text-primary font-extrabold animate-fade-in-down" style={{ animationDelay: '0.1s' }}>Único y Primero</span><br />
-  <span className="text-foreground animate-fade-in-left" style={{ animationDelay: '0.3s' }}>Centro de</span><br />
-  <span className="text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl animate-fade-in-right" style={{ animationDelay: '0.5s' }}>Neuromodulación</span><br />
-  <span className="text-accent font-extrabold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent animate-gradient animate-fade-in-up" style={{ animationDelay: '0.7s' }}>en Paraguay</span>
-</h1>
-              
-              {/* Sub-headline */}
-              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-muted-foreground leading-relaxed max-w-4xl">
-                Tecnologías avanzadas <span className="font-semibold text-primary">EMT/TMS</span> y <span className="font-semibold text-primary">tDCS</span> para tratar condiciones resistentes a terapias convencionales
-              </p>
-            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">Primero y Único Centro de Neuromodulación en Paraguay</h1>
+             
+            {/* Sub-headline */}
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-muted-foreground leading-relaxed max-w-4xl">
+              Tecnologías avanzadas <span className="font-semibold text-primary">EMT/TMS</span> y <span className="font-semibold text-primary">tDC</span> para tratar condiciones resistentes a terapias convencionales
+            </p>
 
             {/* Badge */}
             <div className="inline-flex px-4 animate-scale-in" style={{ animationDelay: '0.9s' }}>

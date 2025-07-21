@@ -124,13 +124,11 @@ const Footer = () => {
               <p className="mb-1">
                 La información proporcionada en este sitio no reemplaza la consulta médica profesional.
               </p>
-              <p >
+              <p>
                 Consulte siempre con un profesional de la salud para diagnóstico y tratamiento.
               </p>
             </div>
-          </div>
         </div>
-      </div>
     </footer>
   );
 };
