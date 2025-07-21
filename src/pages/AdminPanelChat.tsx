@@ -290,19 +290,33 @@ Puedes cambiar de modo en cualquier momento usando los botones arriba.
           status: 'processing' as const
         };
         
-        const { processChangeWithAI } = await import('@/services/aiProcessor');
+        const { processChangeWithAI, validateChange } = await import('@/services/aiProcessor');
         const processedChange = await processChangeWithAI(changeRequest);
+        
+        // Validar los cambios antes de mostrarlos
+        const validation = validateChange(processedChange);
         
         setIsTyping(false);
         
         // Crear mensaje de respuesta con los cambios procesados
+        let responseContent = generateResponseMessage(processedChange);
+        
+        // Agregar advertencias si las hay
+        if (validation.warnings && validation.warnings.length > 0) {
+          responseContent += '\n\n⚠️ **Advertencias detectadas:**\n';
+          validation.warnings.forEach(warning => {
+            responseContent += `• ${warning}\n`;
+          });
+          responseContent += '\n¿Deseas continuar de todas formas?';
+        }
+        
         const responseMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: generateResponseMessage(processedChange),
+          content: responseContent,
           timestamp: new Date(),
           processedChange,
-          status: 'pending'
+          status: validation.isValid ? 'pending' : 'failed'
         };
         
         setCurrentConversation(prev => ({

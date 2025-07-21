@@ -267,39 +267,66 @@ export async function processChangeWithAI(request: ChangeRequest): Promise<Proce
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
       // Preparar el prompt para Moonshot AI
-      const systemPrompt = `Eres un asistente AI avanzado especializado en modificar código de sitios web médicos React + TypeScript.
-Tienes una ventana de contexto de 128K tokens, lo que te permite analizar archivos completos y generar cambios precisos y complejos.
+      const systemPrompt = `Eres un asistente AI experto en desarrollo web React + TypeScript. Tu trabajo es implementar cambios COMPLETOS en sitios web.
 
-IMPORTANTE: 
-- SIEMPRE responde en formato JSON estructurado válido
-- Analiza cuidadosamente el código actual antes de proponer cambios
-- Identifica archivos exactos a modificar con rutas completas
-- Genera código completo, válido y funcional
-- Mantén el estilo de código existente y las convenciones del proyecto
-- Los cambios deben ser precisos - el oldCode debe coincidir EXACTAMENTE con el código actual
+PRINCIPIO FUNDAMENTAL: Cuando se te pide crear una nueva funcionalidad, debes implementarla COMPLETAMENTE incluyendo:
+1. Crear TODOS los archivos necesarios (componentes, páginas, etc.)
+2. Actualizar TODAS las rutas en App.tsx
+3. Agregar TODOS los enlaces de navegación necesarios
+4. Integrar con el Layout existente
+5. Mantener la consistencia del diseño
 
-Tu respuesta DEBE seguir EXACTAMENTE esta estructura JSON:
+REGLAS CRÍTICAS PARA CAMBIOS COMPLETOS:
+
+1. NUEVAS PÁGINAS/SECCIONES:
+   - Crear el archivo de la página en src/pages/
+   - Agregar la ruta en App.tsx
+   - Agregar enlaces en navegación (Header.tsx, HomeHeader.tsx si aplica)
+   - Envolver con Layout para mantener header/footer
+   - Usar componentes de shadcn/ui existentes
+
+2. MODIFICACIONES GLOBALES:
+   - Si cambias algo que aparece en múltiples lugares (ej: WhatsApp, título), DEBES actualizar TODOS los archivos
+   - Archivos comunes: Header.tsx, HomeHeader.tsx, Footer.tsx, Hero.tsx, WhatsAppButton.tsx
+
+3. ESTRUCTURA DE ARCHIVOS:
+   - Páginas: src/pages/NombrePage.tsx
+   - Componentes: src/components/NombreComponent.tsx
+   - Servicios: src/services/nombreService.ts
+   - Tipos: src/types/nombre.ts
+
+4. CONVENCIONES DEL PROYECTO:
+   - Usar shadcn/ui components (Card, Button, etc.)
+   - Tailwind CSS para estilos
+   - TypeScript con tipos explícitos
+   - Importaciones con alias @/
+
+5. NAVEGACIÓN:
+   - Desktop: Actualizar Header.tsx
+   - Mobile: Actualizar la sección mobile del mismo Header.tsx
+   - Orden típico: Inicio, Servicios, [NUEVA], Autoevaluación, Condiciones, Contacto
+
+6. FORMATO DE RESPUESTA JSON:
 {
-  "files": ["src/ruta/archivo1.tsx", "src/ruta/archivo2.tsx"],
+  "files": ["lista de TODOS los archivos a modificar/crear"],
   "changes": [
     {
-      "file": "src/ruta/archivo.tsx",
-      "oldCode": "código exacto actual que será reemplazado",
-      "newCode": "código nuevo que reemplazará al anterior",
+      "file": "ruta/completa/archivo.tsx",
+      "oldCode": "código actual EXACTO (vacío si es archivo nuevo)",
+      "newCode": "código nuevo COMPLETO",
       "lineStart": 0,
       "lineEnd": 0
     }
   ],
-  "commitMessage": "feat/fix/style: mensaje descriptivo del commit",
+  "commitMessage": "feat: descripción clara del cambio",
   "requiresReview": false
 }
 
-REGLAS CRÍTICAS:
-1. El campo "oldCode" debe contener el texto EXACTO que está en el archivo, incluyendo espacios y saltos de línea
-2. Si no estás seguro del contenido exacto, usa patrones más pequeños y específicos
-3. Para números de teléfono, busca el patrón completo como "wa.me/595991800886"
-4. Para títulos, incluye las etiquetas HTML completas
-5. Siempre usa rutas completas desde src/`;
+IMPORTANTE: 
+- Para archivos nuevos, oldCode debe ser una cadena vacía ""
+- El newCode debe contener TODO el contenido del archivo nuevo
+- SIEMPRE incluir TODOS los cambios necesarios en una sola respuesta
+- NO omitir archivos críticos como rutas o navegación`;
 
     // Obtener información relevante del mapa del sitio
     const relatedFiles = getRelatedFiles(request.description);
@@ -361,22 +388,38 @@ ESTRUCTURA ACTUAL DEL TÍTULO EN HERO.TSX:
 </h1>
 
 EJEMPLOS DE CAMBIOS ESPECÍFICOS:
-1. Para cambiar WhatsApp de 595991800886 a otro número:
-   - Buscar: "wa.me/595991800886" o "wa.me/+595991800886"
-   - Reemplazar con: "wa.me/NUEVONUMERO" (sin espacios ni guiones)
-   - Archivos: Header.tsx, HomeHeader.tsx, Footer.tsx, WhatsAppButton.tsx
 
-2. Para cambiar el título del Hero:
-   - Si quieres cambiar todo a un texto simple como "Estoy probando":
-     Reemplazar TODO el bloque <h1>...</h1> con una versión simplificada
-   - Si quieres cambiar solo una línea específica:
-     Buscar el span específico y cambiar solo su contenido
+1. CREAR UNA SECCIÓN DE BLOG:
+   Archivos a crear/modificar:
+   - src/pages/BlogPage.tsx (nuevo archivo con Layout)
+   - src/components/BlogCard.tsx (componente para las tarjetas)
+   - src/App.tsx (agregar ruta /blog)
+   - src/components/layout/Header.tsx (agregar enlace "Blog" en navegación)
+   - src/services/siteMapService.ts (actualizar mapa del sitio)
 
-3. Para cambiar colores:
-   - En src/index.css buscar "--primary: 205 56% 35%;"
-   - Reemplazar con nuevo valor HSL
+2. CAMBIAR WHATSAPP GLOBALMENTE:
+   Archivos a modificar:
+   - src/components/layout/Header.tsx
+   - src/components/layout/HomeHeader.tsx
+   - src/components/layout/Footer.tsx
+   - src/components/sections/Hero.tsx
+   - src/components/ui/WhatsAppButton.tsx
 
-IMPORTANTE: Los cambios deben ser EXACTOS. El oldCode debe coincidir EXACTAMENTE con lo que está en el archivo actual.
+3. AGREGAR NUEVA PÁGINA DE SERVICIO:
+   - src/pages/servicios/NuevoServicioPage.tsx (crear)
+   - src/App.tsx (agregar ruta)
+   - src/pages/ServiciosPage.tsx (agregar enlace)
+   - src/components/layout/Header.tsx (si necesita enlace directo)
+
+VALIDACIÓN DE CAMBIOS:
+Antes de generar la respuesta, verifica:
+✓ ¿Creaste TODOS los archivos necesarios?
+✓ ¿Agregaste TODAS las rutas en App.tsx?
+✓ ¿Actualizaste TODA la navegación?
+✓ ¿Usaste Layout para envolver páginas?
+✓ ¿Mantuviste la consistencia del diseño?
+
+ADVERTENCIA: Si tu respuesta no incluye TODOS los cambios necesarios, el sitio NO funcionará correctamente.
 
 Genera los cambios necesarios en formato JSON.`;
 
@@ -767,10 +810,11 @@ function hexToHSL(hex: string): string {
 }
 
 // Función para validar cambios antes de aplicar
-export function validateChange(change: ProcessedChange): { isValid: boolean; errors: string[] } {
+export function validateChange(change: ProcessedChange): { isValid: boolean; errors: string[]; warnings: string[] } {
   const errors: string[] = [];
+  const warnings: string[] = [];
   
-  // Validar que los archivos existan (mock)
+  // Validar que los archivos tengan rutas válidas
   change.files.forEach(file => {
     if (!file.startsWith('src/')) {
       errors.push(`Archivo inválido: ${file}`);
@@ -779,17 +823,56 @@ export function validateChange(change: ProcessedChange): { isValid: boolean; err
   
   // Validar que los cambios tengan sentido
   change.changes.forEach(c => {
-    if (!c.oldCode || !c.newCode) {
+    // Para archivos nuevos, oldCode debe estar vacío
+    if (c.oldCode === '' && c.lineStart === 0 && c.lineEnd === 0) {
+      // Es un archivo nuevo, esto está bien
+    } else if (!c.oldCode || !c.newCode) {
       errors.push('Cambio incompleto detectado');
     }
-    if (c.lineStart < 1 || c.lineEnd < c.lineStart) {
+    
+    // Validar números de línea solo para archivos existentes
+    if (c.oldCode !== '' && (c.lineStart < 0 || c.lineEnd < c.lineStart)) {
       errors.push('Números de línea inválidos');
     }
   });
   
+  // Detectar si es una nueva página/sección
+  const isNewPage = change.files.some(f => f.includes('/pages/') && change.changes.some(c => c.file === f && c.oldCode === ''));
+  const isNewBlog = change.files.some(f => f.toLowerCase().includes('blog'));
+  
+  if (isNewPage || isNewBlog) {
+    // Verificar que se incluyan todos los archivos necesarios
+    const hasRoute = change.files.includes('src/App.tsx');
+    const hasNavigation = change.files.includes('src/components/layout/Header.tsx');
+    
+    if (!hasRoute) {
+      warnings.push('⚠️ No se detectó actualización de rutas en App.tsx');
+    }
+    if (!hasNavigation) {
+      warnings.push('⚠️ No se detectó actualización de navegación en Header.tsx');
+    }
+  }
+  
+  // Detectar cambios globales (como WhatsApp)
+  const mentionsWhatsApp = change.commitMessage.toLowerCase().includes('whatsapp');
+  if (mentionsWhatsApp) {
+    const expectedFiles = [
+      'src/components/layout/Header.tsx',
+      'src/components/layout/Footer.tsx',
+      'src/components/sections/Hero.tsx'
+    ];
+    
+    expectedFiles.forEach(file => {
+      if (!change.files.includes(file)) {
+        warnings.push(`⚠️ Cambio de WhatsApp pero falta actualizar: ${file}`);
+      }
+    });
+  }
+  
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
+    warnings
   };
 }
 

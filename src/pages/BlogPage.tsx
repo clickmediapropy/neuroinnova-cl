@@ -1,6 +1,6 @@
 import React from 'react';
 import { BlogCard } from '../components/BlogCard';
-import { Layout } from '@/components/layout/Layout';
+import Layout from '@/components/layout/Layout';
 
 const BlogPage = () => {
   const blogPosts = [
