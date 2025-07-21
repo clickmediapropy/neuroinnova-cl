@@ -128,7 +128,9 @@ const Footer = () => {
                 Consulte siempre con un profesional de la salud para diagnóstico y tratamiento.
               </p>
             </div>
+          </div>
         </div>
+      </div>
     </footer>
   );
 };
