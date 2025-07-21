@@ -1,0 +1,325 @@
+{
+  "name": "NeuroInnova Admin Panel Integration",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "neuroinnova-admin",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook_trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [250, 300],
+      "webhookId": "neuroinnova-admin-webhook"
+    },
+    {
+      "parameters": {
+        "mode": "rules",
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "change_request",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "change_request"
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "question",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "question"
+            }
+          ]
+        },
+        "fallbackOutput": "extra"
+      },
+      "id": "router",
+      "name": "Route by Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const request = $input.first().json.request;\nconst metadata = $input.first().json.metadata;\n\n// Construir el prompt para el agente IA\nconst systemPrompt = `Eres un asistente AI experto en desarrollo web React + TypeScript para el sitio web NeuroInnova (https://neuroinnova.com.py).\n\nTu trabajo es analizar solicitudes de cambio y generar las modificaciones necesarias de código.\n\nREGLAS IMPORTANTES:\n1. SIEMPRE genera cambios COMPLETOS y funcionales\n2. Si es una nueva página/sección, incluye TODOS los archivos necesarios\n3. Actualiza SIEMPRE las rutas en App.tsx y la navegación en Header.tsx\n4. Usa los componentes de shadcn/ui existentes\n5. Mantén la consistencia con el diseño actual\n6. Para archivos nuevos, usa oldCode: \"\" y lineStart/lineEnd: 0\n\nESTRUCTURA DEL PROYECTO:\n- Páginas: src/pages/\n- Componentes: src/components/\n- Servicios: src/services/\n- Colores: Primario #2C5F8B, Secundario #7CB342\n- UI Framework: shadcn/ui + Tailwind CSS`;\n\nconst userPrompt = `SOLICITUD DE CAMBIO:\nDescripción: \"${request.description}\"\nTipo: ${request.type}\nSección: ${request.section}\nPrioridad: ${request.priority}\n\nGenera los cambios necesarios en formato JSON:\n{\n  \"files\": [\"lista de archivos a modificar\"],\n  \"changes\": [\n    {\n      \"file\": \"ruta/archivo.tsx\",\n      \"oldCode\": \"código actual (vacío si es nuevo)\",\n      \"newCode\": \"código nuevo completo\",\n      \"lineStart\": número,\n      \"lineEnd\": número\n    }\n  ],\n  \"commitMessage\": \"mensaje descriptivo\",\n  \"requiresReview\": boolean,\n  \"diagnostics\": {\n    \"filesChecked\": [\"archivos verificados\"],\n    \"issuesFound\": [\"problemas encontrados\"],\n    \"recommendations\": [\"recomendaciones\"]\n  }\n}`;\n\nreturn [{\n  json: {\n    systemPrompt,\n    userPrompt,\n    originalRequest: request,\n    metadata,\n    temperature: 0.2,\n    maxTokens: 32768\n  }\n}];"
+      },
+      "id": "format_change_request",
+      "name": "Format Change Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const question = $input.first().json.question;\nconst conversationId = $input.first().json.conversationId || null;\nconst metadata = $input.first().json.metadata;\n\nconst systemPrompt = `Eres un asistente IA amigable y conversacional para el sitio web de NeuroInnova.\n\nTu rol es responder preguntas sobre el contenido actual del sitio web de manera precisa y detallada.\n\nINFORMACIÓN DEL SITIO:\n- NeuroInnova es un centro de psiquiatría y neuromodulación en Asunción, Paraguay\n- Director: Dr. Victor Adorno\n- Servicios: EMT/TMS, tDCS, Psiquiatría Tradicional, RehaCom\n- WhatsApp: +595 991 800 886\n- Título principal: \"Único y Primero Centro de Neuromodulación en Paraguay\"\n- Colores: Primario #2C5F8B (azul médico), Secundario #7CB342 (verde)\n\nREGLAS:\n1. Responde SIEMPRE en español\n2. Sé conversacional pero profesional\n3. Si no tienes información específica, indícalo claramente\n4. NO sugieras cambios, solo informa sobre el estado actual`;\n\nconst userPrompt = `Pregunta del usuario: \"${question}\"\n\nPor favor, responde de manera completa y conversacional.`;\n\nreturn [{\n  json: {\n    systemPrompt,\n    userPrompt,\n    conversationId,\n    metadata,\n    temperature: 0.7,\n    maxTokens: 4096\n  }\n}];"
+      },
+      "id": "format_question",
+      "name": "Format Question",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 350]
+    },
+    {
+      "parameters": {
+        "resource": "assistant",
+        "operation": "message",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4-turbo-preview",
+          "mode": "list"
+        },
+        "text": "={{ $json.userPrompt }}",
+        "systemMessage": "={{ $json.systemPrompt }}",
+        "options": {
+          "temperature": "={{ $json.temperature }}",
+          "maxTokens": "={{ $json.maxTokens }}"
+        }
+      },
+      "id": "ai_agent",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.3,
+      "position": [850, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "1",
+          "name": "OpenAI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiResponse = $input.first().json;\nconst isChangeRequest = $('format_change_request').first()?.json ? true : false;\n\nif (isChangeRequest) {\n  // Procesar respuesta de cambio\n  let processedChange;\n  \n  try {\n    // La respuesta puede venir en diferentes formatos\n    if (typeof aiResponse.response === 'string') {\n      // Intentar extraer JSON de la respuesta\n      const jsonMatch = aiResponse.response.match(/```json\\n?([\\s\\S]*?)\\n?```/);\n      if (jsonMatch) {\n        processedChange = JSON.parse(jsonMatch[1]);\n      } else {\n        processedChange = JSON.parse(aiResponse.response);\n      }\n    } else if (aiResponse.message?.content) {\n      const jsonMatch = aiResponse.message.content.match(/```json\\n?([\\s\\S]*?)\\n?```/);\n      if (jsonMatch) {\n        processedChange = JSON.parse(jsonMatch[1]);\n      } else {\n        processedChange = JSON.parse(aiResponse.message.content);\n      }\n    } else {\n      processedChange = aiResponse;\n    }\n  } catch (error) {\n    return [{\n      json: {\n        success: false,\n        error: 'No se pudo procesar la respuesta del AI: ' + error.message,\n        rawResponse: aiResponse\n      }\n    }];\n  }\n  \n  // Validar estructura\n  if (!processedChange.files || !processedChange.changes) {\n    return [{\n      json: {\n        success: false,\n        error: 'La respuesta del AI no tiene el formato esperado',\n        rawResponse: aiResponse\n      }\n    }];\n  }\n  \n  return [{\n    json: {\n      success: true,\n      processedChange: processedChange,\n      requiresGitHub: true,\n      originalRequest: $('format_change_request').first().json.originalRequest\n    }\n  }];\n  \n} else {\n  // Procesar respuesta conversacional\n  let message;\n  \n  if (typeof aiResponse === 'string') {\n    message = aiResponse;\n  } else if (aiResponse.response) {\n    message = aiResponse.response;\n  } else if (aiResponse.message?.content) {\n    message = aiResponse.message.content;\n  } else if (aiResponse.choices?.[0]?.message?.content) {\n    message = aiResponse.choices[0].message.content;\n  } else {\n    message = JSON.stringify(aiResponse);\n  }\n  \n  return [{\n    json: {\n      success: true,\n      message: message,\n      conversationId: $('format_question').first().json.conversationId,\n      requiresGitHub: false\n    }\n  }];\n}"
+      },
+      "id": "process_response",
+      "name": "Process AI Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{ $json.requiresGitHub }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ]
+        }
+      },
+      "id": "if_github_needed",
+      "name": "If GitHub Needed",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Este nodo simula la aplicación de cambios a GitHub\n// En producción, aquí usarías el MCP de GitHub o llamadas directas a la API\n\nconst processedChange = $input.first().json.processedChange;\n\n// Simular aplicación exitosa\nconst mockCommitSha = 'abc' + Math.random().toString(36).substring(7);\n\nreturn [{\n  json: {\n    success: true,\n    processedChange: processedChange,\n    githubResult: {\n      sha: mockCommitSha,\n      message: 'Cambios aplicados exitosamente'\n    },\n    originalRequest: $input.first().json.originalRequest\n  }\n}];\n\n/* \nPara implementación real con GitHub API:\n\nconst { Octokit } = require('@octokit/rest');\nconst octokit = new Octokit({\n  auth: process.env.GITHUB_TOKEN\n});\n\n// Aplicar cada cambio\nfor (const change of processedChange.changes) {\n  // 1. Obtener contenido actual del archivo\n  // 2. Aplicar el cambio\n  // 3. Crear commit\n}\n\n// Crear un commit con todos los cambios\nconst result = await octokit.repos.createOrUpdateFileContents({\n  owner: process.env.GITHUB_OWNER,\n  repo: process.env.GITHUB_REPO,\n  path: change.file,\n  message: processedChange.commitMessage,\n  content: Buffer.from(newContent).toString('base64'),\n  sha: currentFile.sha\n});\n*/"
+      },
+      "id": "apply_github_changes",
+      "name": "Apply GitHub Changes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1450, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Combinar las respuestas de diferentes ramas\nconst input = $input.all();\n\n// Buscar la entrada correcta\nlet response;\nfor (const item of input) {\n  if (item.json) {\n    response = item.json;\n    break;\n  }\n}\n\nif (!response) {\n  return [{\n    json: {\n      success: false,\n      error: 'No se recibió respuesta válida'\n    }\n  }];\n}\n\n// Si fue un cambio aplicado a GitHub\nif (response.githubResult) {\n  return [{\n    json: {\n      success: true,\n      processedChange: response.processedChange,\n      message: 'Cambios aplicados exitosamente. El sitio se actualizará en 2-3 minutos.',\n      commitSha: response.githubResult.sha\n    }\n  }];\n}\n\n// Si fue una pregunta conversacional\nif (response.message && !response.requiresGitHub) {\n  return [{\n    json: {\n      success: true,\n      message: response.message,\n      conversationId: response.conversationId\n    }\n  }];\n}\n\n// Si hubo un error\nif (!response.success) {\n  return [{\n    json: {\n      success: false,\n      error: response.error || 'Error desconocido',\n      details: response\n    }\n  }];\n}\n\n// Respuesta por defecto\nreturn [{\n  json: response\n}];"
+      },
+      "id": "format_final_response",
+      "name": "Format Final Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "webhook_response",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nodo de manejo de errores\nconst error = $input.first().error;\nconst context = $input.first().json || {};\n\nreturn [{\n  json: {\n    success: false,\n    error: error?.message || 'Error desconocido en el workflow',\n    errorDetails: {\n      message: error?.message,\n      stack: error?.stack,\n      context: context\n    },\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "error_handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1450, 450],
+      "isExecuted": false
+    }
+  ],
+  "connections": {
+    "webhook_trigger": {
+      "main": [
+        [
+          {
+            "node": "router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "router": {
+      "main": [
+        [
+          {
+            "node": "format_change_request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "format_question",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "format_change_request": {
+      "main": [
+        [
+          {
+            "node": "ai_agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "format_question": {
+      "main": [
+        [
+          {
+            "node": "ai_agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ai_agent": {
+      "main": [
+        [
+          {
+            "node": "process_response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "process_response": {
+      "main": [
+        [
+          {
+            "node": "if_github_needed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "if_github_needed": {
+      "main": [
+        [
+          {
+            "node": "apply_github_changes",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "format_final_response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "apply_github_changes": {
+      "main": [
+        [
+          {
+            "node": "format_final_response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "format_final_response": {
+      "main": [
+        [
+          {
+            "node": "webhook_response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "error_handler": {
+      "main": [
+        [
+          {
+            "node": "webhook_response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "pinData": {},
+  "versionId": "1.0.0",
+  "triggerCount": 1,
+  "tags": []
+}

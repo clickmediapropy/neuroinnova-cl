@@ -1,0 +1,464 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "neuroinnova-admin",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "0e71120e-f84a-46d4-82f2-0ddac5b5a366",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        96
+      ],
+      "webhookId": "neuroinnova-admin-webhook"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "change_request",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "89fb4618-6bcb-4010-b387-308ea63136b3"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "change_request"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "question",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "4217bedb-7c26-46e6-b8e7-51e7c8e22b6b"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "question"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2a0a89c7-e9f1-46af-9412-b18c1db65f46",
+      "name": "Route by Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -432,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const request = $input.first().json.request;\nconst metadata = $input.first().json.metadata;\n\n// Construir el prompt para solicitudes de cambio\nconst changeSystemPrompt = `Eres un asistente AI experto en desarrollo web React + TypeScript para el sitio web NeuroInnova (https://neuroinnova.com.py).\n\n## ESTRUCTURA COMPLETA DEL PROYECTO\n\n### Páginas Principales (src/pages/)\n- Home.tsx - Página principal con todas las secciones\n- AdminPanel.tsx - Panel admin con formularios (/admin)\n- AdminPanelChat.tsx - Panel admin con chat IA (/admin-chat)\n\n### Páginas de Servicios (src/pages/servicios/)\n- EMTService.tsx - Estimulación Magnética Transcraneal\n- PsiquiatriaService.tsx - Psiquiatría tradicional\n- RehacomService.tsx - Rehabilitación cognitiva\n- TDCSService.tsx - Estimulación transcraneal por corriente directa\n\n### Páginas de Condiciones (src/pages/condiciones/)\n- Depresion.tsx\n- Ansiedad.tsx\n- TDAH.tsx\n- TOC.tsx\n- DolorCronico.tsx\n- EstresPostraumatico.tsx\n- TrastornoBipolar.tsx\n- Fibromialgia.tsx\n- Migranas.tsx\n- Parkinson.tsx\n- RehabilitacionACV.tsx\n- Tinnitus.tsx\n\n### Páginas de Evaluaciones (src/pages/assessments/)\n- DepressionAssessment.tsx - PHQ-9\n- AnxietyAssessment.tsx - GAD-7\n- ADHDAssessment.tsx - ASRS\n- BipolarAssessment.tsx - MDQ\n- InsomniaAssessment.tsx - ISI\n- PTSDAssessment.tsx - PCL-5\n\n### Componentes Principales\n\n#### Layout (src/components/layout/)\n- Layout.tsx - Wrapper principal\n- Header.tsx - Navegación y header (IMPORTANTE para rutas)\n- Footer.tsx - Pie de página con contacto\n\n#### Secciones (src/components/sections/)\n- Hero.tsx - Sección hero principal\n- Services.tsx - Lista de servicios\n- Testimonials.tsx - Testimonios de pacientes\n- Contact.tsx - Formulario de contacto\n- FAQ.tsx - Preguntas frecuentes\n- CTASection.tsx - Call to action\n- TreatmentComparison.tsx - Comparación EMT vs tradicional\n\n#### UI Components (src/components/ui/)\n- WhatsAppButton.tsx - Botón flotante de WhatsApp\n- Button.tsx, Card.tsx, Input.tsx, etc. - Componentes shadcn/ui\n\n### Servicios (src/services/)\n- emailService.ts - Envío de emails con EmailJS\n- githubService.ts - Integración con GitHub API\n- aiProcessor.ts - Procesamiento con Moonshot AI\n- n8nWebhookService.ts - Integración con n8n\n- siteMapService.ts - Mapa del sitio para IA\n\n### Configuración y Estilos\n- tailwind.config.js - Configuración de Tailwind\n  - Colores: primary (#2C5F8B), secondary (#7CB342)\n  - Fuentes: Inter\n- App.tsx - RUTAS PRINCIPALES (CRÍTICO para navegación)\n- index.css - Estilos globales\n\n## INFORMACIÓN CLAVE DEL SITIO\n\n### Datos de Contacto\n- WhatsApp: +595 991 800 886\n- Email: info@neuroinnova.com.py\n- Dirección: Asunción, Paraguay\n- Director: Dr. Victor Adorno\n\n### Títulos y Mensajes Principales\n- Hero: \"Único y Primero Centro de Neuromodulación en Paraguay\"\n- Subtítulo: \"Tratamientos innovadores para salud mental\"\n- CTA Principal: \"Agenda tu Consulta\"\n\n### Servicios Ofrecidos\n1. EMT/TMS - Estimulación Magnética Transcraneal\n2. tDCS - Estimulación por Corriente Directa\n3. Psiquiatría Tradicional\n4. RehaCom - Rehabilitación Cognitiva\n\n### Condiciones Tratadas\n- Depresión resistente\n- Ansiedad\n- TDAH\n- TOC\n- Dolor crónico\n- TEPT\n- Trastorno bipolar\n- Fibromialgia\n- Migrañas\n- Parkinson\n- Rehabilitación post-ACV\n- Tinnitus\n\n## REGLAS CRÍTICAS PARA CAMBIOS\n\n1. **SIEMPRE actualizar App.tsx** cuando agregues nuevas páginas\n2. **SIEMPRE actualizar Header.tsx** cuando cambies la navegación\n3. **SIEMPRE usar componentes de shadcn/ui** existentes\n4. **SIEMPRE mantener los colores del tema** (primary y secondary)\n5. **Para WhatsApp**: Actualizar en Header, Footer, Hero y WhatsAppButton\n6. **Para nuevas secciones**: Importar en Home.tsx\n7. **Para formularios**: Usar React Hook Form + Zod\n8. **Para estilos**: Usar Tailwind CSS únicamente\n\n## ESTRUCTURA DE ARCHIVOS PARA CAMBIOS\n\nCuando recibas una solicitud:\n1. Identifica TODOS los archivos afectados\n2. Lee el contenido actual con Get File Tool\n3. Aplica cambios manteniendo el estilo existente\n4. Si es nueva página: crear archivo + actualizar App.tsx + actualizar Header.tsx\n5. Si es nuevo componente: crear en la carpeta correcta + importar donde se use\n\n## EJEMPLOS DE CAMBIOS COMUNES\n\n### Cambiar WhatsApp:\n- src/components/layout/Header.tsx (línea ~80)\n- src/components/layout/Footer.tsx (línea ~45)\n- src/components/sections/Hero.tsx (línea ~25)\n- src/components/ui/WhatsAppButton.tsx (línea ~15)\n\n### Agregar nueva página:\n1. Crear src/pages/NuevaPagina.tsx\n2. Agregar ruta en App.tsx\n3. Agregar link en Header.tsx\n\n### Cambiar texto del Hero:\n- src/components/sections/Hero.tsx (líneas 15-25)\n\n### Agregar testimonio:\n- src/components/sections/Testimonials.tsx (array testimonials)\n\nUSA ESTA INFORMACIÓN PARA HACER CAMBIOS PRECISOS Y COMPLETOS.`;\n\nconst changeUserPrompt = `SOLICITUD DE CAMBIO:\nDescripción: \"${request.description}\"\nTipo: ${request.type}\nSección: ${request.section}\nPrioridad: ${request.priority}\n\nAnaliza esta solicitud y usa las herramientas de GitHub disponibles para implementar los cambios necesarios en el repositorio. Asegúrate de:\n1. Crear o editar los archivos necesarios\n2. Actualizar las rutas y navegación si es necesario\n3. Mantener la consistencia del diseño\n4. Crear commits descriptivos`;\n\n// Construir el prompt para preguntas conversacionales\nconst questionSystemPrompt = `Eres un asistente IA amigable y conversacional para el sitio web de NeuroInnova.\n\nTu rol es responder preguntas sobre el contenido actual del sitio web de manera precisa y detallada.\n\nINFORMACIÓN DEL SITIO:\n- NeuroInnova es un centro de psiquiatría y neuromodulación en Asunción, Paraguay\n- Director: Dr. Victor Adorno\n- Servicios: EMT/TMS, tDCS, Psiquiatría Tradicional, RehaCom\n- WhatsApp: +595 991 800 886\n- Título principal: \"Único y Primero Centro de Neuromodulación en Paraguay\"\n- Colores: Primario #2C5F8B (azul médico), Secundario #7CB342 (verde)\n\nREGLAS:\n1. Responde SIEMPRE en español\n2. Sé conversacional pero profesional\n3. Si no tienes información específica, indícalo claramente\n4. NO sugieras cambios, solo informa sobre el estado actual`;\n\nconst questionUserPrompt = `Pregunta del usuario: \"${$input.first().json.question}\"\n\nPor favor, responde de manera completa y conversacional.`;\n\n// Determinar qué tipo de solicitud es\nconst isChangeRequest = request && request.description;\n\nreturn [{\n  json: {\n    systemPrompt: isChangeRequest ? changeSystemPrompt : questionSystemPrompt,\n    userPrompt: isChangeRequest ? changeUserPrompt : questionUserPrompt,\n    originalData: $input.first().json,\n    isChangeRequest: isChangeRequest\n  }\n}];"
+      },
+      "id": "af6e5265-a798-4ec6-b15e-06c37e2db18b",
+      "name": "Prepare Prompts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "options": {
+          "systemMessage": "={{ $json.systemPrompt }}",
+          "maxIterations": 10,
+          "returnIntermediateSteps": true
+        }
+      },
+      "id": "b8f177c9-7c41-41d4-a983-affea1e6148e",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        16,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "chatgpt-4o-latest",
+          "mode": "list",
+          "cachedResultName": "chatgpt-4o-latest"
+        },
+        "options": {
+          "maxTokens": 32768,
+          "temperature": 0.2
+        }
+      },
+      "id": "32d35978-4d2d-477d-8698-c2641e01d9fb",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "sessionKey": "={{ $('Webhook Trigger').item.json.conversationId || 'default' }}",
+        "contextWindowLength": 100000
+      },
+      "id": "c6a7f6b4-9e9b-48ac-9402-d76a21e7717c",
+      "name": "Memory Buffer",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -160,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const agentOutput = $input.first().json;\nconst originalData = $('Prepare Prompts').first().json.originalData;\nconst isChangeRequest = $('Prepare Prompts').first().json.isChangeRequest;\n\n// Procesar la respuesta del agente\nlet response = {\n  success: true,\n  timestamp: new Date().toISOString()\n};\n\nif (isChangeRequest) {\n  // Para solicitudes de cambio\n  response.type = 'change_request';\n  response.message = 'Cambios procesados exitosamente';\n  response.request = originalData.request;\n  \n  // Incluir detalles de las acciones realizadas\n  if (agentOutput.steps) {\n    response.actions = agentOutput.steps.map(step => ({\n      tool: step.action?.tool,\n      input: step.action?.toolInput,\n      output: step.observation\n    }));\n  }\n  \n  // Mensaje final del agente\n  response.agentSummary = agentOutput.output || agentOutput.text || 'Cambios completados';\n  \n} else {\n  // Para preguntas conversacionales\n  response.type = 'question';\n  response.question = originalData.question;\n  response.answer = agentOutput.output || agentOutput.text || 'No se pudo generar una respuesta';\n  response.conversationId = originalData.conversationId;\n}\n\n// Agregar metadatos si existen\nif (originalData.metadata) {\n  response.metadata = originalData.metadata;\n}\n\nreturn [{\n  json: response\n}];"
+      },
+      "id": "701591f3-e453-424e-9c81-6b01a8c941b2",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "6b767082-6a1b-4b5a-9c03-f2eab0f64755",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        688,
+        -64
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nodo de manejo de errores\nconst error = $input.first().error || {};\nconst context = $input.first().json || {};\n\nconst errorResponse = {\n  success: false,\n  error: {\n    message: error.message || 'Error desconocido en el workflow',\n    code: error.code || 'UNKNOWN_ERROR',\n    stack: error.stack\n  },\n  context: context,\n  timestamp: new Date().toISOString()\n};\n\n// Log del error para debugging\nconsole.error('Workflow Error:', errorResponse);\n\nreturn [{\n  json: errorResponse\n}];"
+      },
+      "id": "d1ffca3b-4026-406b-994c-5269eef109c6",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        112
+      ],
+      "isExecuted": false
+    },
+    {
+      "parameters": {
+        "owner": {
+          "__rl": true,
+          "mode": "list",
+          "value": "victoradorno"
+        },
+        "repository": {
+          "__rl": true,
+          "mode": "list",
+          "value": "neuroinnova-cl"
+        },
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+        "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Body', ``, 'string') }}",
+        "labels": [],
+        "assignees": []
+      },
+      "id": "82d09bfb-a49e-45f6-867a-9a277a863ea4",
+      "name": "Create File Tool",
+      "type": "n8n-nodes-base.githubTool",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        400
+      ],
+      "webhookId": "cb1eae7c-0138-4b55-b2a9-1b90a9743bf1"
+    },
+    {
+      "parameters": {
+        "owner": {
+          "__rl": true,
+          "mode": "list",
+          "value": "victoradorno"
+        },
+        "repository": {
+          "__rl": true,
+          "mode": "list",
+          "value": "neuroinnova-cl"
+        },
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+        "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Body', ``, 'string') }}",
+        "labels": [],
+        "assignees": []
+      },
+      "id": "1e342345-e43a-4f58-b7ec-d52c856500c1",
+      "name": "Edit File Tool",
+      "type": "n8n-nodes-base.githubTool",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        400
+      ],
+      "webhookId": "177d5f3b-9014-48db-88b8-c55a38d1a171"
+    },
+    {
+      "parameters": {
+        "owner": {
+          "__rl": true,
+          "mode": "list",
+          "value": "victoradorno"
+        },
+        "repository": {
+          "__rl": true,
+          "mode": "list",
+          "value": "neuroinnova-cl"
+        },
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+        "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Body', ``, 'string') }}",
+        "labels": [],
+        "assignees": []
+      },
+      "id": "1e9a10ac-4f2e-4e2b-a1d7-71d742e7e6e2",
+      "name": "Get File Tool",
+      "type": "n8n-nodes-base.githubTool",
+      "typeVersion": 1.1,
+      "position": [
+        400,
+        400
+      ],
+      "webhookId": "59cb1b37-cb4b-49db-9256-95e07fff066d"
+    },
+    {
+      "parameters": {
+        "owner": {
+          "__rl": true,
+          "value": "victoradorno",
+          "mode": "url",
+          "__regex": "https:\\/\\/github.com\\/([-_0-9a-zA-Z]+)"
+        },
+        "repository": {
+          "__rl": true,
+          "mode": "list",
+          "value": "neuroinnova-cl"
+        },
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+        "body": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Body', ``, 'string') }}",
+        "labels": [
+          "admin-panel",
+          "automated"
+        ],
+        "assignees": []
+      },
+      "id": "cb2de837-20b5-428f-b28b-b80b5d885575",
+      "name": "Create Issue Tool",
+      "type": "n8n-nodes-base.githubTool",
+      "typeVersion": 1.1,
+      "position": [
+        608,
+        400
+      ],
+      "webhookId": "5b9ff827-59b3-49db-92ce-a61d12324091"
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Route by Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Type": {
+      "main": [
+        [
+          {
+            "node": "Prepare Prompts",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Prompts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Prompts": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory Buffer": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Response": {
+      "main": [
+        [
+          {
+            "node": "Webhook Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Handler": {
+      "main": [
+        [
+          {
+            "node": "Webhook Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create File Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit File Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get File Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Issue Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3dc05adce58865cc1125c371757d2dc206a3ba711015ac46311ae6443cc3dfae"
+  }
+}
