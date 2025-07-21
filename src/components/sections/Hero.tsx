@@ -2,40 +2,24 @@ import { Link } from "react-router-dom";
 import { ArrowRight, MessageCircle, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useHeaderHeight } from "@/hooks/useHeaderHeight";
+import { AuroraBackgroundMedical } from "@/components/ui/aurora-background-medical";
 const Hero = () => {
   const headerHeight = useHeaderHeight();
 
   return (
-    <section 
-      id="hero-neuromodulation"
-      className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5"
+    <AuroraBackgroundMedical 
+      intensity="medium"
+      showRadialGradient={true}
+      className="min-h-screen"
       style={{ 
         paddingTop: `${headerHeight}px`,
         '--header-height': `${headerHeight}px`
       } as React.CSSProperties}
     >
-      {/* Multi-Layer Background Animation System - MUCH MORE VISIBLE */}
-      <div className="absolute inset-0 overflow-hidden z-0">
-        {/* Layer 1: Neural Network Base - Much higher opacity */}
-        <div className="absolute inset-0 opacity-80">
-          <div className="neural-network-bg h-full w-full"></div>
-        </div>
-        
-        {/* Layer 2: Electromagnetic Field Visualization - Higher opacity */}
-        <div className="absolute inset-0 opacity-60">
-          <div className="electromagnetic-field h-full w-full"></div>
-        </div>
-        
-        {/* Layer 3: Electrical Stimulation Patterns - Higher opacity */}
-        <div className="absolute inset-0 opacity-50">
-          <div className="electrical-stimulation h-full w-full"></div>
-        </div>
-        
-        {/* Layer 4: Particle Flow System - Higher opacity */}
-        <div className="absolute inset-0 opacity-40">
-          <div className="particle-flow h-full w-full"></div>
-        </div>
-      </div>
+      <section 
+        id="hero-neuromodulation"
+        className="relative min-h-screen"
+      >
 
       <div className="container relative z-20">
         <div className="flex items-center justify-center py-8 sm:py-12 md:py-16 lg:py-20">
@@ -101,7 +85,8 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </AuroraBackgroundMedical>
   );
 };
 export default Hero;

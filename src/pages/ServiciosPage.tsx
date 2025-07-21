@@ -2,6 +2,7 @@ import React from "react";
 import { Zap, Brain, Stethoscope, Monitor, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
+import { AuroraLayout } from "@/components/layout/AuroraLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -71,8 +72,9 @@ const ServiciosPage = () => {
   ];
 
   return (
-    <Layout>
-      <div className="min-h-screen hero-animated-bg">
+    <AuroraLayout intensity="low">
+      <Layout>
+        <div className="min-h-screen">
         {/* Hero Section */}
         <section className="pt-24 pb-16 neural-bg">
           <div className="container mx-auto px-4">
@@ -224,8 +226,9 @@ const ServiciosPage = () => {
             </div>
           </div>
         </section>
-      </div>
-    </Layout>
+        </div>
+      </Layout>
+    </AuroraLayout>
   );
 };
 

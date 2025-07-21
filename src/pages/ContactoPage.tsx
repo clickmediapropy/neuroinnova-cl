@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Phone, MessageCircle, Mail, MapPin, Clock, Car, Accessibility, HelpCircle, ChevronDown, ChevronUp } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import { AuroraLayout } from "@/components/layout/AuroraLayout";
 import ContactForm from "@/components/forms/ContactForm";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -81,8 +82,9 @@ const ContactoPage = () => {
   };
 
   return (
-    <Layout>
-      <div className="min-h-screen contact-tech-bg">
+    <AuroraLayout intensity="low">
+      <Layout>
+        <div className="min-h-screen">
         {/* Hero Section */}
         <section className="pt-24 pb-16">
           <div className="container mx-auto px-4">
@@ -321,7 +323,8 @@ const ContactoPage = () => {
           </div>
         </section>
       </div>
-    </Layout>
+      </Layout>
+    </AuroraLayout>
   );
 };
 
