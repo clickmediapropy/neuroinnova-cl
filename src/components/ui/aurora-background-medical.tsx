@@ -17,10 +17,10 @@ export const AuroraBackgroundMedical = ({
 }: AuroraBackgroundMedicalProps) => {
   const getIntensityOpacity = () => {
     switch (intensity) {
-      case 'low': return 'opacity-40';
-      case 'medium': return 'opacity-60';
-      case 'high': return 'opacity-80';
-      default: return 'opacity-60';
+      case 'low': return 'opacity-10';
+      case 'medium': return 'opacity-20';
+      case 'high': return 'opacity-30';
+      default: return 'opacity-15';
     }
   };
 

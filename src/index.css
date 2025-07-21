@@ -1,5 +1,6 @@
-/* Import animations - must be before tailwind directives */
+/* Import animations and aurora text styles - must be before tailwind directives */
 @import './styles/animations.css';
+@import './styles/aurora-text.css';
 
 @tailwind base;
 @tailwind components;

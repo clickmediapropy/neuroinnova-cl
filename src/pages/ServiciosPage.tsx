@@ -72,8 +72,8 @@ const ServiciosPage = () => {
   ];
 
   return (
-    <Layout auroraIntensity="low">
-      <div className="min-h-screen">
+    <Layout>
+      <div className="min-h-screen hero-animated-bg">
         {/* Hero Section */}
         <section className="pt-24 pb-16 neural-bg">
           <div className="container mx-auto px-4">

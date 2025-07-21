@@ -9,6 +9,7 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import AnimatedParticles from "@/components/ui/AnimatedParticles";
 import { useEffect } from "react";
 import "@/styles/animations.css";
+import "@/styles/aurora-text.css";
 
 const Index = () => {
   useEffect(() => {
@@ -36,7 +37,7 @@ const Index = () => {
   }, []);
 
   return (
-    <Layout isHomePage={true} auroraIntensity="medium">
+    <Layout isHomePage={true}>
       <AnimatedParticles />
       <Hero />
       <div className="scroll-reveal">

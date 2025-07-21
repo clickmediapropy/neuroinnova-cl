@@ -2,18 +2,24 @@ import { Link } from "react-router-dom";
 import { ArrowRight, MessageCircle, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useHeaderHeight } from "@/hooks/useHeaderHeight";
+import { AuroraBackgroundMedical } from "@/components/ui/aurora-background-medical";
 const Hero = () => {
   const headerHeight = useHeaderHeight();
 
   return (
-    <section 
-      id="hero-neuromodulation"
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-background to-primary/5"
+    <AuroraBackgroundMedical 
+      intensity="low"
+      showRadialGradient={true}
+      className="min-h-screen"
       style={{ 
         paddingTop: `${headerHeight}px`,
         '--header-height': `${headerHeight}px`
       } as React.CSSProperties}
     >
+      <section 
+        id="hero-neuromodulation"
+        className="relative min-h-screen"
+      >
 
       <div className="container relative z-20">
         <div className="flex items-center justify-center py-8 sm:py-12 md:py-16 lg:py-20">
@@ -79,7 +85,8 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </AuroraBackgroundMedical>
   );
 };
 export default Hero;
