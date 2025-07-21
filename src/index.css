@@ -272,22 +272,22 @@ All colors MUST be HSL.
     isolation: isolate;
   }
 
-  /* Neural Network Animation Background */
+  /* Neural Network Animation Background - Blue Neuromagnetic */
   .neural-bg {
     background-image: 
-      radial-gradient(circle at 25% 25%, hsl(var(--primary) / 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 75% 75%, hsl(var(--accent) / 0.06) 0%, transparent 40%),
-      linear-gradient(135deg, hsl(var(--primary) / 0.02) 0%, hsl(var(--accent) / 0.02) 100%);
+      radial-gradient(circle at 25% 25%, rgb(59 130 246 / 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 75% 75%, rgb(37 99 235 / 0.06) 0%, transparent 40%),
+      linear-gradient(135deg, rgb(59 130 246 / 0.02) 0%, rgb(96 165 250 / 0.02) 100%);
     background-size: 400px 400px, 300px 300px, 100% 100%;
     animation: neural-flow 20s ease-in-out infinite;
   }
 
-  /* Medical Tech Grid Animation - SIMPLIFICADO */
+  /* Medical Tech Grid Animation - Blue Neuromagnetic */
   .medical-grid-bg {
     background-image: 
-      linear-gradient(90deg, hsl(var(--primary) / 0.015) 1px, transparent 1px),
-      linear-gradient(hsl(var(--primary) / 0.015) 1px, transparent 1px),
-      radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.025) 0%, transparent 70%);
+      linear-gradient(90deg, rgb(59 130 246 / 0.015) 1px, transparent 1px),
+      linear-gradient(rgb(37 99 235 / 0.015) 1px, transparent 1px),
+      radial-gradient(circle at 50% 50%, rgb(96 165 250 / 0.025) 0%, transparent 70%);
     background-size: 60px 60px, 60px 60px, 200px 200px;
     animation: grid-pulse 8s ease-in-out infinite;
     transform: translateZ(0);
@@ -311,33 +311,33 @@ All colors MUST be HSL.
     pointer-events: none;
   }
 
-  /* Hero Section Animated Gradient */
+  /* Hero Section Animated Gradient - Blue Neuromagnetic */
   .hero-animated-bg {
     background: linear-gradient(
       135deg,
-      hsl(var(--primary-light)) 0%,
+      rgb(59 130 246 / 0.1) 0%,
       hsl(var(--background)) 50%,
-      hsl(var(--accent) / 0.1) 100%
+      rgb(96 165 250 / 0.08) 100%
     );
     background-size: 400% 400%;
     animation: gradient-shift 12s ease-in-out infinite;
   }
 
-  /* Dynamic Assessment Background */
+  /* Dynamic Assessment Background - Blue Neuromagnetic */
   .assessment-bg {
     background-image: 
-      radial-gradient(circle at 10% 20%, hsl(var(--primary) / 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 90% 80%, hsl(var(--accent) / 0.08) 0%, transparent 50%),
-      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted) / 0.3) 100%);
+      radial-gradient(circle at 10% 20%, rgb(59 130 246 / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 90% 80%, rgb(96 165 250 / 0.08) 0%, transparent 50%),
+      linear-gradient(180deg, hsl(var(--background)) 0%, rgb(59 130 246 / 0.05) 100%);
     animation: assessment-flow 10s ease-in-out infinite;
   }
 
-  /* EMT/TMS Hero Animated Background */
+  /* EMT/TMS Hero Animated Background - Blue Neuromagnetic */
   .emt-hero-bg {
     background: 
-      radial-gradient(ellipse at 20% 30%, hsl(var(--primary) / 0.15) 0%, transparent 70%),
-      radial-gradient(ellipse at 80% 70%, hsl(var(--accent) / 0.12) 0%, transparent 70%),
-      linear-gradient(135deg, hsl(var(--primary-light)) 0%, hsl(var(--primary-light) / 0.8) 100%);
+      radial-gradient(ellipse at 20% 30%, rgb(59 130 246 / 0.15) 0%, transparent 70%),
+      radial-gradient(ellipse at 80% 70%, rgb(96 165 250 / 0.12) 0%, transparent 70%),
+      linear-gradient(135deg, rgb(59 130 246 / 0.1) 0%, rgb(96 165 250 / 0.08) 100%);
     position: relative;
     overflow: hidden;
   }
@@ -351,13 +351,13 @@ All colors MUST be HSL.
     height: 100%;
     background-image: 
       /* Magnetic field lines */
-      linear-gradient(45deg, transparent 40%, hsl(var(--primary) / 0.1) 50%, transparent 60%),
-      linear-gradient(-45deg, transparent 40%, hsl(var(--accent) / 0.08) 50%, transparent 60%),
+      linear-gradient(45deg, transparent 40%, rgb(59 130 246 / 0.1) 50%, transparent 60%),
+      linear-gradient(-45deg, transparent 40%, rgb(96 165 250 / 0.08) 50%, transparent 60%),
       /* Electric particles */
-      radial-gradient(circle at 10% 20%, hsl(var(--primary) / 0.6) 1px, transparent 1px),
-      radial-gradient(circle at 30% 80%, hsl(var(--accent) / 0.5) 1px, transparent 1px),
-      radial-gradient(circle at 70% 30%, hsl(var(--primary) / 0.4) 1px, transparent 1px),
-      radial-gradient(circle at 90% 70%, hsl(var(--accent) / 0.6) 1px, transparent 1px);
+      radial-gradient(circle at 10% 20%, rgb(59 130 246 / 0.6) 1px, transparent 1px),
+      radial-gradient(circle at 30% 80%, rgb(96 165 250 / 0.5) 1px, transparent 1px),
+      radial-gradient(circle at 70% 30%, rgb(37 99 235 / 0.4) 1px, transparent 1px),
+      radial-gradient(circle at 90% 70%, rgb(29 78 216 / 0.6) 1px, transparent 1px);
     background-size: 200px 200px, 250px 250px, 60px 60px, 80px 80px, 100px 100px, 120px 120px;
     animation: magneticField 25s linear infinite;
     pointer-events: none;
@@ -372,23 +372,23 @@ All colors MUST be HSL.
     height: 100%;
     background-image: 
       /* Lightning bolts effect */
-      linear-gradient(90deg, transparent 45%, hsl(var(--accent) / 0.2) 47%, hsl(var(--primary) / 0.3) 50%, hsl(var(--accent) / 0.2) 53%, transparent 55%),
-      linear-gradient(180deg, transparent 30%, hsl(var(--primary) / 0.15) 32%, transparent 34%),
+      linear-gradient(90deg, transparent 45%, rgb(96 165 250 / 0.2) 47%, rgb(59 130 246 / 0.3) 50%, rgb(96 165 250 / 0.2) 53%, transparent 55%),
+      linear-gradient(180deg, transparent 30%, rgb(59 130 246 / 0.15) 32%, transparent 34%),
       /* Energy grains */
-      radial-gradient(circle at 25% 25%, hsl(var(--accent) / 0.8) 0.5px, transparent 0.5px),
-      radial-gradient(circle at 75% 75%, hsl(var(--primary) / 0.7) 0.5px, transparent 0.5px);
+      radial-gradient(circle at 25% 25%, rgb(96 165 250 / 0.8) 0.5px, transparent 0.5px),
+      radial-gradient(circle at 75% 75%, rgb(59 130 246 / 0.7) 0.5px, transparent 0.5px);
     background-size: 300px 100px, 150px 300px, 40px 40px, 60px 60px;
     animation: electricBolts 15s ease-in-out infinite reverse;
     pointer-events: none;
   }
 
-  /* Contact Form Tech Background */
+  /* Contact Form Tech Background - Blue Neuromagnetic */
   .contact-tech-bg {
     background-image: 
-      linear-gradient(45deg, hsl(var(--primary) / 0.02) 25%, transparent 25%),
-      linear-gradient(-45deg, hsl(var(--primary) / 0.02) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, hsl(var(--accent) / 0.02) 75%),
-      linear-gradient(-45deg, transparent 75%, hsl(var(--accent) / 0.02) 75%);
+      linear-gradient(45deg, rgb(59 130 246 / 0.02) 25%, transparent 25%),
+      linear-gradient(-45deg, rgb(37 99 235 / 0.02) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgb(96 165 250 / 0.02) 75%),
+      linear-gradient(-45deg, transparent 75%, rgb(29 78 216 / 0.02) 75%);
     background-size: 40px 40px;
     animation: tech-slide 20s linear infinite;
   }
