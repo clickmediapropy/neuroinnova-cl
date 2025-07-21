@@ -365,7 +365,35 @@ Puedes cambiar de modo en cualquier momento usando los botones arriba.
         
         setIsTyping(false);
         
-        // Crear mensaje de respuesta con los cambios procesados
+        // Verificar si realmente se generaron cambios
+        const hasActualChanges = processedChange.changes.length > 0;
+        
+        // Si no hay cambios reales, mostrar mensaje de error claro
+        if (!hasActualChanges) {
+          const errorMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            role: 'assistant',
+            content: `❌ No se pudieron generar cambios automáticos.
+
+${n8nResponse.agentSummary || n8nResponse.message || 'El asistente no pudo procesar la solicitud.'}
+
+**Opciones:**
+• Intenta reformular tu solicitud siendo más específico
+• Verifica que el archivo o sección mencionada existe
+• Si el problema persiste, puede ser necesario hacer el cambio manualmente`,
+            timestamp: new Date(),
+            status: 'failed'
+          };
+          
+          setCurrentConversation(prev => ({
+            ...prev!,
+            messages: [...prev!.messages, errorMessage],
+            lastMessageAt: new Date()
+          }));
+          return;
+        }
+        
+        // Solo si hay cambios reales, crear mensaje con opciones
         let responseContent = generateResponseMessage(processedChange);
         
         // Agregar advertencias si las hay
