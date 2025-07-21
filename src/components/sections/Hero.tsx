@@ -8,7 +8,7 @@ const Hero = () => {
 
   return (
     <AuroraBackgroundMedical 
-      intensity="low"
+      intensity="medium"
       showRadialGradient={true}
       className="min-h-screen"
       style={{ 

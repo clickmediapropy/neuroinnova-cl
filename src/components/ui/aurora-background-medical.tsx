@@ -17,10 +17,10 @@ export const AuroraBackgroundMedical = ({
 }: AuroraBackgroundMedicalProps) => {
   const getIntensityOpacity = () => {
     switch (intensity) {
-      case 'low': return 'opacity-10';
-      case 'medium': return 'opacity-20';
-      case 'high': return 'opacity-30';
-      default: return 'opacity-15';
+      case 'low': return 'opacity-25';
+      case 'medium': return 'opacity-40';
+      case 'high': return 'opacity-60';
+      default: return 'opacity-30';
     }
   };
 
@@ -38,7 +38,7 @@ export const AuroraBackgroundMedical = ({
             `
             [--white-gradient:repeating-linear-gradient(100deg,white_0%,white_7%,transparent_10%,transparent_12%,white_16%)]
             [--dark-gradient:repeating-linear-gradient(100deg,black_0%,black_7%,transparent_10%,transparent_12%,black_16%)]
-            [--aurora:repeating-linear-gradient(100deg,rgb(59_130_246)_10%,rgb(147_51_234)_15%,rgb(29_78_216)_20%,rgb(168_85_247)_25%,rgb(37_99_235)_30%)]
+            [--aurora:repeating-linear-gradient(100deg,rgb(59_130_246)_10%,rgb(37_99_235)_15%,rgb(29_78_216)_20%,rgb(96_165_250)_25%,rgb(59_130_246)_30%,rgb(30_64_175)_35%)]
             [background-image:var(--white-gradient),var(--aurora)]
             dark:[background-image:var(--dark-gradient),var(--aurora)]
             [background-size:300%,_200%]
