@@ -179,12 +179,29 @@ export function AdminPanel() {
   };
 
   const processChangeRequest = async (request: ChangeRequest): Promise<ProcessedChange> => {
-    // Usar el servicio de procesamiento de AI
-    console.log('Procesando solicitud:', request);
-    const { processChangeWithAI } = await import('@/services/aiProcessor');
-    const result = await processChangeWithAI(request);
-    console.log('Resultado del procesamiento:', result);
-    return result;
+    // Usar el webhook de n8n
+    console.log('Enviando solicitud a N8N:', request);
+    const { sendChangeRequestToN8N } = await import('@/services/n8nWebhookService');
+    const response = await sendChangeRequestToN8N(request);
+    
+    console.log('Respuesta de N8N:', response);
+    
+    // Si la respuesta incluye cambios procesados, usarlos
+    if (response.processedChange) {
+      return response.processedChange;
+    }
+    
+    // Si no, crear una estructura básica
+    return {
+      files: [],
+      changes: [],
+      commitMessage: response.message || 'Cambios procesados por n8n',
+      requiresReview: true,
+      diagnostics: {
+        issuesFound: response.error ? [response.error] : [],
+        recommendations: ['Revisar los cambios manualmente']
+      }
+    };
   };
 
   const applyChanges = async () => {

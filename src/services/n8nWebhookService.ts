@@ -77,10 +77,23 @@ export async function sendChangeRequestToN8N(request: ChangeRequest): Promise<N8
     clearTimeout(timeout);
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error response:', errorText);
       throw new Error(`Error del webhook: ${response.status} ${response.statusText}`);
     }
 
-    const data = await response.json();
+    const responseText = await response.text();
+    if (!responseText) {
+      throw new Error('El webhook devolvió una respuesta vacía');
+    }
+
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('Error al parsear JSON:', responseText);
+      throw new Error('La respuesta del webhook no es JSON válido');
+    }
     
     // Validar la respuesta
     if (!data.success && !data.error) {
@@ -146,10 +159,23 @@ export async function sendQuestionToN8N(
     clearTimeout(timeout);
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error response:', errorText);
       throw new Error(`Error del webhook: ${response.status} ${response.statusText}`);
     }
 
-    const data = await response.json();
+    const responseText = await response.text();
+    if (!responseText) {
+      throw new Error('El webhook devolvió una respuesta vacía');
+    }
+
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('Error al parsear JSON:', responseText);
+      throw new Error('La respuesta del webhook no es JSON válido');
+    }
     
     // Manejar la respuesta del workflow n8n
     if (data.type === 'question') {

@@ -295,11 +295,19 @@ Puedes cambiar de modo en cualquier momento usando los botones arriba.
           status: 'processing' as const
         };
         
-        const { processChangeWithAI, validateChange } = await import('@/services/aiProcessor');
-        const processedChange = await processChangeWithAI(changeRequest);
+        const { sendChangeRequestToN8N, validateN8NChanges } = await import('@/services/n8nWebhookService');
+        const n8nResponse = await sendChangeRequestToN8N(changeRequest);
+        
+        // Verificar si la respuesta incluye cambios procesados
+        const processedChange = n8nResponse.processedChange || {
+          files: [],
+          changes: [],
+          commitMessage: n8nResponse.message || 'Cambios procesados',
+          requiresReview: true
+        };
         
         // Validar los cambios antes de mostrarlos
-        const validation = validateChange(processedChange);
+        const validation = validateN8NChanges(processedChange);
         
         setIsTyping(false);
         
@@ -750,16 +758,19 @@ Los cambios se guardaron hace: ${new Date(repoInfo.pushed_at).toLocaleString('es
     setIsTyping(true);
     
     try {
-      // Usar la IA para procesar la pregunta
-      const { processQuestionWithAI } = await import('@/services/aiProcessor');
-      const aiResponse = await processQuestionWithAI(userMessage.content);
+      // Usar el webhook de n8n para procesar la pregunta
+      const { sendQuestionToN8N } = await import('@/services/n8nWebhookService');
+      const n8nResponse = await sendQuestionToN8N(
+        userMessage.content,
+        currentConversation?.id
+      );
       
       setIsTyping(false);
       
       const response: Message = {
         id: Date.now().toString(),
         role: 'assistant',
-        content: aiResponse,
+        content: n8nResponse.message || 'No se pudo obtener una respuesta',
         timestamp: new Date()
       };
       
