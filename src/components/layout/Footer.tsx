@@ -118,14 +118,14 @@ const Footer = () => {
         <div className="mt-12 pt-6 border-t border-border/40">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-xs text-muted-foreground mb-4 md:mb-0">
-              &copy; {currentYear} NeuroInnova. Todos los derechos reservados.
+              &copy; { currentYear} NeuroInnova. © 2024 Todos los derechos reservados.
             </p>
             <div className="text-xs text-muted-foreground text-center md:text-right">
               <p className="mb-1">
-                La información proporcionada en este sitio no reemplaza la consulta médica profesional.
+                La información proporcionada en este sitio no reemplaza la consulta mìidica profesional.
               </p>
-              <p>
-                Consulte siempre con un profesional de la salud para diagnóstico y tratamiento.
+              <p >
+                Consulte siempre con un profesional de la salud para diagnós tico y tratamiento.
               </p>
             </div>
           </div>
