@@ -248,6 +248,60 @@ Puedes cambiar de modo en cualquier momento usando los botones arriba.
       // Detectar si es un comando especial
       const lowerContent = userMessage.content.toLowerCase();
       
+      // Detectar "intenta de nuevo" o variaciones
+      if (lowerContent === 'intenta de nuevo' || lowerContent === 'intentar de nuevo' || 
+          lowerContent === 'reintentar' || lowerContent === 'vuelve a intentar' ||
+          lowerContent === 'retry' || lowerContent === 'try again') {
+        // Buscar la última solicitud de cambio real
+        const lastChangeRequest = currentConversation?.messages
+          .filter(m => m.role === 'user' && 
+                      !['intenta de nuevo', 'intentar de nuevo', 'reintentar', 'vuelve a intentar', 'retry', 'try again'].includes(m.content.toLowerCase()))
+          .reverse()
+          .find(m => {
+            const content = m.content.toLowerCase();
+            return !isQuestion(content) || isChangeRequest(content);
+          });
+        
+        if (lastChangeRequest) {
+          // Reintentar con el mensaje original
+          userMessage.content = lastChangeRequest.content;
+          setIsTyping(false);
+          
+          // Agregar mensaje informativo
+          const retryMessage: Message = {
+            id: Date.now().toString(),
+            role: 'system',
+            content: `🔄 Reintentando: "${lastChangeRequest.content}"`,
+            timestamp: new Date()
+          };
+          
+          setCurrentConversation(prev => ({
+            ...prev!,
+            messages: [...prev!.messages.slice(0, -1), retryMessage],
+            lastMessageAt: new Date()
+          }));
+          
+          await new Promise(resolve => setTimeout(resolve, 500));
+          setIsTyping(true);
+        } else {
+          // No hay solicitud anterior para reintentar
+          setIsTyping(false);
+          const noRetryMessage: Message = {
+            id: Date.now().toString(),
+            role: 'assistant',
+            content: '❓ No encontré una solicitud anterior para reintentar. ¿Qué te gustaría cambiar?',
+            timestamp: new Date()
+          };
+          
+          setCurrentConversation(prev => ({
+            ...prev!,
+            messages: [...prev!.messages, noRetryMessage],
+            lastMessageAt: new Date()
+          }));
+          return;
+        }
+      }
+      
       if (lowerContent.includes('no funcionó') || lowerContent.includes('no se aplicó') || 
           lowerContent.includes('troubleshoot') || lowerContent.includes('debug')) {
         // Modo troubleshooting
