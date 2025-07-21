@@ -374,12 +374,20 @@ Puedes cambiar de modo en cualquier momento usando los botones arriba.
         
         // Si no hay cambios reales, mostrar mensaje de error claro
         if (!hasActualChanges) {
+          // Log para debugging
+          console.log('No hay cambios reales. Respuesta de n8n:', n8nResponse);
+          
           const errorMessage: Message = {
             id: (Date.now() + 1).toString(),
             role: 'assistant',
             content: `❌ No se pudieron generar cambios automáticos.
 
 ${n8nResponse.agentSummary || n8nResponse.message || 'El asistente no pudo procesar la solicitud.'}
+
+**Información de debugging:**
+- Cambios detectados: ${processedChange.changes.length}
+- Archivos: ${processedChange.files.join(', ') || 'ninguno'}
+- Requiere revisión: ${processedChange.requiresReview ? 'Sí' : 'No'}
 
 **Opciones:**
 • Intenta reformular tu solicitud siendo más específico
