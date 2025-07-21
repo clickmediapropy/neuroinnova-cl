@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context-labs/context7"],
+      "env": {}
+    },
+    "ide": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-vscode"],
+      "env": {}
+    }
+  }
+}

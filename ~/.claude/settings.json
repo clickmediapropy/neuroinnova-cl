@@ -1,0 +1,34 @@
+{
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "supabase",
+    "n8n",
+    "n8n-manuel",
+    "airtable"
+  ],
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Read",
+      "Edit",
+      "Write",
+      "WebFetch",
+      "Grep",
+      "Glob",
+      "LS",
+      "MultiEdit",
+      "NotebookRead",
+      "NotebookEdit",
+      "TodoRead",
+      "TodoWrite",
+      "WebSearch",
+      "Delete",
+      "RunTerminal",
+      "FileSearch",
+      "CodebaseSearch",
+      "SearchReplace"
+    ],
+    "deny": []
+  },
+  "defaultMode": "bypassPermissions"
+} 
