@@ -36,7 +36,7 @@ const Index = () => {
   }, []);
 
   return (
-    <Layout isHomePage={true}>
+    <Layout isHomePage={true} auroraIntensity="medium">
       <AnimatedParticles />
       <Hero />
       <div className="scroll-reveal">

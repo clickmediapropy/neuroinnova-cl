@@ -72,9 +72,8 @@ const ServiciosPage = () => {
   ];
 
   return (
-    <AuroraLayout intensity="low">
-      <Layout>
-        <div className="min-h-screen">
+    <Layout auroraIntensity="low">
+      <div className="min-h-screen">
         {/* Hero Section */}
         <section className="pt-24 pb-16 neural-bg">
           <div className="container mx-auto px-4">
@@ -226,9 +225,8 @@ const ServiciosPage = () => {
             </div>
           </div>
         </section>
-        </div>
-      </Layout>
-    </AuroraLayout>
+      </div>
+    </Layout>
   );
 };
 

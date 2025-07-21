@@ -82,9 +82,8 @@ const ContactoPage = () => {
   };
 
   return (
-    <AuroraLayout intensity="low">
-      <Layout>
-        <div className="min-h-screen">
+    <Layout auroraIntensity="low">
+      <div className="min-h-screen">
         {/* Hero Section */}
         <section className="pt-24 pb-16">
           <div className="container mx-auto px-4">
@@ -323,8 +322,7 @@ const ContactoPage = () => {
           </div>
         </section>
       </div>
-      </Layout>
-    </AuroraLayout>
+    </Layout>
   );
 };
 
