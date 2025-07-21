@@ -19,9 +19,46 @@ interface ProcessedChange {
   }[];
   commitMessage: string;
   requiresReview: boolean;
+  diagnostics?: {
+    filesChecked?: string[];
+    issuesFound?: string[];
+    recommendations?: string[];
+  };
 }
 
 import { generateSiteSummary, getRelatedFiles, updateSiteMap, findSection, getSectionContext } from './siteMapService';
+
+// Funciones auxiliares para diagnóstico
+async function readFileContent(filePath: string): Promise<string | null> {
+  try {
+    // En un entorno real, esto leería del sistema de archivos o GitHub
+    // Por ahora, simulamos con contenido conocido
+    if (filePath === 'src/App.tsx') {
+      return `import React, { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// ... rutas del blog
+<Route path="/blog" element={<BlogPage />} />
+// NO hay ruta para posts individuales como /blog/:slug
+`;
+    }
+    return null;
+  } catch (error) {
+    console.error(`Error leyendo archivo ${filePath}:`, error);
+    return null;
+  }
+}
+
+async function checkBlogFiles(): Promise<string> {
+  // Simular verificación de archivos de blog
+  const files = [
+    { path: 'src/pages/BlogPage.tsx', exists: true },
+    { path: 'src/pages/BlogPostPage.tsx', exists: false },
+    { path: 'src/components/BlogCard.tsx', exists: true },
+    { path: 'src/data/blogPosts.ts', exists: false }
+  ];
+  
+  return files.map(f => `- ${f.path}: ${f.exists ? '✅ Existe' : '❌ No existe'}`).join('\n');
+}
 
 // Mapeo de secciones a archivos del proyecto
 const SECTION_FILE_MAP: Record<string, string[]> = {
@@ -267,7 +304,41 @@ export async function processChangeWithAI(request: ChangeRequest): Promise<Proce
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
       // Preparar el prompt para Moonshot AI
-      const systemPrompt = `Eres un asistente AI experto en desarrollo web React + TypeScript. Tu trabajo es implementar cambios COMPLETOS en sitios web.
+      const systemPrompt = `Eres un asistente AI experto en desarrollo web React + TypeScript con acceso COMPLETO a herramientas de GitHub. Tu trabajo es implementar cambios COMPLETOS en sitios web y DIAGNOSTICAR problemas.
+
+CAPACIDADES Y HERRAMIENTAS QUE PUEDES USAR:
+
+1. HERRAMIENTAS DE DIAGNÓSTICO:
+   - Puedes LEER cualquier archivo del repositorio para verificar su contenido actual
+   - Puedes BUSCAR archivos por patrones (ej: "*.tsx", "Blog*")
+   - Puedes VERIFICAR si una ruta existe en App.tsx
+   - Puedes ANALIZAR la estructura del proyecto
+   - Puedes DETECTAR archivos faltantes o configuraciones incorrectas
+
+2. HERRAMIENTAS DE CAMBIOS:
+   - CREAR archivos nuevos con contenido completo
+   - EDITAR archivos existentes con cambios precisos
+   - ELIMINAR archivos si es necesario
+   - MOVER o RENOMBRAR archivos
+
+3. VERIFICACIÓN EN TIEMPO REAL:
+   - Antes de responder sobre un error 404, DEBES verificar:
+     * Si la ruta existe en App.tsx
+     * Si el archivo de la página existe
+     * Si hay enlaces a esa página en la navegación
+     * La estructura de URLs generadas dinámicamente
+
+PROCESO PARA DIAGNOSTICAR ERRORES 404:
+
+1. Cuando alguien reporte un 404, PRIMERO verifica:
+   - Lee App.tsx para ver las rutas definidas
+   - Busca archivos relacionados con la URL (ej: para /blog/*, busca BlogPage, BlogPost, etc.)
+   - Verifica si es una ruta dinámica que necesita implementación
+
+2. Explica específicamente:
+   - QUÉ falta (archivo, ruta, componente)
+   - DÓNDE debería estar
+   - CÓMO solucionarlo
 
 PRINCIPIO FUNDAMENTAL: Cuando se te pide crear una nueva funcionalidad, debes implementarla COMPLETAMENTE incluyendo:
 1. Crear TODOS los archivos necesarios (componentes, páginas, etc.)
@@ -280,33 +351,42 @@ REGLAS CRÍTICAS PARA CAMBIOS COMPLETOS:
 
 1. NUEVAS PÁGINAS/SECCIONES:
    - Crear el archivo de la página en src/pages/
-   - Agregar la ruta en App.tsx
+   - Agregar la ruta en App.tsx (incluyendo rutas dinámicas si aplica)
    - Agregar enlaces en navegación (Header.tsx, HomeHeader.tsx si aplica)
    - Envolver con Layout para mantener header/footer
    - Usar componentes de shadcn/ui existentes
 
-2. MODIFICACIONES GLOBALES:
+2. BLOG Y CONTENIDO DINÁMICO:
+   - Para blogs, crear estructura completa:
+     * BlogPage.tsx para listar posts
+     * BlogPostPage.tsx para posts individuales
+     * Ruta dinámica: /blog/:slug
+     * Sistema de generación de slugs desde títulos
+   - Verificar que las URLs generadas coincidan con las esperadas
+
+3. MODIFICACIONES GLOBALES:
    - Si cambias algo que aparece en múltiples lugares (ej: WhatsApp, título), DEBES actualizar TODOS los archivos
    - Archivos comunes: Header.tsx, HomeHeader.tsx, Footer.tsx, Hero.tsx, WhatsAppButton.tsx
 
-3. ESTRUCTURA DE ARCHIVOS:
+4. ESTRUCTURA DE ARCHIVOS:
    - Páginas: src/pages/NombrePage.tsx
    - Componentes: src/components/NombreComponent.tsx
    - Servicios: src/services/nombreService.ts
    - Tipos: src/types/nombre.ts
 
-4. CONVENCIONES DEL PROYECTO:
+5. CONVENCIONES DEL PROYECTO:
    - Usar shadcn/ui components (Card, Button, etc.)
    - Tailwind CSS para estilos
    - TypeScript con tipos explícitos
    - Importaciones con alias @/
+   - Layout wrapper para todas las páginas
 
-5. NAVEGACIÓN:
+6. NAVEGACIÓN:
    - Desktop: Actualizar Header.tsx
    - Mobile: Actualizar la sección mobile del mismo Header.tsx
    - Orden típico: Inicio, Servicios, [NUEVA], Autoevaluación, Condiciones, Contacto
 
-6. FORMATO DE RESPUESTA JSON:
+7. FORMATO DE RESPUESTA JSON:
 {
   "files": ["lista de TODOS los archivos a modificar/crear"],
   "changes": [
@@ -319,14 +399,27 @@ REGLAS CRÍTICAS PARA CAMBIOS COMPLETOS:
     }
   ],
   "commitMessage": "feat: descripción clara del cambio",
-  "requiresReview": false
+  "requiresReview": false,
+  "diagnostics": {
+    "filesChecked": ["archivos que verificaste"],
+    "issuesFound": ["problemas encontrados"],
+    "recommendations": ["recomendaciones específicas"]
+  }
 }
 
 IMPORTANTE: 
 - Para archivos nuevos, oldCode debe ser una cadena vacía ""
 - El newCode debe contener TODO el contenido del archivo nuevo
 - SIEMPRE incluir TODOS los cambios necesarios en una sola respuesta
-- NO omitir archivos críticos como rutas o navegación`;
+- NO omitir archivos críticos como rutas o navegación
+- Para diagnósticos, incluir información detallada de lo que verificaste
+
+CAPACIDADES ESPECIALES DE DIAGNÓSTICO:
+- Si alguien pregunta "¿por qué da 404?", DEBES:
+  1. Verificar si la ruta existe en App.tsx
+  2. Verificar si el archivo de la página existe
+  3. Verificar la estructura de URLs para contenido dinámico
+  4. Proporcionar un diagnóstico específico, no genérico`;
 
     // Obtener información relevante del mapa del sitio
     const relatedFiles = getRelatedFiles(request.description);
@@ -344,6 +437,41 @@ CONTEXTO DE LA SECCIÓN:
 - Página contenedora: ${sectionInfo.page?.name || 'No especificada'}
 `;
     }
+    
+    // Detectar si es una solicitud de diagnóstico (404, error, verificación)
+    const isDiagnosticRequest = request.description.toLowerCase().includes('404') || 
+                               request.description.toLowerCase().includes('error') ||
+                               request.description.toLowerCase().includes('no funciona') ||
+                               request.description.toLowerCase().includes('verifica') ||
+                               request.description.toLowerCase().includes('por qué');
+    
+    let fileContents = '';
+    if (isDiagnosticRequest) {
+      // Para diagnósticos, incluir contenido de archivos clave
+      try {
+        // Leer App.tsx para verificar rutas
+        const appContent = await readFileContent('src/App.tsx');
+        if (appContent) {
+          fileContents += `
+CONTENIDO ACTUAL DE App.tsx (RUTAS):
+\`\`\`tsx
+${appContent.slice(0, 3000)} // Truncado para el contexto
+\`\`\`
+`;
+        }
+        
+        // Si menciona blog, verificar archivos de blog
+        if (request.description.toLowerCase().includes('blog')) {
+          const blogFiles = await checkBlogFiles();
+          fileContents += `
+ARCHIVOS DE BLOG ENCONTRADOS:
+${blogFiles}
+`;
+        }
+      } catch (error) {
+        console.error('Error leyendo archivos para diagnóstico:', error);
+      }
+    }
 
     const userPrompt = `
 Analiza esta solicitud de cambio para el sitio web NeuroInnova:
@@ -359,6 +487,8 @@ ${sectionContext}
 
 ARCHIVOS RELACIONADOS CON LA SOLICITUD:
 ${relatedFiles.length > 0 ? relatedFiles.join('\n') : 'Usar archivos por defecto según la sección'}
+
+${fileContents}
 
 CONTEXTO DEL SITIO:
 - React + TypeScript + Tailwind CSS

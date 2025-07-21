@@ -33,6 +33,11 @@ interface ProcessedChange {
   }[];
   commitMessage: string;
   requiresReview: boolean;
+  diagnostics?: {
+    filesChecked?: string[];
+    issuesFound?: string[];
+    recommendations?: string[];
+  };
 }
 
 interface Conversation {
@@ -633,33 +638,67 @@ Los cambios se guardaron hace: ${new Date(repoInfo.pushed_at).toLocaleString('es
   };
 
   const generateResponseMessage = (change: ProcessedChange): string => {
-    let message = '✨ **He preparado estos cambios para tu sitio web:**\n\n';
+    let message = '';
     
-    // Simplificar nombres de archivos
-    message += `📁 **Páginas que se van a actualizar:**\n`;
-    change.files.forEach(file => {
-      const simplifiedName = file
-        .replace('src/components/sections/', '')
-        .replace('src/pages/', '')
-        .replace('.tsx', '')
-        .replace('.ts', '')
-        .replace('Home', 'Página principal')
-        .replace('Hero', 'Sección principal')
-        .replace('Header', 'Encabezado')
-        .replace('Footer', 'Pie de página')
-        .replace('Contact', 'Contacto')
-        .replace('Services', 'Servicios')
-        .replace('Testimonials', 'Testimonios');
-      message += `• ${simplifiedName}\n`;
-    });
-    
-    message += `\n💡 **¿Qué va a cambiar?**\n${change.commitMessage}\n`;
-    
-    if (change.requiresReview) {
-      message += `\n⚠️ **Nota:** Este cambio es más complejo y necesita una revisión especial.`;
+    // Si hay diagnósticos, mostrarlos primero
+    if (change.diagnostics) {
+      message += '🔍 **Diagnóstico del problema:**\n\n';
+      
+      if (change.diagnostics.filesChecked && change.diagnostics.filesChecked.length > 0) {
+        message += '📂 **Archivos verificados:**\n';
+        change.diagnostics.filesChecked.forEach(file => {
+          message += `• ${file}\n`;
+        });
+        message += '\n';
+      }
+      
+      if (change.diagnostics.issuesFound && change.diagnostics.issuesFound.length > 0) {
+        message += '❌ **Problemas encontrados:**\n';
+        change.diagnostics.issuesFound.forEach(issue => {
+          message += `• ${issue}\n`;
+        });
+        message += '\n';
+      }
+      
+      if (change.diagnostics.recommendations && change.diagnostics.recommendations.length > 0) {
+        message += '💡 **Recomendaciones:**\n';
+        change.diagnostics.recommendations.forEach(rec => {
+          message += `• ${rec}\n`;
+        });
+        message += '\n';
+      }
     }
     
-    message += `\n\n¿Te gustaría que aplique estos cambios a tu sitio web?`;
+    // Si hay cambios para aplicar
+    if (change.files.length > 0 && change.changes.length > 0) {
+      message += '✨ **He preparado estos cambios para tu sitio web:**\n\n';
+      
+      // Simplificar nombres de archivos
+      message += `📁 **Páginas que se van a actualizar:**\n`;
+      change.files.forEach(file => {
+        const simplifiedName = file
+          .replace('src/components/sections/', '')
+          .replace('src/pages/', '')
+          .replace('.tsx', '')
+          .replace('.ts', '')
+          .replace('Home', 'Página principal')
+          .replace('Hero', 'Sección principal')
+          .replace('Header', 'Encabezado')
+          .replace('Footer', 'Pie de página')
+          .replace('Contact', 'Contacto')
+          .replace('Services', 'Servicios')
+          .replace('Testimonials', 'Testimonios');
+        message += `• ${simplifiedName}\n`;
+      });
+      
+      message += `\n💡 **¿Qué va a cambiar?**\n${change.commitMessage}\n`;
+      
+      if (change.requiresReview) {
+        message += `\n⚠️ **Nota:** Este cambio es más complejo y necesita una revisión especial.`;
+      }
+      
+      message += `\n\n¿Te gustaría que aplique estos cambios a tu sitio web?`;
+    }
     
     return message;
   };
