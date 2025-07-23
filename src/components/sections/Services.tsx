@@ -75,11 +75,11 @@ const Services = () => {
               icon={<Monitor className="h-6 w-6 text-primary" />}
               badge="REHABILITACIÓN COGNITIVA AVANZADA"
               benefits={[
+                "Evaluación: TDAH, Demencias, ACV, Traumatismos de cráneo",
                 "27+ módulos especializados en español",
                 "Entrenamiento adaptativo personalizado",
                 "Ideal para post-ACV y lesiones cerebrales",
-                "Seguimiento remoto del progreso",
-                "Complementa terapias de neuromodulación"
+                "Seguimiento remoto del progreso"
               ]}
               url="/servicios/rehacom"
               buttonText="Descubrir Más"
