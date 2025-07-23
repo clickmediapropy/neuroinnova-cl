@@ -70,7 +70,7 @@ const Services = () => {
 
             {/* RehaCom Service */}
             <ServiceCard
-              title="RehaCom - Rehabilitación Cognitiva"
+              title="Rehacom - Evaluación y rehabilitación cognitiva"
               description="Software alemán especializado para rehabilitación de funciones cognitivas afectadas por lesiones cerebrales o trastornos neurológicos."
               icon={<Monitor className="h-6 w-6 text-primary" />}
               badge="REHABILITACIÓN COGNITIVA AVANZADA"
