@@ -14,7 +14,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Logo className="h-12 w-auto mb-4" />
             <p className="text-sm text-muted-foreground">
-              Primer y único centro especializado en neuromodulación de Paraguay, 
+              Primer Centro Integral de Neuromodulación del Paraguay, 
               ofreciendo Estimulación Magnética Transcraneal (EMT/TMS) y Estimulación 
               Transcraneal por Corriente Directa (tDCS).
             </p>

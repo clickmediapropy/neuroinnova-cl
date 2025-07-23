@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Brain, Heart, Frown, Activity, Smile } from "lucide-react";
+import { Brain, Heart, Frown, Activity, Smile, Pill, Zap, Users } from "lucide-react";
 
 const conditions = [
   {
@@ -36,6 +36,27 @@ const conditions = [
     description: "Terapias de neuromodulación para mejorar la recuperación motora y cognitiva después de un accidente cerebrovascular.",
     icon: Smile,
     url: "/condiciones/rehabilitacion-post-acv"
+  },
+  {
+    id: "parkinson",
+    title: "Párkinson",
+    description: "Tratamiento con neuromodulación para mejorar síntomas motores y no motores de la enfermedad de Parkinson.",
+    icon: Users,
+    url: "/condiciones/parkinson"
+  },
+  {
+    id: "fibromialgia",
+    title: "Fibromialgia",
+    description: "Alivio del dolor generalizado y síntomas asociados mediante técnicas de neuromodulación no invasiva.",
+    icon: Zap,
+    url: "/condiciones/fibromialgia"
+  },
+  {
+    id: "adicciones",
+    title: "Adicciones",
+    description: "Tratamiento complementario para adicciones mediante neuromodulación de circuitos cerebrales de recompensa.",
+    icon: Pill,
+    url: "/condiciones/adicciones"
   }
 ];
 

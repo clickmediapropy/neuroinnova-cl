@@ -1,4 +1,4 @@
-import { CheckCircle, Award, Zap, Brain, Clock, Activity, Shield, HelpCircle } from "lucide-react";
+import { CheckCircle, Award, Zap, Brain, Clock, Activity, Shield, HelpCircle, Microscope } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -176,7 +176,15 @@ const TDCSPage = () => {
                     </li>
                     <li className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-success mr-2 flex-shrink-0 mt-0.5" />
+                      <span>Tratamiento de la Depresión moderada a severa</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-success mr-2 flex-shrink-0 mt-0.5" />
                       <span>Ansiedad</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-success mr-2 flex-shrink-0 mt-0.5" />
+                      <span>Tratamiento en la casa</span>
                     </li>
                     <li className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-success mr-2 flex-shrink-0 mt-0.5" />
@@ -192,7 +200,7 @@ const TDCSPage = () => {
               <div>
                 <h3 className="text-xl font-semibold mb-2">Ventaja Pionera</h3>
                 <p className="text-muted-foreground">
-                  NeuroInnova es el primer y único centro en Paraguay que ofrece tDCS, 
+                  NeuroInnova es el Primer Centro Integral de Neuromodulación del Paraguay que ofrece tDCS, 
                   brindando una alternativa terapéutica avanzada sin necesidad de viajar 
                   al extranjero para recibir este innovador tratamiento.
                 </p>
@@ -458,6 +466,67 @@ const TDCSPage = () => {
                 En NeuroInnova no consideramos la tDCS como un reemplazo de la rehabilitación tradicional, 
                 sino como un complemento poderoso que potencia sus efectos. La combinación de ambos enfoques 
                 permite obtener resultados superiores a los que se lograrían con cualquiera de ellos por separado.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Scientific Evidence Section */}
+      <section className="py-16">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center mb-8">
+              <Microscope className="h-8 w-8 text-primary mr-4" />
+              <h2 className="text-3xl font-bold text-primary">Evidencia tDCS</h2>
+            </div>
+            
+            <p className="mb-8 text-foreground">
+              Recomendación de directrices basada en evidencia para el uso de tDCS según el nivel de eficacia por condición.
+            </p>
+
+            <div className="bg-primary-light rounded-lg p-6 mb-8">
+              <p className="text-primary text-center font-medium">
+                La tDCS cuenta con una base sólida de evidencia científica que respalda su uso en diversas 
+                condiciones neurológicas y psiquiátricas, con niveles de evidencia diferenciados según la 
+                condición tratada.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="border border-success/20 bg-success-light/10 rounded-lg p-4">
+                <h3 className="text-lg font-semibold mb-2 text-success">Nivel A - Eficacia Definitiva</h3>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                  <li>Depresión (especialmente moderada a severa)</li>
+                  <li>Dolor crónico (fibromialgia, dolor neuropático)</li>
+                </ul>
+              </div>
+              
+              <div className="border border-primary/20 rounded-lg p-4">
+                <h3 className="text-lg font-semibold mb-2">Nivel B - Eficacia Probable</h3>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                  <li>Rehabilitación post-ACV (motor y lenguaje)</li>
+                  <li>Adicciones (craving y abstinencia)</li>
+                  <li>Esquizofrenia (síntomas negativos)</li>
+                </ul>
+              </div>
+              
+              <div className="border border-primary/20 rounded-lg p-4">
+                <h3 className="text-lg font-semibold mb-2">Nivel C - Eficacia Posible</h3>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                  <li>Enfermedad de Parkinson</li>
+                  <li>Trastornos de ansiedad</li>
+                  <li>TDAH</li>
+                  <li>Mejora cognitiva en adultos mayores</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-8 p-4 bg-muted rounded-lg">
+              <p className="text-sm text-muted-foreground text-center">
+                <strong>Nota:</strong> Los niveles de evidencia se basan en meta-análisis y revisiones sistemáticas 
+                publicadas en revistas científicas de alto impacto. La clasificación puede actualizarse según 
+                emerjan nuevas investigaciones.
               </p>
             </div>
           </div>

@@ -80,11 +80,14 @@ const RehaComPage = () => {
                 REHABILITACIÓN COGNITIVA AVANZADA
               </Badge>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground">
-                RehaCom: Rehabilitación Cognitiva Computarizada
+                RehaCom - Evaluación y Rehabilitación Cognitiva
               </h1>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
                 Software alemán de última generación para rehabilitar y entrenar funciones cognitivas 
                 afectadas por lesiones cerebrales, enfermedades neurológicas o trastornos psiquiátricos.
+              </p>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+                <strong>Evaluación:</strong> TDAH, Demencias, ACV, Traumatismos de cráneo.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" onClick={handleCTA} className="bg-primary hover:bg-primary/90">

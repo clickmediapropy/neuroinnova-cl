@@ -1,4 +1,4 @@
-import { CheckCircle, Award, BrainCircuit, Users, Clock, ChartBar, Shield, HelpCircle } from "lucide-react";
+import { CheckCircle, Award, BrainCircuit, Users, Clock, ChartBar, Shield, HelpCircle, FileText } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -444,8 +444,8 @@ const EMTTMSPage = () => {
             
             <div className="bg-card rounded-lg overflow-hidden mb-8 border">
               <div className="bg-primary text-primary-foreground p-6 text-center">
-                <h3 className="text-2xl md:text-4xl font-bold">47.8%</h3>
-                <p className="text-primary-foreground/90">Tasa de mejora en depresión resistente al tratamiento</p>
+                <h3 className="text-2xl md:text-4xl font-bold">83%</h3>
+                <p className="text-primary-foreground/90">Respuesta</p>
               </div>
               
               <div className="p-6">
@@ -541,6 +541,77 @@ const EMTTMSPage = () => {
                 en el cuerpo y no afecta a órganos como el hígado o los riñones. Su acción se limita 
                 específicamente a las regiones cerebrales donde se aplica la estimulación.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Scientific Evidence Section */}
+      <section className="py-16">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center mb-8">
+              <Award className="h-8 w-8 text-primary mr-4" />
+              <h2 className="text-3xl font-bold text-primary">Evidencia Científica EMT</h2>
+            </div>
+            
+            <p className="mb-8 text-foreground">
+              Estos son los niveles de evidencia para la EMT, según aprobaciones FDA, CE y guías clínicas internacionales.
+            </p>
+
+            <div className="bg-primary-light rounded-lg p-6 mb-8">
+              <p className="text-primary text-center font-medium">
+                La EMT/TMS cuenta con el respaldo de décadas de investigación científica y está aprobada 
+                por las principales autoridades sanitarias del mundo para el tratamiento de diversas condiciones 
+                neuropsiquiátricas.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="border border-primary/20 rounded-lg p-4">
+                <h3 className="text-lg font-semibold mb-2">Nivel A - Evidencia Definitiva</h3>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                  <li>Depresión resistente al tratamiento (FDA 2008)</li>
+                  <li>Depresión mayor con ansiedad comórbida</li>
+                </ul>
+              </div>
+              
+              <div className="border border-primary/20 rounded-lg p-4">
+                <h3 className="text-lg font-semibold mb-2">Nivel B - Evidencia Probable</h3>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                  <li>Trastorno Obsesivo Compulsivo (FDA 2018)</li>
+                  <li>Migrañas con aura</li>
+                  <li>Rehabilitación post-ACV</li>
+                </ul>
+              </div>
+              
+              <div className="border border-primary/20 rounded-lg p-4">
+                <h3 className="text-lg font-semibold mb-2">Nivel C - Evidencia Posible</h3>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                  <li>Fibromialgia</li>
+                  <li>Dolor neuropático</li>
+                  <li>Trastorno de estrés postraumático</li>
+                  <li>Esquizofrenia (síntomas negativos)</li>
+                </ul>
+              </div>
+            </div>
+            
+            {/* PDF Download Section */}
+            <div className="mt-8 bg-accent/10 border-2 border-accent rounded-lg p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <FileText className="h-8 w-8 text-accent mr-4" />
+                  <div>
+                    <h3 className="text-lg font-semibold">📄 EMT para Depresión – Información para pacientes</h3>
+                    <p className="text-sm text-muted-foreground">Documento informativo completo sobre el tratamiento</p>
+                  </div>
+                </div>
+                <Button asChild variant="outline" className="border-accent text-accent hover:bg-accent hover:text-white">
+                  <a href="/emt-depresion.pdf" download>
+                    Descargar PDF (2 páginas – 2,2 MB)
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

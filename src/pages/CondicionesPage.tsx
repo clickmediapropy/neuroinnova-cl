@@ -1,5 +1,5 @@
 import React from "react";
-import { Brain, AlertTriangle, RotateCcw, Activity, Heart, ArrowRight } from "lucide-react";
+import { Brain, AlertTriangle, RotateCcw, Activity, Heart, ArrowRight, Users, Zap, Pill } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -79,6 +79,48 @@ const CondicionesPage = () => {
       ],
       treatments: ["tDCS", "Consulta Psiquiátrica"],
       url: "/condiciones/rehabilitacion-post-acv"
+    },
+    {
+      id: "parkinson",
+      title: "Párkinson",
+      description: "Tratamiento con neuromodulación para mejorar síntomas motores y no motores de la enfermedad de Parkinson.",
+      icon: <Users className="h-8 w-8 text-primary" />,
+      symptoms: [
+        "Temblor en reposo",
+        "Rigidez muscular",
+        "Bradicinesia (lentitud de movimientos)",
+        "Alteraciones del equilibrio"
+      ],
+      treatments: ["EMT/TMS", "tDCS", "Consulta Psiquiátrica"],
+      url: "/condiciones/parkinson"
+    },
+    {
+      id: "fibromialgia",
+      title: "Fibromialgia",
+      description: "Alivio del dolor generalizado y síntomas asociados mediante técnicas de neuromodulación no invasiva.",
+      icon: <Zap className="h-8 w-8 text-primary" />,
+      symptoms: [
+        "Dolor muscular generalizado",
+        "Fatiga crónica",
+        "Problemas de sueño",
+        "Dificultades cognitivas (fibro-niebla)"
+      ],
+      treatments: ["tDCS", "EMT/TMS", "Consulta Psiquiátrica"],
+      url: "/condiciones/fibromialgia"
+    },
+    {
+      id: "adicciones",
+      title: "Adicciones",
+      description: "Tratamiento complementario para adicciones mediante neuromodulación de circuitos cerebrales de recompensa.",
+      icon: <Pill className="h-8 w-8 text-primary" />,
+      symptoms: [
+        "Deseo intenso de consumo",
+        "Pérdida de control",
+        "Síndrome de abstinencia",
+        "Recaídas frecuentes"
+      ],
+      treatments: ["EMT/TMS", "tDCS", "Consulta Psiquiátrica"],
+      url: "/condiciones/adicciones"
     }
   ];
 

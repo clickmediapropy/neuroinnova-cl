@@ -17,10 +17,10 @@ const TrustAuthority = () => {
               <div className="p-1.5 sm:p-2 rounded-full bg-gradient-to-br from-primary-light to-accent/20">
                 <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold ml-2 sm:ml-3">Único Centro Especializado</h3>
+              <h3 className="text-lg sm:text-xl font-semibold ml-2 sm:ml-3">Primer Centro especializado en Neuromodulación</h3>
             </div>
             <p className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4">
-              Somos el primer y único centro en Paraguay que ofrece tratamientos de neuromodulación avanzada con EMT/TMS y tDCS, evitando a nuestros pacientes viajes costosos a Buenos Aires o São Paulo.
+              Somos el Primer Centro Integral de Neuromodulación del Paraguay que ofrece tratamientos de neuromodulación avanzada con EMT/TMS y tDCS, evitando a nuestros pacientes viajes costosos a Buenos Aires o São Paulo.
             </p>
             <ul className="space-y-1.5 sm:space-y-2">
               <li className="flex items-start">
@@ -68,12 +68,12 @@ const TrustAuthority = () => {
             </p>
             <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6">
               <div className="text-center">
-                <p className="text-2xl sm:text-3xl font-bold text-primary">47.8%</p>
-                <p className="text-xs sm:text-sm text-muted-foreground">Mejora en depresión resistente</p>
+                <p className="text-2xl sm:text-3xl font-bold text-primary">83%</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Respuesta</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl sm:text-3xl font-bold text-primary">30%</p>
-                <p className="text-xs sm:text-sm text-muted-foreground">De casos de depresión son resistentes</p>
+                <p className="text-2xl sm:text-3xl font-bold text-primary">62%</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Remisión</p>
               </div>
             </div>
           </div>
