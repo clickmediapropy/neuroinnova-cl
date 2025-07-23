@@ -32,6 +32,9 @@ const AnsiedadPage = lazy(() => import("./pages/AnsiedadPage"));
 const TOCPage = lazy(() => import("./pages/TOCPage"));
 const DolorCronicoPage = lazy(() => import("./pages/DolorCronicoPage"));
 const RehabilitacionPostACVPage = lazy(() => import("./pages/RehabilitacionPostACVPage"));
+const ParkinsonPage = lazy(() => import("./pages/ParkinsonPage"));
+const FibromialgiaPage = lazy(() => import("./pages/FibromialgiaPage"));
+const AdiccionesPage = lazy(() => import("./pages/AdiccionesPage"));
 const ContactoPage = lazy(() => import("./pages/ContactoPage"));
 const AgendarConsultaPage = lazy(() => import("./pages/AgendarConsultaPage"));
 const PoliticaPrivacidadPage = lazy(() => import("./pages/PoliticaPrivacidadPage"));
@@ -88,6 +91,9 @@ const App = () => (
           <Route path="/condiciones/toc" element={<TOCPage />} />
           <Route path="/condiciones/dolor-cronico" element={<DolorCronicoPage />} />
           <Route path="/condiciones/rehabilitacion-post-acv" element={<RehabilitacionPostACVPage />} />
+          <Route path="/condiciones/parkinson" element={<ParkinsonPage />} />
+          <Route path="/condiciones/fibromialgia" element={<FibromialgiaPage />} />
+          <Route path="/condiciones/adicciones" element={<AdiccionesPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
           <Route path="/agendar-consulta" element={<AgendarConsultaPage />} />
           <Route path="/politica-privacidad" element={<PoliticaPrivacidadPage />} />
