@@ -555,45 +555,143 @@ const EMTTMSPage = () => {
               <h2 className="text-3xl font-bold text-primary">Evidencia Científica EMT</h2>
             </div>
             
-            <p className="mb-8 text-foreground">
-              Estos son los niveles de evidencia para la EMT, según aprobaciones FDA, CE y guías clínicas internacionales.
-            </p>
-
-            <div className="bg-primary-light rounded-lg p-6 mb-8">
-              <p className="text-primary text-center font-medium">
-                La EMT/TMS cuenta con el respaldo de décadas de investigación científica y está aprobada 
-                por las principales autoridades sanitarias del mundo para el tratamiento de diversas condiciones 
-                neuropsiquiátricas.
+            <div className="mb-8">
+              <h3 className="text-xl font-semibold mb-6 text-center">
+                Recomendaciones sobre la eficacia de la EMT según indicación clínica
+              </h3>
+              <p className="text-center text-sm text-muted-foreground mb-6">
+                Aprobaciones FDA, CE y Nivel de Evidencia
               </p>
             </div>
 
-            <div className="space-y-4">
-              <div className="border border-primary/20 rounded-lg p-4">
-                <h3 className="text-lg font-semibold mb-2">Nivel A - Evidencia Definitiva</h3>
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                  <li>Depresión resistente al tratamiento (FDA 2008)</li>
-                  <li>Depresión mayor con ansiedad comórbida</li>
-                </ul>
-              </div>
-              
-              <div className="border border-primary/20 rounded-lg p-4">
-                <h3 className="text-lg font-semibold mb-2">Nivel B - Evidencia Probable</h3>
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                  <li>Trastorno Obsesivo Compulsivo (FDA 2018)</li>
-                  <li>Migrañas con aura</li>
-                  <li>Rehabilitación post-ACV</li>
-                </ul>
-              </div>
-              
-              <div className="border border-primary/20 rounded-lg p-4">
-                <h3 className="text-lg font-semibold mb-2">Nivel C - Evidencia Posible</h3>
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                  <li>Fibromialgia</li>
-                  <li>Dolor neuropático</li>
-                  <li>Trastorno de estrés postraumático</li>
-                  <li>Esquizofrenia (síntomas negativos)</li>
-                </ul>
-              </div>
+            {/* Evidence Table */}
+            <div className="overflow-x-auto rounded-lg border border-border">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-primary text-white">
+                    <th className="text-left p-4 font-semibold">Nivel de Evidencia</th>
+                    <th className="text-left p-4 font-semibold">Trastorno</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* FDA Approvals */}
+                  <tr className="bg-green-50 border-b border-green-200">
+                    <td className="p-4 font-semibold text-green-900" rowSpan={5}>
+                      Aprobación FDA
+                    </td>
+                    <td className="p-4 text-green-800">
+                      • Depresión resistente al tratamiento. 2008
+                    </td>
+                  </tr>
+                  <tr className="bg-green-50 border-b border-green-200">
+                    <td className="p-4 text-green-800">
+                      • Trastorno Obsesivo Compulsivo (TOC). 2018
+                    </td>
+                  </tr>
+                  <tr className="bg-green-50 border-b border-green-200">
+                    <td className="p-4 text-green-800">
+                      • Ansiedad Comórbida en Depresión. 2021
+                    </td>
+                  </tr>
+                  <tr className="bg-green-50 border-b border-green-200">
+                    <td className="p-4 text-green-800">
+                      • Depresión Adolescente (A partir de los 15 años). 2023
+                    </td>
+                  </tr>
+                  <tr className="bg-green-50 border-b border-green-200">
+                    <td className="p-4 text-green-800">
+                      • Depresión en Adultos Mayores (68 a 86 años). 2024
+                    </td>
+                  </tr>
+
+                  {/* CE Approvals */}
+                  <tr className="bg-blue-50 border-b border-blue-200">
+                    <td className="p-4 font-semibold text-blue-900" rowSpan={5}>
+                      Aprobación CE
+                    </td>
+                    <td className="p-4 text-blue-800">
+                      • Depresión resistente al tratamiento.
+                    </td>
+                  </tr>
+                  <tr className="bg-blue-50 border-b border-blue-200">
+                    <td className="p-4 text-blue-800">
+                      • Trastorno Obsesivo compulsivo.
+                    </td>
+                  </tr>
+                  <tr className="bg-blue-50 border-b border-blue-200">
+                    <td className="p-4 text-blue-800">
+                      • Adicción a sustancias.
+                    </td>
+                  </tr>
+                  <tr className="bg-blue-50 border-b border-blue-200">
+                    <td className="p-4 text-blue-800">
+                      • Depresión con síntomas de ansiedad.
+                    </td>
+                  </tr>
+                  <tr className="bg-blue-50 border-b border-blue-200">
+                    <td className="p-4 text-blue-800">
+                      • Dolor Crónico.
+                    </td>
+                  </tr>
+
+                  {/* Level A Evidence */}
+                  <tr className="bg-purple-50 border-b border-purple-200">
+                    <td className="p-4 font-semibold text-purple-900">
+                      Nivel A evidencia
+                    </td>
+                    <td className="p-4 text-purple-800">
+                      • Accidente Cerebro-Vascular - fase postaguda.
+                    </td>
+                  </tr>
+
+                  {/* Level B Evidence */}
+                  <tr className="bg-yellow-50 border-b border-yellow-200">
+                    <td className="p-4 font-semibold text-yellow-900" rowSpan={3}>
+                      Nivel B evidencia
+                    </td>
+                    <td className="p-4 text-yellow-800">
+                      • Fibromialgia. Enfermedad de Parkinson. Síntomas Motores.
+                    </td>
+                  </tr>
+                  <tr className="bg-yellow-50 border-b border-yellow-200">
+                    <td className="p-4 text-yellow-800">
+                      • Síntomas Depresivos. Afasia post- ACV.
+                    </td>
+                  </tr>
+                  <tr className="bg-yellow-50 border-b border-yellow-200">
+                    <td className="p-4 text-yellow-800">
+                      • Esclerosis Múltiple. Trastorno Estrés Post-Traumático (TEPT)
+                    </td>
+                  </tr>
+
+                  {/* Level C Evidence */}
+                  <tr className="bg-orange-50 border-b border-orange-200">
+                    <td className="p-4 font-semibold text-orange-900" rowSpan={3}>
+                      Nivel C evidencia
+                    </td>
+                    <td className="p-4 text-orange-800">
+                      • Accidente Cerebro-Vascular - fase crónica. Negligencia Hemiespacial.
+                    </td>
+                  </tr>
+                  <tr className="bg-orange-50 border-b border-orange-200">
+                    <td className="p-4 text-orange-800">
+                      • Epilepsia. Enfermedad Alzheimer. Tinnitus.
+                    </td>
+                  </tr>
+                  <tr className="bg-orange-50">
+                    <td className="p-4 text-orange-800">
+                      • Trastorno por atracón. Adicciones auditivas. Síntomas negativos. Adicciones
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-6 text-sm text-muted-foreground text-center">
+              <p className="italic">
+                Adaptado de: J.-P. Lefaucheur, A. Aleman, C. Baeken et al., Evidence-based guidelines on the therapeutic use of repetitive transcranial 
+                magnetic stimulation (rTMS): An update (2014-2018), Clinical Neurophysiology, https://doi.org/10.1016/j.clinph.2019.11.002
+              </p>
             </div>
             
             {/* PDF Download Section */}
