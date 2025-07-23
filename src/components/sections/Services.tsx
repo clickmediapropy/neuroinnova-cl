@@ -42,11 +42,11 @@ const Services = () => {
               icon={<Brain className="h-6 w-6 text-primary" />}
               badge="PIONERO EN PARAGUAY"
               benefits={[
+                "Tratamiento de la Depresión moderada a severa",
+                "Tratamiento en la casa",
                 "Rehabilitación neurológica",
                 "Manejo del dolor crónico",
-                "Estimulación cognitiva",
-                "Procedimiento no invasivo",
-                "Se puede combinar con otras terapias"
+                "Estimulación cognitiva"
               ]}
               url="/servicios/tdcs"
               buttonText="Conozca Más"
