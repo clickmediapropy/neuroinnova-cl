@@ -28,10 +28,9 @@ const Hero = () => {
             {/* Headline */}
             <div className="space-y-3 sm:space-y-4 md:space-y-6">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.05]">
-                <span className="text-primary font-extrabold animate-fade-in-down" style={{ animationDelay: '0.1s' }}>Primer Centro Integral</span><br />
-                <span className="text-foreground animate-fade-in-left" style={{ animationDelay: '0.3s' }}>de</span><br />
-                <span className="text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl animate-fade-in-right" style={{ animationDelay: '0.5s' }}>Neuromodulación</span><br />
-                <span className="text-accent font-extrabold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent animate-gradient animate-fade-in-up" style={{ animationDelay: '0.7s' }}>del Paraguay</span>
+                <span className="text-foreground font-extrabold animate-fade-in-down" style={{ animationDelay: '0.1s' }}>Primer Centro Integral de </span>
+                <span className="text-primary font-extrabold bg-gradient-to-r from-primary via-primary/90 to-primary/80 bg-clip-text text-transparent animate-gradient animate-fade-in-right hover:scale-105 transition-transform duration-300 drop-shadow-xl" style={{ animationDelay: '0.3s' }}>Neuromodulación</span>
+                <span className="text-accent font-extrabold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent animate-gradient animate-fade-in-up" style={{ animationDelay: '0.5s' }}> del Paraguay</span>
               </h1>
               
               {/* Sub-headline */}
