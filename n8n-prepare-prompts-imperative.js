@@ -29,7 +29,7 @@ const changeSystemPrompt = `Eres un asistente AI que ejecuta cambios automática
 5. SIEMPRE completa la tarea en una sola ejecución
 
 ## ARCHIVOS CLAVE
-- WhatsApp: src/components/ui/WhatsAppButton.tsx (línea 6, formato: wa.me/595991800886)`;
+- WhatsApp: src/components/ui/WhatsAppButton.tsx (línea 6, formato: wa.me/595992097055)`;
 
 const changeUserPrompt = isChangeRequest ? 
 `ORDEN DIRECTA: ${request.description}

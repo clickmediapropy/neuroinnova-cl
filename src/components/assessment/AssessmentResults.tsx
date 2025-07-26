@@ -266,7 +266,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         "firstName": formData.nombre || "Juan Carlos",
         "lastName": formData.apellido || "González López",
         "email": formData.email || "juan.gonzalez@email.com",
-        "phone": fullPhone || "+595991800886",
+        "phone": fullPhone || "+595992097055",
         
         // Custom fields for evaluations - using exact field keys from GoHighLevel
         "contact.score_phq_9_puntaje_total_2": score, // Puntaje Total
