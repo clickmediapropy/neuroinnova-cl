@@ -263,10 +263,10 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       
       const webhookData = {
         // Standard fields
-        "firstName": formData.nombre || "Juan Carlos",
-        "lastName": formData.apellido || "González López",
-        "email": formData.email || "juan.gonzalez@email.com",
-        "phone": fullPhone || "+595992097055",
+        "firstName": formData.nombre,
+        "lastName": formData.apellido,
+        "email": formData.email,
+        "phone": fullPhone,
         
         // Custom fields for evaluations - using exact field keys from GoHighLevel
         "contact.score_phq_9_puntaje_total_2": score, // Puntaje Total
@@ -274,8 +274,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         "contact.tipo_de_evaluacin": getAssessmentTypeName(), // Tipo de Evaluación (código técnico)
         "contact.tipo_evaluacion_espanol": getSpanishAssessmentName(), // Tipo de Evaluación (español)
         "contact.nivel_de_severidad": localSeverityInfo.level, // Nivel de Severidad
-        "contact.edad": formData.edad || 35, // Edad
-        "contact.sexo": formData.sexo || "Masculino", // Sexo
+        "contact.edad": formData.edad, // Edad
+        "contact.sexo": formData.sexo, // Sexo
         
         // Agregar campos adicionales del sistema clínico
         "contact.descripcion_problema": clinicalResult?.descripcion_problema || "No disponible",
@@ -289,7 +289,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         "contact.ltima_evaluacin__nivel": localSeverityInfo.level, // Última Evaluación - Nivel
         
         // Additional data for tracking
-        "ciudad": formData.ciudad || "Santiago"
+        "ciudad": formData.ciudad
       };
 
       // Send to GoHighLevel webhook
