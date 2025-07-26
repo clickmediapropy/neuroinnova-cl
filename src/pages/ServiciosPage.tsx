@@ -6,6 +6,7 @@ import { AuroraLayout } from "@/components/layout/AuroraLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { AuroraBackgroundMedical } from "@/components/ui/aurora-background-medical";
 
 const ServiciosPage = () => {
   const servicios = [
@@ -103,21 +104,23 @@ const ServiciosPage = () => {
             <div className="max-w-6xl mx-auto">
               <div className="grid gap-8">
                 {servicios.map((servicio, index) => (
-                  <Card 
+                  <AuroraBackgroundMedical 
                     key={servicio.id} 
-                    className={`relative overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles ${
-                      servicio.featured ? 'border-primary/20 bg-primary/5' : ''
+                    intensity="low"
+                    showRadialGradient={true}
+                    className={`relative overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles rounded-lg border border-border/60 ${
+                      servicio.featured ? 'border-primary/20' : ''
                     }`}
                   >
                      {servicio.badge && (
-                       <div className="absolute top-3 right-3 md:top-6 md:right-6 z-10">
+                       <div className="absolute top-3 right-3 md:top-6 md:right-6 z-20">
                          <Badge variant="secondary" className="bg-primary text-primary-foreground text-xs md:text-sm">
                            {servicio.badge}
                          </Badge>
                        </div>
                      )}
                     
-                    <div className="grid md:grid-cols-2 gap-8 p-4 md:p-8">
+                    <div className="grid md:grid-cols-2 gap-8 p-4 md:p-8 relative z-10">
                       {/* Content */}
                       <div className="space-y-4 md:space-y-6 order-2 md:order-1">
                         <div className="flex items-start space-x-3 md:space-x-4">
@@ -189,14 +192,18 @@ const ServiciosPage = () => {
                             </div>
                           )}
                           {servicio.id === "rehacom" && (
-                            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 flex items-center justify-center">
-                              <Monitor className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 text-primary opacity-80" />
+                            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-lg">
+                              <img 
+                                src="/images/rehacom-interface.png"
+                                alt="RehaCom - Software de Rehabilitación Cognitiva"
+                                className="w-full h-full object-cover"
+                              />
                             </div>
                           )}
                         </div>
                       </div>
                     </div>
-                  </Card>
+                  </AuroraBackgroundMedical>
                 ))}
               </div>
             </div>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { AuroraBackgroundMedical } from "./aurora-background-medical";
 
 interface ServiceCardProps {
   title: string;
@@ -31,15 +32,17 @@ const ServiceCard = ({
   const isSmall = size === "small";
 
   return (
-    <div 
+    <AuroraBackgroundMedical 
+      intensity="low"
+      showRadialGradient={true}
       className={cn(
-        "relative flex flex-col rounded-lg border border-border/60 bg-card shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/30 overflow-hidden service-particles card-hover-effect hover-lift tilt-3d",
+        "relative flex flex-col rounded-lg border border-border/60 shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/30 overflow-hidden service-particles card-hover-effect hover-lift tilt-3d",
         isLarge && "md:col-span-2",
         className
       )}
     >
       <div className={cn(
-        "flex flex-col p-4 sm:p-6",
+        "flex flex-col p-4 sm:p-6 relative z-10",
         isLarge && "sm:p-6 md:p-8",
         isSmall && "p-4 sm:p-5"
       )}>
@@ -107,7 +110,7 @@ const ServiceCard = ({
           </Button>
         </div>
       </div>
-    </div>
+    </AuroraBackgroundMedical>
   );
 };
 
