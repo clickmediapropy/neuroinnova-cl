@@ -196,6 +196,9 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
     setIsSubmitting(true);
 
     // Handle form submission
+    console.log('Form data at submission:', formData);
+    console.log('Phone:', formData.telefono);
+    console.log('Country code:', formData.codigoPais);
 
     // Validate required fields
     if (!formData.nombre || !formData.apellido || !formData.email || !formData.telefono || !formData.codigoPais) {
@@ -260,6 +263,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       
       // Format full phone number for GoHighLevel
       const fullPhone = `${formData.codigoPais}${formData.telefono.replace(/\s/g, '')}`;
+      console.log('Full phone number being sent:', fullPhone);
+      console.log('Webhook data being prepared...');
       
       const webhookData = {
         // Standard fields
@@ -293,6 +298,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       };
 
       // Send to GoHighLevel webhook
+      console.log('Final webhook data:', JSON.stringify(webhookData, null, 2));
       
       try {
         const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35', {
