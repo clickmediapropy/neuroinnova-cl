@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Development
 ```bash
-npm run dev          # Start development server with hot reload
+npm run dev          # Start development server with hot reload (port 8080)
 npm run build        # Create production build
 npm run build:dev    # Create development build
 npm run preview      # Preview production build locally
@@ -86,11 +86,12 @@ const form = useForm({
 
 ## Development Tips
 
-1. Use `cn()` utility for merging Tailwind classes
-2. Follow existing form patterns with React Hook Form + Zod
+1. Use `cn()` utility for merging Tailwind classes (from `@/lib/utils`)
+2. Follow existing form patterns with React Hook Form + Zod validation
 3. Use shadcn/ui components from `@/components/ui`
-4. Implement lazy loading for new routes
+4. All routes use lazy loading for performance - follow the pattern in App.tsx
 5. Add proper TypeScript types for all components
+6. Dev server runs on port 8080 (configured in vite.config.ts)
 
 ## Deployment
 

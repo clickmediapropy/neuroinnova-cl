@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import Header from "./Header";
 import HomeHeader from "./HomeHeader";
 import Footer from "./Footer";
-import VoiceBotWidget from "../ui/VoiceBotWidget";
 import FirstVisitTooltip from "../ui/FirstVisitTooltip";
 import FloatingActions from "../ui/FloatingActions";
 
@@ -19,7 +18,6 @@ const Layout = ({ children, isHomePage = false }: LayoutProps) => {
         {children}
       </main>
       <Footer />
-      <VoiceBotWidget />
       <FirstVisitTooltip />
       <FloatingActions />
     </div>
