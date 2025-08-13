@@ -115,7 +115,7 @@ const CHANGE_PATTERNS = {
 };
 
 // Configuración de Moonshot AI
-const MOONSHOT_API_KEY = 'sk-kf1rXAf4r93JTqtA2UPSAvGUPDkX3bcM0QpjUySc8CLH7oDw';
+const MOONSHOT_API_KEY = import.meta.env.VITE_MOONSHOT_API_KEY;
 const MOONSHOT_MODEL = 'moonshot-v1-128k'; // Modelo más potente con 128K tokens de contexto
 const MOONSHOT_API_URL = 'https://api.moonshot.ai/v1/chat/completions';
 const MAX_OUTPUT_TOKENS = 32768; // Máximo de tokens para output (32K)

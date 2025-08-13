@@ -213,7 +213,6 @@ La EMT no es para todos, pero es una excelente opción para las personas que:
     category: 'Tratamientos',
     tags: ['EMT', 'Ansiedad', 'TAG', 'Neuromodulación', 'Salud Mental'],
     image: '/images/blog/emt-ansiedad.jpg'
-  }
   },
   {
     id: 'post_1870',

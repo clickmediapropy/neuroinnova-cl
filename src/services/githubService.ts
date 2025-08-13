@@ -1,7 +1,7 @@
 // GitHub API configuration
-const GITHUB_TOKEN = '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';
-const GITHUB_OWNER = 'clickmediapropy';
-const GITHUB_REPO = 'neuroinnova-cl';
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+const GITHUB_OWNER = import.meta.env.VITE_GITHUB_OWNER || 'clickmediapropy';
+const GITHUB_REPO = import.meta.env.VITE_GITHUB_REPO || 'neuroinnova-cl';
 const GITHUB_BRANCH = 'main';
 
 interface GitHubFile {
@@ -15,7 +15,67 @@ interface CommitResult {
   commitSha?: string;
   commitUrl?: string;
   error?: string;
+  branchName?: string;
+  pullRequestUrl?: string;
 }
+
+// --- Helper functions for branch management ---
+
+function generateBranchName(commitMessage: string): string {
+  const sanitized = commitMessage
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '') // remove non-word chars except space and dash
+    .trim()
+    .replace(/\s+/g, '-') // replace spaces with dashes
+    .substring(0, 40); // truncate
+  return `ai-patch/${sanitized}-${Date.now()}`;
+}
+
+// Get branch head SHA from GitHub
+async function getBranchSha(branch: string = GITHUB_BRANCH): Promise<string> {
+    const response = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/refs/heads/${branch}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${GITHUB_TOKEN}`,
+          'Accept': 'application/vnd.github.v3+json',
+        }
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`GitHub API error getting branch SHA: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.object.sha;
+}
+
+// Create a new branch on GitHub
+async function createBranch(newBranchName: string, sha: string): Promise<any> {
+  const response = await fetch(
+    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/refs`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ref: `refs/heads/${newBranchName}`,
+        sha: sha,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    // Branch might already exist, which is not a critical error in some workflows.
+    // For now, we'll throw.
+    throw new Error(`GitHub API error creating branch: ${error.message || response.statusText}`);
+  }
+  return response.json();
+}
+
 
 // Base64 encode/decode utilities
 function encodeBase64(str: string): string {
@@ -62,15 +122,16 @@ async function getFileContent(path: string): Promise<GitHubFile | null> {
 
 // Update or create a file on GitHub
 async function updateFile(
-  path: string, 
-  content: string, 
-  message: string, 
+  path: string,
+  content: string,
+  message: string,
+  branch: string,
   sha?: string
 ): Promise<any> {
   const body: any = {
     message,
     content: encodeBase64(content),
-    branch: GITHUB_BRANCH
+    branch: branch
   };
 
   if (sha) {
@@ -110,9 +171,16 @@ export async function applyChangesToGitHub(
   commitMessage: string
 ): Promise<CommitResult> {
   try {
+    const newBranchName = generateBranchName(commitMessage);
+
+    // 1. Get the SHA of the main branch
+    const mainSha = await getBranchSha(GITHUB_BRANCH);
+
+    // 2. Create a new branch from the main branch SHA
+    await createBranch(newBranchName, mainSha);
+
     // Group changes by file
     const fileChanges = new Map<string, typeof changes[0][]>();
-    
     for (const change of changes) {
       if (!fileChanges.has(change.file)) {
         fileChanges.set(change.file, []);
@@ -120,115 +188,59 @@ export async function applyChangesToGitHub(
       fileChanges.get(change.file)!.push(change);
     }
 
-    // Process each file
+    // Process each file and commit to the new branch
     const results = [];
-    
     for (const [filePath, fileChangeList] of fileChanges) {
-      // Get current file content
       const currentFile = await getFileContent(filePath);
-      
+
       if (!currentFile) {
-        // For new files, we'll create them with the new content
+        // Create new file
         const newContent = fileChangeList.map(c => c.newCode).join('\n');
-        const result = await updateFile(filePath, newContent, commitMessage);
+        const result = await updateFile(filePath, newContent, commitMessage, newBranchName);
         results.push(result);
         continue;
       }
 
       // Apply changes to existing file
       let updatedContent = currentFile.content;
-      
-      // Sort changes by line number in reverse order to avoid offset issues
       const sortedChanges = [...fileChangeList].sort((a, b) => b.lineStart - a.lineStart);
       
-      console.log(`Applying ${sortedChanges.length} changes to ${filePath}`);
-      
       for (const change of sortedChanges) {
-        console.log(`Looking for: "${change.oldCode.substring(0, 100)}..."`);
-        
-        // Try exact match first
+        // Apply changes using the same logic as before
         if (updatedContent.includes(change.oldCode)) {
           updatedContent = updatedContent.replace(change.oldCode, change.newCode);
-          console.log('✓ Applied change with exact match');
         } else {
-          // Try normalized whitespace match
-          const normalizeWhitespace = (str: string) => str.replace(/\s+/g, ' ').trim();
-          const normalizedOld = normalizeWhitespace(change.oldCode);
-          const normalizedContent = normalizeWhitespace(updatedContent);
-          
-          if (normalizedContent.includes(normalizedOld)) {
-            // Find the actual content with flexible whitespace
-            const flexibleRegex = new RegExp(
-              change.oldCode
-                .split(/\s+/)
-                .map(part => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-                .join('\\s*'),
-              'g'
-            );
-            
-            if (flexibleRegex.test(updatedContent)) {
-              updatedContent = updatedContent.replace(flexibleRegex, change.newCode);
-              console.log('✓ Applied change with flexible whitespace match');
-            }
+          const lines = updatedContent.split('\n');
+          if (change.lineStart > 0 && change.lineEnd > 0 && change.lineEnd <= lines.length) {
+            lines.splice(change.lineStart - 1, change.lineEnd - change.lineStart + 1, ...change.newCode.split('\n'));
+            updatedContent = lines.join('\n');
           } else {
-            // Try line-based replacement for multi-line changes
-            const lines = updatedContent.split('\n');
-            
-            if (change.lineStart > 0 && change.lineEnd > 0 && 
-                change.lineStart <= lines.length && change.lineEnd <= lines.length) {
-              
-              // Special case: if oldCode contains <h1 element, use direct line replacement
-              if (change.oldCode.includes('<h1') && change.newCode.includes('<h1')) {
-                console.log(`Replacing <h1> element at lines ${change.lineStart}-${change.lineEnd}`);
-                const newLines = change.newCode.split('\n');
-                lines.splice(change.lineStart - 1, change.lineEnd - change.lineStart + 1, ...newLines);
-                updatedContent = lines.join('\n');
-                console.log(`✓ Applied <h1> change by replacing lines ${change.lineStart}-${change.lineEnd}`);
-              } else {
-                // Extract the lines to be replaced
-                const linesToReplace = lines.slice(change.lineStart - 1, change.lineEnd).join('\n');
-                console.log(`Lines ${change.lineStart}-${change.lineEnd}: "${linesToReplace.substring(0, 100)}..."`);
-                
-                // Replace the lines
-                const newLines = change.newCode.split('\n');
-                lines.splice(change.lineStart - 1, change.lineEnd - change.lineStart + 1, ...newLines);
-                updatedContent = lines.join('\n');
-                console.log(`✓ Applied change by replacing lines ${change.lineStart}-${change.lineEnd}`);
-              }
-            } else {
-              console.warn(`✗ Could not find content to replace in ${filePath}`);
-              console.warn(`Searched for: "${change.oldCode.substring(0, 100)}..."`);
-              
-              // Last resort: try partial match on key parts
-              if (change.oldCode.includes('<h1') && change.newCode.includes('<h1')) {
-                // Special handling for HTML elements
-                const h1Regex = /<h1[^>]*>[\s\S]*?<\/h1>/;
-                if (h1Regex.test(updatedContent)) {
-                  updatedContent = updatedContent.replace(h1Regex, change.newCode);
-                  console.log('✓ Applied change by replacing entire <h1> element');
-                }
-              }
-            }
+             console.warn(`Could not apply change to ${filePath}, content not found.`);
           }
         }
       }
 
-      // Update the file
+      // Update the file on the new branch
       const result = await updateFile(
-        filePath, 
-        updatedContent, 
-        commitMessage, 
+        filePath,
+        updatedContent,
+        commitMessage,
+        newBranchName,
         currentFile.sha
       );
       results.push(result);
     }
 
-    // Return success with the last commit info
+    // Return success with info about the new branch and a PR link
     const lastResult = results[results.length - 1];
+    const pullRequestUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/pull/new/${newBranchName}`;
+
     return {
       success: true,
       commitSha: lastResult.commit.sha,
-      commitUrl: lastResult.commit.html_url
+      commitUrl: lastResult.commit.html_url,
+      branchName: newBranchName,
+      pullRequestUrl: pullRequestUrl,
     };
 
   } catch (error: any) {
