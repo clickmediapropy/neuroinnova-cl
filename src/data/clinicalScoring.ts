@@ -21,7 +21,7 @@ export const testTypeMapping: Record<string, string> = {
   'bipolar': 'MDQ',
   'ptsd': 'PCL-5',
   'psychosis': 'PQ-B',
-  'addiction': 'CAGE-AID',
+  'addiction': 'AUDIT-10',
   'eatingDisorder': 'SWED',
   'parentChildMentalHealth': 'PSC-35-P',
   'adhd': 'ASRS-v1.1',
@@ -182,36 +182,36 @@ export const clinicalScoringData: Record<string, TestConfiguration> = {
       }
     ]
   },
-  'CAGE-AID': {
-    nombre_test: 'AUDIT + Drogas',
+  'AUDIT-10': {
+    nombre_test: 'AUDIT-10',
     rangos: [
       {
         min: 0,
         max: 7,
         categoria: 'Bajo riesgo',
-        descripcion_problema: 'No se identifican problemas significativos con el uso de sustancias.',
-        solucion_recomendada: 'Mantener vigilancia y educación preventiva.'
+        descripcion_problema: 'Consumo de alcohol dentro de límites de bajo riesgo.',
+        solucion_recomendada: 'Mantener educación preventiva y monitoreo periódico.'
       },
       {
         min: 8,
         max: 15,
-        categoria: 'Riesgo moderado',
-        descripcion_problema: 'Uso riesgoso de alcohol o sustancias que puede derivar en problemas.',
+        categoria: 'Riesgo medio',
+        descripcion_problema: 'Consumo de alcohol que puede derivar en problemas de salud.',
         solucion_recomendada: 'Intervención breve y consejería sobre reducción de consumo.'
       },
       {
         min: 16,
-        max: 25,
-        categoria: 'Riesgo alto',
-        descripcion_problema: 'Uso problemático de sustancias con consecuencias negativas.',
-        solucion_recomendada: 'Evaluación completa y posible tratamiento ambulatorio.'
+        max: 19,
+        categoria: 'Alto riesgo',
+        descripcion_problema: 'Consumo nocivo de alcohol con consecuencias negativas.',
+        solucion_recomendada: 'Evaluación completa y consejería intensiva.'
       },
       {
-        min: 26,
-        max: 44,
-        categoria: 'Dependencia probable',
-        descripcion_problema: 'Alta probabilidad de trastorno por uso de sustancias severo.',
-        solucion_recomendada: 'Derivar urgentemente para tratamiento especializado intensivo.'
+        min: 20,
+        max: 40,
+        categoria: 'Posible dependencia',
+        descripcion_problema: 'Alta probabilidad de dependencia al alcohol.',
+        solucion_recomendada: 'Derivar urgentemente para tratamiento especializado.'
       }
     ]
   },

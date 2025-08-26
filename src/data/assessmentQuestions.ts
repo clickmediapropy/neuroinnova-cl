@@ -817,102 +817,109 @@ export const assessmentQuestions: AssessmentQuestions = {
   // Adicción
   addiction: [
     {
-      question: "¿Ha consumido alcohol o drogas más de lo que planeaba?",
-      description: "Pérdida de control sobre la cantidad consumida",
+      question: "¿Con qué frecuencia consume bebidas alcohólicas?",
+      description: "Frecuencia de consumo de alcohol",
       examples: [
-        "Beber 'solo una copa' y terminar bebiendo mucho más",
-        "Usar sustancias más tiempo del previsto",
-        "No poder parar una vez que empieza"
+        "Nunca",
+        "Una vez al mes o menos",
+        "2-4 veces al mes",
+        "2-3 veces por semana",
+        "4 o más veces por semana"
       ]
     },
     {
-      question: "¿Ha intentado reducir o dejar de consumir sin éxito?",
-      description: "Intentos fallidos de controlar el consumo",
+      question: "¿Cuántas consumiciones de bebidas alcohólicas hace en un día típico cuando bebe?",
+      description: "Cantidad típica de consumo",
       examples: [
-        "Promesas rotas de dejar de consumir",
-        "Múltiples intentos sin éxito",
-        "Volver a consumir después de períodos de abstinencia"
+        "1 o 2",
+        "3 o 4",
+        "5 o 6",
+        "7 a 9",
+        "10 o más"
       ]
     },
     {
-      question: "¿Pasa mucho tiempo obteniendo, consumiendo o recuperándose de sustancias?",
-      description: "Gran parte del día dedicada al consumo",
+      question: "¿Con qué frecuencia toma 6 o más bebidas alcohólicas en una sola ocasión?",
+      description: "Frecuencia de consumo excesivo",
       examples: [
-        "Planificar el día alrededor del consumo",
-        "Largas resacas o períodos de recuperación",
-        "Tiempo buscando cómo conseguir sustancias"
+        "Nunca",
+        "Menos de una vez al mes",
+        "Mensualmente",
+        "Semanalmente",
+        "A diario o casi a diario"
       ]
     },
     {
-      question: "¿Ha sentido deseos intensos o urgencia de consumir?",
-      description: "Antojos fuertes o compulsión por usar sustancias",
+      question: "¿Con qué frecuencia, en el último año, no pudo dejar de beber una vez que había empezado?",
+      description: "Pérdida de control sobre el consumo",
       examples: [
-        "Pensamientos obsesivos sobre consumir",
-        "Ansiedad intensa si no puede consumir",
-        "Sentir que 'necesita' la sustancia"
+        "Nunca",
+        "Menos de una vez al mes",
+        "Mensualmente",
+        "Semanalmente",
+        "A diario o casi a diario"
       ]
     },
     {
-      question: "¿El consumo ha afectado su trabajo, estudios o responsabilidades familiares?",
-      description: "Problemas en áreas importantes de la vida",
+      question: "¿Con qué frecuencia, en el último año, no pudo hacer lo que esperaba de usted porque había bebido?",
+      description: "Incumplimiento de obligaciones por el consumo",
       examples: [
-        "Faltar al trabajo por consumir o resaca",
-        "Descuidar obligaciones familiares",
-        "Bajo rendimiento académico o laboral"
+        "Nunca",
+        "Menos de una vez al mes",
+        "Mensualmente",
+        "Semanalmente",
+        "A diario o casi a diario"
       ]
     },
     {
-      question: "¿Continúa consumiendo a pesar de problemas sociales o interpersonales?",
-      description: "Persistir pese a conflictos relacionados con el consumo",
+      question: "¿Con qué frecuencia, en el último año, necesitó beber por la mañana para sentirse mejor después de haber bebido mucho el día anterior?",
+      description: "Consumo matutino para aliviar síntomas",
       examples: [
-        "Peleas con familia por el consumo",
-        "Pérdida de amistades",
-        "Problemas de pareja por las sustancias"
+        "Nunca",
+        "Menos de una vez al mes",
+        "Mensualmente",
+        "Semanalmente",
+        "A diario o casi a diario"
       ]
     },
     {
-      question: "¿Ha dejado actividades importantes por el consumo?",
-      description: "Abandono de intereses o actividades previas",
+      question: "¿Con qué frecuencia, en el último año, tuvo sentimientos de culpa o remordimiento después de haber bebido?",
+      description: "Culpa o remordimiento post-consumo",
       examples: [
-        "Dejar deportes o hobbies",
-        "No participar en eventos familiares",
-        "Aislarse para poder consumir"
+        "Nunca",
+        "Menos de una vez al mes",
+        "Mensualmente",
+        "Semanalmente",
+        "A diario o casi a diario"
       ]
     },
     {
-      question: "¿Ha consumido en situaciones peligrosas?",
-      description: "Uso de sustancias en contextos de riesgo",
+      question: "¿Con qué frecuencia, en el último año, no pudo recordar lo que sucedió la noche anterior porque había estado bebiendo?",
+      description: "Lagunas de memoria por el consumo",
       examples: [
-        "Conducir bajo los efectos",
-        "Usar en el trabajo con maquinaria",
-        "Mezclar sustancias peligrosamente"
+        "Nunca",
+        "Menos de una vez al mes",
+        "Mensualmente",
+        "Semanalmente",
+        "A diario o casi a diario"
       ]
     },
     {
-      question: "¿Continúa consumiendo sabiendo que le causa problemas físicos o psicológicos?",
-      description: "Persistir pese a daños conocidos a la salud",
+      question: "¿Usted o alguna otra persona ha resultado herido porque usted había bebido?",
+      description: "Lesiones relacionadas con el consumo",
       examples: [
-        "Beber con problemas hepáticos",
-        "Usar pese a problemas cardíacos",
-        "Consumir sabiendo que empeora ansiedad o depresión"
+        "No",
+        "Sí, pero no en el último año",
+        "Sí, en el último año"
       ]
     },
     {
-      question: "¿Necesita consumir más cantidad para sentir el mismo efecto?",
-      description: "Desarrollo de tolerancia a la sustancia",
+      question: "¿Algún familiar, amigo, médico o profesional sanitario ha mostrado preocupación por su consumo de alcohol o le ha sugerido que deje de beber?",
+      description: "Preocupación de terceros por el consumo",
       examples: [
-        "Duplicar o triplicar las dosis iniciales",
-        "El efecto dura menos que antes",
-        "Necesitar cantidades que asustarían a otros"
-      ]
-    },
-    {
-      question: "¿Ha tenido síntomas de abstinencia al reducir o dejar de consumir?",
-      description: "Malestar físico o mental al no consumir",
-      examples: [
-        "Temblores, sudoración o náuseas",
-        "Ansiedad o irritabilidad intensa",
-        "Insomnio o pesadillas al dejar de usar"
+        "No",
+        "Sí, pero no en el último año",
+        "Sí, en el último año"
       ]
     }
   ],
