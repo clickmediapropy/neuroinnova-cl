@@ -12,10 +12,8 @@ import { getAssessmentQuestions } from "@/data/assessmentQuestions";
 const questionData = getAssessmentQuestions('bipolar');
 
 const options = [
-  { label: "Nunca", value: "0", points: 0 },
-  { label: "Varios días", value: "1", points: 1 },
-  { label: "Más de la mitad de los días", value: "2", points: 2 },
-  { label: "Casi todos los días", value: "3", points: 3 }
+  { label: "No", value: "0", points: 0 },
+  { label: "Sí", value: "1", points: 1 }
 ];
 
 const BipolarEvaluacion = () => {

@@ -60,7 +60,7 @@ const EvaluacionPadresEvaluacion = () => {
   if (isComplete) {
     return (
       <AssessmentResults 
-        type="parent-child-mental-health"
+        type="parentChildMentalHealth"
         score={score}
         onReset={handleReset}
       />

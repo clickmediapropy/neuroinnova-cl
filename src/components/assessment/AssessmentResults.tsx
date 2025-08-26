@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { getClinicalInterpretation, getSeverityColor, validateScore } from "@/data/clinicalScoring";
 
-export type AssessmentType = "depression" | "anxiety" | "bipolar" | "ptsd" | "psychosis" | "adhd" | "eating-disorder" | "addiction" | "postpartum-depression" | "parent-child-mental-health" | "youth-mental-health";
+export type AssessmentType = "depression" | "anxiety" | "bipolar" | "ptsd" | "psychosis" | "adhd" | "eatingDisorder" | "addiction" | "postpartumDepression" | "parentChildMentalHealth" | "youthMentalHealth";
 
 interface AssessmentResultsProps {
   type: AssessmentType;
@@ -243,14 +243,14 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
           case "depression": return "Evaluación de Depresión (PHQ-9)";
           case "anxiety": return "Evaluación de Ansiedad (GAD-7)";
           case "bipolar": return "Evaluación de Trastorno Bipolar (MDQ)";
-          case "ptsd": return "Evaluación de Estrés Postraumático (PC-PTSD-5)";
+          case "ptsd": return "Evaluación de Estrés Postraumático (PCL-5)";
           case "psychosis": return "Evaluación de Riesgo de Psicosis (PQ-B)";
           case "adhd": return "Evaluación de TDAH (ASRS)";
-          case "eating-disorder": return "Evaluación de Trastorno Alimentario (SWED)";
+          case "eatingDisorder": return "Evaluación de Trastorno Alimentario (SWED)";
           case "addiction": return "Evaluación de Uso de Sustancias (AUDIT)";
-          case "postpartum-depression": return "Evaluación de Depresión Postparto (EPDS)";
-          case "parent-child-mental-health": return "Evaluación de Salud Mental Infantil (PSC-35)";
-          case "youth-mental-health": return "Evaluación de Salud Mental Juvenil (PSC-35)";
+          case "postpartumDepression": return "Evaluación de Depresión Postparto (EPDS)";
+          case "parentChildMentalHealth": return "Evaluación de Salud Mental Infantil (PSC-35)";
+          case "youthMentalHealth": return "Evaluación de Salud Mental Juvenil (PSC-35)";
           default: return "Evaluación de Salud Mental";
         }
       };
@@ -300,20 +300,15 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       // Send to GoHighLevel webhook
       console.log('Final webhook data:', JSON.stringify(webhookData, null, 2));
       
-      try {
-        const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(webhookData),
-        });
+      const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(webhookData),
+      });
 
-        // Webhook request sent successfully
-      } catch (fetchError) {
-        // Fetch error occurred
-        throw fetchError;
-      }
+      // Webhook request sent successfully
       // Since we're using no-cors, we can't check response status
       // but the request will be sent
       
@@ -358,11 +353,11 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
               type === "ptsd" ? "estrés postraumático" :
               type === "psychosis" ? "síntomas psicóticos" :
               type === "adhd" ? "TDAH" :
-              type === "eating-disorder" ? "trastorno alimentario" :
+              type === "eatingDisorder" ? "trastorno alimentario" :
               type === "addiction" ? "uso de sustancias" :
-              type === "postpartum-depression" ? "depresión postparto" :
-              type === "parent-child-mental-health" ? "salud mental de su hijo/a" :
-              type === "youth-mental-health" ? "salud mental juvenil" :
+              type === "postpartumDepression" ? "depresión postparto" :
+              type === "parentChildMentalHealth" ? "salud mental de su hijo/a" :
+              type === "youthMentalHealth" ? "salud mental juvenil" :
               "salud mental"
             }.
           </p>

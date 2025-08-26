@@ -12,10 +12,8 @@ import { getAssessmentQuestions } from "@/data/assessmentQuestions";
 const questionData = getAssessmentQuestions('psychosis');
 
 const options = [
-  { label: "Nunca", value: "0", points: 0 },
-  { label: "A veces", value: "1", points: 1 },
-  { label: "Frecuentemente", value: "2", points: 2 },
-  { label: "Casi siempre", value: "3", points: 3 }
+  { label: "No", value: "0", points: 0 },
+  { label: "Sí", value: "1", points: 1 }
 ];
 
 const PsicosisEvaluacion = () => {

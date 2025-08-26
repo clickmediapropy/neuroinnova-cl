@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { getAssessmentQuestions } from "@/data/assessmentQuestions";
 
 // Obtener preguntas mejoradas del archivo de datos
-const questionData = getAssessmentQuestions('postpartum-depression');
+const questionData = getAssessmentQuestions('postpartumDepression');
 
 const getOptionsForQuestion = (questionIndex: number) => {
   if (questionIndex === 0) { // Able to laugh
@@ -139,7 +139,7 @@ const DepresionPostpartoEvaluacion = () => {
   if (isComplete) {
     return (
       <AssessmentResults 
-        type="postpartum-depression"
+        type="postpartumDepression"
         score={score}
         onReset={handleReset}
       />

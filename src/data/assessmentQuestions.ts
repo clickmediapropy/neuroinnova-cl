@@ -1367,6 +1367,388 @@ export const assessmentQuestions: AssessmentQuestions = {
         "Preguntar constantemente '¿qué pasaría si...?'"
       ]
     }
+  ],
+
+  // EPDS - Escala de Depresión Postparto de Edimburgo
+  postpartumDepression: [
+    {
+      question: "He sido capaz de reír y ver el lado bueno de las cosas",
+      description: "Evalúa su capacidad para mantener el sentido del humor",
+      examples: [
+        "Reír con naturalidad ante situaciones divertidas",
+        "Encontrar aspectos positivos en la vida diaria",
+        "Mantener el optimismo ante los desafíos"
+      ]
+    },
+    {
+      question: "He mirado el futuro con placer",
+      description: "Evalúa su capacidad de anticipar eventos positivos",
+      examples: [
+        "Planear actividades con entusiasmo",
+        "Tener esperanza sobre el futuro",
+        "Imaginar momentos felices por venir"
+      ]
+    },
+    {
+      question: "Me he culpado sin necesidad cuando las cosas no salían bien",
+      description: "Tendencia a la autoculpabilización excesiva",
+      examples: [
+        "Sentirse responsable por el llanto del bebé",
+        "Culparse por no ser 'perfecta' como madre",
+        "Asumir la culpa de situaciones fuera de su control"
+      ]
+    },
+    {
+      question: "He estado ansiosa o preocupada sin motivo",
+      description: "Ansiedad o preocupación desproporcionada",
+      examples: [
+        "Preocuparse constantemente por el bebé sin razón",
+        "Ansiedad sobre ser buena madre",
+        "Temores irracionales sobre el futuro"
+      ]
+    },
+    {
+      question: "He sentido miedo o pánico sin motivo alguno",
+      description: "Episodios de miedo intenso sin causa aparente",
+      examples: [
+        "Ataques de pánico repentinos",
+        "Terror inexplicable",
+        "Sensación de que algo terrible va a pasar"
+      ]
+    },
+    {
+      question: "Las cosas me han sobrepasado o agobiado",
+      description: "Sensación de estar abrumada por las responsabilidades",
+      examples: [
+        "Sentir que no puede con todas las tareas",
+        "Estar desbordada por el cuidado del bebé",
+        "No poder manejar las actividades diarias"
+      ]
+    },
+    {
+      question: "Me he sentido tan infeliz que he tenido dificultad para dormir",
+      description: "Problemas de sueño relacionados con el estado emocional",
+      examples: [
+        "No poder dormir aunque el bebé esté durmiendo",
+        "Despertarse con pensamientos negativos",
+        "Insomnio por tristeza o preocupación"
+      ]
+    },
+    {
+      question: "Me he sentido triste o desgraciada",
+      description: "Sentimientos persistentes de tristeza",
+      examples: [
+        "Llorar frecuentemente",
+        "Sentir un vacío emocional",
+        "Tristeza que no mejora con el tiempo"
+      ]
+    },
+    {
+      question: "He sido tan infeliz que he estado llorando",
+      description: "Llanto frecuente debido a la infelicidad",
+      examples: [
+        "Llorar sin razón aparente",
+        "No poder contener las lágrimas",
+        "Episodios de llanto prolongados"
+      ]
+    },
+    {
+      question: "He pensado en hacerme daño a mí misma",
+      description: "Pensamientos de autolesión o suicidio",
+      examples: [
+        "Pensar que estarían mejor sin usted",
+        "Ideas de lastimarse",
+        "Pensamientos sobre terminar con su vida"
+      ]
+    }
+  ],
+
+  // PSC-35 - Cuestionario de Síntomas Pediátricos (versión para padres)
+  parentChildMentalHealth: [
+    {
+      question: "Se queja de dolores y molestias",
+      description: "Quejas físicas sin causa médica aparente"
+    },
+    {
+      question: "Pasa mucho tiempo solo/a",
+      description: "Aislamiento social o preferencia por estar solo"
+    },
+    {
+      question: "Se cansa fácilmente, tiene poca energía",
+      description: "Fatiga o falta de energía persistente"
+    },
+    {
+      question: "Es inquieto/a o hiperactivo/a, no puede estar quieto/a",
+      description: "Hiperactividad o dificultad para permanecer quieto"
+    },
+    {
+      question: "Tiene problemas con el/la profesor/a",
+      description: "Conflictos o dificultades en el ambiente escolar"
+    },
+    {
+      question: "Está menos interesado/a en la escuela",
+      description: "Pérdida de interés o motivación académica"
+    },
+    {
+      question: "Actúa como si fuera más pequeño/a",
+      description: "Comportamiento regresivo o inmaduro para su edad"
+    },
+    {
+      question: "No obedece las reglas",
+      description: "Desobediencia o desafío a la autoridad"
+    },
+    {
+      question: "No muestra sus sentimientos",
+      description: "Dificultad para expresar emociones"
+    },
+    {
+      question: "No entiende los sentimientos de otros",
+      description: "Falta de empatía o comprensión emocional"
+    },
+    {
+      question: "Molesta o se burla de otros",
+      description: "Comportamiento de acoso o burla hacia otros"
+    },
+    {
+      question: "Culpa a otros por sus problemas",
+      description: "Tendencia a no asumir responsabilidad"
+    },
+    {
+      question: "Toma cosas que no le pertenecen",
+      description: "Comportamiento de robo o apropiación indebida"
+    },
+    {
+      question: "Se distrae fácilmente",
+      description: "Problemas de atención o concentración"
+    },
+    {
+      question: "Tiene pesadillas",
+      description: "Sueños perturbadores frecuentes"
+    },
+    {
+      question: "Se siente triste o infeliz",
+      description: "Estado de ánimo depresivo persistente"
+    },
+    {
+      question: "Se siente sin esperanza",
+      description: "Sentimientos de desesperanza sobre el futuro"
+    },
+    {
+      question: "Está preocupado/a por muchas cosas",
+      description: "Ansiedad o preocupación excesiva"
+    },
+    {
+      question: "Parece estar divirtiéndose menos",
+      description: "Pérdida de interés en actividades placenteras"
+    },
+    {
+      question: "Se niega a compartir",
+      description: "Dificultad para compartir con otros"
+    },
+    {
+      question: "Pelea con otros niños",
+      description: "Comportamiento agresivo con pares"
+    },
+    {
+      question: "Está ausente de la escuela",
+      description: "Ausentismo escolar"
+    },
+    {
+      question: "Tiene bajo rendimiento escolar",
+      description: "Calificaciones o desempeño académico deficiente"
+    },
+    {
+      question: "Visita frecuentemente al médico",
+      description: "Quejas somáticas frecuentes"
+    },
+    {
+      question: "Tiene miedo de estar solo/a",
+      description: "Ansiedad de separación"
+    },
+    {
+      question: "Siente que es malo/a",
+      description: "Sentimientos de culpa o baja autoestima"
+    },
+    {
+      question: "Toma riesgos innecesarios",
+      description: "Comportamiento impulsivo o temerario"
+    },
+    {
+      question: "Se lastima a sí mismo/a",
+      description: "Comportamiento autolesivo"
+    },
+    {
+      question: "Parece estar teniendo menos diversión",
+      description: "Anhedonia o pérdida de placer"
+    },
+    {
+      question: "Actúa como si fuera manejado/a por un motor",
+      description: "Hiperactividad extrema"
+    },
+    {
+      question: "Pelea con usted",
+      description: "Conflictos con los padres"
+    },
+    {
+      question: "No se comunica bien",
+      description: "Problemas de comunicación"
+    },
+    {
+      question: "Ve u oye cosas que no existen",
+      description: "Posibles síntomas psicóticos"
+    },
+    {
+      question: "Es nervioso/a o tenso/a",
+      description: "Ansiedad o tensión persistente"
+    },
+    {
+      question: "Tiene cambios de humor repentinos",
+      description: "Inestabilidad emocional"
+    }
+  ],
+
+  // PSC-Y - Cuestionario de Síntomas Pediátricos (versión para jóvenes)
+  youthMentalHealth: [
+    {
+      question: "Me quejo de dolores y molestias",
+      description: "Molestias físicas sin causa médica clara"
+    },
+    {
+      question: "Paso mucho tiempo solo/a",
+      description: "Preferencia por el aislamiento social"
+    },
+    {
+      question: "Me canso fácilmente, tengo poca energía",
+      description: "Fatiga persistente o falta de energía"
+    },
+    {
+      question: "Soy inquieto/a, no puedo estar quieto/a",
+      description: "Dificultad para permanecer tranquilo"
+    },
+    {
+      question: "Tengo problemas con mis profesores",
+      description: "Conflictos en el ambiente escolar"
+    },
+    {
+      question: "Estoy menos interesado/a en la escuela",
+      description: "Pérdida de motivación académica"
+    },
+    {
+      question: "Actúo como si fuera más pequeño/a",
+      description: "Comportamiento inmaduro para mi edad"
+    },
+    {
+      question: "No obedezco las reglas",
+      description: "Dificultad para seguir normas"
+    },
+    {
+      question: "No muestro mis sentimientos",
+      description: "Dificultad para expresar emociones"
+    },
+    {
+      question: "No entiendo los sentimientos de otros",
+      description: "Dificultad con la empatía"
+    },
+    {
+      question: "Molesto o me burlo de otros",
+      description: "Comportamiento de burla hacia otros"
+    },
+    {
+      question: "Culpo a otros por mis problemas",
+      description: "Dificultad para asumir responsabilidad"
+    },
+    {
+      question: "Tomo cosas que no me pertenecen",
+      description: "Comportamiento de apropiación indebida"
+    },
+    {
+      question: "Me distraigo fácilmente",
+      description: "Problemas de concentración"
+    },
+    {
+      question: "Tengo pesadillas",
+      description: "Sueños perturbadores frecuentes"
+    },
+    {
+      question: "Me siento triste o infeliz",
+      description: "Estado de ánimo depresivo"
+    },
+    {
+      question: "Me siento sin esperanza",
+      description: "Sentimientos de desesperanza"
+    },
+    {
+      question: "Estoy preocupado/a por muchas cosas",
+      description: "Ansiedad o preocupación excesiva"
+    },
+    {
+      question: "Parece que me divierto menos",
+      description: "Pérdida de interés en actividades"
+    },
+    {
+      question: "Me niego a compartir",
+      description: "Dificultad para compartir"
+    },
+    {
+      question: "Peleo con otros jóvenes",
+      description: "Comportamiento agresivo con pares"
+    },
+    {
+      question: "Falto a la escuela",
+      description: "Ausentismo escolar"
+    },
+    {
+      question: "Tengo bajo rendimiento escolar",
+      description: "Dificultades académicas"
+    },
+    {
+      question: "Visito frecuentemente al médico",
+      description: "Quejas físicas frecuentes"
+    },
+    {
+      question: "Tengo miedo de estar solo/a",
+      description: "Ansiedad cuando estoy solo"
+    },
+    {
+      question: "Siento que soy malo/a",
+      description: "Sentimientos de culpa"
+    },
+    {
+      question: "Tomo riesgos innecesarios",
+      description: "Comportamiento impulsivo"
+    },
+    {
+      question: "Me lastimo a mí mismo/a",
+      description: "Comportamiento autolesivo"
+    },
+    {
+      question: "Tengo menos diversión",
+      description: "Pérdida de placer en actividades"
+    },
+    {
+      question: "Actúo como si fuera manejado/a por un motor",
+      description: "Hiperactividad extrema"
+    },
+    {
+      question: "Peleo con mis padres",
+      description: "Conflictos familiares"
+    },
+    {
+      question: "No me comunico bien",
+      description: "Problemas de comunicación"
+    },
+    {
+      question: "Veo u oigo cosas que no existen",
+      description: "Experiencias perceptuales inusuales"
+    },
+    {
+      question: "Soy nervioso/a o tenso/a",
+      description: "Ansiedad o tensión persistente"
+    },
+    {
+      question: "Tengo cambios de humor repentinos",
+      description: "Inestabilidad emocional"
+    }
   ]
 };
 

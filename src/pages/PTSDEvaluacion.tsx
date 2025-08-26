@@ -12,10 +12,11 @@ import { getAssessmentQuestions } from "@/data/assessmentQuestions";
 const questionData = getAssessmentQuestions('ptsd');
 
 const options = [
-  { label: "Nunca", value: "0", points: 0 },
-  { label: "Varios días", value: "1", points: 1 },
-  { label: "Más de la mitad de los días", value: "2", points: 2 },
-  { label: "Casi todos los días", value: "3", points: 3 }
+  { label: "Nada", value: "0", points: 0 },
+  { label: "Un poco", value: "1", points: 1 },
+  { label: "Moderadamente", value: "2", points: 2 },
+  { label: "Bastante", value: "3", points: 3 },
+  { label: "Extremadamente", value: "4", points: 4 }
 ];
 
 const PTSDEvaluacion = () => {
@@ -78,11 +79,11 @@ const PTSDEvaluacion = () => {
         </div>
         
         <h1 className="text-3xl font-bold text-center text-primary mb-2">
-          Autoevaluación de Estrés Postraumático
+          Autoevaluación de Estrés Postraumático (PCL-5)
         </h1>
         
         <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Este cuestionario evalúa síntomas de TEPT. Responda según cómo se ha sentido durante el último mes.
+          Este cuestionario evalúa síntomas de TEPT. Para cada pregunta, indique qué tanto le ha molestado ese problema durante el último mes.
         </p>
         
         <div className="mb-8">

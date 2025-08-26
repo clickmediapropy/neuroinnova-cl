@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { getAssessmentQuestions } from "@/data/assessmentQuestions";
 
 // Obtener preguntas mejoradas del archivo de datos
-const questionData = getAssessmentQuestions('youth-mental-health');
+const questionData = getAssessmentQuestions('youthMentalHealth');
 
 const options = [
   { label: "No, nunca", value: "0", points: 0 },
@@ -70,7 +70,7 @@ const JovenesEvaluacion = () => {
   if (isComplete) {
     return (
       <AssessmentResults 
-        type="youth-mental-health"
+        type="youthMentalHealth"
         score={score}
         onReset={handleReset}
       />

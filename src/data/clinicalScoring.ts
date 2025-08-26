@@ -19,14 +19,14 @@ export const testTypeMapping: Record<string, string> = {
   'depression': 'PHQ-9',
   'anxiety': 'GAD-7',
   'bipolar': 'MDQ',
-  'ptsd': 'PC-PTSD-5',
+  'ptsd': 'PCL-5',
   'psychosis': 'PQ-B',
   'addiction': 'CAGE-AID',
-  'eating-disorder': 'SWED',
-  'parent-child-mental-health': 'PSC-35',
+  'eatingDisorder': 'SWED',
+  'parentChildMentalHealth': 'PSC-35-P',
   'adhd': 'ASRS-v1.1',
-  'postpartum-depression': 'EPDS',
-  'youth-mental-health': 'PSC-35' // Usa el mismo sistema que parent-child
+  'postpartumDepression': 'EPDS',
+  'youthMentalHealth': 'PSC-35-Y'
 };
 
 // Configuración completa de rangos clínicos validados
@@ -123,22 +123,43 @@ export const clinicalScoringData: Record<string, TestConfiguration> = {
       }
     ]
   },
-  'PC-PTSD-5': {
-    nombre_test: 'PC-PTSD-5',
+  'PCL-5': {
+    nombre_test: 'PCL-5',
     rangos: [
       {
         min: 0,
-        max: 2,
-        categoria: 'Baja probabilidad',
-        descripcion_problema: 'Baja probabilidad de trastorno por estrés postraumático.',
-        solucion_recomendada: 'Continuar seguimiento y monitoreo.'
+        max: 10,
+        categoria: 'Mínimo',
+        descripcion_problema: 'Síntomas mínimos de estrés postraumático.',
+        solucion_recomendada: 'Continuar seguimiento y monitoreo rutinario.'
       },
       {
-        min: 3,
-        max: 5,
-        categoria: 'Screening positivo',
-        descripcion_problema: 'Posible PTSD que requiere evaluación clínica.',
-        solucion_recomendada: 'Derivar a profesional especializado para diagnóstico.'
+        min: 11,
+        max: 22,
+        categoria: 'Leve',
+        descripcion_problema: 'Síntomas leves de PTSD que pueden requerir atención.',
+        solucion_recomendada: 'Considerar apoyo psicosocial y técnicas de manejo del estrés.'
+      },
+      {
+        min: 23,
+        max: 32,
+        categoria: 'Moderado',
+        descripcion_problema: 'Síntomas moderados de PTSD con impacto funcional.',
+        solucion_recomendada: 'Evaluación clínica recomendada y posible inicio de terapia.'
+      },
+      {
+        min: 33,
+        max: 44,
+        categoria: 'Severo',
+        descripcion_problema: 'Síntomas severos de PTSD que afectan significativamente la vida.',
+        solucion_recomendada: 'Derivación urgente a especialista en trauma.'
+      },
+      {
+        min: 45,
+        max: 80,
+        categoria: 'Muy severo',
+        descripcion_problema: 'Síntomas muy severos de PTSD con alto riesgo y disfunción grave.',
+        solucion_recomendada: 'Intervención inmediata con equipo especializado en trauma.'
       }
     ]
   },
@@ -147,14 +168,14 @@ export const clinicalScoringData: Record<string, TestConfiguration> = {
     rangos: [
       {
         min: 0,
-        max: 5,
+        max: 2,
         categoria: 'Riesgo bajo',
         descripcion_problema: 'No se detecta riesgo clínico importante de psicosis temprana.',
         solucion_recomendada: 'Monitorear síntomas y seguimiento rutinario.'
       },
       {
-        min: 6,
-        max: 105,
+        min: 3,
+        max: 21,
         categoria: 'Riesgo alto',
         descripcion_problema: 'Puntuación indica posible riesgo elevado de psicosis temprana.',
         solucion_recomendada: 'Se recomienda evaluación especializada inmediata.'
@@ -220,14 +241,33 @@ export const clinicalScoringData: Record<string, TestConfiguration> = {
       }
     ]
   },
-  'PSC-35': {
-    nombre_test: 'PSC-35',
+  'PSC-35-P': {
+    nombre_test: 'PSC-35 (Padres)',
+    rangos: [
+      {
+        min: 0,
+        max: 27,
+        categoria: 'Funcional sin dificultades',
+        descripcion_problema: 'Sin signos significativos de disfunción psicosocial en su hijo/a.',
+        solucion_recomendada: 'Continuar monitoreo habitual.'
+      },
+      {
+        min: 28,
+        max: 70,
+        categoria: 'Funcional con dificultades',
+        descripcion_problema: 'Disfunción psicosocial presente que puede requerir apoyo.',
+        solucion_recomendada: 'Evaluar con profesional especializado en salud mental infantil.'
+      }
+    ]
+  },
+  'PSC-35-Y': {
+    nombre_test: 'PSC-35 (Jóvenes)',
     rangos: [
       {
         min: 0,
         max: 29,
         categoria: 'Funcional sin dificultades',
-        descripcion_problema: 'Sin signos significativos de disfunción psicosocial en niño o adolescente.',
+        descripcion_problema: 'Sin signos significativos de disfunción psicosocial.',
         solucion_recomendada: 'Continuar monitoreo habitual.'
       },
       {
@@ -235,7 +275,7 @@ export const clinicalScoringData: Record<string, TestConfiguration> = {
         max: 105,
         categoria: 'Funcional con dificultades',
         descripcion_problema: 'Disfunción psicosocial presente que puede requerir apoyo.',
-        solucion_recomendada: 'Evaluar con profesional especializado en salud mental infantil.'
+        solucion_recomendada: 'Buscar evaluación con profesional de salud mental.'
       }
     ]
   },

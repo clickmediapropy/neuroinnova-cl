@@ -99,7 +99,7 @@ const TrastornoAlimentarioEvaluacion = () => {
   if (isComplete) {
     return (
       <AssessmentResults 
-        type="eating-disorder"
+        type="eatingDisorder"
         score={score}
         onReset={handleReset}
       />
