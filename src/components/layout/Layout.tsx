@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import Header from "./Header";
 import HomeHeader from "./HomeHeader";
 import Footer from "./Footer";
-import FirstVisitTooltip from "../ui/FirstVisitTooltip";
 import FloatingActions from "../ui/FloatingActions";
 
 interface LayoutProps {
@@ -18,7 +17,6 @@ const Layout = ({ children, isHomePage = false }: LayoutProps) => {
         {children}
       </main>
       <Footer />
-      <FirstVisitTooltip />
       <FloatingActions />
     </div>
   );
