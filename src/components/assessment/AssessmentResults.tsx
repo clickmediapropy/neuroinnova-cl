@@ -257,60 +257,44 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
       const localSeverityInfo = getSeverityLevel();
 
-      // Prepare data for GoHighLevel webhook with correct field keys
-      const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+      const currentDate = new Date().toISOString().split('T')[0];
       const evaluationEntry = `${currentDate}: ${getAssessmentTypeName()} - Puntaje ${score} (${localSeverityInfo.level})`;
-      
-      // Format full phone number for GoHighLevel
       const fullPhone = `${formData.codigoPais}${formData.telefono.replace(/\s/g, '')}`;
-      console.log('Full phone number being sent:', fullPhone);
-      console.log('Webhook data being prepared...');
-      
+
       const webhookData = {
-        // Standard fields
-        "firstName": formData.nombre,
-        "lastName": formData.apellido,
-        "email": formData.email,
-        "phone": fullPhone,
-        
-        // Custom fields for evaluations - using exact field keys from GoHighLevel
-        "contact.score_phq_9_puntaje_total_2": score, // Puntaje Total
-        "contact.diagnstico_preliminar": `${getAssessmentTypeName()} - Puntaje: ${score} - Nivel: ${localSeverityInfo.level}`, // Diagnóstico Preliminar
-        "contact.tipo_de_evaluacin": getAssessmentTypeName(), // Tipo de Evaluación (código técnico)
-        "contact.tipo_evaluacion_espanol": getSpanishAssessmentName(), // Tipo de Evaluación (español)
-        "contact.nivel_de_severidad": localSeverityInfo.level, // Nivel de Severidad
-        "contact.edad": formData.edad, // Edad
-        "contact.sexo": formData.sexo, // Sexo
-        
-        // Agregar campos adicionales del sistema clínico
-        "contact.descripcion_problema": clinicalResult?.descripcion_problema || "No disponible",
-        "contact.solucion_recomendada": clinicalResult?.solucion_recomendada || "Consulte con un profesional",
-        
-        // Historial de evaluaciones (para múltiples tests) - USANDO LOS NUEVOS FIELD KEYS
-        "contact.historial_de_evaluaciones": evaluationEntry, // Historial de Evaluaciones
-        "contact.ltima_evaluacin__fecha": currentDate, // Última Evaluación - Fecha
-        "contact.ltima_evaluacin__tipo": getAssessmentTypeName(), // Última Evaluación - Tipo
-        "contact.ltima_evaluacin__puntaje": score, // Última Evaluación - Puntaje
-        "contact.ltima_evaluacin__nivel": localSeverityInfo.level, // Última Evaluación - Nivel
-        
-        // Additional data for tracking
-        "ciudad": formData.ciudad
+        formType: "assessment",
+        firstName: formData.nombre,
+        lastName: formData.apellido,
+        email: formData.email,
+        phone: fullPhone,
+        score,
+        severityLevel: localSeverityInfo.level,
+        assessmentType: type,
+        assessmentName: getSpanishAssessmentName(),
+        diagnosis: `${getAssessmentTypeName()} - Puntaje: ${score} - Nivel: ${localSeverityInfo.level}`,
+        description: clinicalResult?.descripcion_problema || "No disponible",
+        recommendation: clinicalResult?.solucion_recomendada || "Consulte con un profesional",
+        age: formData.edad,
+        gender: formData.sexo,
+        city: formData.ciudad,
+        evaluationHistory: evaluationEntry,
+        lastEvalDate: currentDate,
+        lastEvalScore: score,
+        lastEvalLevel: localSeverityInfo.level,
       };
 
-      // Send to GoHighLevel webhook
-      console.log('Final webhook data:', JSON.stringify(webhookData, null, 2));
-      
-      const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/25428128-10eb-4929-9076-debc9e8b9e35', {
+      const response = await fetch('https://necessary-condor-363.convex.site/webhooks/neuroinnova', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': import.meta.env.VITE_CRM_WEBHOOK_KEY || '',
         },
         body: JSON.stringify(webhookData),
       });
 
-      // Webhook request sent successfully
-      // Since we're using no-cors, we can't check response status
-      // but the request will be sent
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       
       // Show success message
       toast({

@@ -85,32 +85,22 @@ const ContactForm = ({
         }
       };
       
-      // Prepare data for GoHighLevel webhook with correct field mapping
       const webhookData = {
-        // Standard fields from GoHighLevel form
-        "first_name": firstName,
-        "lastName": lastName,
-        "email": data.email,
-        "phone": fullPhone,
-        
-        // Custom fields mapped to GoHighLevel form fields
-        "GV3kzQc2ELggE7d2KLSk": data.mensaje || `Interés en: ${getServiceText(data.servicio)}`,
-        "eI3874kqFkPMClPIqy0G": "Website", // How they heard about us
-        "terms_and_conditions": "true", // Terms accepted
-        
-        // New custom fields created in GoHighLevel
-        "contact.servicio_de_inters": getServiceText(data.servicio),
-        "contact.source_page": sourcePage,
-        "contact.form_type": "contact-form"
+        formType: "contact",
+        firstName,
+        lastName,
+        email: data.email,
+        phone: fullPhone,
+        servicio: getServiceText(data.servicio),
+        mensaje: data.mensaje || "",
+        sourcePage,
       };
-      
-      console.log("Sending to GoHighLevel webhook:", webhookData);
-      
-      // Send to GoHighLevel webhook
-      const response = await fetch('https://services.leadconnectorhq.com/hooks/Lmk3yMGsLO5NUbaGlZeB/webhook-trigger/2EyoyOYn1MsthDEpkq7Z', {
+
+      const response = await fetch('https://necessary-condor-363.convex.site/webhooks/neuroinnova', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': import.meta.env.VITE_CRM_WEBHOOK_KEY || '',
         },
         body: JSON.stringify(webhookData),
       });
@@ -118,8 +108,6 @@ const ContactForm = ({
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
-      console.log("Webhook request sent successfully");
       
       toast({
         title: "Mensaje enviado con éxito",
