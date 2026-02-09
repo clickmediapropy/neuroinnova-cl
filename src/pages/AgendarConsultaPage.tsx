@@ -131,7 +131,7 @@ const AgendarConsultaPage = () => {
                       </Button>
                       <Button asChild className="bg-green-500 hover:bg-green-600">
                         <a 
-                          href="https://wa.me/595992097055?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada.%20¿Podrían%20ayudarme%20con%20el%20proceso%20de%20agendamiento?"
+                          href="https://wa.me/595983309319?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada.%20¿Podrían%20ayudarme%20con%20el%20proceso%20de%20agendamiento?"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center"

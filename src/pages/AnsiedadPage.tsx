@@ -447,7 +447,7 @@ const AnsiedadPage = () => {
                   <Link to="/autoevaluacion/ansiedad">Comenzar Evaluación</Link>
                 </Button>
                 <Button size="lg" className="bg-green-500 hover:bg-green-600" asChild>
-                  <a href="https://wa.me/595992097055?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20la%20evaluación%20de%20ansiedad.%20¿Podrían%20ayudarme%20con%20el%20proceso?" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/595983309319?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20la%20evaluación%20de%20ansiedad.%20¿Podrían%20ayudarme%20con%20el%20proceso?" target="_blank" rel="noopener noreferrer">
                     WhatsApp disponible 24/7
                   </a>
                 </Button>
@@ -507,7 +507,7 @@ const AnsiedadPage = () => {
                   Evaluación profesional disponible | (+595) 21 605 535
                 </p>
                 <Button size="sm" className="bg-green-500 hover:bg-green-600" asChild>
-                  <a href="https://wa.me/595992097055?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20tratamientos%20para%20ansiedad.%20¿Podrían%20ayudarme%20con%20una%20consulta%20especializada?" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/595983309319?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20tratamientos%20para%20ansiedad.%20¿Podrían%20ayudarme%20con%20una%20consulta%20especializada?" target="_blank" rel="noopener noreferrer">
                     WhatsApp disponible 24/7
                   </a>
                 </Button>

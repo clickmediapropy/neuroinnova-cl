@@ -17,7 +17,7 @@ const ContactoPage = () => {
       description: "Respuesta inmediata",
       detail: "(+595) 992 097 055",
       action: "WhatsApp disponible 24/7",
-      href: "https://wa.me/595992097055?text=Hola,%20me%20gustaría%20obtener%20información%20sobre%20sus%20servicios%20y%20horarios%20de%20atención.",
+      href: "https://wa.me/595983309319?text=Hola,%20me%20gustaría%20obtener%20información%20sobre%20sus%20servicios%20y%20horarios%20de%20atención.",
       color: "bg-green-500 hover:bg-green-600"
     },
     {
@@ -307,7 +307,7 @@ const ContactoPage = () => {
                   
                   <div className="border-t pt-4">
                     <Button size="lg" className="bg-green-500 hover:bg-green-600 w-full" asChild>
-                      <a href="https://wa.me/595992097055?text=URGENCIA:%20Necesito%20ayuda%20inmediata%20con%20una%20situación%20de%20salud%20mental." target="_blank" rel="noopener noreferrer">
+                      <a href="https://wa.me/595983309319?text=URGENCIA:%20Necesito%20ayuda%20inmediata%20con%20una%20situación%20de%20salud%20mental." target="_blank" rel="noopener noreferrer">
                         <MessageCircle className="h-5 w-5 mr-2" />
                         WhatsApp disponible 24/7
                       </a>
