@@ -12,7 +12,7 @@ const DepresionResistentePage = () => {
       <section className="hero-animated-bg py-16 md:py-24">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6">
               Depresión Resistente al Tratamiento
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-medium">
@@ -83,7 +83,7 @@ const DepresionResistentePage = () => {
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="bg-primary text-primary-foreground rounded-lg p-8 md:p-12 text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
                 ¿Se identifica con esta experiencia?
               </h2>
               
@@ -292,10 +292,10 @@ const DepresionResistentePage = () => {
               <Badge className="mb-4 bg-accent text-white text-sm py-1.5 px-4 rounded-full">
                 SOLUCIÓN DISPONIBLE
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6">
                 EMT/TMS: La Respuesta para la Depresión Resistente
               </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                 Cuando los medicamentos no funcionan, la Estimulación Magnética Transcraneal 
                 ofrece una alternativa probada, segura y efectiva.
               </p>
@@ -485,7 +485,7 @@ const DepresionResistentePage = () => {
             </div>
             
             <div className="text-center mt-12">
-              <p className="text-xl text-muted-foreground mb-6">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6">
                 Este puede ser su camino hacia la recuperación. El primer paso es una evaluación 
                 para determinar si EMT/TMS es adecuado para usted.
               </p>
@@ -508,7 +508,7 @@ const DepresionResistentePage = () => {
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
               No Permita que la Depresión Resistente Defina su Vida
             </h2>
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto">

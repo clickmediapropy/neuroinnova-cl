@@ -17,10 +17,10 @@ const TDCSPage = () => {
             <Badge className="mb-4 bg-accent text-white text-sm py-1.5 px-4 rounded-full">
               PIONERO EN PARAGUAY
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6">
               Tratamiento tDCS
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8">
               Estimulación Transcraneal por Corriente Directa, una tecnología innovadora para rehabilitación neurológica y manejo del dolor crónico.
             </p>
             <Button size="lg" asChild>
@@ -625,7 +625,7 @@ const TDCSPage = () => {
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
               Consulte sobre tratamiento tDCS
             </h2>
             <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">

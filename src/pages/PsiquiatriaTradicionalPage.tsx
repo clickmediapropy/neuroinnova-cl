@@ -13,10 +13,10 @@ const PsiquiatriaTradicionalPage = () => {
       <section className="hero-animated-bg py-16 md:py-24">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6">
               Atención Psiquiátrica Integral
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8">
               Servicios psiquiátricos profesionales basados en evidencia científica para 
               el cuidado integral de su salud mental.
             </p>
@@ -549,7 +549,7 @@ const PsiquiatriaTradicionalPage = () => {
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
               Agende su Consulta Psiquiátrica
             </h2>
             <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">

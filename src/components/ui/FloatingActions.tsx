@@ -16,7 +16,10 @@ const FloatingActions = () => {
   }, []);
 
   return (
-    <div className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+    <div
+      className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
       <div className="relative">
         {/* Expanded menu */}
         <div className={`absolute bottom-16 right-0 space-y-3 transition-all duration-300 ${isExpanded ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>

@@ -76,13 +76,13 @@ const ServiciosPage = () => {
     <Layout>
       <div className="min-h-screen hero-animated-bg">
         {/* Hero Section */}
-        <section className="pt-24 pb-16 neural-bg">
+        <section className="pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 neural-bg">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
                 Nuestros Servicios
               </h1>
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8">
                 Tecnologías avanzadas de neuromodulación y atención psiquiátrica integral 
                 para tratar condiciones resistentes a terapias convencionales
               </p>

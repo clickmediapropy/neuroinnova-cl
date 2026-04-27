@@ -12,7 +12,7 @@ const ParkinsonPage = () => {
       <section className="hero-animated-bg py-16 md:py-24">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6">
               Enfermedad de Párkinson
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-medium">
@@ -330,11 +330,11 @@ const ParkinsonPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary/5">
+      <section className="py-12 sm:py-16 bg-primary/5">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Recupere el Control de su Vida</h2>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8">
               No permita que el Párkinson defina sus límites. La neuromodulación puede ayudarle 
               a mejorar significativamente su calidad de vida.
             </p>

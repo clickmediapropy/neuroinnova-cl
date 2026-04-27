@@ -270,15 +270,15 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
   return (
     <Layout>
-      <div className="container py-8 sm:py-12 max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div className="container py-8 sm:py-12 max-w-3xl">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <CheckCircle className="h-12 w-12 text-success" />
+            <CheckCircle className="h-10 w-10 sm:h-12 sm:w-12 text-success" />
           </div>
-          <h1 className="text-3xl font-bold text-primary mb-4">
+          <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-3 sm:mb-4 leading-tight">
             ¡Evaluación Completada!
           </h1>
-          <p className="text-lg text-muted-foreground mb-6">
+          <p className="text-base sm:text-lg text-muted-foreground mb-5 sm:mb-6">
             Gracias por completar la evaluación de {
               type === "depression" ? "depresión" :
               type === "anxiety" ? "ansiedad" :
@@ -391,12 +391,12 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
               
               <div className="space-y-2 md:col-span-2 lg:col-span-1">
                 <Label htmlFor="telefono">Teléfono <span className="text-destructive">*</span></Label>
-                <div className="flex">
+                <div className="flex w-full min-w-0">
                   <Select
                     value={formData.codigoPais}
                     onValueChange={(value) => handleSelectChange("codigoPais", value)}
                   >
-                    <SelectTrigger className="w-[110px] sm:w-[130px] md:w-[150px] rounded-r-none border-r-0 h-12">
+                    <SelectTrigger className="w-[110px] sm:w-[130px] md:w-[150px] shrink-0 rounded-r-none border-r-0 h-12">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-white border border-border shadow-md z-50">
@@ -476,7 +476,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
             <div className="pt-4 flex flex-col items-center space-y-4">
               <Button 
                 type="submit" 
-                className="w-full sm:w-auto min-w-[280px] flex items-center justify-center text-sm sm:text-base px-4 sm:px-6"
+                className="w-full sm:w-auto sm:min-w-[280px] flex items-center justify-center text-sm sm:text-base px-4 sm:px-6"
                 variant={getCTAVariant()}
                 disabled={isSubmitting}
                 size="lg"

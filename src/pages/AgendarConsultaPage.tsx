@@ -12,10 +12,10 @@ const AgendarConsultaPage = () => {
         <section className="pt-24 pb-8 neural-bg">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
                 Agendar Consulta
               </h1>
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8">
                 Reserve su cita en línea de manera rápida y sencilla. Seleccione el servicio, fecha y horario que mejor se adapte a sus necesidades.
               </p>
             </div>
@@ -61,7 +61,7 @@ const AgendarConsultaPage = () => {
 
               {/* WhatsApp CTA */}
               <Card className="overflow-hidden">
-                <CardContent className="p-8 md:p-12 text-center">
+                <CardContent className="p-5 sm:p-8 md:p-12 text-center">
                   <h2 className="text-2xl md:text-3xl font-bold mb-4">
                     Agende su consulta por WhatsApp
                   </h2>

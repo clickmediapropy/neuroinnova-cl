@@ -17,10 +17,10 @@ const BlogPage = () => {
     <Layout>
       <div className="min-h-screen neural-bg">
         {/* Hero Section */}
-        <section className="pt-24 pb-16">
+        <section className="pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-12">
-              <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
                 Blog de NeuroInnova
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

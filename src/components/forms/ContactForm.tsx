@@ -173,9 +173,9 @@ const ContactForm = ({
   const isInline = variant === "inline";
 
   return (
-    <div className="contact-tech-bg rounded-lg p-4">
+    <div className="contact-tech-bg rounded-lg p-3 sm:p-4 w-full max-w-full">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
         <div className={isInline ? "grid grid-cols-1 md:grid-cols-3 gap-4" : "space-y-4"}>
           <FormField
             control={form.control}
@@ -212,14 +212,14 @@ const ContactForm = ({
               <FormItem>
                 <FormLabel className={isCompact ? "text-sm" : ""}>Teléfono</FormLabel>
                 <FormControl>
-                  <div className="flex">
+                  <div className="flex w-full min-w-0">
                     <FormField
                       control={form.control}
                       name="codigoPais"
                       render={({ field: countryField }) => (
                         <Select onValueChange={countryField.onChange} defaultValue={countryField.value}>
                           <FormControl>
-                            <SelectTrigger className="w-[150px] rounded-r-none border-r-0 h-12">
+                            <SelectTrigger className="w-[110px] sm:w-[140px] shrink-0 rounded-r-none border-r-0 h-12">
                               <SelectValue />
                             </SelectTrigger>
                           </FormControl>
@@ -236,7 +236,7 @@ const ContactForm = ({
                         </Select>
                       )}
                     />
-                    <Input 
+                    <Input
                       type="tel"
                       inputMode="numeric"
                       placeholder={form.watch('codigoPais') === '+595' ? '9XX XXX XXX' : 'Número telefónico'}

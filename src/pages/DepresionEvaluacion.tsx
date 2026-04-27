@@ -70,18 +70,18 @@ const DepresionEvaluacion = () => {
   
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8 max-w-3xl">
+      <div className="container mx-auto py-8 sm:py-10 max-w-3xl">
         <div className="flex items-center justify-center mb-8">
           <div className="w-16 h-16 rounded-full bg-primary-light flex items-center justify-center mb-4">
             <Heart className="h-8 w-8 text-primary" />
           </div>
         </div>
         
-        <h1 className="text-3xl font-bold text-center text-primary mb-2">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center text-primary mb-2 leading-tight">
           Autoevaluación de Depresión
         </h1>
         
-        <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+        <p className="text-sm sm:text-base text-center text-muted-foreground mb-6 sm:mb-8 max-w-2xl mx-auto">
           Este cuestionario evalúa síntomas de depresión. Responda según cómo se ha sentido durante las últimas dos semanas.
         </p>
         
@@ -102,18 +102,18 @@ const DepresionEvaluacion = () => {
           onValueChange={handleAnswerChange}
         />
         
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-stretch sm:items-center gap-3 sm:gap-4">
           <Button
             variant="outline"
             onClick={handlePrevious}
             disabled={currentQuestion === 0}
-            className="flex items-center"
+            className="flex items-center justify-center w-full sm:w-auto"
           >
             <ChevronLeft className="mr-1 h-4 w-4" />
             Anterior
           </Button>
           
-          <div className="text-sm text-muted-foreground">
+          <div className="text-xs sm:text-sm text-muted-foreground text-center sm:text-right">
             Seleccione una respuesta para continuar automáticamente
           </div>
         </div>

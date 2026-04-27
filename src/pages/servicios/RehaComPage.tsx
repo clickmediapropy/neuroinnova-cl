@@ -72,7 +72,7 @@ const RehaComPage = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-24 pb-16 neural-bg overflow-hidden">
+      <section className="pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 neural-bg overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
@@ -82,7 +82,7 @@ const RehaComPage = () => {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground">
                 RehaCom - Evaluación y Rehabilitación Cognitiva
               </h1>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
                 Software alemán de última generación para rehabilitar y entrenar funciones cognitivas 
                 afectadas por lesiones cerebrales, enfermedades neurológicas o trastornos psiquiátricos.
               </p>
@@ -184,7 +184,7 @@ const RehaComPage = () => {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-12">
               Beneficios de RehaCom
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -207,7 +207,7 @@ const RehaComPage = () => {
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-12">
               Condiciones que Trata RehaCom
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
@@ -236,7 +236,7 @@ const RehaComPage = () => {
       <section className="py-16 bg-muted/30" id="como-funciona">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-12">
               Proceso de Tratamiento
             </h2>
             <div className="space-y-6">
@@ -371,7 +371,7 @@ const RehaComPage = () => {
       {/* CTA Section */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
             Comience su Rehabilitación Cognitiva Hoy
           </h2>
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">

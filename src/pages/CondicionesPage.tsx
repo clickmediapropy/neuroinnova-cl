@@ -149,21 +149,21 @@ const CondicionesPage = () => {
     <Layout>
       <div className="min-h-screen hero-animated-bg">
         {/* Hero Section */}
-        <section className="pt-24 pb-16 neural-bg">
-          <div className="container mx-auto px-4">
+        <section className="pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 neural-bg">
+          <div className="container mx-auto">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6 leading-tight text-balance">
                 Condiciones que Tratamos
               </h1>
-              <p className="text-xl text-muted-foreground mb-8">
-                Especializados en condiciones de salud mental y neurológicas que requieren 
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
+                Especializados en condiciones de salud mental y neurológicas que requieren
                 enfoques avanzados cuando los tratamientos tradicionales no son suficientes
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                <Button size="lg" asChild className="w-full sm:w-auto">
                   <Link to="/autoevaluacion">Evaluación Gratuita</Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild>
+                <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
                   <Link to="/agendar-consulta">Consulta Especializada</Link>
                 </Button>
               </div>
@@ -172,43 +172,43 @@ const CondicionesPage = () => {
         </section>
 
         {/* Conditions Grid */}
-        <section className="pb-16">
-          <div className="container mx-auto px-4">
+        <section className="pb-12 sm:pb-16">
+          <div className="container mx-auto">
             <div className="max-w-6xl mx-auto">
-              <div className="grid gap-6">
+              <div className="grid gap-5 sm:gap-6">
                 {condiciones.map((condicion, index) => (
-                  <Card 
-                    key={condicion.id} 
+                  <Card
+                    key={condicion.id}
                     className={`relative overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary/30 card-hover-effect service-particles ${
                       condicion.featured ? 'border-primary/20 bg-primary/5' : ''
                     }`}
                   >
                     {condicion.badge && (
-                      <div className="absolute top-6 right-6 z-10">
-                        <Badge variant="secondary" className="bg-orange-500 text-white">
+                      <div className="absolute top-3 right-3 sm:top-6 sm:right-6 z-10">
+                        <Badge variant="secondary" className="bg-orange-500 text-white text-[10px] sm:text-xs">
                           {condicion.badge}
                         </Badge>
                       </div>
                     )}
-                    
-                    <div className="grid lg:grid-cols-3 gap-8 p-8">
+
+                    <div className="grid lg:grid-cols-3 gap-5 sm:gap-8 p-4 sm:p-6 md:p-8">
                       {/* Main Content */}
-                      <div className="lg:col-span-2 space-y-6">
-                        <div className="flex items-start space-x-4">
-                          <div className="flex-shrink-0 p-3 bg-primary/10 rounded-xl">
+                      <div className="lg:col-span-2 space-y-5 sm:space-y-6 min-w-0">
+                        <div className="flex items-start gap-3 sm:gap-4">
+                          <div className="flex-shrink-0 p-2.5 sm:p-3 bg-primary/10 rounded-xl">
                             {condicion.icon}
                           </div>
-                          <div className="flex-1 min-w-0 pr-16">
-                            <CardTitle className="text-2xl font-bold text-foreground mb-3">
+                          <div className="flex-1 min-w-0 pr-20 sm:pr-24">
+                            <CardTitle className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-2 sm:mb-3 leading-tight">
                               {condicion.title}
                             </CardTitle>
-                            <CardDescription className="text-base text-muted-foreground">
+                            <CardDescription className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                               {condicion.description}
                             </CardDescription>
                           </div>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-6">
+                        <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
                           {/* Symptoms */}
                           <div className="space-y-3">
                             <h4 className="font-semibold text-foreground">Síntomas principales:</h4>
@@ -249,8 +249,8 @@ const CondicionesPage = () => {
                           </div>
                         </div>
 
-                        <div className="pt-4">
-                          <Button asChild className="group">
+                        <div className="pt-2 sm:pt-4">
+                          <Button asChild className="group w-full sm:w-auto">
                             <Link to={condicion.url}>
                               Más Información
                               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -260,7 +260,7 @@ const CondicionesPage = () => {
                       </div>
 
                       {/* Side Stats/Info */}
-                      <div className="lg:col-span-1 flex items-center justify-center">
+                      <div className="hidden lg:flex lg:col-span-1 items-center justify-center">
                         <div className="text-center space-y-4">
                           <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-primary/5 rounded-full flex items-center justify-center mx-auto">
                             {React.cloneElement(condicion.icon, { 
@@ -286,21 +286,21 @@ const CondicionesPage = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-primary/5">
-          <div className="container mx-auto px-4">
+        <section className="py-12 sm:py-16 bg-primary/5">
+          <div className="container mx-auto">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-foreground mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
                 ¿No encuentra su condición aquí?
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Nuestros especialistas evalúan cada caso individualmente. Muchas condiciones 
+              <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
+                Nuestros especialistas evalúan cada caso individualmente. Muchas condiciones
                 neuropsiquiátricas pueden beneficiarse de nuestros tratamientos avanzados.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                <Button size="lg" asChild className="w-full sm:w-auto">
                   <Link to="/agendar-consulta">Consulta de Evaluación</Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild>
+                <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
                   <Link to="/contacto">WhatsApp disponible 24/7</Link>
                 </Button>
               </div>
@@ -309,23 +309,23 @@ const CondicionesPage = () => {
         </section>
 
         {/* Quick Assessment CTA */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
+        <section className="py-12 sm:py-16">
+          <div className="container mx-auto">
             <div className="max-w-4xl mx-auto">
               <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
-                <CardContent className="p-8 text-center">
-                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                <CardContent className="p-5 sm:p-8 text-center">
+                  <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3 sm:mb-4 leading-tight">
                     Evaluación Gratuita Online
                   </h3>
-                  <p className="text-muted-foreground mb-6">
-                    Complete nuestras evaluaciones para depresión y ansiedad. 
+                  <p className="text-sm sm:text-base text-muted-foreground mb-5 sm:mb-6 leading-relaxed">
+                    Complete nuestras evaluaciones para depresión y ansiedad.
                     Los resultados nos ayudan a entender mejor su situación.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button asChild>
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                    <Button asChild className="w-full sm:w-auto">
                       <Link to="/autoevaluacion/depresion">Evaluación de Depresión</Link>
                     </Button>
-                    <Button variant="outline" asChild>
+                    <Button variant="outline" asChild className="w-full sm:w-auto">
                       <Link to="/autoevaluacion/ansiedad">Evaluación de Ansiedad</Link>
                     </Button>
                   </div>

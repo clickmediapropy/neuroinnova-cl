@@ -37,11 +37,11 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-card/80 backdrop-blur-md supports-[backdrop-filter]:bg-card/70 shadow-sm">
-      <div className="container flex h-16 md:h-20 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="container flex h-16 md:h-20 items-center justify-between gap-2 sm:gap-4">
         {/* Logo and Desktop navigation */}
-        <div className="flex items-center gap-6 lg:gap-8">
-          <Link to="/" className="shrink-0 transition-transform duration-200 hover:scale-[1.03]">
-            <Logo className="h-11 sm:h-12 md:h-14 w-auto" />
+        <div className="flex items-center gap-6 lg:gap-8 min-w-0">
+          <Link to="/" className="shrink-0 transition-transform duration-200 hover:scale-[1.03]" aria-label="Inicio">
+            <Logo className="h-10 xs:h-11 sm:h-12 md:h-14 w-auto" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-0.5 lg:gap-1">
@@ -110,8 +110,10 @@ const Header = () => {
             variant="ghost"
             size="icon"
             onClick={toggleMenu}
-            aria-label="Menu"
-            className="md:hidden h-10 w-10 rounded-full hover:bg-primary/10 active:scale-95 transition-all duration-200"
+            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            className="md:hidden h-11 w-11 rounded-full hover:bg-primary/10 active:scale-95 transition-all duration-200"
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
@@ -127,9 +129,13 @@ const Header = () => {
             onClick={closeMenu}
           />
           {/* Mobile menu */}
-          <div className="md:hidden fixed top-16 left-0 right-0 bg-card/95 backdrop-blur-md border-b border-border/60 shadow-xl z-50 animate-slide-in-right max-h-[calc(100vh-4rem)] overflow-y-auto">
-            <div className="container py-5 space-y-5 px-4 sm:px-6">
-              <nav className="flex flex-col gap-1">
+          <div
+            id="mobile-menu"
+            className="md:hidden fixed top-16 left-0 right-0 bg-card/95 backdrop-blur-md border-b border-border/60 shadow-xl z-50 animate-slide-in-right max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain"
+            style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+          >
+            <div className="container py-5 space-y-5">
+              <nav className="flex flex-col gap-1" aria-label="Menú principal">
                 <NavLink to="/" end className={getNavLinkClass} onClick={closeMenu}>
                   Inicio
                 </NavLink>
@@ -149,7 +155,7 @@ const Header = () => {
               <div className="flex flex-col gap-3 pt-4 border-t border-border/60">
                 <a
                   href="tel:+59521605535"
-                  className="flex items-center gap-3 text-sm text-foreground/90 hover:text-primary p-3 rounded-lg hover:bg-primary/5 active:bg-primary/10 transition-all duration-200 min-h-[48px]"
+                  className="flex items-center gap-3 text-sm text-foreground/90 hover:text-primary p-3 rounded-lg hover:bg-primary/5 active:bg-primary/10 transition-colors duration-200 min-h-[48px]"
                   onClick={closeMenu}
                 >
                   <Phone className="h-4 w-4 text-primary" />

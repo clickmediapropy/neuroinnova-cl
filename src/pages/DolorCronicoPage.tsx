@@ -12,7 +12,7 @@ const DolorCronicoPage = () => {
       <section className="hero-animated-bg py-16 md:py-24">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6">
               Dolor Crónico
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-medium">
@@ -384,7 +384,7 @@ const DolorCronicoPage = () => {
               <h2 className="text-4xl font-bold text-primary mb-6">
                 Tecnologías de Neuromodulación para Dolor Crónico
               </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                 Cuando los tratamientos convencionales no son suficientes, las tecnologías de 
                 neuromodulación pueden ofrecer alivio duradero sin los riesgos de los opioides.
               </p>
@@ -515,7 +515,7 @@ const DolorCronicoPage = () => {
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
               Recupere Su Calidad de Vida
             </h2>
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto">

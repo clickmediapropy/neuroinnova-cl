@@ -12,7 +12,7 @@ const FibromialgiaPage = () => {
       <section className="hero-animated-bg py-16 md:py-24">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6">
               Fibromialgia
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-medium">
@@ -333,11 +333,11 @@ const FibromialgiaPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary/5">
+      <section className="py-12 sm:py-16 bg-primary/5">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Su Dolor es Real. La Solución También.</h2>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8">
               No tiene que vivir con dolor constante. La neuromodulación ofrece una 
               alternativa segura y efectiva para recuperar su calidad de vida.
             </p>

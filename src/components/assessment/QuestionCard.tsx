@@ -32,11 +32,11 @@ const QuestionCard = ({
   onValueChange
 }: QuestionCardProps) => {
   return (
-    <div className="bg-card rounded-lg border shadow-sm p-6 mb-8 animate-fade-in-up hover-lift transition-all duration-300">
+    <div className="bg-card rounded-lg border shadow-sm p-4 sm:p-6 mb-6 sm:mb-8 animate-fade-in-up hover-lift transition-all duration-300">
       <div className="space-y-4">
         {/* Pregunta principal */}
-        <h2 className="text-xl font-semibold flex items-start gap-2">
-          <span className="flex-1">{question}</span>
+        <h2 className="text-lg sm:text-xl font-semibold flex items-start gap-2 leading-snug">
+          <span className="flex-1 min-w-0">{question}</span>
           {(description || examples) && (
             <TooltipProvider>
               <Tooltip>
@@ -80,18 +80,16 @@ const QuestionCard = ({
           className="space-y-3 mt-6"
         >
           {options.map((option) => (
-            <div 
-              key={option.value} 
-              className="flex items-center space-x-3 p-3 rounded-md hover:bg-muted/50 transition-colors"
+            <Label
+              key={option.value}
+              htmlFor={`option-${option.value}`}
+              className="flex items-center gap-3 p-3 sm:p-3.5 rounded-md border border-transparent hover:border-primary/30 hover:bg-muted/50 active:bg-muted transition-colors cursor-pointer min-h-[48px] font-normal"
             >
               <RadioGroupItem value={option.value} id={`option-${option.value}`} />
-              <Label 
-                htmlFor={`option-${option.value}`} 
-                className="flex-grow cursor-pointer font-normal"
-              >
+              <span className="flex-grow text-sm sm:text-base leading-snug">
                 {option.label}
-              </Label>
-            </div>
+              </span>
+            </Label>
           ))}
         </RadioGroup>
       </div>

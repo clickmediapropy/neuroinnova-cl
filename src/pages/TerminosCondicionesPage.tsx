@@ -7,16 +7,16 @@ const TerminosCondicionesPage = () => {
     <Layout>
       <div className="min-h-screen hero-animated-bg">
         {/* Header */}
-        <section className="pt-24 pb-16 neural-bg">
+        <section className="pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 neural-bg">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <div className="flex items-center justify-center mb-6">
                 <Scale className="h-12 w-12 text-primary mr-4" />
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground">
                   Términos y Condiciones
                 </h1>
               </div>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
                 Condiciones de uso de nuestros servicios médicos especializados
               </p>
               <p className="text-sm text-muted-foreground mt-4">
