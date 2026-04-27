@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CheckCircle, AlertTriangle, AlertCircle, ChevronRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,9 +29,6 @@ interface LeadFormData {
 }
 
 const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => {
-  // Component initialization
-  
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   const countryCodes = [
@@ -56,6 +53,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
     ciudad: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [resultsShown, setResultsShown] = useState(false);
 
   // Format phone number based on country
   const formatPhoneNumber = (value: string, countryCode: string) => {
@@ -304,17 +302,14 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       
-      // Show success message
       toast({
-        title: "¡Datos enviados!",
-        description: "Sus resultados le serán enviados por WhatsApp en breve.",
+        title: "¡Datos recibidos!",
+        description: "Aquí están sus resultados.",
       });
-      
-      // Navigate to home or a thank you page
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-      
+
+      setResultsShown(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
     } catch (error) {
       // Error submitting assessment
       toast({
@@ -354,21 +349,58 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
             }.
           </p>
           
-          <div className="bg-primary/5 rounded-lg border border-primary/20 p-6 mb-8">
-            <div className="flex flex-col items-center">
-              <h3 className="text-xl font-semibold mb-3 text-primary">
-                Sus resultados están listos
-              </h3>
-              <p className="text-muted-foreground text-center">
-                Complete el formulario a continuación y le enviaremos sus resultados detallados y recomendaciones personalizadas por WhatsApp.
-              </p>
+          {!resultsShown && (
+            <div className="bg-primary/5 rounded-lg border border-primary/20 p-6 mb-8">
+              <div className="flex flex-col items-center">
+                <h3 className="text-xl font-semibold mb-3 text-primary">
+                  Sus resultados están listos
+                </h3>
+                <p className="text-muted-foreground text-center">
+                  Complete el formulario a continuación para ver sus resultados detallados y recomendaciones personalizadas.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {resultsShown && clinicalResult && (
+          <div className="bg-card rounded-lg border shadow-sm p-4 sm:p-6 mb-8 space-y-6">
+            <div className="flex flex-col items-center text-center">
+              {getIcon()}
+              <h2 className="text-2xl font-bold mt-4 mb-2">{clinicalResult.testName}</h2>
+              <div className="flex items-center gap-3 text-muted-foreground">
+                <span>Puntaje: <strong className="text-foreground">{score}</strong></span>
+                <span>·</span>
+                <span>Nivel: <strong className="text-foreground">{severityInfo.level}</strong></span>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-semibold text-base sm:text-lg mb-2">Descripción</h3>
+                <p className="text-muted-foreground leading-relaxed">{getMessage()}</p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-base sm:text-lg mb-2">Recomendación</h3>
+                <p className="text-muted-foreground leading-relaxed">{getCTAText()}</p>
+              </div>
+            </div>
+
+            <div className="pt-2 flex flex-col sm:flex-row gap-3 sm:justify-center">
+              <Button asChild variant={getCTAVariant()} size="lg">
+                <Link to="/agendar-consulta">Agendar consulta</Link>
+              </Button>
+              <Button type="button" variant="outline" size="lg" onClick={onReset}>
+                Realizar otra evaluación
+              </Button>
             </div>
           </div>
-        </div>
-        
+        )}
+
+        {!resultsShown && (
         <div className="bg-card rounded-lg border shadow-sm p-4 sm:p-6 mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center sm:text-left">Complete sus datos para recibir sus resultados</h2>
-          
+          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-center sm:text-left">Complete sus datos para ver sus resultados</h2>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -498,14 +530,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
                 size="lg"
               >
                 <span className="flex items-center">
-                  {isSubmitting ? (
-                    "Enviando..."
-                  ) : (
-                    <>
-                      <span className="hidden sm:inline">Enviar y Recibir Resultados por WhatsApp disponible 24/7</span>
-                      <span className="sm:hidden">Recibir Resultados por WhatsApp disponible 24/7</span>
-                    </>
-                  )}
+                  {isSubmitting ? "Enviando..." : "Ver mis resultados"}
                   <ChevronRight className="ml-2 h-4 w-4 flex-shrink-0" />
                 </span>
               </Button>
@@ -522,7 +547,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
             </div>
           </form>
         </div>
-        
+        )}
+
         <div className="text-center text-sm text-muted-foreground">
           <p>
             <strong>Nota importante:</strong> Esta evaluación no reemplaza un diagnóstico profesional.
