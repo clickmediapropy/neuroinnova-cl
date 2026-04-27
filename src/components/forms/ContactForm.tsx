@@ -37,14 +37,12 @@ type FormValues = z.infer<typeof formSchema>;
 interface ContactFormProps {
   variant?: "default" | "inline" | "compact";
   sourcePage?: string;
-  webhookUrl?: string;
   defaultService?: string;
 }
 
-const ContactForm = ({ 
-  variant = "default", 
+const ContactForm = ({
+  variant = "default",
   sourcePage = "contact-page",
-  webhookUrl = "https://webhook.site/contact-form", // Placeholder, would be replaced with real GoHighLevel webhook
   defaultService = ""
 }: ContactFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -86,17 +84,26 @@ const ContactForm = ({
       };
       
       const webhookData = {
-        formType: "contact",
-        firstName,
-        lastName,
+        name: data.nombre.trim(),
         email: data.email,
         phone: fullPhone,
-        servicio: getServiceText(data.servicio),
-        mensaje: data.mensaje || "",
-        sourcePage,
+        custom_fields: {
+          origen_lead: "formulario_contacto_web",
+          nombre: firstName,
+          apellido: lastName,
+          servicio_interes: getServiceText(data.servicio),
+          servicio_slug: data.servicio || "",
+          mensaje: data.mensaje || "",
+          pagina_origen: sourcePage,
+        },
       };
 
-      const response = await fetch('https://necessary-condor-363.convex.site/webhooks/neuroinnova', {
+      const webhookUrl = import.meta.env.VITE_CRM_WEBHOOK_URL;
+      if (!webhookUrl) {
+        throw new Error("VITE_CRM_WEBHOOK_URL no configurada");
+      }
+
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

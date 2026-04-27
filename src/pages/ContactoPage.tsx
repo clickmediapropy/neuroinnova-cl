@@ -138,10 +138,9 @@ const ContactoPage = () => {
                 <p className="text-muted-foreground mb-8">
                   Complete el formulario y nos pondremos en contacto con usted a la brevedad.
                 </p>
-                <ContactForm 
+                <ContactForm
                   variant="default"
                   sourcePage="/contacto"
-                  webhookUrl="https://placeholder-webhook.com"
                   defaultService=""
                 />
               </div>

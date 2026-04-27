@@ -262,28 +262,36 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       const fullPhone = `${formData.codigoPais}${formData.telefono.replace(/\s/g, '')}`;
 
       const webhookData = {
-        formType: "assessment",
-        firstName: formData.nombre,
-        lastName: formData.apellido,
+        name: `${formData.nombre} ${formData.apellido}`.trim(),
         email: formData.email,
         phone: fullPhone,
-        score,
-        severityLevel: localSeverityInfo.level,
-        assessmentType: type,
-        assessmentName: getSpanishAssessmentName(),
-        diagnosis: `${getAssessmentTypeName()} - Puntaje: ${score} - Nivel: ${localSeverityInfo.level}`,
-        description: clinicalResult?.descripcion_problema || "No disponible",
-        recommendation: clinicalResult?.solucion_recomendada || "Consulte con un profesional",
-        age: formData.edad,
-        gender: formData.sexo,
-        city: formData.ciudad,
-        evaluationHistory: evaluationEntry,
-        lastEvalDate: currentDate,
-        lastEvalScore: score,
-        lastEvalLevel: localSeverityInfo.level,
+        custom_fields: {
+          origen_lead: "evaluacion_web",
+          nombre: formData.nombre,
+          apellido: formData.apellido,
+          city: formData.ciudad,
+          edad: formData.edad,
+          sexo: formData.sexo,
+          tipo_evaluacion: type,
+          nombre_evaluacion: getSpanishAssessmentName(),
+          puntaje_evaluacion: score,
+          nivel_severidad: localSeverityInfo.level,
+          diagnostico: `${getAssessmentTypeName()} - Puntaje: ${score} - Nivel: ${localSeverityInfo.level}`,
+          descripcion_problema: clinicalResult?.descripcion_problema || "No disponible",
+          recomendacion: clinicalResult?.solucion_recomendada || "Consulte con un profesional",
+          fecha_ultima_evaluacion: currentDate,
+          puntaje_ultima_evaluacion: score,
+          nivel_ultima_evaluacion: localSeverityInfo.level,
+          historial_evaluaciones: evaluationEntry,
+        },
       };
 
-      const response = await fetch('https://necessary-condor-363.convex.site/webhooks/neuroinnova', {
+      const webhookUrl = import.meta.env.VITE_CRM_WEBHOOK_URL;
+      if (!webhookUrl) {
+        throw new Error("VITE_CRM_WEBHOOK_URL no configurada");
+      }
+
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
