@@ -4,8 +4,9 @@ import Services from "@/components/sections/Services";
 import TrustAuthority from "@/components/sections/TrustAuthority";
 import ConditionsTreated from "@/components/sections/ConditionsTreated";
 import PatientJourney from "@/components/sections/PatientJourney";
-import ContactForm from "@/components/forms/ContactForm";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
 import AnimatedParticles from "@/components/ui/AnimatedParticles";
 import { useEffect } from "react";
 import "@/styles/animations.css";
@@ -64,9 +65,23 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            <div className="lg:col-span-2 bg-white rounded-lg p-4 sm:p-6 border border-border/60 shadow-sm">
-              <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Envíenos un Mensaje</h3>
-              <ContactForm sourcePage="homepage" />
+            <div className="lg:col-span-2 bg-white rounded-lg p-4 sm:p-6 border border-border/60 shadow-sm flex flex-col justify-center">
+              <h3 className="text-lg sm:text-xl font-semibold mb-3">Agende su consulta por WhatsApp</h3>
+              <p className="text-sm sm:text-base text-muted-foreground mb-6">
+                Escríbanos por WhatsApp y le ayudaremos a coordinar el horario que mejor se adapte a usted.
+                Atención directa, sin formularios.
+              </p>
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <a
+                  href={buildWhatsAppUrl("Hola, me gustaría agendar una consulta médica con el Dr. ¿Podrían ayudarme con el proceso?")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Agendar consulta por WhatsApp
+                </a>
+              </Button>
             </div>
 
             <div className="bg-white rounded-lg p-4 sm:p-6 border border-border/60 shadow-sm">

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { CheckCircle, AlertTriangle, AlertCircle, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { getClinicalInterpretation, getSeverityColor, validateScore } from "@/data/clinicalScoring";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 export type AssessmentType = "depression" | "anxiety" | "bipolar" | "ptsd" | "psychosis" | "adhd" | "eatingDisorder" | "addiction" | "postpartumDepression" | "parentChildMentalHealth" | "youthMentalHealth";
 
@@ -210,14 +210,8 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       return;
     }
 
-    // Proceed with webhook call
-
     try {
-      // Process webhook data
-      
-      // Validate score before sending
       if (!scoreValidation.isValid) {
-        // Invalid score detected
         toast({
           title: "Error",
           description: "Puntaje inválido detectado. Por favor, contacte con soporte.",
@@ -227,15 +221,6 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         return;
       }
 
-      // Get assessment type name for webhook
-      const getAssessmentTypeName = () => {
-        if (!clinicalResult) {
-          return "Evaluación Mental";
-        }
-        return clinicalResult.testName;
-      };
-      
-      // Get Spanish name for assessment
       const getSpanishAssessmentName = () => {
         switch (type) {
           case "depression": return "Evaluación de Depresión (PHQ-9)";
@@ -255,56 +240,17 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
       const localSeverityInfo = getSeverityLevel();
 
-      const currentDate = new Date().toISOString().split('T')[0];
-      const evaluationEntry = `${currentDate}: ${getAssessmentTypeName()} - Puntaje ${score} (${localSeverityInfo.level})`;
-      const fullPhone = `${formData.codigoPais}${formData.telefono.replace(/\s/g, '')}`;
+      const mensaje =
+        `Hola, mi nombre es ${formData.nombre} ${formData.apellido}. ` +
+        `Acabo de completar la ${getSpanishAssessmentName()} y mi resultado fue ` +
+        `${score} puntos (nivel: ${localSeverityInfo.level}). ` +
+        `Quiero agendar una consulta con el Dr.`;
 
-      const webhookData = {
-        name: `${formData.nombre} ${formData.apellido}`.trim(),
-        email: formData.email,
-        phone: fullPhone,
-        custom_fields: {
-          origen_lead: "evaluacion_web",
-          nombre: formData.nombre,
-          apellido: formData.apellido,
-          city: formData.ciudad,
-          edad: formData.edad,
-          sexo: formData.sexo,
-          tipo_evaluacion: type,
-          nombre_evaluacion: getSpanishAssessmentName(),
-          puntaje_evaluacion: score,
-          nivel_severidad: localSeverityInfo.level,
-          diagnostico: `${getAssessmentTypeName()} - Puntaje: ${score} - Nivel: ${localSeverityInfo.level}`,
-          descripcion_problema: clinicalResult?.descripcion_problema || "No disponible",
-          recomendacion: clinicalResult?.solucion_recomendada || "Consulte con un profesional",
-          fecha_ultima_evaluacion: currentDate,
-          puntaje_ultima_evaluacion: score,
-          nivel_ultima_evaluacion: localSeverityInfo.level,
-          historial_evaluaciones: evaluationEntry,
-        },
-      };
+      window.open(buildWhatsAppUrl(mensaje), "_blank", "noopener,noreferrer");
 
-      const webhookUrl = import.meta.env.VITE_CRM_WEBHOOK_URL;
-      if (!webhookUrl) {
-        throw new Error("VITE_CRM_WEBHOOK_URL no configurada");
-      }
-
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': import.meta.env.VITE_CRM_WEBHOOK_KEY || '',
-        },
-        body: JSON.stringify(webhookData),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
       toast({
-        title: "¡Datos recibidos!",
-        description: "Aquí están sus resultados.",
+        title: "Abriendo WhatsApp",
+        description: "Le enviamos su resultado por WhatsApp para coordinar la consulta.",
       });
 
       setResultsShown(true);
@@ -314,7 +260,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
       // Error submitting assessment
       toast({
         title: "Error",
-        description: "Hubo un problema al enviar sus resultados. Por favor intente nuevamente.",
+        description: "Hubo un problema al procesar sus resultados. Por favor intente nuevamente.",
         variant: "destructive"
       });
     } finally {
@@ -388,7 +334,13 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
 
             <div className="pt-2 flex flex-col sm:flex-row gap-3 sm:justify-center">
               <Button asChild variant={getCTAVariant()} size="lg">
-                <Link to="/agendar-consulta">Agendar consulta</Link>
+                <a
+                  href={buildWhatsAppUrl(`Hola, completé la ${clinicalResult.testName} y mi resultado fue ${score} puntos (nivel: ${severityInfo.level}). Quiero agendar una consulta con el Dr.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Agendar consulta por WhatsApp
+                </a>
               </Button>
               <Button type="button" variant="outline" size="lg" onClick={onReset}>
                 Realizar otra evaluación

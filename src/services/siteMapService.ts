@@ -315,7 +315,7 @@ export function generateSiteSummary(): string {
   });
   
   summary += `\n## Información de Contacto:\n`;
-  summary += `- WhatsApp: +595 991 800 886\n`;
+  summary += `- WhatsApp: +595 986 960 270\n`;
   summary += `- Email: contacto@neuroinnova.com.py\n`;
   summary += `- Ubicación: Asunción, Paraguay\n`;
   

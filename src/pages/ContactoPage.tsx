@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Phone, MessageCircle, Mail, MapPin, Clock, Car, Accessibility, HelpCircle, ChevronDown, ChevronUp } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import { AuroraLayout } from "@/components/layout/AuroraLayout";
-import ContactForm from "@/components/forms/ContactForm";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const ContactoPage = () => {
   const [openFaq, setOpenFaq] = useState<string | null>(null);
@@ -15,9 +15,9 @@ const ContactoPage = () => {
       icon: MessageCircle,
       title: "WhatsApp",
       description: "Respuesta inmediata",
-      detail: "(+595) 992 097 055",
+      detail: "(+595) 986 960 270",
       action: "WhatsApp disponible 24/7",
-      href: "https://wa.me/595983309319?text=Hola,%20me%20gustaría%20obtener%20información%20sobre%20sus%20servicios%20y%20horarios%20de%20atención.",
+      href: buildWhatsAppUrl("Hola, me gustaría obtener información sobre sus servicios y horarios de atención."),
       color: "bg-green-500 hover:bg-green-600"
     },
     {
@@ -130,19 +130,26 @@ const ContactoPage = () => {
         <section className="py-16 bg-secondary/10">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12">
-              {/* Contact Form */}
+              {/* WhatsApp CTA */}
               <div>
                 <h2 className="text-3xl font-bold text-foreground mb-6">
-                  Envíenos un Mensaje
+                  Agende su consulta por WhatsApp
                 </h2>
                 <p className="text-muted-foreground mb-8">
-                  Complete el formulario y nos pondremos en contacto con usted a la brevedad.
+                  Para coordinar su consulta con el Dr. escríbanos directamente por WhatsApp.
+                  Le respondemos a la brevedad y le ayudamos a reservar el horario que mejor se adapte a usted.
                 </p>
-                <ContactForm
-                  variant="default"
-                  sourcePage="/contacto"
-                  defaultService=""
-                />
+                <Button asChild size="lg" className="bg-green-500 hover:bg-green-600 w-full sm:w-auto">
+                  <a
+                    href={buildWhatsAppUrl("Hola, me gustaría agendar una consulta médica con el Dr. ¿Podrían ayudarme con el proceso?")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <MessageCircle className="h-5 w-5" />
+                    Agendar consulta por WhatsApp
+                  </a>
+                </Button>
               </div>
 
               {/* Office Info */}
@@ -306,7 +313,7 @@ const ContactoPage = () => {
                   
                   <div className="border-t pt-4">
                     <Button size="lg" className="bg-green-500 hover:bg-green-600 w-full" asChild>
-                      <a href="https://wa.me/595983309319?text=URGENCIA:%20Necesito%20ayuda%20inmediata%20con%20una%20situación%20de%20salud%20mental." target="_blank" rel="noopener noreferrer">
+                      <a href={buildWhatsAppUrl("URGENCIA: Necesito ayuda inmediata con una situación de salud mental.")} target="_blank" rel="noopener noreferrer">
                         <MessageCircle className="h-5 w-5 mr-2" />
                         WhatsApp disponible 24/7
                       </a>

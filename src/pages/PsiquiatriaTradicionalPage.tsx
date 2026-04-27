@@ -1,9 +1,9 @@
-import { Stethoscope, ClipboardList, Pill, Brain, Users, LayoutList, RefreshCw, HelpCircle, Zap } from "lucide-react";
+import { Stethoscope, ClipboardList, Pill, Brain, Users, LayoutList, RefreshCw, HelpCircle, Zap, MessageCircle } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import ContactForm from "@/components/forms/ContactForm";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { Link } from "react-router-dom";
 
 const PsiquiatriaTradicionalPage = () => {
@@ -566,15 +566,28 @@ const PsiquiatriaTradicionalPage = () => {
         </div>
       </section>
 
-      {/* Contact Form Section */}
+      {/* WhatsApp CTA Section */}
       <section id="contacto" className="py-16 bg-background">
         <div className="container">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-primary text-center mb-8">
-              Contáctenos
+            <h2 className="text-3xl font-bold text-primary text-center mb-4">
+              Agende su consulta por WhatsApp
             </h2>
-            <div className="bg-card rounded-lg border shadow-sm p-6 md:p-8">
-              <ContactForm defaultService="consulta-psiquiatrica" />
+            <p className="text-center text-muted-foreground mb-8">
+              Escríbanos directamente y le ayudamos a coordinar el horario de su consulta psiquiátrica.
+            </p>
+            <div className="bg-card rounded-lg border shadow-sm p-6 md:p-8 text-center">
+              <Button asChild size="lg" className="bg-green-500 hover:bg-green-600">
+                <a
+                  href={buildWhatsAppUrl("Hola, me gustaría agendar una consulta psiquiátrica con el Dr. ¿Podrían ayudarme con el proceso?")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Agendar consulta por WhatsApp
+                </a>
+              </Button>
             </div>
           </div>
         </div>
