@@ -3,11 +3,21 @@ import { Brain, Monitor, Stethoscope, Zap } from "lucide-react";
 
 const Services = () => {
   return (
-    <section className="py-12 sm:py-16 neural-bg relative">
+    <section className="py-16 sm:py-20 md:py-24 neural-bg relative">
       <div className="container px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4 text-shimmer">Nuestros Servicios</h2>
-          <p className="text-base sm:text-lg text-muted-foreground px-4 sm:px-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="mx-auto max-w-3xl text-center mb-12 sm:mb-16">
+          <div className="inline-flex mb-5 sm:mb-6">
+            <div className="px-4 sm:px-5 py-1.5 sm:py-2 bg-primary/10 border border-primary/20 rounded-full">
+              <span className="text-xs sm:text-sm font-semibold tracking-wide text-primary uppercase flex items-center gap-2">
+                <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                Tratamientos Especializados
+              </span>
+            </div>
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4 sm:mb-5 text-balance text-shimmer">
+            Nuestros Servicios
+          </h2>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed text-balance animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             Tecnologías avanzadas de neuromodulación para tratar condiciones resistentes a terapias convencionales
           </p>
         </div>
@@ -34,7 +44,7 @@ const Services = () => {
           </div>
 
           {/* Other Services - 2x2 Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto stagger-animation">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:gap-7 max-w-5xl mx-auto stagger-animation">
             {/* tDCS Service */}
             <ServiceCard
               title="Estimulación Transcraneal por Corriente Directa (tDCS)"
