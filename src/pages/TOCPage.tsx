@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const TOCPage = () => {
   return (
@@ -469,7 +470,13 @@ const TOCPage = () => {
                 </div>
               </div>
               <Button size="lg" asChild>
-                <Link to="/agendar-consulta">Evaluación Integral</Link>
+                <a
+                  href={buildWhatsAppUrl("Hola, me gustaría una evaluación integral para TOC con tratamiento de neuromodulación.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Evaluación Integral
+                </a>
               </Button>
             </div>
           </div>

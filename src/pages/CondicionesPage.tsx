@@ -2,6 +2,7 @@ import React from "react";
 import { Brain, AlertTriangle, RotateCcw, Activity, Heart, ArrowRight, Users, Zap, Pill } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +21,7 @@ const CondicionesPage = () => {
         "Efectos secundarios intolerables",
         "Pérdida de esperanza en tratamientos"
       ],
-      treatments: ["EMT/TMS", "Consulta Psiquiátrica"],
+      treatments: ["EMT/TMS"],
       url: "/condiciones/depresion-resistente",
       featured: true
     },
@@ -35,7 +36,7 @@ const CondicionesPage = () => {
         "Evitación de situaciones sociales",
         "Síntomas físicos (palpitaciones, sudoración)"
       ],
-      treatments: ["EMT/TMS", "tDCS", "Consulta Psiquiátrica"],
+      treatments: ["EMT/TMS", "tDCS"],
       url: "/condiciones/ansiedad"
     },
     {
@@ -49,7 +50,7 @@ const CondicionesPage = () => {
         "Ansiedad extrema al no realizar rituales",
         "Tiempo excesivo en actividades obsesivas"
       ],
-      treatments: ["EMT/TMS", "Consulta Psiquiátrica"],
+      treatments: ["EMT/TMS"],
       url: "/condiciones/toc"
     },
     {
@@ -63,7 +64,7 @@ const CondicionesPage = () => {
         "Limitación funcional significativa",
         "Impacto en el estado de ánimo"
       ],
-      treatments: ["tDCS", "Consulta Psiquiátrica"],
+      treatments: ["tDCS"],
       url: "/condiciones/dolor-cronico"
     },
     {
@@ -77,7 +78,7 @@ const CondicionesPage = () => {
         "Dificultades cognitivas",
         "Limitaciones en actividades diarias"
       ],
-      treatments: ["tDCS", "Consulta Psiquiátrica"],
+      treatments: ["tDCS"],
       url: "/condiciones/rehabilitacion-post-acv"
     },
     {
@@ -91,7 +92,7 @@ const CondicionesPage = () => {
         "Bradicinesia (lentitud de movimientos)",
         "Alteraciones del equilibrio"
       ],
-      treatments: ["EMT/TMS", "tDCS", "Consulta Psiquiátrica"],
+      treatments: ["EMT/TMS", "tDCS"],
       url: "/condiciones/parkinson"
     },
     {
@@ -105,7 +106,7 @@ const CondicionesPage = () => {
         "Problemas de sueño",
         "Dificultades cognitivas (fibro-niebla)"
       ],
-      treatments: ["tDCS", "EMT/TMS", "Consulta Psiquiátrica"],
+      treatments: ["tDCS", "EMT/TMS"],
       url: "/condiciones/fibromialgia"
     },
     {
@@ -119,7 +120,7 @@ const CondicionesPage = () => {
         "Síndrome de abstinencia",
         "Recaídas frecuentes"
       ],
-      treatments: ["EMT/TMS", "tDCS", "Consulta Psiquiátrica"],
+      treatments: ["EMT/TMS", "tDCS"],
       url: "/condiciones/adicciones"
     }
   ];
@@ -132,16 +133,10 @@ const CondicionesPage = () => {
       badge: "Exclusivo"
     },
     "tDCS": {
-      name: "tDCS", 
+      name: "tDCS",
       description: "Estimulación por Corriente Directa",
       url: "/servicios/tdcs",
       badge: "Innovador"
-    },
-    "Consulta Psiquiátrica": {
-      name: "Consulta Psiquiátrica",
-      description: "Evaluación y tratamiento integral",
-      url: "/servicios/psiquiatria-tradicional",
-      badge: ""
     }
   };
 
@@ -164,7 +159,13 @@ const CondicionesPage = () => {
                   <Link to="/autoevaluacion">Evaluación Gratuita</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
-                  <Link to="/agendar-consulta">Consulta Especializada</Link>
+                  <a
+                    href={buildWhatsAppUrl("Hola, me gustaría una consulta especializada para evaluar tratamiento de neuromodulación.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Consulta Especializada
+                  </a>
                 </Button>
               </div>
             </div>
@@ -298,7 +299,13 @@ const CondicionesPage = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Button size="lg" asChild className="w-full sm:w-auto">
-                  <Link to="/agendar-consulta">Consulta de Evaluación</Link>
+                  <a
+                    href={buildWhatsAppUrl("Hola, me gustaría una consulta de evaluación para definir el mejor tratamiento de neuromodulación.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Consulta de Evaluación
+                  </a>
                 </Button>
                 <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
                   <Link to="/contacto">WhatsApp disponible 24/7</Link>

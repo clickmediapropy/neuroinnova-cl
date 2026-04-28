@@ -26,7 +26,6 @@ const EvaluacionPadresEvaluacion = lazy(() => import("./pages/EvaluacionPadresEv
 const JovenesEvaluacion = lazy(() => import("./pages/JovenesEvaluacion"));
 const EMTTMSPage = lazy(() => import("./pages/EMTTMSPage"));
 const TDCSPage = lazy(() => import("./pages/TDCSPage"));
-const PsiquiatriaTradicionalPage = lazy(() => import("./pages/PsiquiatriaTradicionalPage"));
 const DepresionResistentePage = lazy(() => import("./pages/DepresionResistentePage"));
 const AnsiedadPage = lazy(() => import("./pages/AnsiedadPage"));
 const TOCPage = lazy(() => import("./pages/TOCPage"));
@@ -36,7 +35,6 @@ const ParkinsonPage = lazy(() => import("./pages/ParkinsonPage"));
 const FibromialgiaPage = lazy(() => import("./pages/FibromialgiaPage"));
 const AdiccionesPage = lazy(() => import("./pages/AdiccionesPage"));
 const ContactoPage = lazy(() => import("./pages/ContactoPage"));
-const AgendarConsultaPage = lazy(() => import("./pages/AgendarConsultaPage"));
 const PoliticaPrivacidadPage = lazy(() => import("./pages/PoliticaPrivacidadPage"));
 const TerminosCondicionesPage = lazy(() => import("./pages/TerminosCondicionesPage"));
 const AvisoLegalPage = lazy(() => import("./pages/AvisoLegalPage"));
@@ -81,7 +79,6 @@ const App = () => (
           <Route path="/autoevaluacion/jovenes" element={<JovenesEvaluacion />} />
           <Route path="/servicios/emt-tms" element={<EMTTMSPage />} />
           <Route path="/servicios/tdcs" element={<TDCSPage />} />
-          <Route path="/servicios/psiquiatria-tradicional" element={<PsiquiatriaTradicionalPage />} />
           <Route path="/servicios/rehacom" element={<RehaComPage />} />
           <Route path="/condiciones" element={<CondicionesPage />} />
           <Route path="/condiciones/depresion-resistente" element={<DepresionResistentePage />} />
@@ -93,7 +90,6 @@ const App = () => (
           <Route path="/condiciones/fibromialgia" element={<FibromialgiaPage />} />
           <Route path="/condiciones/adicciones" element={<AdiccionesPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
-          <Route path="/agendar-consulta" element={<AgendarConsultaPage />} />
           <Route path="/politica-privacidad" element={<PoliticaPrivacidadPage />} />
           <Route path="/terminos-condiciones" element={<TerminosCondicionesPage />} />
           <Route path="/aviso-legal" element={<AvisoLegalPage />} />

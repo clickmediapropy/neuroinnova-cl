@@ -244,7 +244,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
         `Hola, mi nombre es ${formData.nombre} ${formData.apellido}. ` +
         `Acabo de completar la ${getSpanishAssessmentName()} y mi resultado fue ` +
         `${score} puntos (nivel: ${localSeverityInfo.level}). ` +
-        `Quiero agendar una consulta con el Dr.`;
+        `Me gustaría agendar una consulta de evaluación para tratamiento de neuromodulación.`;
 
       window.open(buildWhatsAppUrl(mensaje), "_blank", "noopener,noreferrer");
 
@@ -335,7 +335,7 @@ const AssessmentResults = ({ type, score, onReset }: AssessmentResultsProps) => 
             <div className="pt-2 flex flex-col sm:flex-row gap-3 sm:justify-center">
               <Button asChild variant={getCTAVariant()} size="lg">
                 <a
-                  href={buildWhatsAppUrl(`Hola, completé la ${clinicalResult.testName} y mi resultado fue ${score} puntos (nivel: ${severityInfo.level}). Quiero agendar una consulta con el Dr.`)}
+                  href={buildWhatsAppUrl(`Hola, completé la ${clinicalResult.testName} y mi resultado fue ${score} puntos (nivel: ${severityInfo.level}). Me gustaría agendar una consulta de evaluación para tratamiento de neuromodulación.`)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

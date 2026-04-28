@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -40,11 +41,6 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/servicios/psiquiatria-tradicional" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Consulta Psiquiátrica
-                </Link>
-              </li>
-              <li>
                 <Link to="/servicios/rehacom" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   RehaCom - Rehabilitación Cognitiva
                 </Link>
@@ -77,9 +73,14 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/agendar-consulta" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <a
+                  href={buildWhatsAppUrl("Hola, me gustaría agendar una consulta de evaluación para tratamiento de neuromodulación (EMT/TMS o tDCS).")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
                   Agendar Consulta
-                </Link>
+                </a>
               </li>
             </ul>
           </div>

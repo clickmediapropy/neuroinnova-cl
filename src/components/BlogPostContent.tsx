@@ -4,6 +4,7 @@ import { Calendar, Clock, User, Tag, ArrowLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { buildWhatsAppUrl } from '@/lib/whatsapp';
 
 interface BlogPostContentProps {
   post: BlogPost;
@@ -185,9 +186,13 @@ export const BlogPostContent: React.FC<BlogPostContentProps> = ({ post, relatedP
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" asChild>
-            <Link to="/agendar-consulta">
+            <a
+              href={buildWhatsAppUrl("Hola, me gustaría agendar una consulta de evaluación para tratamiento de neuromodulación.")}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Agendar Consulta
-            </Link>
+            </a>
           </Button>
           <Button size="lg" variant="outline" asChild>
             <Link to="/contacto">

@@ -1,5 +1,5 @@
 import ServiceCard from "../ui/ServiceCard";
-import { Brain, Monitor, Stethoscope, Zap } from "lucide-react";
+import { Brain, Monitor, Zap } from "lucide-react";
 
 const Services = () => {
   return (
@@ -43,7 +43,7 @@ const Services = () => {
             />
           </div>
 
-          {/* Other Services - 2x2 Grid */}
+          {/* Other Services - 2 column Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:gap-7 max-w-5xl mx-auto stagger-animation">
             {/* tDCS Service */}
             <ServiceCard
@@ -60,22 +60,6 @@ const Services = () => {
               ]}
               url="/servicios/tdcs"
               buttonText="Conozca Más"
-            />
-
-            {/* Traditional Psychiatry Service */}
-            <ServiceCard
-              title="Consulta Psiquiátrica"
-              description="Atención psiquiátrica integral con enfoque en el diagnóstico preciso y manejo personalizado de condiciones de salud mental."
-              icon={<Stethoscope className="h-6 w-6 text-primary" />}
-              benefits={[
-                "Evaluación psiquiátrica completa",
-                "Manejo de medicamentos",
-                "Integración con psicoterapia",
-                "Planificación de tratamiento continuo",
-                "Apoyo familiar cuando sea necesario"
-              ]}
-              url="/servicios/psiquiatria-tradicional"
-              buttonText="Información"
             />
 
             {/* RehaCom Service */}

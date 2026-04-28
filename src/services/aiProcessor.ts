@@ -98,7 +98,7 @@ const SECTION_FILE_MAP: Record<string, string[]> = {
   'contact': ['src/components/forms/ContactForm.tsx', 'src/pages/ContactoPage.tsx'],
   'header': ['src/components/layout/Header.tsx', 'src/components/layout/HomeHeader.tsx'],
   'footer': ['src/components/layout/Footer.tsx'],
-  'service-pages': ['src/pages/EMTTMSPage.tsx', 'src/pages/TDCSPage.tsx', 'src/pages/PsiquiatriaTradicionalPage.tsx'],
+  'service-pages': ['src/pages/EMTTMSPage.tsx', 'src/pages/TDCSPage.tsx', 'src/pages/servicios/RehaComPage.tsx'],
   'condition-pages': ['src/pages/DepresionResistentePage.tsx', 'src/pages/AnsiedadPage.tsx', 'src/pages/TOCPage.tsx'],
   'assessments': ['src/pages/Autoevaluacion.tsx', 'src/pages/DepresionEvaluacion.tsx'],
   'global': ['src/index.css', 'tailwind.config.js', 'src/App.tsx']
@@ -162,13 +162,7 @@ export async function processQuestionWithAI(question: string): Promise<string> {
    - Tratamiento de dolor crónico
    - Página: /servicios/tdcs
 
-3. **Psiquiatría Tradicional**
-   - Evaluación psiquiátrica integral
-   - Manejo farmacológico personalizado
-   - Psicoterapia
-   - Página: /servicios/psiquiatria-tradicional
-
-4. **RehaCom**
+3. **RehaCom**
    - Rehabilitación cognitiva computarizada
    - Entrenamiento de funciones cerebrales
    - Seguimiento personalizado
@@ -177,8 +171,8 @@ export async function processQuestionWithAI(question: string): Promise<string> {
     
     if (lowerQuestion.includes('whatsapp') || lowerQuestion.includes('teléfono') || lowerQuestion.includes('telefono') || lowerQuestion.includes('contacto')) {
       specificContext += `\nINFORMACIÓN DE CONTACTO:
-- WhatsApp: +595 992 097 055 (disponible 24/7)
-- URL de WhatsApp: wa.me/595986960270
+- WhatsApp: +595 983 309 319 (disponible 24/7)
+- URL de WhatsApp: wa.me/595983309319
 - Email: contacto@neuroinnova.com.py
 - Ubicación: Asunción, Paraguay
 - El botón de WhatsApp aparece en:
@@ -541,7 +535,7 @@ ARCHIVOS COMUNES POR SECCIÓN:
 ${JSON.stringify(SECTION_FILE_MAP, null, 2)}
 
 INFORMACIÓN IMPORTANTE DEL SITIO ACTUAL:
-- Número de WhatsApp actual: 595986960270 (aparece en URLs como wa.me/595986960270)
+- Número de WhatsApp actual: 595983309319 (aparece en URLs como wa.me/595983309319)
 - Título principal actual en Hero: Está dividido en 4 líneas con spans separados:
   Línea 1: "Primer y Único"
   Línea 2: "Centro de"
@@ -783,35 +777,35 @@ function generatePhoneChangeResponse(request: ChangeRequest): ProcessedChange {
     changes: [
       {
         file: 'src/components/layout/Header.tsx',
-        oldCode: 'wa.me/595986960270',
+        oldCode: 'wa.me/595983309319',
         newCode: `wa.me/${cleanPhone}`,
         lineStart: 0,
         lineEnd: 0
       },
       {
         file: 'src/components/layout/HomeHeader.tsx',
-        oldCode: 'wa.me/595986960270',
+        oldCode: 'wa.me/595983309319',
         newCode: `wa.me/${cleanPhone}`,
         lineStart: 0,
         lineEnd: 0
       },
       {
         file: 'src/components/layout/Footer.tsx',
-        oldCode: 'wa.me/595986960270',
+        oldCode: 'wa.me/595983309319',
         newCode: `wa.me/${cleanPhone}`,
         lineStart: 0,
         lineEnd: 0
       },
       {
         file: 'src/components/sections/Hero.tsx',
-        oldCode: 'wa.me/595986960270',
+        oldCode: 'wa.me/595983309319',
         newCode: `wa.me/${cleanPhone}`,
         lineStart: 0,
         lineEnd: 0
       },
       {
         file: 'src/components/ui/WhatsAppButton.tsx',
-        oldCode: 'wa.me/595986960270',
+        oldCode: 'wa.me/595983309319',
         newCode: `wa.me/${cleanPhone}`,
         lineStart: 0,
         lineEnd: 0

@@ -1,5 +1,5 @@
 import React from "react";
-import { Zap, Brain, Stethoscope, Monitor, ArrowRight } from "lucide-react";
+import { Zap, Brain, Monitor, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { AuroraLayout } from "@/components/layout/AuroraLayout";
@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AuroraBackgroundMedical } from "@/components/ui/aurora-background-medical";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const ServiciosPage = () => {
   const servicios = [
@@ -42,20 +43,6 @@ const ServiciosPage = () => {
       url: "/servicios/tdcs"
     },
     {
-      id: "psiquiatria",
-      title: "Consulta Psiquiátrica Tradicional",
-      description: "Atención psiquiátrica integral con enfoque en el diagnóstico preciso y manejo personalizado de condiciones de salud mental.",
-      icon: <Stethoscope className="h-8 w-8 text-primary" />,
-      features: [
-        "Evaluación psiquiátrica completa",
-        "Manejo de medicamentos",
-        "Integración con psicoterapia",
-        "Planificación de tratamiento continuo",
-        "Apoyo familiar cuando sea necesario"
-      ],
-      url: "/servicios/psiquiatria-tradicional"
-    },
-    {
       id: "rehacom",
       title: "RehaCom - Rehabilitación Cognitiva",
       description: "Software alemán especializado para rehabilitación de funciones cognitivas afectadas por lesiones cerebrales o trastornos neurológicos.",
@@ -83,12 +70,18 @@ const ServiciosPage = () => {
                 Nuestros Servicios
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8">
-                Tecnologías avanzadas de neuromodulación y atención psiquiátrica integral 
-                para tratar condiciones resistentes a terapias convencionales
+                Tecnologías avanzadas de neuromodulación para tratar condiciones
+                resistentes a terapias convencionales
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild>
-                  <Link to="/agendar-consulta">Agendar Consulta</Link>
+                  <a
+                    href={buildWhatsAppUrl("Hola, me gustaría agendar una consulta de evaluación para tratamiento de neuromodulación (EMT/TMS o tDCS).")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Agendar Consulta
+                  </a>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
                   <Link to="/autoevaluacion">Evaluación Gratuita</Link>
@@ -223,7 +216,13 @@ const ServiciosPage = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild>
-                  <Link to="/agendar-consulta">Consulta de Evaluación</Link>
+                  <a
+                    href={buildWhatsAppUrl("Hola, me gustaría una consulta de evaluación para definir el mejor tratamiento de neuromodulación.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Consulta de Evaluación
+                  </a>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
                   <Link to="/contacto">Más Información</Link>

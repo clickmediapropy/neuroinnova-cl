@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, Phone, Calendar } from 'lucide-react';
 import { Button } from './button';
+import { buildWhatsAppUrl } from '@/lib/whatsapp';
 
 const FloatingActions = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,7 +30,12 @@ const FloatingActions = () => {
             style={{ animationDelay: '0.1s' }}
             asChild
           >
-            <a href="/agendar-consulta" className="flex items-center justify-center">
+            <a
+              href={buildWhatsAppUrl("Hola, me gustaría agendar una consulta de evaluación para tratamiento de neuromodulación.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center"
+            >
               <Calendar className="h-5 w-5" />
             </a>
           </Button>

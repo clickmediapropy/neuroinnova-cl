@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const DolorCronicoPage = () => {
   return (
@@ -502,7 +503,13 @@ const DolorCronicoPage = () => {
                 </div>
                 <div className="text-center">
                   <Button size="lg" asChild>
-                    <Link to="/agendar-consulta">Consulta Especializada en Dolor</Link>
+                    <a
+                      href={buildWhatsAppUrl("Hola, me gustaría una consulta especializada para tratamiento de dolor crónico con neuromodulación.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Consulta Especializada en Dolor
+                    </a>
                   </Button>
                 </div>
               </CardContent>

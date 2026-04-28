@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const RehabilitacionPostACVPage = () => {
   return (
@@ -155,7 +156,13 @@ const RehabilitacionPostACVPage = () => {
                   </ul>
                   
                   <Button className="w-full" variant="outline" asChild>
-                    <Link to="/servicios/psiquiatria-tradicional">Evaluación Integral</Link>
+                    <a
+                      href={buildWhatsAppUrl("Hola, me gustaría una evaluación integral para rehabilitación post-ACV.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Evaluación Integral
+                    </a>
                   </Button>
                 </CardContent>
               </Card>

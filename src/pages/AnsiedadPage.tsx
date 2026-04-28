@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const AnsiedadPage = () => {
   return (
@@ -409,12 +410,18 @@ const AnsiedadPage = () => {
                 Enfoque Integrado Personalizado
               </h3>
               <p className="text-primary-light-foreground mb-6">
-                En NeuroInnova desarrollamos planes de tratamiento que pueden combinar 
-                psiquiatría tradicional con tecnologías avanzadas según las necesidades 
+                En NeuroInnova desarrollamos planes de tratamiento con tecnologías
+                avanzadas de neuromodulación (EMT/TMS y tDCS) adaptados a las necesidades
                 específicas de cada paciente.
               </p>
               <Button size="lg" asChild>
-                <Link to="/servicios/psiquiatria-tradicional">Consulta Integral</Link>
+                <a
+                  href={buildWhatsAppUrl("Hola, me gustaría una consulta integral para evaluar tratamiento de neuromodulación para ansiedad.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Consulta Integral
+                </a>
               </Button>
             </div>
           </div>
@@ -447,7 +454,7 @@ const AnsiedadPage = () => {
                   <Link to="/autoevaluacion/ansiedad">Comenzar Evaluación</Link>
                 </Button>
                 <Button size="lg" className="bg-green-500 hover:bg-green-600" asChild>
-                  <a href="https://wa.me/595986960270?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20la%20evaluación%20de%20ansiedad.%20¿Podrían%20ayudarme%20con%20el%20proceso?" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/595983309319?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20la%20evaluación%20de%20ansiedad.%20¿Podrían%20ayudarme%20con%20el%20proceso?" target="_blank" rel="noopener noreferrer">
                     WhatsApp disponible 24/7
                   </a>
                 </Button>
@@ -500,14 +507,20 @@ const AnsiedadPage = () => {
             
             <div className="space-y-4">
               <Button size="lg" variant="secondary" asChild>
-                <Link to="/agendar-consulta">Solicitar Consulta Especializada</Link>
+                <a
+                  href={buildWhatsAppUrl("Hola, me gustaría solicitar una consulta especializada por ansiedad para evaluar tratamiento de neuromodulación.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Solicitar Consulta Especializada
+                </a>
               </Button>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <p className="text-primary-foreground/80 text-sm">
                   Evaluación profesional disponible | (+595) 21 605 535
                 </p>
                 <Button size="sm" className="bg-green-500 hover:bg-green-600" asChild>
-                  <a href="https://wa.me/595986960270?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20tratamientos%20para%20ansiedad.%20¿Podrían%20ayudarme%20con%20una%20consulta%20especializada?" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/595983309319?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20tratamientos%20para%20ansiedad.%20¿Podrían%20ayudarme%20con%20una%20consulta%20especializada?" target="_blank" rel="noopener noreferrer">
                     WhatsApp disponible 24/7
                   </a>
                 </Button>

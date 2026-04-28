@@ -73,7 +73,7 @@ const Index = () => {
               </p>
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <a
-                  href={buildWhatsAppUrl("Hola, me gustaría agendar una consulta médica con el Dr. ¿Podrían ayudarme con el proceso?")}
+                  href={buildWhatsAppUrl("Hola, me gustaría agendar una consulta de evaluación para tratamiento de neuromodulación (EMT/TMS o tDCS).")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2"

@@ -118,12 +118,6 @@ export const SITE_STRUCTURE: SiteMap = {
       file: 'src/pages/TDCSPage.tsx'
     },
     {
-      path: '/servicios/psiquiatria-tradicional',
-      name: 'Psiquiatría Tradicional',
-      description: 'Servicios de psiquiatría convencional',
-      file: 'src/pages/PsiquiatriaTradicionalPage.tsx'
-    },
-    {
       path: '/servicios/rehacom',
       name: 'RehaCom',
       description: 'Rehabilitación cognitiva computarizada',
@@ -176,12 +170,6 @@ export const SITE_STRUCTURE: SiteMap = {
       name: 'Contacto',
       description: 'Página de contacto con formulario',
       file: 'src/pages/ContactoPage.tsx'
-    },
-    {
-      path: '/agendar-consulta',
-      name: 'Agendar Consulta',
-      description: 'Formulario para agendar consultas',
-      file: 'src/pages/AgendarConsultaPage.tsx'
     }
   ],
   components: {

@@ -82,7 +82,7 @@ const Header = () => {
             asChild
           >
             <a
-              href="https://wa.me/595986960270?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada."
+              href="https://wa.me/595983309319?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada."
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -97,7 +97,7 @@ const Header = () => {
             asChild
           >
             <a
-              href="https://wa.me/595986960270?text=Hola,%20necesito%20información%20sobre%20consultas%20médicas."
+              href="https://wa.me/595983309319?text=Hola,%20necesito%20información%20sobre%20consultas%20médicas."
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -167,7 +167,7 @@ const Header = () => {
                   className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-sm active:scale-95 transition-all duration-200 rounded-lg min-h-[48px] text-base"
                   asChild
                 >
-                  <a href="https://wa.me/595986960270?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada." target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/595983309319?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20médica%20especializada." target="_blank" rel="noopener noreferrer">
                     WhatsApp disponible 24/7
                   </a>
                 </Button>
