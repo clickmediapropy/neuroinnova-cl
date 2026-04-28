@@ -494,7 +494,7 @@ const DepresionResistentePage = () => {
                   <a href="/agendar-consulta">Solicitar Evaluación</a>
                 </Button>
                 <Button size="lg" className="bg-green-500 hover:bg-green-600" asChild>
-                  <a href="https://wa.me/595996960270?text=Hola,%20me%20gustaría%20solicitar%20una%20evaluación%20para%20depresión%20resistente.%20¿Podrían%20ayudarme%20con%20el%20proceso?" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/595986960270?text=Hola,%20me%20gustaría%20solicitar%20una%20evaluación%20para%20depresión%20resistente.%20¿Podrían%20ayudarme%20con%20el%20proceso?" target="_blank" rel="noopener noreferrer">
                     WhatsApp disponible 24/7
                   </a>
                 </Button>
@@ -549,7 +549,7 @@ const DepresionResistentePage = () => {
                   Consulta de evaluación disponible | (+595) 21 605 535
                 </p>
                 <Button size="sm" className="bg-green-500 hover:bg-green-600" asChild>
-                  <a href="https://wa.me/595996960270?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20el%20tratamiento%20EMT/TMS%20para%20depresión%20resistente.%20¿Podrían%20ayudarme%20con%20una%20consulta?" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/595986960270?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20el%20tratamiento%20EMT/TMS%20para%20depresión%20resistente.%20¿Podrían%20ayudarme%20con%20una%20consulta?" target="_blank" rel="noopener noreferrer">
                     WhatsApp disponible 24/7
                   </a>
                 </Button>
